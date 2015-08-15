@@ -1243,7 +1243,7 @@ static const char InicializarEspacosCmd[ ] = "=inicializarespacos" ;
    {
 
       char * pValor ;
-      char   Ch ;
+      unsigned char Ch ;
       int    numBytes ;
       int    ValChar ;
       int    i ;
