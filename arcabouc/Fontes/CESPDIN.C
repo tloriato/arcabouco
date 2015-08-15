@@ -1,23 +1,23 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: CED  Controlador de espaÁos de dados alocados dinamicamente
+*  $MCI M√≥dulo de implementa√ß√£o: CED  Controlador de espa√ßos de dados alocados dinamicamente
 *
 *  Arquivo gerado:              CESPDIN.c
 *  Letras identificadoras:      CED
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
 *     5       avs   18/mai/2008 corrigir e ampliar CESPDIN
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -35,8 +35,8 @@
 
 #include    "../Tabelas/IdTiposEspaco.def"
 
-    /* O pragma È necess·rio para assegurar alinhamento a byte,
-       uma vez que toda a aritmÈtica com ponteiros assume isso */
+    /* O pragma √© necess√°rio para assegurar alinhamento a byte,
+       uma vez que toda a aritm√©tica com ponteiros assume isso */
 
 #pragma pack (1)
 
@@ -54,13 +54,13 @@
 #define     LIMITE_INF_FREQUENCIA    10
 #define     LIMITE_SUP_FREQUENCIA  1000
 
-/* Controle do conte˙do do espaÁo alocado
+/* Controle do conte√∫do do espa√ßo alocado
 *
-* Ao serem alocados, a parte Valor dos espaÁos È inicializados para
-* CHAR_ALOC ("|"). Ao serem desalocados, os espaÁo todo È preenchido
-* com CHAR_DESALOC ("?"). Isto permite verificar o estado do espaÁo
-* ao acess·-lo. O objetivo È provocar erros sistem·ticos caso um
-* programa tente utilizar espaÁos desalocados, ou se esqueÁa de
+* Ao serem alocados, a parte Valor dos espa√ßos √© inicializados para
+* CHAR_ALOC ("|"). Ao serem desalocados, os espa√ßo todo √© preenchido
+* com CHAR_DESALOC ("?"). Isto permite verificar o estado do espa√ßo
+* ao acess√°-lo. O objetivo √© provocar erros sistem√°ticos caso um
+* programa tente utilizar espa√ßos desalocados, ou se esque√ßa de
 * inicializar campos que contenha ponteiros.
 */
 
@@ -69,180 +69,180 @@
 #define     CONTROLE       "\x96\xC3"
 #define     CONTROLE_ERRO  "\x02\0"
 
-/* Todos os espaÁos s„o antecedidos e sucedidos por strings constantes
-* de controle (CONTROLE). Isto permite verificar se houve extravas„o
-* ao transferir dados para o espaÁo.
-* O CONTROLE_ERRO È inserido apÛs quando o espaÁo for liberado.
-* Procura evitar que strings possam extravasar o espaÁo disponÌvel.
+/* Todos os espa√ßos s√£o antecedidos e sucedidos por strings constantes
+* de controle (CONTROLE). Isto permite verificar se houve extravas√£o
+* ao transferir dados para o espa√ßo.
+* O CONTROLE_ERRO √© inserido ap√≥s quando o espa√ßo for liberado.
+* Procura evitar que strings possam extravasar o espa√ßo dispon√≠vel.
 */
 
 #define     ESPACO_NULL        0x98FB5D32L
 
-/* Ao dar free o primeiro long È tornado igual a zero
-*  Este valor indica que ainda n„o ocorreu um free no espaÁo
+/* Ao dar free o primeiro long √© tornado igual a zero
+*  Este valor indica que ainda n√£o ocorreu um free no espa√ßo
 */
 
 #define     IMPRESSAO_DIGITAL  0xC07146AEL
 
 /* Todos os espacos de dados teem esta marca digital.
-* Isto permite assegurar que se trata de um espaÁo controlado.
-* O que, por sua vez permite misturar mÛdulos instrumentados
-* com mÛdulos n„o instrumentados sem que ocorram erros
+* Isto permite assegurar que se trata de um espa√ßo controlado.
+* O que, por sua vez permite misturar m√≥dulos instrumentados
+* com m√≥dulos n√£o instrumentados sem que ocorram erros
 * de processamento que acabam levando ao cancelamento do programa
 */
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: CED Elemento da lista de controle de espaÁos de dados
+*  $TC Tipo de dados: CED Elemento da lista de controle de espa√ßos de dados
 *
 *
-*  $ED DescriÁ„o do tipo
-*     Esta estrutura define a organizaÁ„o de um espaÁo de dados
+*  $ED Descri√ß√£o do tipo
+*     Esta estrutura define a organiza√ß√£o de um espa√ßo de dados
 *     alocado pelo controlador de vazamento.
-*     O elemento prevÍ campos para a identificaÁ„o do tipo do espaÁo de
-*     dados e para o controle de extravas„o dos limites estabelecidos
-*     para o espaÁo de dados ˙til.
+*     O elemento prev√™ campos para a identifica√ß√£o do tipo do espa√ßo de
+*     dados e para o controle de extravas√£o dos limites estabelecidos
+*     para o espa√ßo de dados √∫til.
 *
 ***********************************************************************/
 
    typedef struct tgElemListaControle {
 
          unsigned long EspacoNULL ;
-               /* EspaÁo para o NULL */
+               /* Espa√ßo para o NULL */
 
          unsigned long ImpressaoDigital ;
-               /* Marcador de espaÁo controlado
+               /* Marcador de espa√ßo controlado
                *
-               *$ED DescriÁ„o
-               *   O valor contido neste marcador È sempre o mesmo.
-               *   Tem por objetivo servir de um identificador de que o espaÁo de dados
-               *   corresponde a um espaÁo controlado.
-               *   Caso n„o exista as operaÁıes de manipulaÁ„o de espaÁo controlado s„o
-               *   inibidas. Isto È particularmente importante para o free,
-               *   uma vez que o espaÁo a ser liberado poderia ter sido criado
-               *   sem em um mÛdulo que n„o aloca de forma controlada. */
+               *$ED Descri√ß√£o
+               *   O valor contido neste marcador √© sempre o mesmo.
+               *   Tem por objetivo servir de um identificador de que o espa√ßo de dados
+               *   corresponde a um espa√ßo controlado.
+               *   Caso n√£o exista as opera√ß√µes de manipula√ß√£o de espa√ßo controlado s√£o
+               *   inibidas. Isto √© particularmente importante para o free,
+               *   uma vez que o espa√ßo a ser liberado poderia ter sido criado
+               *   sem em um m√≥dulo que n√£o aloca de forma controlada. */
 
          int tamTotal ;
-               /* Tamanho total do espaÁo
+               /* Tamanho total do espa√ßo
                *
-               *$ED DescriÁ„o
-               *   Tem por objetivo estabelecer uma redund‚ncia com tamValor. */
+               *$ED Descri√ß√£o
+               *   Tem por objetivo estabelecer uma redund√¢ncia com tamValor. */
 
          struct tgElemListaControle * pAnt ;
-               /* Ponteiro para o elemento anterior na lista de espaÁos alocados */
+               /* Ponteiro para o elemento anterior na lista de espa√ßos alocados */
 
          struct tgElemListaControle * pProx ;
-               /* Ponteiro para o elemento a seguir na lista de espaÁos alocados */
+               /* Ponteiro para o elemento a seguir na lista de espa√ßos alocados */
 
          int idEspaco ;
-               /* Identificador do espaÁo
+               /* Identificador do espa√ßo
                *
-               *$ED DescriÁ„o
-               *   Identificador ˙nico do espaÁo alocado */
+               *$ED Descri√ß√£o
+               *   Identificador √∫nico do espa√ßo alocado */
 
          int ehAtivo ;
-               /* Marca de espaÁo ativo
+               /* Marca de espa√ßo ativo
                *
-               *$ED DescriÁ„o
-               *   Indica se o espaÁo È ou n„o ativo. A marca È estabelecida pelo usu·rio. */
+               *$ED Descri√ß√£o
+               *   Indica se o espa√ßo √© ou n√£o ativo. A marca √© estabelecida pelo usu√°rio. */
 
          int idTipoValor ;
-               /* Identificador do tipo do valor contido no espaÁo alocado
+               /* Identificador do tipo do valor contido no espa√ßo alocado
                *
-               *$ED DescriÁ„o
-               *   O tipo especÌfico do valor contido neste elemento pode ser identificado
-               *   por este atributo. Ao instrumentar um ou mais mÛdulos, o programador
-               *   cliente deve definir um inteiro que esteja em correspondÍncia
-               *   um para um com os diversos tipos de valores que ser„o alocados
-               *   dinamicamente. ApÛs criar o elemento deve ser atribuÌdo o
-               *   identificador do tipo do valor que ser· inserido no elemento. */
+               *$ED Descri√ß√£o
+               *   O tipo espec√≠fico do valor contido neste elemento pode ser identificado
+               *   por este atributo. Ao instrumentar um ou mais m√≥dulos, o programador
+               *   cliente deve definir um inteiro que esteja em correspond√™ncia
+               *   um para um com os diversos tipos de valores que ser√£o alocados
+               *   dinamicamente. Ap√≥s criar o elemento deve ser atribu√≠do o
+               *   identificador do tipo do valor que ser√° inserido no elemento. */
 
          int tamValor ;
-               /* Dimens„o, em bytes, do valor contido no espaÁo alocado */
+               /* Dimens√£o, em bytes, do valor contido no espa√ßo alocado */
 
          int numLinhaFonte ;
-               /* N˙mero da linha do cÛdigo fonte */
+               /* N√∫mero da linha do c√≥digo fonte */
 
          char NomeArquivoFonte[ DIM_NOME_ARQ_FONTE ] ;
                /* Nome arquivo fonte
                *
-               *$ED DescriÁ„o
+               *$ED Descri√ß√£o
                *   Os atributos NumLinhaFonte e NomeArquivoFonte identificam o local
-               *   no cÛdigo fonte na qual a funÁ„o CED_malloc foi chamada.
-               *   Isto ajuda a identificar a causa dos possÌveis problemas de manipulaÁ„o
-               *   de memÛria din‚mica encontrados ao executar o mÛdulo controlado. */
+               *   no c√≥digo fonte na qual a fun√ß√£o CED_malloc foi chamada.
+               *   Isto ajuda a identificar a causa dos poss√≠veis problemas de manipula√ß√£o
+               *   de mem√≥ria din√¢mica encontrados ao executar o m√≥dulo controlado. */
 
          char ControleAntes[ DIM_CONTROLE ] ;
-               /* Marcador de controle de extravas„o antes do espaÁo */
+               /* Marcador de controle de extravas√£o antes do espa√ßo */
 
          char Valor[ DIM_VALOR ] ;
-               /* Dummy a ser substituÌdo pelo espaÁo a ser ocupado pelo valor */
+               /* Dummy a ser substitu√≠do pelo espa√ßo a ser ocupado pelo valor */
 
          char ControleApos[  DIM_CONTROLE ] ;
-               /* Marcador de controle de extravas„o apÛs
+               /* Marcador de controle de extravas√£o ap√≥s
                *
-               *$ED DescriÁ„o
-               *   A origem deste atributo varia em funÁ„o da dimens„o do valor
-               *   contido no elemento. Ele È declarado somente para que se
+               *$ED Descri√ß√£o
+               *   A origem deste atributo varia em fun√ß√£o da dimens√£o do valor
+               *   contido no elemento. Ele √© declarado somente para que se
                *   possa determinar o sizeof do elemento sem contar com o
-               *   espaÁo requerido pelo valor. */
+               *   espa√ßo requerido pelo valor. */
 
    } tpElemListaControle ;
 
-/*****  Dados encapsulados no mÛdulo  *****/
+/*****  Dados encapsulados no m√≥dulo  *****/
 
       #define  TRUE     1
       #define  FALSE    0
-            /* Constantes lÛgicas */
+            /* Constantes l√≥gicas */
 
       static int estaInicializado = FALSE ;
-            /* Controle de inicializaÁ„o */
+            /* Controle de inicializa√ß√£o */
 
       static tpElemListaControle * pOrgLista = NULL;
-            /* Origem da lista de espaÁos alocados */
+            /* Origem da lista de espa√ßos alocados */
 
       static tpElemListaControle * pEspacoCorr = NULL;
-            /* Iterador: espaÁo corrente
+            /* Iterador: espa√ßo corrente
                *
-               *$ED DescriÁ„o
-               *   Aponta para o espaÁo corrente do iterador.
-               *   Se NULL o iterador n„o est· ativo. */
+               *$ED Descri√ß√£o
+               *   Aponta para o espa√ßo corrente do iterador.
+               *   Se NULL o iterador n√£o est√° ativo. */
 
       static long numEspacosAlocados = 0 ;
-            /* Contador de espaÁos alocados */
+            /* Contador de espa√ßos alocados */
 
       static long TotalAlocacoes = 0 ;
-            /* Contador do total de chamadas de alocaÁ„o */
+            /* Contador do total de chamadas de aloca√ß√£o */
 
       static long EspacoTotalAlocado = 0 ;
-            /* EspaÁo total alocado */
+            /* Espa√ßo total alocado */
 
       static long LimiteMemoria = 0 ;
-            /* Limite de memÛria disponÌvel
+            /* Limite de mem√≥ria dispon√≠vel
                *
-               *$ED DescriÁ„o
+               *$ED Descri√ß√£o
                *   Caso este valor seja maior do que zero, este valor restringe
-               *   o total de memÛria que pode estar alocado a cada momento. */
+               *   o total de mem√≥ria que pode estar alocado a cada momento. */
 
       static long LimiteNumEspacos = 0 ;
-            /* Limite de n˙mero de espaÁos alocados */
+            /* Limite de n√∫mero de espa√ßos alocados */
 
       static int FrequenciaMalloc ;
-            /* Limite de freq¸Íncia estabelecido
+            /* Limite de freq√º√™ncia estabelecido
                *
-               *$ED DescriÁ„o
-               *   Determina a freq¸Íncia de allocaÁıes que ser„o realizadas.
-               *   Deixar„o de ser realizadas alocaÁıes numa freq¸Íncia de
+               *$ED Descri√ß√£o
+               *   Determina a freq√º√™ncia de alloca√ß√µes que ser√£o realizadas.
+               *   Deixar√£o de ser realizadas aloca√ß√µes numa freq√º√™ncia de
                *   1 - ( FrequenciaMalloc / LIMITE_FREQUENCIA ) */
 
       static long ContaNULL ;
             /* Contagem de NULLs gerados
                *
-               *$ED DescriÁ„o
-               *   Conta o n˙mero de vezes que o malloc n„o foi gerado devido a algum
-               *   limite de alocaÁ„o simulado. */
+               *$ED Descri√ß√£o
+               *   Conta o n√∫mero de vezes que o malloc n√£o foi gerado devido a algum
+               *   limite de aloca√ß√£o simulado. */
 
-/***** ProtÛtipos das funÁıes encapuladas no mÛdulo *****/
+/***** Prot√≥tipos das fun√ß√µes encapuladas no m√≥dulo *****/
 
    static void DesalocarEspaco( tpElemListaControle * pEspaco ) ;
 
@@ -254,11 +254,11 @@
 
    static int VerificarEspaco( tpElemListaControle * pEspaco ) ;
 
-/*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Inicializar o controlador de alocaÁ„o de espaÁos din‚micos
+*  Fun√ß√£o: CED  &Inicializar o controlador de aloca√ß√£o de espa√ßos din√¢micos
 *  ****/
 
    void CED_InicializarControlador( void )
@@ -280,11 +280,11 @@
 
       estaInicializado     = TRUE ;
 
-   } /* Fim funÁ„o: CED  &Inicializar o controlador de alocaÁ„o de espaÁos din‚micos */
+   } /* Fim fun√ß√£o: CED  &Inicializar o controlador de aloca√ß√£o de espa√ßos din√¢micos */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Alocar espaÁo malloc
+*  Fun√ß√£o: CED  &Alocar espa√ßo malloc
 *  ****/
 
    void * CED_Malloc( size_t Tamanho ,
@@ -300,14 +300,14 @@
       TST_ASSERT( numLinhaFonte > 0 ) ;
       TST_ASSERT( NomeArquivoFonte != NULL ) ;
 
-      /* Alocar sem controle quando n„o inicializado */
+      /* Alocar sem controle quando n√£o inicializado */
 
          if ( ! estaInicializado )
          {
             return malloc( Tamanho ) ;
          } /* if */
 
-      /* Controlar limites de memÛria */
+      /* Controlar limites de mem√≥ria */
 
          if ( LimiteMemoria > 0 )
          {
@@ -339,7 +339,7 @@
             } /* if */
          } /* if */
 
-      /* Alocar o espaÁo solicitado */
+      /* Alocar o espa√ßo solicitado */
 
          pEspaco = ( tpElemListaControle * )
                      malloc( sizeof( tpElemListaControle ) + Tamanho -
@@ -352,7 +352,7 @@
          } /* if */
 
 
-         /* Alocar o espaÁo solicitado */
+         /* Alocar o espa√ßo solicitado */
 
          pEspaco = ( tpElemListaControle * )
                      malloc( sizeof( tpElemListaControle ) + Tamanho -
@@ -365,7 +365,7 @@
 
          EspacoTotalAlocado += Tamanho ;
 
-      /* Inicializar os valores de controle do espaÁo */
+      /* Inicializar os valores de controle do espa√ßo */
 
          pEspaco->EspacoNULL       = ESPACO_NULL ;
          pEspaco->ImpressaoDigital = IMPRESSAO_DIGITAL ;
@@ -378,7 +378,7 @@
          memset( pEspaco->Valor ,           CHAR_ALOC , Tamanho ) ;
          memcpy( pEspaco->Valor + Tamanho , CONTROLE  , DIM_CONTROLE ) ;
 
-      /* Inicializar a identificaÁ„o do cÛdigo fonte */
+      /* Inicializar a identifica√ß√£o do c√≥digo fonte */
 
          pEspaco->numLinhaFonte = numLinhaFonte ;
 
@@ -389,7 +389,7 @@
          } /* if */
          strcpy( pEspaco->NomeArquivoFonte , NomeArquivoFonte ) ;
 
-      /* Encadear na origem da lista de espaÁos alocados */
+      /* Encadear na origem da lista de espa√ßos alocados */
 
          pEspaco->pAnt      = NULL ;
          pEspaco->pProx     = pOrgLista ;
@@ -404,11 +404,11 @@
 
       return ( void * ) &( pEspaco->Valor ) ;
 
-   } /* Fim funÁ„o: CED  &Alocar espaÁo malloc */
+   } /* Fim fun√ß√£o: CED  &Alocar espa√ßo malloc */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Alocar espaÁo todo zerado calloc
+*  Fun√ß√£o: CED  &Alocar espa√ßo todo zerado calloc
 *  ****/
 
    void * CED_Calloc( size_t Tamanho ,
@@ -427,11 +427,11 @@
 
       return pAlloc ;
 
-   } /* Fim funÁ„o: CED  &Alocar espaÁo todo zerado calloc */
+   } /* Fim fun√ß√£o: CED  &Alocar espa√ßo todo zerado calloc */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Realocar espaÁo alocado realloc
+*  Fun√ß√£o: CED  &Realocar espa√ßo alocado realloc
 *  ****/
 
    void * CED_Realloc( size_t Tamanho ,
@@ -449,11 +449,11 @@
       ExibirMensagem( Msg ) ;
       return NULL ;
 
-   } /* Fim funÁ„o: CED  &Realocar espaÁo alocado realloc */
+   } /* Fim fun√ß√£o: CED  &Realocar espa√ßo alocado realloc */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Desalocar espaÁo
+*  Fun√ß√£o: CED  &Desalocar espa√ßo
 *  ****/
 
    void CED_Free( void * Ponteiro )
@@ -478,11 +478,11 @@
 
       DesalocarEspaco( pEspaco ) ;
 
-   } /* Fim funÁ„o: CED  &Desalocar espaÁo */
+   } /* Fim fun√ß√£o: CED  &Desalocar espa√ßo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Exibir conte˙do do espaÁo
+*  Fun√ß√£o: CED  &Exibir conte√∫do do espa√ßo
 *  ****/
 
    void CED_ExibirEspaco( void * Ponteiro )
@@ -508,11 +508,11 @@
 
       TST_ExibirEspacoHexa( pEspaco->tamValor , pEspaco->Valor ) ;
 
-   } /* Fim funÁ„o: CED  &Exibir conte˙do do espaÁo */
+   } /* Fim fun√ß√£o: CED  &Exibir conte√∫do do espa√ßo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Exibir todos os espaÁos
+*  Fun√ß√£o: CED  &Exibir todos os espa√ßos
 *  ****/
 
    void CED_ExibirTodosEspacos( CED_tpModoExibir Regra )
@@ -530,7 +530,7 @@
 
          switch ( Regra ) {
 
-         /* Exibir todos os espaÁos */
+         /* Exibir todos os espa√ßos */
 
             case CED_ExibirTodos :
             {
@@ -539,9 +539,9 @@
 
                break ;
 
-            } /* fim ativa: Exibir todos os espaÁos */
+            } /* fim ativa: Exibir todos os espa√ßos */
 
-         /* Exibir todos os espaÁos alocados ativos */
+         /* Exibir todos os espa√ßos alocados ativos */
 
             case CED_ExibirAtivos :
             {
@@ -553,9 +553,9 @@
 
                break ;
 
-            } /* fim ativa: Exibir todos os espaÁos alocados ativos */
+            } /* fim ativa: Exibir todos os espa√ßos alocados ativos */
 
-         /* Exibir todos os espaÁos alocados inativos */
+         /* Exibir todos os espa√ßos alocados inativos */
 
             case CED_ExibirInativos :
             {
@@ -567,7 +567,7 @@
 
                break ;
 
-            } /* fim ativa: Exibir todos os espaÁos alocados inativos */
+            } /* fim ativa: Exibir todos os espa√ßos alocados inativos */
 
          /* Exibir nada */
 
@@ -580,17 +580,17 @@
 
          } /* fim seleciona: Tratar modo de exibir */
 
-      /* AvanÁar para o prÛximo espaÁo a exibir */
+      /* Avan√ßar para o pr√≥ximo espa√ßo a exibir */
 
          pEspaco = pEspaco->pProx ;
 
-      } /* fim repete: Raiz de CED  &Exibir todos os espaÁos */
+      } /* fim repete: Raiz de CED  &Exibir todos os espa√ßos */
 
-   } /* Fim funÁ„o: CED  &Exibir todos os espaÁos */
+   } /* Fim fun√ß√£o: CED  &Exibir todos os espa√ßos */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Definir tipo do espaÁo
+*  Fun√ß√£o: CED  &Definir tipo do espa√ßo
 *  ****/
 
    int CED_DefinirTipoEspaco( void * Ponteiro , int idTipo )
@@ -621,11 +621,11 @@
 
       return FALSE ;
 
-   } /* Fim funÁ„o: CED  &Definir tipo do espaÁo */
+   } /* Fim fun√ß√£o: CED  &Definir tipo do espa√ßo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Marcar ativo o espaÁo
+*  Fun√ß√£o: CED  &Marcar ativo o espa√ßo
 *  ****/
 
    void CED_MarcarEspacoAtivo( void * Ponteiro )
@@ -648,11 +648,11 @@
 
       pEspaco->ehAtivo = TRUE ;
 
-   } /* Fim funÁ„o: CED  &Marcar ativo o espaÁo */
+   } /* Fim fun√ß√£o: CED  &Marcar ativo o espa√ßo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Marcar n„o ativo o espaÁo
+*  Fun√ß√£o: CED  &Marcar n√£o ativo o espa√ßo
 *  ****/
 
    void CED_MarcarEspacoNaoAtivo( void * Ponteiro )
@@ -675,11 +675,11 @@
          
       pEspaco->ehAtivo = FALSE ;
 
-   } /* Fim funÁ„o: CED  &Marcar n„o ativo o espaÁo */
+   } /* Fim fun√ß√£o: CED  &Marcar n√£o ativo o espa√ßo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Marcar n„o ativos todos os espaÁos
+*  Fun√ß√£o: CED  &Marcar n√£o ativos todos os espa√ßos
 *  ****/
 
    void CED_MarcarTodosEspacosInativos( )
@@ -697,11 +697,11 @@
          pEspaco = pEspaco->pProx ;
       } /* while */
 
-   } /* Fim funÁ„o: CED  &Marcar n„o ativos todos os espaÁos */
+   } /* Fim fun√ß√£o: CED  &Marcar n√£o ativos todos os espa√ßos */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Limitar memÛria disponÌvel
+*  Fun√ß√£o: CED  &Limitar mem√≥ria dispon√≠vel
 *  ****/
 
    void CED_LimitarMemoriaDisponivel( long NovoLimiteMemoria )
@@ -712,11 +712,11 @@
 
       LimiteMemoria = NovoLimiteMemoria ;
 
-   } /* Fim funÁ„o: CED  &Limitar memÛria disponÌvel */
+   } /* Fim fun√ß√£o: CED  &Limitar mem√≥ria dispon√≠vel */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Limitar n˙mero de espaÁos alocados
+*  Fun√ß√£o: CED  &Limitar n√∫mero de espa√ßos alocados
 *  ****/
 
    void CED_LimitarNumeroTotalEspacos( long numTotalEspacos )
@@ -727,11 +727,11 @@
 
       LimiteNumEspacos = numTotalEspacos ;
 
-   } /* Fim funÁ„o: CED  &Limitar n˙mero de espaÁos alocados */
+   } /* Fim fun√ß√£o: CED  &Limitar n√∫mero de espa√ßos alocados */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Limitar com freq¸Íncia de geraÁ„o de NULL
+*  Fun√ß√£o: CED  &Limitar com freq√º√™ncia de gera√ß√£o de NULL
 *  ****/
 
    int CED_LimitarFrequencia( int Frequencia )
@@ -749,11 +749,11 @@
 
       return TRUE ;
 
-   } /* Fim funÁ„o: CED  &Limitar com freq¸Íncia de geraÁ„o de NULL */
+   } /* Fim fun√ß√£o: CED  &Limitar com freq√º√™ncia de gera√ß√£o de NULL */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Limitar, eliminar limites
+*  Fun√ß√£o: CED  &Limitar, eliminar limites
 *  ****/
 
    void CED_EliminarLimites( )
@@ -765,11 +765,11 @@
       LimiteNumEspacos     = 0 ;
       FrequenciaMalloc     = 0 ;
 
-   } /* Fim funÁ„o: CED  &Limitar, eliminar limites */
+   } /* Fim fun√ß√£o: CED  &Limitar, eliminar limites */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter o tipo do espaÁo de dados
+*  Fun√ß√£o: CED  &Obter o tipo do espa√ßo de dados
 *  ****/
 
    int CED_ObterTipoEspaco( void * Ponteiro )
@@ -792,11 +792,11 @@
 
       return pEspaco->idTipoValor ;
 
-   } /* Fim funÁ„o: CED  &Obter o tipo do espaÁo de dados */
+   } /* Fim fun√ß√£o: CED  &Obter o tipo do espa√ßo de dados */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter tamanho do valor contido no espaÁo
+*  Fun√ß√£o: CED  &Obter tamanho do valor contido no espa√ßo
 *  ****/
 
    int CED_ObterTamanhoValor( void * Ponteiro )
@@ -819,11 +819,11 @@
 
       return pEspaco->tamValor ;
 
-   } /* Fim funÁ„o: CED  &Obter tamanho do valor contido no espaÁo */
+   } /* Fim fun√ß√£o: CED  &Obter tamanho do valor contido no espa√ßo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter tamanho do espaÁo alocado _msize
+*  Fun√ß√£o: CED  &Obter tamanho do espa√ßo alocado _msize
 *  ****/
 
    size_t CED_Msize( void * Ponteiro )
@@ -831,11 +831,11 @@
 
       return ((size_t) CED_ObterTamanhoValor( Ponteiro )) ;
 
-   } /* Fim funÁ„o: CED  &Obter tamanho do espaÁo alocado _msize */
+   } /* Fim fun√ß√£o: CED  &Obter tamanho do espa√ßo alocado _msize */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter n˙mero de espaÁos alocados
+*  Fun√ß√£o: CED  &Obter n√∫mero de espa√ßos alocados
 *  ****/
 
    int CED_ObterNumeroEspacosAlocados( )
@@ -845,11 +845,11 @@
 
       return numEspacosAlocados ;
 
-   } /* Fim funÁ„o: CED  &Obter n˙mero de espaÁos alocados */
+   } /* Fim fun√ß√£o: CED  &Obter n√∫mero de espa√ßos alocados */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter total de espaÁos alocados
+*  Fun√ß√£o: CED  &Obter total de espa√ßos alocados
 *  ****/
 
    int CED_ObterTotalAlocacoes( )
@@ -859,11 +859,11 @@
 
       return TotalAlocacoes ;
 
-   } /* Fim funÁ„o: CED  &Obter total de espaÁos alocados */
+   } /* Fim fun√ß√£o: CED  &Obter total de espa√ßos alocados */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter n˙mero total de NULLs gerados
+*  Fun√ß√£o: CED  &Obter n√∫mero total de NULLs gerados
 *  ****/
 
    long CED_ObterNumNULL( void )
@@ -873,11 +873,11 @@
 
       return ContaNULL ;
 
-   } /* Fim funÁ„o: CED  &Obter n˙mero total de NULLs gerados */
+   } /* Fim fun√ß√£o: CED  &Obter n√∫mero total de NULLs gerados */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter n˙mero de espaÁos segundo regra
+*  Fun√ß√£o: CED  &Obter n√∫mero de espa√ßos segundo regra
 *  ****/
 
    int CED_ObterNumeroEspacos( CED_tpModoExibir Regra )
@@ -922,11 +922,11 @@
 
       return Conta ;
 
-   } /* Fim funÁ„o: CED  &Obter n˙mero de espaÁos segundo regra */
+   } /* Fim fun√ß√£o: CED  &Obter n√∫mero de espa√ßos segundo regra */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Obter espaÁo total alocado
+*  Fun√ß√£o: CED  &Obter espa√ßo total alocado
 *  ****/
 
    long CDE_ObterEspacoTotalAlocado( )
@@ -936,11 +936,11 @@
 
       return EspacoTotalAlocado ;
 
-   } /* Fim funÁ„o: CED  &Obter espaÁo total alocado */
+   } /* Fim fun√ß√£o: CED  &Obter espa√ßo total alocado */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Iterador: iniciar iterador de espaÁos
+*  Fun√ß√£o: CED  &Iterador: iniciar iterador de espa√ßos
 *  ****/
 
    void CED_InicializarIteradorEspacos( )
@@ -950,11 +950,11 @@
 
       pEspacoCorr = pOrgLista ;
 
-   } /* Fim funÁ„o: CED  &Iterador: iniciar iterador de espaÁos */
+   } /* Fim fun√ß√£o: CED  &Iterador: iniciar iterador de espa√ßos */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Iterador: avanÁar para o prÛximo espaÁo
+*  Fun√ß√£o: CED  &Iterador: avan√ßar para o pr√≥ximo espa√ßo
 *  ****/
 
    int CED_AvancarProximoEspaco( )
@@ -976,11 +976,11 @@
          return FALSE ;
       } /* if */
 
-   } /* Fim funÁ„o: CED  &Iterador: avanÁar para o prÛximo espaÁo */
+   } /* Fim fun√ß√£o: CED  &Iterador: avan√ßar para o pr√≥ximo espa√ßo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Iterador: obter referÍncia para o espaÁo corrente
+*  Fun√ß√£o: CED  &Iterador: obter refer√™ncia para o espa√ßo corrente
 *  ****/
 
    void * CED_ObterPonteiroEspacoCorrente( )
@@ -995,11 +995,11 @@
 
       return ( void * ) &( pEspacoCorr->Valor ) ;
 
-   } /* Fim funÁ„o: CED  &Iterador: obter referÍncia para o espaÁo corrente */
+   } /* Fim fun√ß√£o: CED  &Iterador: obter refer√™ncia para o espa√ßo corrente */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Iterador: existe espaÁo corrente
+*  Fun√ß√£o: CED  &Iterador: existe espa√ßo corrente
 *  ****/
 
    int CED_ExisteEspacoCorrente( )
@@ -1014,11 +1014,11 @@
 
       return TRUE ;
 
-   } /* Fim funÁ„o: CED  &Iterador: existe espaÁo corrente */
+   } /* Fim fun√ß√£o: CED  &Iterador: existe espa√ßo corrente */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Iterador: terminar iterador
+*  Fun√ß√£o: CED  &Iterador: terminar iterador
 *  ****/
 
    void CED_TerminarIteradorEspacos( )
@@ -1026,11 +1026,11 @@
 
       pEspacoCorr = NULL ;
 
-   } /* Fim funÁ„o: CED  &Iterador: terminar iterador */
+   } /* Fim fun√ß√£o: CED  &Iterador: terminar iterador */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Iterador: excluir espaÁo corrente
+*  Fun√ß√£o: CED  &Iterador: excluir espa√ßo corrente
 *  ****/
 
    void CED_ExcluirEspacoCorrente( )
@@ -1047,11 +1047,11 @@
          DesalocarEspaco( pDesaloca ) ;
       } /* if */
 
-   } /* Fim funÁ„o: CED  &Iterador: excluir espaÁo corrente */
+   } /* Fim fun√ß√£o: CED  &Iterador: excluir espa√ßo corrente */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Verificar se espaÁo È ativo
+*  Fun√ß√£o: CED  &Verificar se espa√ßo √© ativo
 *  ****/
 
    int CED_EhEspacoAtivo( void * Ponteiro )
@@ -1074,11 +1074,11 @@
 
       return pEspaco->ehAtivo ;
 
-   } /* Fim funÁ„o: CED  &Verificar se espaÁo È ativo */
+   } /* Fim fun√ß√£o: CED  &Verificar se espa√ßo √© ativo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Verificar a integridade de um espaÁo de dados
+*  Fun√ß√£o: CED  &Verificar a integridade de um espa√ßo de dados
 *  ****/
 
    int CED_VerificarEspaco( void * Ponteiro ,
@@ -1089,7 +1089,7 @@
 
       TST_ASSERT( estaInicializado ) ;
 
-      /* Verificar as referÍncias para o espaÁo */
+      /* Verificar as refer√™ncias para o espa√ßo */
 
          if ( Ponteiro == NULL )
          {
@@ -1103,7 +1103,7 @@
             return FALSE ;
          } /* if */
 
-      /* Verificar o conte˙do do espaÁo */
+      /* Verificar o conte√∫do do espa√ßo */
 
          if ( pVerificarValor != NULL )
          {
@@ -1118,11 +1118,11 @@
 
       return TRUE ;
 
-   } /* Fim funÁ„o: CED  &Verificar a integridade de um espaÁo de dados */
+   } /* Fim fun√ß√£o: CED  &Verificar a integridade de um espa√ßo de dados */
 
 /***************************************************************************
 *
-*  FunÁ„o: CED  &Verificar todos os espaÁos alocados
+*  Fun√ß√£o: CED  &Verificar todos os espa√ßos alocados
 *  ****/
 
    int CED_VerificarTudo( int ( * pVerificarValor )( void * pValor ))
@@ -1135,7 +1135,7 @@
 
       TST_ASSERT( estaInicializado ) ;
 
-      /* Verificar toda a lista de espaÁos */
+      /* Verificar toda a lista de espa√ßos */
 
          pEspaco = pOrgLista ;
          while ( pEspaco != NULL )
@@ -1148,38 +1148,38 @@
             pEspaco = pEspaco->pProx ;
          } /* while */
 
-      /* Verificar n˙mero de espaÁos alocados */
+      /* Verificar n√∫mero de espa√ßos alocados */
 
          if ( ContaEspaco != numEspacosAlocados )
          {
-            ExibirMensagem( "N˙mero de espaÁos alocados errado." ) ;
+            ExibirMensagem( "N√∫mero de espa√ßos alocados errado." ) ;
             ContaErro ++ ;
          } /* if */
 
          if ( numEspacosAlocados > TotalAlocacoes )
          {
-            ExibirMensagem( "N˙mero de espaÁos alocados maior do que total alocado." ) ;
+            ExibirMensagem( "N√∫mero de espa√ßos alocados maior do que total alocado." ) ;
             ContaErro ++ ;
          } /* if */
 
       return ContaErro == 0 ;
 
-   } /* Fim funÁ„o: CED  &Verificar todos os espaÁos alocados */
+   } /* Fim fun√ß√£o: CED  &Verificar todos os espa√ßos alocados */
 
 
-/*****  CÛdigo das funÁıes encapsuladas no mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes encapsuladas no m√≥dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  -Desalocar espaÁo dado
+*  $FC Fun√ß√£o: CED  -Desalocar espa√ßo dado
 *
 ***********************************************************************/
 
    void DesalocarEspaco( tpElemListaControle * pEspaco )
    {
 
-      /* Desalocar o espaÁo apontado */
+      /* Desalocar o espa√ßo apontado */
 
          if ( pEspaco->pProx != NULL )
          {
@@ -1196,7 +1196,7 @@
          numEspacosAlocados -- ;
          EspacoTotalAlocado -= pEspaco->tamValor ;
 
-      /* Limpar o espaÁo a liberar */
+      /* Limpar o espa√ßo a liberar */
 
          memset( pEspaco->ControleAntes , CHAR_DESALOC ,
                  pEspaco->tamValor + DIM_CONTROLE ) ;
@@ -1207,23 +1207,23 @@
          pEspaco->idTipoValor = CED_ID_TIPO_ILEGAL ;
          free( pEspaco ) ;
 
-   } /* Fim funÁ„o: CED  -Desalocar espaÁo dado */
+   } /* Fim fun√ß√£o: CED  -Desalocar espa√ßo dado */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  -Obter ponteiro para o elemento da lista de espaÁos ativos
+*  $FC Fun√ß√£o: CED  -Obter ponteiro para o elemento da lista de espa√ßos ativos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna o ponteiro para o inÌcio do elemento da lista de espaÁos
-*     alocados, no entanto sem controlar a integridade do esp·co.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna o ponteiro para o in√≠cio do elemento da lista de espa√ßos
+*     alocados, no entanto sem controlar a integridade do esp√°co.
 *
-*  $EP Par‚metros
-*     $P Ponteiro - aponta para o campo Valor do espaÁo
+*  $EP Par√¢metros
+*     $P Ponteiro - aponta para o campo Valor do espa√ßo
 *
 *  $FV Valor retornado
-*     Se o espaÁo estiver v·lido, retorna o ponteiro para ele,
-*     caso contr·rio retorna NULL.
+*     Se o espa√ßo estiver v√°lido, retorna o ponteiro para ele,
+*     caso contr√°rio retorna NULL.
 *
 ***********************************************************************/
 
@@ -1259,20 +1259,20 @@
 
       return pEspaco ;
 
-   } /* Fim funÁ„o: CED  -Obter ponteiro para o elemento da lista de espaÁos ativos */
+   } /* Fim fun√ß√£o: CED  -Obter ponteiro para o elemento da lista de espa√ßos ativos */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  -Exibir cabecalho do espaco
+*  $FC Fun√ß√£o: CED  -Exibir cabecalho do espaco
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Exibe todos os atributos, exceto o valor, contido no espaÁo.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Exibe todos os atributos, exceto o valor, contido no espa√ßo.
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     $P TipoMsg - string (3 caracteres) indicando o significado do texto
-*                  exibido na saÌda
-*     $P pEspaco - ponteiro para a origem do espaco (n„o para o valor)
+*                  exibido na sa√≠da
+*     $P pEspaco - ponteiro para a origem do espaco (n√£o para o valor)
 *
 ***********************************************************************/
 
@@ -1291,7 +1291,7 @@
       fprintf( pArqLog , "\n\n%s  Espaco de dados, id: %5d" ,
                   TipoMsg , pEspaco->idEspaco ) ;
 
-      /* Exibir ponteiro do espaÁo */
+      /* Exibir ponteiro do espa√ßo */
 
          pVal  = pEspaco->Valor ;
 
@@ -1303,7 +1303,7 @@
             fprintf( pArqLog , " %02X" , pChar[ i ] ) ;
          } /* for */
 
-      /* Exibir identificaÁ„o do espaÁo antecessor */
+      /* Exibir identifica√ß√£o do espa√ßo antecessor */
 
          if ( pEspaco->pAnt != NULL  )
          {
@@ -1312,7 +1312,7 @@
             fprintf( pArqLog , "  E' origem lista" ) ;
          } /* if */
 
-      /* Exibir identificaÁ„o do espaÁo sucessor */
+      /* Exibir identifica√ß√£o do espa√ßo sucessor */
 
          if ( pEspaco->pProx != NULL )
          {
@@ -1334,7 +1334,7 @@
             fprintf( pArqLog , "\n     Id tipo valor: %d" , pEspaco->idTipoValor ) ;
          } /* if */
 
-      /* Tamanho ˙til do valor alocado */
+      /* Tamanho √∫til do valor alocado */
 
          fprintf( pArqLog , "  Tamanho: %d" , pEspaco->tamValor ) ;
 
@@ -1347,7 +1347,7 @@
             fprintf( pArqLog , "  Nao ativo" ) ;
          } /* if */
 
-      /* Exibir n˙mero da linha de cÛdigo fonte onde foi alocado */
+      /* Exibir n√∫mero da linha de c√≥digo fonte onde foi alocado */
 
          fprintf( pArqLog , "  Linha onde alocou: %d" , pEspaco->numLinhaFonte ) ;
 
@@ -1368,7 +1368,7 @@
             } /* for */
          } /* if */
 
-      /* Exibir controle apÛs */
+      /* Exibir controle ap√≥s */
 
          pChar = pEspaco->ControleApos - DIM_VALOR + pEspaco->tamValor ;
          if ( memcmp( pChar , CONTROLE , DIM_CONTROLE ) == 0 )
@@ -1382,19 +1382,19 @@
             } /* for */
          } /* if */
 
-   } /* Fim funÁ„o: CED  -Exibir cabecalho do espaco */
+   } /* Fim fun√ß√£o: CED  -Exibir cabecalho do espaco */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  -Exibir mensagem de erro
+*  $FC Fun√ß√£o: CED  -Exibir mensagem de erro
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Exibe uma mensagem de erro ou advertÍncia no formato padr„o
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Exibe uma mensagem de erro ou advert√™ncia no formato padr√£o
 *
-*  $EP Par‚metros
-*     $P Msg  - mensagem a exibir. O string n„o deve conter controles de
-*               avanÁo de linha
+*  $EP Par√¢metros
+*     $P Msg  - mensagem a exibir. O string n√£o deve conter controles de
+*               avan√ßo de linha
 *
 ***********************************************************************/
 
@@ -1404,19 +1404,19 @@
       TST_ContarFalhas( ) ;
       TST_ExibirPrefixo( TIPO_MSG_ERRO , Msg ) ;
 
-   } /* Fim funÁ„o: CED  -Exibir mensagem de erro */
+   } /* Fim fun√ß√£o: CED  -Exibir mensagem de erro */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  -Verificar integridade de determinado espaÁo
+*  $FC Fun√ß√£o: CED  -Verificar integridade de determinado espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Controla a integridade apÛs conhecer o ponteiro para a origem
-*     do espaÁo. N„o controla o campo valor.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Controla a integridade ap√≥s conhecer o ponteiro para a origem
+*     do espa√ßo. N√£o controla o campo valor.
 *
-*  $EP Par‚metros
-*     $P pEspaco - aponta a origem do espaÁo alocado
+*  $EP Par√¢metros
+*     $P pEspaco - aponta a origem do espa√ßo alocado
 *
 ***********************************************************************/
 
@@ -1425,7 +1425,7 @@
 
       int ContaErro = 0 ;
 
-      /* Verificar o marcador de espaco ainda n„o desalocado */
+      /* Verificar o marcador de espaco ainda n√£o desalocado */
 
          if ( pEspaco->EspacoNULL != ESPACO_NULL )
          {
@@ -1440,14 +1440,14 @@
             return ContaErro ;
          } /* if */
 
-      /* Verificar id espaÁo */
+      /* Verificar id espa√ßo */
 
          if ( ( pEspaco->idEspaco   < 0 )
            || ( pEspaco->idEspaco   > TotalAlocacoes )
            || ( numEspacosAlocados  > TotalAlocacoes ))
          {
             ContaErro ++ ;
-            ExibirMensagem( "IdentificaÁ„o do espaÁo est· errada." ) ;
+            ExibirMensagem( "Identifica√ß√£o do espa√ßo est√° errada." ) ;
          } /* if */
 
       /* Verificar encadeamento origem da lista */
@@ -1457,11 +1457,11 @@
             if ( pOrgLista->pAnt != NULL )
             {
                ContaErro ++ ;
-               ExibirMensagem( "Origem da lista de espaÁos est· errada." ) ;
+               ExibirMensagem( "Origem da lista de espa√ßos est√° errada." ) ;
             } /* if */
          } else {
             ContaErro ++ ;
-            ExibirMensagem( "Origem da lista n„o vazia È NULL." ) ;
+            ExibirMensagem( "Origem da lista n√£o vazia √© NULL." ) ;
             pOrgLista = pEspaco ;
          } /* if */
 
@@ -1474,31 +1474,31 @@
                if ( pEspaco->pAnt->pProx != pEspaco )
                {
                   ContaErro ++ ;
-                  ExibirMensagem( "Encadeamento antes est· errado." ) ;
+                  ExibirMensagem( "Encadeamento antes est√° errado." ) ;
                   pEspaco->pAnt = NULL ;
                } /* if */
             } else {
                ContaErro ++ ;
-               ExibirMensagem( "Esp·co anterior == NULL, mas n„o È a origem da lista de espaÁos." ) ;
+               ExibirMensagem( "Esp√°co anterior == NULL, mas n√£o √© a origem da lista de espa√ßos." ) ;
             } /* if */
          } else
          {
             if ( pEspaco->pAnt != NULL )
             {
                ContaErro ++ ;
-               ExibirMensagem( "EspaÁo origem da lista est· errada." ) ;
+               ExibirMensagem( "Espa√ßo origem da lista est√° errada." ) ;
                pEspaco->pAnt = NULL ;
             } /* if */
          } /* if */
 
-      /* Verificar encadeamento apÛs */
+      /* Verificar encadeamento ap√≥s */
 
          if ( pEspaco->pProx != NULL )
          {
             if ( pEspaco->pProx->pAnt != pEspaco )
             {
                ContaErro ++ ;
-               ExibirMensagem( "Encadeamento apÛs est· errado." ) ;
+               ExibirMensagem( "Encadeamento ap√≥s est√° errado." ) ;
                pEspaco->pProx = NULL ;
             } /* if */
          } /* if */
@@ -1510,7 +1510,7 @@
            || ( pEspaco->tamValor <= 0 ))
          {
             ContaErro ++ ;
-            ExibirMensagem( "Tamanho do espaÁo est· errado." ) ;
+            ExibirMensagem( "Tamanho do espa√ßo est√° errado." ) ;
          } /* if */
 
       /* Verificar controle antes */
@@ -1518,21 +1518,21 @@
          if ( memcmp( pEspaco->ControleAntes , CONTROLE , DIM_CONTROLE ) != 0 )
          {
             ContaErro ++ ;
-            ExibirMensagem( "Controle de extravas„o antes est· errado." ) ;
+            ExibirMensagem( "Controle de extravas√£o antes est√° errado." ) ;
          } /* if */
 
-      /* Verificar controle apÛs */
+      /* Verificar controle ap√≥s */
 
          if ( memcmp( pEspaco->ControleApos - DIM_VALOR + pEspaco->tamValor ,
                       CONTROLE , DIM_CONTROLE ) != 0 )
          {
             ContaErro ++ ;
-            ExibirMensagem( "Controle de extravas„o apÛs est· errado." ) ;
+            ExibirMensagem( "Controle de extravas√£o ap√≥s est√° errado." ) ;
          } /* if */
 
       return ContaErro ;
 
-   } /* Fim funÁ„o: CED  -Verificar integridade de determinado espaÁo */
+   } /* Fim fun√ß√£o: CED  -Verificar integridade de determinado espa√ßo */
 
-/********** Fim do mÛdulo de implementaÁ„o: CED  Controlador de espaÁos de dados alocados dinamicamente **********/
+/********** Fim do m√≥dulo de implementa√ß√£o: CED  Controlador de espa√ßos de dados alocados dinamicamente **********/
 

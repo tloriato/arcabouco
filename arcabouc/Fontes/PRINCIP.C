@@ -1,25 +1,25 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: PRNC Módulo principal
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: PRNC MÃ³dulo principal
 *
 *  Arquivo gerado:              PRINCIPc
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Este módulo contém o programa principal do arcabouço ("framework")
-*     de apoio ao teste automatizado de módulos escritos em C.
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Este mÃ³dulo contÃ©m o programa principal do arcabouÃ§o ("framework")
+*     de apoio ao teste automatizado de mÃ³dulos escritos em C.
 *
 ***************************************************************************/
 
@@ -38,57 +38,57 @@
             /* Nome do arquivo log linha de comando */
 
       static char NomeArqAcum[ DIM_NOME_ARQUIVO ] = "" ;
-            /* Nome do arquivo de acumulação */
+            /* Nome do arquivo de acumulaÃ§Ã£o */
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: PRNC &Programa principal
+*  $FC FunÃ§Ã£o: PRNC &Programa principal
 *
-*  $ED Descrição da função
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
 *
-*     O programa principal pode receber os perâmetros de linha de comando:
+*     O programa principal pode receber os perÃ¢metros de linha de comando:
 *
-*     /s<arqscript> - obrigatório, é o nome do arquivo contendo o
+*     /s<arqscript> - obrigatÃ³rio, Ã© o nome do arquivo contendo o
 *                     script de teste. A sintaxe do script depende
-*                     do módulo específico sendo testado.
-*                     Veja especificação do módulo GENERICO para saber
-*                     a extensão default de arquivos script.
-*     /l<arqlog>    - opcional, é o nome do arquivo log no qual devem
+*                     do mÃ³dulo especÃ­fico sendo testado.
+*                     Veja especificaÃ§Ã£o do mÃ³dulo GENERICO para saber
+*                     a extensÃ£o default de arquivos script.
+*     /l<arqlog>    - opcional, Ã© o nome do arquivo log no qual devem
 *                     ser escritas todas as mensagens geradas durante
-*                     o teste. Se este nome de arquivo não for
-*                     fornecido a saída será dirigida para a tela
+*                     o teste. Se este nome de arquivo nÃ£o for
+*                     fornecido a saÃ­da serÃ¡ dirigida para a tela
 *                     (arquivo stdout).
-*                     Veja especificação do módulo GENERICO para saber
-*                     a extensão default de arquivos log.
-*     /a<arqacum>   - opcional, se fornecido as estatísticas da execução
-*                     do programa serão adicionadas ao conteúdo do arquivo
-*                     arqacum. Caso este não exista, será criado.
-*                     A extensão default do arquivo é .estat
-*                     Use este parâmetro em batches de teste envolvendo um
+*                     Veja especificaÃ§Ã£o do mÃ³dulo GENERICO para saber
+*                     a extensÃ£o default de arquivos log.
+*     /a<arqacum>   - opcional, se fornecido as estatÃ­sticas da execuÃ§Ã£o
+*                     do programa serÃ£o adicionadas ao conteÃºdo do arquivo
+*                     arqacum. Caso este nÃ£o exista, serÃ¡ criado.
+*                     A extensÃ£o default do arquivo Ã© .estat
+*                     Use este parÃ¢metro em batches de teste envolvendo um
 *                     conjunto de massas de teste. O total acumulado
 *                     pode ser exibido com o programa exbestat.exe
-*     /h ou /?      - opcional, se fornecido imprime, à guisa de auxílio,
-*                     um resumo de como usar o programa e, após, pára.
-*                     Este auxílio também é exibido no caso de erro de
-*                     parâmetro de linha de comando.
+*     /h ou /?      - opcional, se fornecido imprime, Ã  guisa de auxÃ­lio,
+*                     um resumo de como usar o programa e, apÃ³s, pÃ¡ra.
+*                     Este auxÃ­lio tambÃ©m Ã© exibido no caso de erro de
+*                     parÃ¢metro de linha de comando.
 *
 *     O programa retorna:
 *
-*     - 0 caso o teste tenha concluído corretamente
-*     - 2 caso tenha sido solicitado auxílio.
+*     - 0 caso o teste tenha concluÃ­do corretamente
+*     - 2 caso tenha sido solicitado auxÃ­lio.
 *     - 4 caso:
-*           - os parâmetros de linha de comando estejam em erro
+*           - os parÃ¢metros de linha de comando estejam em erro
 *           - um ou mais casos de teste identificaram alguma falha.
 *
-*  $EP Parâmetros
-*     $P NumParms     - número de parâmetros de linha de comando
+*  $EP ParÃ¢metros
+*     $P NumParms     - nÃºmero de parÃ¢metros de linha de comando
 *                       recebidos
 *     $P vtValorParms - vetor de strings, cada item do vetor
-*                       corresponde ao string de um parâmetro.
-*                       O string de índice zero é o nome do programa.
+*                       corresponde ao string de um parÃ¢metro.
+*                       O string de Ã­ndice zero Ã© o nome do programa.
 *
 ***********************************************************************/
 
@@ -105,8 +105,8 @@
 
       /* Exibir logo do programa */
 
-         printf( "\n\nLES - Laboratório de Engenharia de Software DI/PUC-Rio" ) ;
-         printf( "\n      Arcabouço de teste de módulos C  (c) 2006\n" ) ;
+         printf( "\n\nLES - LaboratÃ³rio de Engenharia de Software DI/PUC-Rio" ) ;
+         printf( "\n      ArcabouÃ§o de teste de mÃ³dulos C  (c) 2006\n" ) ;
          printf( "\n---------------------------------------------" ) ;
          printf( "\n      Construto sob teste: %s\n" , vtValorParm[ 0 ] ) ;
 
@@ -116,11 +116,11 @@
          LogDefinido    = 0 ;
          Erro           = 0 ;
 
-      /* Ler os parâmetros da linha de comando */
+      /* Ler os parÃ¢metros da linha de comando */
 
          for ( inxParm = 1 ; inxParm < NumParm ; inxParm ++ ) {
 
-         /* Tratar parâmetro sintaticamente correto */
+         /* Tratar parÃ¢metro sintaticamente correto */
 
             strcpy( ParmBuffer , vtValorParm[ inxParm ] ) ;
 
@@ -130,7 +130,7 @@
 
                switch ( ParmBuffer[ 1 ] ) {
 
-               /* Tratar parâmetro nome de arquivo script de teste */
+               /* Tratar parÃ¢metro nome de arquivo script de teste */
 
                   case 's' :
                   case 'S' :
@@ -142,15 +142,15 @@
                         strcpy( NomeArqScript , ParmBuffer + 2 ) ;
                      } else
                      {
-                        printf( "\n>>>   Arquivo de script já foi definido." ) ;
+                        printf( "\n>>>   Arquivo de script jÃ¡ foi definido." ) ;
                         Erro = 4 ;
                      } /* if */
 
                      break ;
 
-                  } /* fim ativa: Tratar parâmetro nome de arquivo script de teste */
+                  } /* fim ativa: Tratar parÃ¢metro nome de arquivo script de teste */
 
-               /* Tratar parâmetro nomde de arquivo log de mensagens */
+               /* Tratar parÃ¢metro nomde de arquivo log de mensagens */
 
                   case 'l' :
                   case 'L' :
@@ -162,15 +162,15 @@
                         strcpy( NomeArqLog , ParmBuffer + 2 ) ;
 
                      } else {
-                        printf( "\n>>>   Arquivo log já foi definido." ) ;
+                        printf( "\n>>>   Arquivo log jÃ¡ foi definido." ) ;
                         Erro = 4 ;
                      } /* if */
 
                      break ;
 
-                  } /* fim ativa: Tratar parâmetro nomde de arquivo log de mensagens */
+                  } /* fim ativa: Tratar parÃ¢metro nomde de arquivo log de mensagens */
 
-               /* Tratar parâmetro arquivo de acumulação */
+               /* Tratar parÃ¢metro arquivo de acumulaÃ§Ã£o */
 
                   case 'a':
                   case 'A':
@@ -180,15 +180,15 @@
                      {
                         strcpy( NomeArqAcum , ParmBuffer + 2 ) ;
                      } else {
-                        printf( "\n>>>   Arquivo de acumulação já foi definido." ) ;
+                        printf( "\n>>>   Arquivo de acumulaÃ§Ã£o jÃ¡ foi definido." ) ;
                         Erro = 4 ;
                      } /* if */
 
                      break ;
 
-                  } /* fim ativa: Tratar parâmetro arquivo de acumulação */
+                  } /* fim ativa: Tratar parÃ¢metro arquivo de acumulaÃ§Ã£o */
 
-               /* Tratar solicitação de auxílio */
+               /* Tratar solicitaÃ§Ã£o de auxÃ­lio */
 
                   case '?' :
                   case 'h' :
@@ -199,39 +199,39 @@
 
                      break ;
 
-                  } /* fim ativa: Tratar solicitação de auxílio */
+                  } /* fim ativa: Tratar solicitaÃ§Ã£o de auxÃ­lio */
 
-               /* Tratar parâmetro ilegal */
+               /* Tratar parÃ¢metro ilegal */
 
                   default :
                   {
 
-                     printf( "\n>>>   Parâmetro desconhecido: %s" , ParmBuffer ) ;
+                     printf( "\n>>>   ParÃ¢metro desconhecido: %s" , ParmBuffer ) ;
                      Erro = 4 ;
 
                      break ;
 
-                  } /* fim ativa: Tratar parâmetro ilegal */
+                  } /* fim ativa: Tratar parÃ¢metro ilegal */
 
-               } /* fim seleciona: Tratar parâmetro sintaticamente correto */
+               } /* fim seleciona: Tratar parÃ¢metro sintaticamente correto */
 
-            } /* fim ativa: Tratar parâmetro sintaticamente correto */
+            } /* fim ativa: Tratar parÃ¢metro sintaticamente correto */
 
-         /* Tratar parâmetro sintaticamente errado. */
+         /* Tratar parÃ¢metro sintaticamente errado. */
 
             else
             {
 
-               printf( "\n>>>   Sintaxe de parâmetro errada: %s" , ParmBuffer ) ;
+               printf( "\n>>>   Sintaxe de parÃ¢metro errada: %s" , ParmBuffer ) ;
                Erro = 4 ;
 
-            } /* fim ativa: Tratar parâmetro sintaticamente errado. */
+            } /* fim ativa: Tratar parÃ¢metro sintaticamente errado. */
 
-         } /* fim repete: Ler os parâmetros da linha de comando */
+         } /* fim repete: Ler os parÃ¢metros da linha de comando */
 
-      /* Controlar parâmetros */
+      /* Controlar parÃ¢metros */
 
-         /* Validar parâmetros */
+         /* Validar parÃ¢metros */
 
             if ( ( Erro != 1       )
               && ( !ScriptDefinido ))
@@ -248,16 +248,16 @@
                printf( "\n\n!!!  Modo de uso do programa" ) ;
                printf(   "\n  TestXXX   /s<ArqScript> {/l<ArqLog>} {/a<ArqAcum> {/? | /h }" ) ;
                printf( "\n\n  <ArqScript>   - nome do arquivo contendo o script de teste. " ) ;
-               printf(   "\n                  Parâmetro obrigatório, exceto se solicitado auxílio." ) ;
+               printf(   "\n                  ParÃ¢metro obrigatÃ³rio, exceto se solicitado auxÃ­lio." ) ;
                printf(   "\n  <ArqLog>      - nome do arquivo contendo o script de teste. " ) ;
-               printf(   "\n                  Parâmetro opcional. Se não fornecido exibe" ) ;
+               printf(   "\n                  ParÃ¢metro opcional. Se nÃ£o fornecido exibe" ) ;
                printf(   "\n                  o resultado do teste na tela (stdout)" ) ;
                printf(   "\n  <ArqAcum>     - nome do arquivo acumulador." ) ;
-               printf(   "\n                  Parâmetro opcional. Se fornecido as" ) ;
-               printf(   "\n                  estatísticas do teste serão acumuladas" ) ;
-               printf(   "\n                  no arquivo ArqAcum. Caso não exista," ) ;
-               printf(   "\n                  será criado." ) ;
-               printf(   "\n  /? ou /h      - Solicitação de auxílio." ) ;
+               printf(   "\n                  ParÃ¢metro opcional. Se fornecido as" ) ;
+               printf(   "\n                  estatÃ­sticas do teste serÃ£o acumuladas" ) ;
+               printf(   "\n                  no arquivo ArqAcum. Caso nÃ£o exista," ) ;
+               printf(   "\n                  serÃ¡ criado." ) ;
+               printf(   "\n  /? ou /h      - SolicitaÃ§Ã£o de auxÃ­lio." ) ;
 
                if ( Erro == 1 )
                {
@@ -266,7 +266,7 @@
                {
                   Erro = 4 ;
                } /* if */
-               printf( "\n\n>>>  Teste não executado\n" ) ;
+               printf( "\n\n>>>  Teste nÃ£o executado\n" ) ;
 
                return Erro ;
 
@@ -282,7 +282,7 @@
 
          return 0 ;
 
-   } /* Fim função: PRNC &Programa principal */
+   } /* Fim funÃ§Ã£o: PRNC &Programa principal */
 
-/********** Fim do módulo de implementação: PRNC Módulo principal **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: PRNC MÃ³dulo principal **********/
 

@@ -1,23 +1,23 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: LER  Ler par‚metros de comandos
+*  $MCI M√≥dulo de implementa√ß√£o: LER  Ler par√¢metros de comandos
 *
 *  Arquivo gerado:              LerParm.c
 *  Letras identificadoras:      LER
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
 *     5       avs   18/mai/2008 corrigir e ampliar CESPDIN
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -68,7 +68,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: LER Valores tipados dos par‚metros
+*  $TC Tipo de dados: LER Valores tipados dos par√¢metros
 *
 *
 ***********************************************************************/
@@ -99,20 +99,20 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
    typedef struct {
 
          char Nome[ LER_DIM_NOME ] ;
-               /* Nome do par‚metro */
+               /* Nome do par√¢metro */
 
          tpValorTipado ValorTipado ;
-               /* Valor do par‚metro */
+               /* Valor do par√¢metro */
 
          int tamString ;
                /* Tamanho de valor tipo string */
 
          char idTipo ;
-               /* Tipo do par‚metro */
+               /* Tipo do par√¢metro */
 
    } tpElemSimbolo ;
 
-/*****  Dados encapsulados no mÛdulo  *****/
+/*****  Dados encapsulados no m√≥dulo  *****/
 
       static char NomeArqScript[ DIM_NOME_ARQ ] ;
             /* Nome do arquivo script */
@@ -121,21 +121,21 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
             /* Ponteiro para o descritor do arquivo script */
 
       static int ContaLinhas = 0 ;
-            /* N˙mero de linhas lidas */
+            /* N√∫mero de linhas lidas */
 
       static int AcabouScript = 1 ;
-            /* Indicador de tÈrmino de leitura
+            /* Indicador de t√©rmino de leitura
                *
                *$EED Assertivas estruturais
-               *   == 0 se o arquivo ainda n„o chegou ao seu final. */
+               *   == 0 se o arquivo ainda n√£o chegou ao seu final. */
 
       static int  Inicializado = 0 ;
-            /* Estado de inicializaÁ„o do mÛdulo LER */
+            /* Estado de inicializa√ß√£o do m√≥dulo LER */
 
       static TBS_tppTabela pTabela = NULL ;
-            /* Ponteiro para a tabela de sÌmbolos utilizada */
+            /* Ponteiro para a tabela de s√≠mbolos utilizada */
 
-/***** ProtÛtipos das funÁıes encapuladas no mÛdulo *****/
+/***** Prot√≥tipos das fun√ß√µes encapuladas no m√≥dulo *****/
 
    static void FecharScript( void ) ;
 
@@ -151,11 +151,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
    static void ExibirErro( char * Msg ) ;
 
-/*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Inicializar mÛdulo LerParm
+*  Fun√ß√£o: LER  &Inicializar m√≥dulo LerParm
 *  ****/
 
    int LER_InicializarLeitura( void )
@@ -183,11 +183,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       return TRUE ;
 
-   } /* Fim funÁ„o: LER  &Inicializar mÛdulo LerParm */
+   } /* Fim fun√ß√£o: LER  &Inicializar m√≥dulo LerParm */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Terminar mÛdulo LerParm
+*  Fun√ß√£o: LER  &Terminar m√≥dulo LerParm
 *  ****/
 
    void LER_TerminarLeitura( void )
@@ -204,11 +204,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       Inicializado = 0 ;
 
-   } /* Fim funÁ„o: LER  &Terminar mÛdulo LerParm */
+   } /* Fim fun√ß√£o: LER  &Terminar m√≥dulo LerParm */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Obter nome do arquivo script
+*  Fun√ß√£o: LER  &Obter nome do arquivo script
 *  ****/
 
    char * LER_ObterNomeArqScript( void )
@@ -221,11 +221,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       return NULL ;
 
-   } /* Fim funÁ„o: LER  &Obter nome do arquivo script */
+   } /* Fim fun√ß√£o: LER  &Obter nome do arquivo script */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Obter n˙mero de linhas lidas atÈ o momento
+*  Fun√ß√£o: LER  &Obter n√∫mero de linhas lidas at√© o momento
 *  ****/
 
    int LER_ObterNumLinhas( void )
@@ -233,11 +233,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       return ContaLinhas ;
 
-   } /* Fim funÁ„o: LER  &Obter n˙mero de linhas lidas atÈ o momento */
+   } /* Fim fun√ß√£o: LER  &Obter n√∫mero de linhas lidas at√© o momento */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Abrir arquivo script de teste
+*  Fun√ß√£o: LER  &Abrir arquivo script de teste
 *  ****/
 
    LER_tpCondRet LER_AbrirArquivoScript( char * NomeArqParm )
@@ -264,11 +264,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
       NomeArqScript[ 0 ] = 0 ;
       return LER_CondRetNaoAbriu ;
 
-   } /* Fim funÁ„o: LER  &Abrir arquivo script de teste */
+   } /* Fim fun√ß√£o: LER  &Abrir arquivo script de teste */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Ler linha script eliminando brancos ao final
+*  Fun√ß√£o: LER  &Ler linha script eliminando brancos ao final
 *  ****/
 
    int LER_LerLinhaScript( void )
@@ -283,7 +283,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
          TST_ASSERT( pArqScript != NULL ) ;
       #endif
 
-      /* Tratar arquivo j· chegou ao final */
+      /* Tratar arquivo j√° chegou ao final */
 
          if ( feof( pArqScript )
            || AcabouScript      )
@@ -332,11 +332,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
          return LER_TamBuffer ;
 
-   } /* Fim funÁ„o: LER  &Ler linha script eliminando brancos ao final */
+   } /* Fim fun√ß√£o: LER  &Ler linha script eliminando brancos ao final */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Interpretar comandos de teste
+*  Fun√ß√£o: LER  &Interpretar comandos de teste
 *  ****/
 
    TST_tpCondRet LER_InterpretarComandos( char * ComandoTeste )
@@ -349,21 +349,21 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
          TST_ASSERT( Inicializado ) ;
       #endif
 
-      /* Tratar declaraÁ„o de nome */
+      /* Tratar declara√ß√£o de nome */
 
          if ( strcmp( ComandoTeste , DECLARAR_SIMBOLO_CMD ) == 0 )
          {
 
             if ( ! LER_DeclararParametro( ))
             {
-               return TST_NotificarFalha( "N„o declarou o par‚metro." ) ;
+               return TST_NotificarFalha( "N√£o declarou o par√¢metro." ) ;
             } /* if */
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Tratar declaraÁ„o de nome */
+         } /* fim ativa: Tratar declara√ß√£o de nome */
 
-      /* Tratar exibiÁ„o de uma declaraÁ„o */
+      /* Tratar exibi√ß√£o de uma declara√ß√£o */
 
          else if ( strcmp( ComandoTeste , EXIBIR_SIMBOLO_CMD ) == 0 )
          {
@@ -379,17 +379,17 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Tratar exibiÁ„o de uma declaraÁ„o */
+         } /* fim ativa: Tratar exibi√ß√£o de uma declara√ß√£o */
 
-      /* Tratar comando n„o È para LER */
+      /* Tratar comando n√£o √© para LER */
 
          return TST_CondRetNaoExecutou ;
 
-   } /* Fim funÁ„o: LER  &Interpretar comandos de teste */
+   } /* Fim fun√ß√£o: LER  &Interpretar comandos de teste */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Declarar par‚metro simbÛlico
+*  Fun√ß√£o: LER  &Declarar par√¢metro simb√≥lico
 *  ****/
 
    int LER_DeclararParametro( void )
@@ -412,19 +412,19 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       LER_InxBuffer = 0 ;
 
-      /* Criar declaraÁ„o de par‚metro */
+      /* Criar declara√ß√£o de par√¢metro */
 
          LER_PularComando( ) ;
 
          if ( LER_LerParmNome( NomeDeclarado , &tamNome , LER_DIM_NOME ) == FALSE )
          {
-            ExibirErro( "Nome a declarar est· errado." ) ;
+            ExibirErro( "Nome a declarar est√° errado." ) ;
             return FALSE ;
          } /* if */
 
          if ( TBS_ProcurarSimbolo( pTabela, NomeDeclarado ) != NULL )
          {
-            ExibirErro( "Nome j· foi declarado antes:" ) ;
+            ExibirErro( "Nome j√° foi declarado antes:" ) ;
             fprintf( TST_ObterArqLog( ) , " %s" , NomeDeclarado ) ;
             return FALSE ;
          } /* if */
@@ -434,7 +434,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
          if ( pElem == NULL )
          {
-            ExibirErro( "Faltou memÛria." ) ;
+            ExibirErro( "Faltou mem√≥ria." ) ;
             fprintf( TST_ObterArqLog( ) , " %s" , NomeDeclarado ) ;
             return FALSE ;
          } /* if */
@@ -514,28 +514,28 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
             else
             {
 
-               ExibirErro( "Tipo de par‚metro desconhecido." ) ;
+               ExibirErro( "Tipo de par√¢metro desconhecido." ) ;
                free( pElem ) ;
                return FALSE ;
 
             } /* fim ativa: Tratar erro tipo desconhecido */
 
-      /* Inserir declaraÁ„o na tabela */
+      /* Inserir declara√ß√£o na tabela */
 
          if ( TBS_InserirSimbolo( pTabela, pElem ) != TBS_CondRetOK )
          {
-            ExibirErro( "Ocorreu erro ao inserir sÌmbolo na tabela." ) ;
+            ExibirErro( "Ocorreu erro ao inserir s√≠mbolo na tabela." ) ;
             free( pElem ) ;
             return FALSE ;
          } /* if */
 
          return TRUE ;
 
-   } /* Fim funÁ„o: LER  &Declarar par‚metro simbÛlico */
+   } /* Fim fun√ß√£o: LER  &Declarar par√¢metro simb√≥lico */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Exibir declaraÁ„o de sÌmbolo
+*  Fun√ß√£o: LER  &Exibir declara√ß√£o de s√≠mbolo
 *  ****/
 
    void LER_ExibirParametro( char * Simbolo )
@@ -551,12 +551,12 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       if ( pElem == NULL )
       {
-         TST_ExibirPrefixo( INFO_LER , "Par‚metro n„o definido: " ) ;
+         TST_ExibirPrefixo( INFO_LER , "Par√¢metro n√£o definido: " ) ;
          fprintf( TST_ObterArqLog( ) , "%s" , Simbolo ) ;
          return ;
       } /* if */
 
-      TST_ExibirPrefixo( INFO_LER , "Par‚metro: " ) ;
+      TST_ExibirPrefixo( INFO_LER , "Par√¢metro: " ) ;
       fprintf( TST_ObterArqLog( ) , "%s" , Simbolo ) ;
       TST_ExibirEspacoHexa( sizeof( tpElemSimbolo ) , pElem ) ;
 
@@ -567,11 +567,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
                                        pElem->ValorTipado.ValorString ) ;
       } /* if */
 
-   } /* Fim funÁ„o: LER  &Exibir declaraÁ„o de sÌmbolo */
+   } /* Fim fun√ß√£o: LER  &Exibir declara√ß√£o de s√≠mbolo */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Ler linha de par‚metros
+*  Fun√ß√£o: LER  &Ler linha de par√¢metros
 *  ****/
 
    int LER_LerParametros( char * Tipos , ... )
@@ -609,7 +609,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       for( i = 0 ; Tipos[ i ] != '\0' ; i++ ) {
 
-      /* Extrair par‚metro */
+      /* Extrair par√¢metro */
 
          if ( LER_InxBuffer >= LER_TamBuffer )
          {
@@ -619,7 +619,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
          switch ( Tipos[ i ] ) {
 
-         /* Tratar par‚metro tipo caractere */
+         /* Tratar par√¢metro tipo caractere */
 
             case ID_TIPO_CHAR :
             {
@@ -637,9 +637,9 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
                break;
 
-            } /* fim ativa: Tratar par‚metro tipo caractere */
+            } /* fim ativa: Tratar par√¢metro tipo caractere */
 
-         /* Tratar par‚metro tipo inteiro */
+         /* Tratar par√¢metro tipo inteiro */
 
             case ID_TIPO_INT :
             {
@@ -657,9 +657,9 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
                break;
 
-            } /* fim ativa: Tratar par‚metro tipo inteiro */
+            } /* fim ativa: Tratar par√¢metro tipo inteiro */
 
-         /* Tratar par‚metro tipo flutuante */
+         /* Tratar par√¢metro tipo flutuante */
 
             case ID_TIPO_DOUBLE :
             {
@@ -677,9 +677,9 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
                break;
 
-            } /* fim ativa: Tratar par‚metro tipo flutuante */
+            } /* fim ativa: Tratar par√¢metro tipo flutuante */
 
-         /* Tratar par‚metro tipo nome */
+         /* Tratar par√¢metro tipo nome */
 
             case ID_TIPO_NOME :
             {
@@ -697,9 +697,9 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
                break;
 
-            } /* fim ativa: Tratar par‚metro tipo nome */
+            } /* fim ativa: Tratar par√¢metro tipo nome */
 
-         /* Tratar par‚metro tipo string */
+         /* Tratar par√¢metro tipo string */
 
             case ID_TIPO_STRING :
             {
@@ -717,36 +717,36 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
                break;
 
-            } /* fim ativa: Tratar par‚metro tipo string */
+            } /* fim ativa: Tratar par√¢metro tipo string */
 
-         /* Tratar erro de par‚metro */
+         /* Tratar erro de par√¢metro */
 
             default:
             {
 
-               ExibirErro( "Tipo de par‚metro desconhecido." ) ;
+               ExibirErro( "Tipo de par√¢metro desconhecido." ) ;
                va_end( ListaParm );
                return ContaCampos ;
 
                break ;
 
-            } /* fim ativa: Tratar erro de par‚metro */
+            } /* fim ativa: Tratar erro de par√¢metro */
 
-         } /* fim seleciona: Extrair par‚metro */
+         } /* fim seleciona: Extrair par√¢metro */
 
          ContaCampos ++ ;
 
-      } /* fim repete: Raiz de LER  &Ler linha de par‚metros */
+      } /* fim repete: Raiz de LER  &Ler linha de par√¢metros */
 
       va_end( ListaParm );
 
       return ContaCampos ;
 
-   } /* Fim funÁ„o: LER  &Ler linha de par‚metros */
+   } /* Fim fun√ß√£o: LER  &Ler linha de par√¢metros */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Ler par‚metro caractere
+*  Fun√ß√£o: LER  &Ler par√¢metro caractere
 *  ****/
 
    int LER_LerParmChar( char * Parm )
@@ -761,7 +761,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       PularBrancos( ) ;
 
-      /* Tratar par‚metro char simbÛlico */
+      /* Tratar par√¢metro char simb√≥lico */
 
          if ( isalpha( LER_Buffer[ LER_InxBuffer ] ))
          {
@@ -776,9 +776,9 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
             * Parm = pElem->ValorTipado.ValorChar ;
             return TRUE ;
 
-         } /* fim ativa: Tratar par‚metro char simbÛlico */
+         } /* fim ativa: Tratar par√¢metro char simb√≥lico */
 
-      /* Tratar par‚metro char literal */
+      /* Tratar par√¢metro char literal */
 
          if ( LER_Buffer[ LER_InxBuffer ] != '\'' )
          {
@@ -801,18 +801,18 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
          if ( LER_Buffer[ LER_InxBuffer ] != '\'' )
          {
-            ExibirErro( "Faltou aspas apÛs literal char." ) ;
+            ExibirErro( "Faltou aspas ap√≥s literal char." ) ;
             return FALSE ;
          } /* if */
          LER_InxBuffer ++ ;
 
          return TRUE ;
 
-   } /* Fim funÁ„o: LER  &Ler par‚metro caractere */
+   } /* Fim fun√ß√£o: LER  &Ler par√¢metro caractere */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Ler par‚metro inteiro
+*  Fun√ß√£o: LER  &Ler par√¢metro inteiro
 *  ****/
 
    int LER_LerParmInt( int * Parm )
@@ -830,7 +830,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       PularBrancos( ) ;
 
-      /* Tratar par‚metro int simbÛlico */
+      /* Tratar par√¢metro int simb√≥lico */
 
          if ( isalpha( LER_Buffer[ LER_InxBuffer ] ))
          {
@@ -845,9 +845,9 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
             * Parm = pElem->ValorTipado.ValorInt ;
             return TRUE ;
 
-         } /* fim ativa: Tratar par‚metro int simbÛlico */
+         } /* fim ativa: Tratar par√¢metro int simb√≥lico */
 
-      /* Tratar par‚metro int literal */
+      /* Tratar par√¢metro int literal */
 
          inxOrg = LER_InxBuffer ;
          if ( ( LER_Buffer[ LER_InxBuffer ] == '-' )
@@ -876,11 +876,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
          return TRUE ;
 
-   } /* Fim funÁ„o: LER  &Ler par‚metro inteiro */
+   } /* Fim fun√ß√£o: LER  &Ler par√¢metro inteiro */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Ler par‚metro flutuante
+*  Fun√ß√£o: LER  &Ler par√¢metro flutuante
 *  ****/
 
    int LER_LerParmDouble( double * Parm )
@@ -898,7 +898,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       PularBrancos( ) ;
 
-      /* Tratar par‚metro double simbÛlico */
+      /* Tratar par√¢metro double simb√≥lico */
 
          if ( isalpha( LER_Buffer[ LER_InxBuffer ] ))
          {
@@ -913,9 +913,9 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
             * Parm = pElem->ValorTipado.ValorDouble ;
             return TRUE ;
 
-         } /* fim ativa: Tratar par‚metro double simbÛlico */
+         } /* fim ativa: Tratar par√¢metro double simb√≥lico */
 
-      /* Tratar par‚metro double literal */
+      /* Tratar par√¢metro double literal */
 
          inxOrg = LER_InxBuffer ;
 
@@ -939,11 +939,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
          return TRUE ;
 
-   } /* Fim funÁ„o: LER  &Ler par‚metro flutuante */
+   } /* Fim fun√ß√£o: LER  &Ler par√¢metro flutuante */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Ler par‚metro nome
+*  Fun√ß√£o: LER  &Ler par√¢metro nome
 *  ****/
 
    int LER_LerParmNome( char * Parm , int * tamNome , int dimNome )
@@ -1001,11 +1001,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
       *tamNome        = inxParm ;
       return TRUE ;
 
-   } /* Fim funÁ„o: LER  &Ler par‚metro nome */
+   } /* Fim fun√ß√£o: LER  &Ler par√¢metro nome */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Ler par‚metro string
+*  Fun√ß√£o: LER  &Ler par√¢metro string
 *  ****/
 
    int LER_LerParmString( char * Parm , int * tamString , int dimString )
@@ -1021,7 +1021,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       PularBrancos( ) ;
 
-      /* Tratar par‚metro string simbÛlico */
+      /* Tratar par√¢metro string simb√≥lico */
 
          if ( isalpha( LER_Buffer[ LER_InxBuffer ] ))
          {
@@ -1039,7 +1039,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
                memcpy( Parm , pElem->ValorTipado.ValorString , pElem->tamString + 1 ) ;
             } else
             {
-               ExibirErro( "String em par‚metro È longo demais." ) ;
+               ExibirErro( "String em par√¢metro √© longo demais." ) ;
                *tamString = dimString - 1 ;
                memcpy( Parm , pElem->ValorTipado.ValorString , dimString ) ;
 
@@ -1048,15 +1048,15 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
             return TRUE ;
 
-         } /* fim ativa: Tratar par‚metro string simbÛlico */
+         } /* fim ativa: Tratar par√¢metro string simb√≥lico */
 
-      /* Tratar par‚metro string literal */
+      /* Tratar par√¢metro string literal */
 
          *tamString = 0 ;
 
          if ( LER_Buffer[ LER_InxBuffer ] != '\"' )
          {
-            ExibirErro( "Faltou aspas no inÌcio do string." ) ;
+            ExibirErro( "Faltou aspas no in√≠cio do string." ) ;
             Parm[ inxParm ] = 0 ;
             return FALSE ;
          } /* if */
@@ -1098,11 +1098,11 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
          *tamString      = inxParm ;
          return FALSE ;
 
-   } /* Fim funÁ„o: LER  &Ler par‚metro string */
+   } /* Fim fun√ß√£o: LER  &Ler par√¢metro string */
 
 /***************************************************************************
 *
-*  FunÁ„o: LER  &Pular comando de teste
+*  Fun√ß√£o: LER  &Pular comando de teste
 *  ****/
 
    void LER_PularComando( void )
@@ -1129,15 +1129,15 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
          LER_InxBuffer ++ ;
       } /* while */
 
-   } /* Fim funÁ„o: LER  &Pular comando de teste */
+   } /* Fim fun√ß√£o: LER  &Pular comando de teste */
 
 
-/*****  CÛdigo das funÁıes encapsuladas no mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes encapsuladas no m√≥dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  -Fechar arquivo script
+*  $FC Fun√ß√£o: LER  -Fechar arquivo script
 *
 ***********************************************************************/
 
@@ -1155,12 +1155,12 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
          NomeArqScript[ 0 ] = 0 ;
       } /* if */
 
-   } /* Fim funÁ„o: LER  -Fechar arquivo script */
+   } /* Fim fun√ß√£o: LER  -Fechar arquivo script */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  -Ler caractere de controle
+*  $FC Fun√ß√£o: LER  -Ler caractere de controle
 *
 ***********************************************************************/
 
@@ -1284,7 +1284,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
                   break ;
 
                default :
-                  ExibirErro( "CÛdigo de caractere especial desconhecido." ) ;
+                  ExibirErro( "C√≥digo de caractere especial desconhecido." ) ;
                   return LER_Buffer[ LER_InxBuffer ] ;
 
             } /* switch */
@@ -1294,12 +1294,12 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
          } /* fim ativa: Ler caracteres de escape simples */
 
-   } /* Fim funÁ„o: LER  -Ler caractere de controle */
+   } /* Fim fun√ß√£o: LER  -Ler caractere de controle */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  -Obter nome de par‚metro declarado
+*  $FC Fun√ß√£o: LER  -Obter nome de par√¢metro declarado
 *
 ***********************************************************************/
 
@@ -1308,12 +1308,12 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       return (( tpElemSimbolo * ) pDado)->Nome ;
 
-   } /* Fim funÁ„o: LER  -Obter nome de par‚metro declarado */
+   } /* Fim fun√ß√£o: LER  -Obter nome de par√¢metro declarado */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  -Obter dado associado a par‚metro simbÛlico
+*  $FC Fun√ß√£o: LER  -Obter dado associado a par√¢metro simb√≥lico
 *
 ***********************************************************************/
 
@@ -1328,7 +1328,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       if ( LER_LerParmNome( Nome , &tamNome , LER_DIM_NOME ) == FALSE )
       {
-         ExibirErro( "Sintaxe errada para nome de par‚metro." ) ;
+         ExibirErro( "Sintaxe errada para nome de par√¢metro." ) ;
          return NULL ;
       } /* if */
 
@@ -1336,26 +1336,26 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       if ( pElem == NULL )
       {
-         ExibirErro( "Par‚metro n„o est· definido: " ) ;
+         ExibirErro( "Par√¢metro n√£o est√° definido: " ) ;
          fprintf( TST_ObterArqLog( ) , "%s" , Nome ) ;
          return NULL ;
       } /* if */
 
       if ( pElem->idTipo != idTipo )
       {
-         ExibirErro( "Tipo do par‚metro incorreto. " ) ;
+         ExibirErro( "Tipo do par√¢metro incorreto. " ) ;
          fprintf( TST_ObterArqLog( ) , "%s" , Nome ) ;
          return NULL ;
       } /* if */
 
       return pElem ;
 
-   } /* Fim funÁ„o: LER  -Obter dado associado a par‚metro simbÛlico */
+   } /* Fim fun√ß√£o: LER  -Obter dado associado a par√¢metro simb√≥lico */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  -Pular brancos
+*  $FC Fun√ß√£o: LER  -Pular brancos
 *
 ***********************************************************************/
 
@@ -1371,12 +1371,12 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
          LER_InxBuffer ++ ;
       } /* while */
 
-   } /* Fim funÁ„o: LER  -Pular brancos */
+   } /* Fim fun√ß√£o: LER  -Pular brancos */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  -Verificar se È branco
+*  $FC Fun√ß√£o: LER  -Verificar se √© branco
 *
 ***********************************************************************/
 
@@ -1391,12 +1391,12 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
 
       return FALSE ;
 
-   } /* Fim funÁ„o: LER  -Verificar se È branco */
+   } /* Fim fun√ß√£o: LER  -Verificar se √© branco */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  -Exibir erro
+*  $FC Fun√ß√£o: LER  -Exibir erro
 *
 ***********************************************************************/
 
@@ -1406,7 +1406,7 @@ static const char EXIBIR_SIMBOLO_CMD[ ]    = "=exibirdeclaracao" ;
       TST_ContarFalhas( ) ;
       TST_ExibirPrefixo( ERRO_LER , Msg ) ;
 
-   } /* Fim funÁ„o: LER  -Exibir erro */
+   } /* Fim fun√ß√£o: LER  -Exibir erro */
 
-/********** Fim do mÛdulo de implementaÁ„o: LER  Ler par‚metros de comandos **********/
+/********** Fim do m√≥dulo de implementa√ß√£o: LER  Ler par√¢metros de comandos **********/
 

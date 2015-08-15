@@ -1,22 +1,22 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: TGEN Teste especÌfico para o mÛdulo teste genÈrico
+*  $MCI M√≥dulo de implementa√ß√£o: TGEN Teste espec√≠fico para o m√≥dulo teste gen√©rico
 *
 *  Arquivo gerado:              TESTGEN.c
 *  Letras identificadoras:      TGEN
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -36,15 +36,15 @@ static const char LONG_CMD      [ ] = "=compararlong" ;
 static const char FLOAT_CMD     [ ] = "=compararfloat" ;
 static const char STRING_CMD    [ ] = "=compararstring" ;
 
-/*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TGEN &Testar mÛdulo TesteGen
+*  $FC Fun√ß√£o: TGEN &Testar m√≥dulo TesteGen
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Efetua os diversos comandos de teste especÌficos para o mÛdulo
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Efetua os diversos comandos de teste espec√≠ficos para o m√≥dulo
 *     TesteGen
 *
 *     Comandos interpretados:
@@ -53,7 +53,7 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
 *        bool:  0 => FALSE    !=0 => TRUE
 *
 *     =compararchar  <char esperado> <char obtido>
-*        compara sensÌvel a caixa e diacrÌtico
+*        compara sens√≠vel a caixa e diacr√≠tico
 *
 *     =compararint   <int esperado>  <int obtido>
 *
@@ -66,25 +66,25 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
 *
 *     =espaco        <espaco esperado>  <espaco obtido>
 *         esperado deve estar entre aspas duplas
-*         obtido inicia no primeiro n„o branco
-*         valor  == .  sinaliza espaÁo tamanho 0
+*         obtido inicia no primeiro n√£o branco
+*         valor  == .  sinaliza espa√ßo tamanho 0
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     $P ComandoTeste - String contendo o comando
-*     $P CondRetParm  - par‚metro de retorno utilizado para retornar
-*                       o valor da condiÁ„o de retorno da funÁ„o testada
-*                       Conter· -1 caso tenha sido observada uma falha
-*                       e que n„o corresponda a uma condiÁ„o de retorno
+*     $P CondRetParm  - par√¢metro de retorno utilizado para retornar
+*                       o valor da condi√ß√£o de retorno da fun√ß√£o testada
+*                       Conter√° -1 caso tenha sido observada uma falha
+*                       e que n√£o corresponda a uma condi√ß√£o de retorno
 *                       definida em ARV_tpCondRet.
 *
 *  $FV Valor retornado
 *     TST_CondRetOK
 *     TST_CondRetNaoConhec
 *     TST_CondRetParm
-*     TST_CondRetErro      - a funÁ„o testada resultou em erro.
-*                            Neste caso È possÌvel recuperar a falha,
-*                            caso a condiÁ„o de retorno fornecida via
-*                            CondRetParm seja igual ‡ condiÁ„o esperada
+*     TST_CondRetErro      - a fun√ß√£o testada resultou em erro.
+*                            Neste caso √© poss√≠vel recuperar a falha,
+*                            caso a condi√ß√£o de retorno fornecida via
+*                            CondRetParm seja igual √† condi√ß√£o esperada
 *                            no comando =recuperar.
 *
 ***********************************************************************/
@@ -126,7 +126,7 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
             } /* if */
 
             return TST_CompararBool( IntEsperado , IntObtido ,
-                                     "Booleanos n„o s„o iguais." ) ;
+                                     "Booleanos n√£o s√£o iguais." ) ;
 
          } /* fim ativa: Testar Booleano */
 
@@ -143,7 +143,7 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
             } /* if */
 
             return TST_CompararChar( CharEsperado , CharObtido ,
-                                     "Caracteres n„o s„o iguais." ) ;
+                                     "Caracteres n√£o s√£o iguais." ) ;
 
          } /* fim ativa: Testar caractere */
 
@@ -160,7 +160,7 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
             } /* if */
 
             return TST_CompararInt( IntEsperado , IntObtido ,
-                                    "Inteiros n„o s„o iguais." ) ;
+                                    "Inteiros n√£o s√£o iguais." ) ;
 
          } /* fim ativa: Testar inteiro normal */
 
@@ -177,7 +177,7 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
             } /* if */
 
             return TST_CompararInt( LongEsperado , LongObtido ,
-                                    "Inteiros longos n„o s„o iguais." ) ;
+                                    "Inteiros longos n√£o s√£o iguais." ) ;
 
          } /* fim ativa: Testar inteiro longo */
 
@@ -194,7 +194,7 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
             } /* if */
 
             return TST_CompararFloat( FloatEsperado , FloatObtido , Tolerancia ,
-                                      "Flutuantes fora da toler‚ncia." ) ;
+                                      "Flutuantes fora da toler√¢ncia." ) ;
 
          } /* fim ativa: Testar flutuante */
 
@@ -211,11 +211,11 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
             } /* if */
 
             return TST_CompararString( StringEsperado , StringObtido ,
-                                       "Strings n„o s„o iguais." ) ;
+                                       "Strings n√£o s√£o iguais." ) ;
 
          } /* fim ativa: Testar string */
 
-      /* Testar acesso a espaÁos */
+      /* Testar acesso a espa√ßos */
 
          else if ( strcmp( ComandoTeste , ESPAC_CMD ) == 0 )
          {
@@ -234,18 +234,18 @@ static const char STRING_CMD    [ ] = "=compararstring" ;
 
             if ( EspacObtido[ 0 ] == '.' )     /* gera string com algum lixo */
             {
-               memcpy( EspacObtido , &NumLidos , 20 ) ; /* forÁa espaco errado contendo resÌduo da pilha */
+               memcpy( EspacObtido , &NumLidos , 20 ) ; /* for√ßa espaco errado contendo res√≠duo da pilha */
             } /* if */
 
             return TST_CompararEspaco( EspacEsperado , EspacObtido ,
                                        strlen( EspacEsperado ) ,
-                                       "EspaÁos n„o s„o iguais." ) ;
+                                       "Espa√ßos n√£o s√£o iguais." ) ;
 
-         } /* fim ativa: Testar acesso a espaÁos */
+         } /* fim ativa: Testar acesso a espa√ßos */
 
       return TST_CondRetNaoConhec ;
 
-   } /* Fim funÁ„o: TGEN &Testar mÛdulo TesteGen */
+   } /* Fim fun√ß√£o: TGEN &Testar m√≥dulo TesteGen */
 
-/********** Fim do mÛdulo de implementaÁ„o: TGEN Teste especÌfico para o mÛdulo teste genÈrico **********/
+/********** Fim do m√≥dulo de implementa√ß√£o: TGEN Teste espec√≠fico para o m√≥dulo teste gen√©rico **********/
 

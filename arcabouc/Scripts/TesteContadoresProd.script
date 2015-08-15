@@ -1,7 +1,7 @@
 // Script:    TesteContadores.script
 // Autor:     Arndt von Staa
 // Data:      18/fev/2006
-// Propósito: Testar o módulo contadores
+// PropÃ³sito: Testar o mÃ³dulo contadores
 //
 
 == Iniciar contagem
@@ -52,7 +52,7 @@
 =contagemcontador   "abcd"       1
 =contagemcontador   "outro * com ? brancos . e : especiais"   1
 
-== Verificar contagem proibida após ativar
+== Verificar contagem proibida apÃ³s ativar
 =contar             "cde"   12   -14
 =contagemcontador   "cde"   -2
 =AceitaFalhasAcumuladas      1

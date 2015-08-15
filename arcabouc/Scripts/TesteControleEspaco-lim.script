@@ -1,44 +1,44 @@
 // Script:    TesteControleEspaco.script
 // Autor:     Arndt von Staa
 // Data:      18/fev/2006
-// Propósito: Testar operações de limitação de memória
+// PropÃ³sito: Testar operaÃ§Ãµes de limitaÃ§Ã£o de memÃ³ria
 //
 
-== Verificar total de espaço alocado
+== Verificar total de espaÃ§o alocado
 =obtertotalespacosalocado    0
 =obternumeroespacosalocados  0
 
-== Alocar espaço de 16 bytes
+== Alocar espaÃ§o de 16 bytes
 =alocarespaco                1  16   5  "abcd"
 
-== Verificar total de espaço alocado
+== Verificar total de espaÃ§o alocado
 =obtertotalespacosalocado   16
 =obternumeroespacosalocados  1
 
-== Desalocar espaço
+== Desalocar espaÃ§o
 =desalocarespaco             1
 =obtertotalespacosalocado    0
 =obternumeroespacosalocados  0
 
-== Limitar espaço em 16
+== Limitar espaÃ§o em 16
 =limitarmemoriadisponivel   16
 =alocarespaco                1  16   5  "abcd"
 =obtertotalespacosalocado   16
 =obternumeroespacosalocados  1
 
-== Desalocar espaço
+== Desalocar espaÃ§o
 =desalocarespaco             1
 =obtertotalespacosalocado    0
 =obternumeroespacosalocados  0
 
-== Limitar espaço em 15
+== Limitar espaÃ§o em 15
 =limitarmemoriadisponivel   15
 =alocarespaco                1  16   5  "abcd"
 =obtertotalespacosalocado    0
 =obternumeroespacosalocados  0
 =exibirespaco                1
 
-== Limitar espaço em 100
+== Limitar espaÃ§o em 100
 =limitarmemoriadisponivel  100
 
 == Alocar 5 blocos de 18 , 19 , 20 , 21 e 22
@@ -48,31 +48,31 @@
 =alocarespaco                3  21   5  "dd"
 =alocarespaco                4  22   5  "ee"
 
-== Verificar total de espaço alocado
+== Verificar total de espaÃ§o alocado
 =obtertotalespacosalocado  100
 =obternumeroespacosalocados  5
 
-== Desalocar espaço de 21 bytes
+== Desalocar espaÃ§o de 21 bytes
 =desalocarespaco             3
 =obtertotalespacosalocado   79
 =obternumeroespacosalocados  4
 
-== Desalocar espaço de 19 bytes
+== Desalocar espaÃ§o de 19 bytes
 =desalocarespaco             1
 =obtertotalespacosalocado   60
 =obternumeroespacosalocados  3
 
-== Desalocar espaço de 22 bytes
+== Desalocar espaÃ§o de 22 bytes
 =desalocarespaco             4
 =obtertotalespacosalocado   38
 =obternumeroespacosalocados  2
 
-== Desalocar espaço de 18 bytes
+== Desalocar espaÃ§o de 18 bytes
 =desalocarespaco             0
 =obtertotalespacosalocado   20
 =obternumeroespacosalocados  1
 
-== Desalocar espaço de 20 bytes
+== Desalocar espaÃ§o de 20 bytes
 =desalocarespaco             2
 =obtertotalespacosalocado    0
 =obternumeroespacosalocados  0
@@ -84,7 +84,7 @@
 =alocarespaco                3  21   5  "dd"
 =alocarespaco                4  23   5  "ee"
 
-== Verificar total de espaço alocado
+== Verificar total de espaÃ§o alocado
 =obtertotalespacosalocado   78
 =obternumeroespacosalocados  4
 
@@ -96,16 +96,16 @@
 == Eliminar limitacao de espaco
 =limitarmemoriadisponivel    0
 
-== Desalocar último
+== Desalocar Ãºltimo
 =desalocarespaco             4
 =obtertotalespacosalocado   78 
 =obternumeroespacosalocados  4
 
-== Alocar um além do limite que existia
+== Alocar um alÃ©m do limite que existia
 =alocarespaco                4  23   5  "ee"
 =obtertotalespacosalocado  101
 =obternumeroespacosalocados  5
-=obtertotalespacosalocado  -101     verificação visual
+=obtertotalespacosalocado  -101     verificaÃ§Ã£o visual
 
 == Desalocar todos
 =desalocarespaco             1
@@ -116,7 +116,7 @@
 =obtertotalespacosalocado    0
 =obternumeroespacosalocados  0
 
-== Limitar espaço em 100
+== Limitar espaÃ§o em 100
 =limitarmemoriadisponivel  100
 
 == Alocar 5 blocos de 18 , 19 , 20 , 21 e 23
@@ -126,11 +126,11 @@
 =alocarespaco                3  21   5  "dd"
 =alocarespaco                4  23   5  "ee"
 
-== Verificar total de espaço alocado
+== Verificar total de espaÃ§o alocado
 =obtertotalespacosalocado   78
 =obternumeroespacosalocados  4
 
-== Eliminar todos os limites de espaço
+== Eliminar todos os limites de espaÃ§o
 =eliminarlimitesespaco
 =alocarespaco                4  23   5  "ee"
 =obtertotalespacosalocado  101
@@ -144,7 +144,7 @@
 =obtertotalespacosalocado    0
 =obternumeroespacosalocados  0
 
-== Limitar número de espaços em 3
+== Limitar nÃºmero de espaÃ§os em 3
 =limitarnumeroespacos        3
 
 == Alocar 5 blocos de 18 , 19 , 20 , 21 e 23
@@ -156,24 +156,24 @@
 =alocarespaco                3  21   5  "dd"
 =alocarespaco                4  23   5  "ee"
 
-== Verificar total de espaço alocado
+== Verificar total de espaÃ§o alocado
 =obtertotalespacosalocado   57
 =obternumeroespacosalocados  3
 
-== Limitar número de espaços em 4 espaços
+== Limitar nÃºmero de espaÃ§os em 4 espaÃ§os
 =limitarnumeroespacos        4
 =alocarespaco                3  21   5  "dd"
 =alocarespaco                4  23   5  "ee"
 =obtertotalespacosalocado   78
 =obternumeroespacosalocados  4
 
-== Eliminar limite de número de espaços
+== Eliminar limite de nÃºmero de espaÃ§os
 =limitarnumeroespacos        0
 =alocarespaco                4  23   5  "ee"
 =obtertotalespacosalocado  101
 =obternumeroespacosalocados  5
 
-== Estabelecer limite de número a posteriori
+== Estabelecer limite de nÃºmero a posteriori
 =limitarnumeroespacos        3
 =alocarespaco                0  19   5  "dd"
 =alocarespaco                1  20   5  "ee"
@@ -187,13 +187,13 @@
 =obtertotalespacosalocado  140
 =obternumeroespacosalocados  7
 
-== Verificar o número de NULLs gerados
+== Verificar o nÃºmero de NULLs gerados
 =obternumeroNULLgerado       8
 
-== Verificar a freqüência de NULLs controlados
+== Verificar a freqÃ¼Ãªncia de NULLs controlados
 =verificarfrequencia      1000   950   0.1
 
-== Exibir o número total de de NULLs gerados
+== Exibir o nÃºmero total de de NULLs gerados
 =exibirnumeroNULLgerado       8
 
 

@@ -1,32 +1,32 @@
 // Script:    TesteControleEspaco.script
 // Autor:     Arndt von Staa
 // Data:      18/fev/2006
-// PropÛsito: Testar controle de alocaÁ„o din‚mica
+// Prop√≥sito: Testar controle de aloca√ß√£o din√¢mica
 //
 
-== Exibir espaÁo n„o alocado
+== Exibir espa√ßo n√£o alocado
 =exibirespaco           1
 
-== Alocar espaÁo de 16 bytes
+== Alocar espa√ßo de 16 bytes
 =alocarespaco           0  16   5  "arq-111-inx-0"
 
-== Exibir espaÁo alocado
+== Exibir espa√ßo alocado
 =exibirespaco           0
 
-== Alocar espaÁo de 1 byte
+== Alocar espa√ßo de 1 byte
 =alocarespaco           1  1    6  "arq-222-inx-1"
 =exibirespaco           1
 
-== Alocar espaÁo de 17 bytes
+== Alocar espa√ßo de 17 bytes
 =alocarespaco           2  17   5  "arq-333-inx-2"
 =exibirespaco           2
 
-== exibir todos os espaÁos da origem para o fim (obs a espacos s„o adicionados ‡ frente)
+== exibir todos os espa√ßos da origem para o fim (obs a espacos s√£o adicionados √† frente)
 =exibirespaco           2
 =exibirespaco           1
 =exibirespaco           0
 
-== Verificar os tamanhos de todos os espaÁos
+== Verificar os tamanhos de todos os espa√ßos
 =obtertamanhoespaco     0  16
 =obtertamanhoespaco     1   1
 =obtertamanhoespaco     2  17
@@ -35,18 +35,18 @@
 =obtertamanhoespaco     2  18
 =recuperar
 
-== Verificar um a um todos os espaÁos com conte˙do ainda vazio
+== Verificar um a um todos os espa√ßos com conte√∫do ainda vazio
 =verificarespaco        0   1
 =verificarespaco        1   1
 =verificarespaco        2   1
 
-== Verificar a lista de todos os espaÁos
+== Verificar a lista de todos os espa√ßos
 =verificartodosespacos  1
 
 == Marcar 2o. inativos
 =marcarespaconaoativo   1
 
-== Verificar se os espaÁos est„o ativos
+== Verificar se os espa√ßos est√£o ativos
 =verificarespacoativo   0   1
 =verificarespacoativo   1   0
 =verificarespacoativo   2   1
@@ -59,7 +59,7 @@
 =exibirtodosespacos     2
 =obternumeroregra       2   2
 
-== Exibir todos os espacos n„o ativos
+== Exibir todos os espacos n√£o ativos
 =exibirtodosespacos     3
 =obternumeroregra       3   1
 
@@ -67,19 +67,19 @@
 =iniciariteradorespacos
 =existeespacocorrente   1
 
-== Obter 1o. espaÁo da lista
+== Obter 1o. espa√ßo da lista
 =obterespacocorrente    3
 =verificarespacoativo   3   1
 
-== Obter 2o. espaÁo da lista
+== Obter 2o. espa√ßo da lista
 =avancarproximoespaco   1
 =obterespacocorrente    3
 =verificarespacoativo   3   0
 
-== Marcar ˙ltimo n„o ativo
+== Marcar √∫ltimo n√£o ativo
 =marcarespaconaoativo   2
 
-== Verificar se os espaÁos est„o ativos
+== Verificar se os espa√ßos est√£o ativos
 =verificarespacoativo   0   1
 =verificarespacoativo   1   0
 =verificarespacoativo   2   0
@@ -88,23 +88,23 @@
 =iniciariteradorespacos
 =existeespacocorrente   1
 
-== Obter 1o. espaÁo da lista
+== Obter 1o. espa√ßo da lista
 =obterespacocorrente    3
 =verificarespacoativo   3   0
 
-== Obter 2o. espaÁo da lista
+== Obter 2o. espa√ßo da lista
 =avancarproximoespaco   1
 =existeespacocorrente   1
 =obterespacocorrente    3
 =verificarespacoativo   3   0
 
-== Obter 3o. espaÁo da lista
+== Obter 3o. espa√ßo da lista
 =avancarproximoespaco   1
 =existeespacocorrente   1
 =obterespacocorrente    3
 =verificarespacoativo   3   1
 
-== AvanÁar alÈm da lista
+== Avan√ßar al√©m da lista
 =avancarproximoespaco   0
 =existeespacocorrente   0
 
@@ -114,36 +114,36 @@
 =terminariteradorespaco
 =existeespacocorrente   0
 
-== Marcar todos os espaÁos n„o ativos
+== Marcar todos os espa√ßos n√£o ativos
 =marcartodosnaoativos
 =verificarespacoativo   0   0
 =verificarespacoativo   1   0
 =verificarespacoativo   2   0
 
-== excluir espaÁo do meio
+== excluir espa√ßo do meio
 =desalocarespaco        1
 =exibirespaco           2
 =exibirespaco           1
 =exibirespaco           0
 
-== excluir espaÁo final 
+== excluir espa√ßo final 
 =desalocarespaco        0
 =exibirespaco           2
 =exibirespaco           1
 =exibirespaco           0
 
-== excluir ˙nico restante 
+== excluir √∫nico restante 
 =desalocarespaco        2
 =exibirespaco           2
 =exibirespaco           1
 =exibirespaco           0
 
-== Alocar espaÁos  de tamanhos 2 5 e 15
+== Alocar espa√ßos  de tamanhos 2 5 e 15
 =alocarespaco           2   2   2  "aa"
 =alocarespaco           1   5   5  "bbbbb"
 =alocarespaco           0  15  15  "ccccccccccccccc"
 
-== Verificar totais de espaÁos
+== Verificar totais de espa√ßos
 =obternumeroespacosalocados  3
 =obternumerototalespacos     6
 
@@ -154,69 +154,69 @@
 =definirtipoespaco      0  53  1
 =obtertipoespaco        0  53
 
-== Verificar redefiniÁ„o de tipo
+== Verificar redefini√ß√£o de tipo
 =definirtipoespaco      0  54  0
 =obtertipoespaco        0  53
 
-== Verificar redefiniÁ„o de tipo para indefinido
+== Verificar redefini√ß√£o de tipo para indefinido
 =definirtipoespaco      0  0  1
 =obtertipoespaco        0  0
 =definirtipoespaco      0  54  1
 
-== exibir todos os espaÁos da origem para o fim (obs a espacos s„o adicionados ‡ frente)
+== exibir todos os espa√ßos da origem para o fim (obs a espacos s√£o adicionados √† frente)
 =exibirespaco           0
 =exibirespaco           1
 =exibirespaco           2
 
-== inserir exato no espaÁo
+== inserir exato no espa√ßo
 =inserirstringespaco    0   "cccccccccccccc"
 =exibirespaco           0
 =obterstringespaco      0   "cccccccccccccc"
 
-== inserir 1 menor no espaÁo
+== inserir 1 menor no espa√ßo
 =inserirstringespaco    1   "aaa"
 =exibirespaco           1
 =obterstringespaco      1   "aaa"
 
-== inserir exatamente no espaÁo
+== inserir exatamente no espa√ßo
 =inserirstringespaco    2   "a"
 
-== Verificar um a um todos os espaÁos com conte˙do inicializado 
+== Verificar um a um todos os espa√ßos com conte√∫do inicializado 
 =verificarespaco        0   1
 =verificarespaco        1   1
 =verificarespaco        2   1
 
-== Verificar a lista de todos os espaÁos
+== Verificar a lista de todos os espa√ßos
 =verificartodosespacos  1
 
-== Adicionar mais um espaÁo
+== Adicionar mais um espa√ßo
 =alocarespaco           3   5   5  "xxxxx"
 =obternumeroespacosalocados  4
 =obternumerototalespacos     7
 
-== Excluir segundo espaÁo
+== Excluir segundo espa√ßo
 =exibirespaco           3     // 6 deve ser origem e ter como sucessor 5
 =desalocarespaco        0
 =exibirespaco           3     // 6 deve ser origem e ter como sucessor 4
 
-== Excluir ultimo espaÁo
+== Excluir ultimo espa√ßo
 =exibirespaco           2     // 3 deve ser final e ter como antecessor 4
 =desalocarespaco        2
 =exibirespaco           1     // 4 deve ser final e ter como antecessor 6
 
-== Excluir primeiro espaÁo
+== Excluir primeiro espa√ßo
 =exibirespaco           3     // 6 deve ser origem e ter como sucessor 4
 =desalocarespaco        3
 =exibirespaco           1     // 4 deve ser origem e final 
 
-== Excluir espaÁo restante
+== Excluir espa√ßo restante
 =desalocarespaco        1
 
 == Verificar total de espacos ativos
 =obternumeroespacosalocados  0
 =obternumerototalespacos     7
 
-== Alocar lista de 3 espaÁos
+== Alocar lista de 3 espa√ßos
 =alocarespaco           0   2   2  "arq1"
 =inserirstringespaco    0   "a"
 =exibirespaco           0
@@ -230,33 +230,33 @@
 == Iniciar iterador
 =iniciariteradorespacos
 
-== Obter 1o. espaÁo da lista
+== Obter 1o. espa√ßo da lista
 =existeespacocorrente   1
 =obterespacocorrente    3
 =obterstringespaco      3   "ccc"
 
-== Obter 2o. espaÁo da lista
+== Obter 2o. espa√ßo da lista
 =avancarproximoespaco   1
 =existeespacocorrente   1
 =obterespacocorrente    3
 =obterstringespaco      3   "bbbb"
 
-== Obter 3o. espaÁo da lista
+== Obter 3o. espa√ßo da lista
 =avancarproximoespaco   1
 =existeespacocorrente   1
 =obterespacocorrente    3
 =obterstringespaco      3   "a"
 
-== AvanÁar alÈm da lista
+== Avan√ßar al√©m da lista
 =avancarproximoespaco   0
 =existeespacocorrente   0
 
-== Excluir espaÁo do meio da lista
+== Excluir espa√ßo do meio da lista
 =iniciariteradorespacos
 =avancarproximoespaco   1
 =excluirespacocorrente
 
-== Verificar espaÁo apÛs exclus„o
+== Verificar espa√ßo ap√≥s exclus√£o
 =iniciariteradorespacos
 =obterespacocorrente    0
 =obterstringespaco      0   "ccc"

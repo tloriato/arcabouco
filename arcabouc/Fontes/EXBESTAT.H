@@ -2,31 +2,31 @@
 #define Exbestat_
 /***************************************************************************
 *
-*  $MCD Módulo de definição: EXES Exibir estatisticas de teste acumuladas
+*  $MCD MÃ³dulo de definiÃ§Ã£o: EXES Exibir estatisticas de teste acumuladas
 *
 *  Arquivo gerado:              Exbestatnulo
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Exibe o conteúdo do arquivo acumulador de estatísticas de massas de teste.
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Exibe o conteÃºdo do arquivo acumulador de estatÃ­sticas de massas de teste.
 *
-*  $EIU Interface com o usuário pessoa
-*     Deve ser fornecido um parâmetro /a<nome>
-*     no qual <nome> é o nome do arquivo de acumulação de estatísticas
-*     gerado com apoio do arcabouço.
+*  $EIU Interface com o usuÃ¡rio pessoa
+*     Deve ser fornecido um parÃ¢metro /a<nome>
+*     no qual <nome> Ã© o nome do arquivo de acumulaÃ§Ã£o de estatÃ­sticas
+*     gerado com apoio do arcabouÃ§o.
 *
 ***************************************************************************/
  
@@ -39,7 +39,7 @@
 
 /***********************************************************************
 *
-*  $FC Função: EXES &Exibir conteúdo do arquivo estatisticas
+*  $FC FunÃ§Ã£o: EXES &Exibir conteÃºdo do arquivo estatisticas
 *
 ***********************************************************************/
 
@@ -47,7 +47,7 @@
 
 #undef Exbestat_EXT
 
-/********** Fim do módulo de definição: EXES Exibir estatisticas de teste acumuladas **********/
+/********** Fim do mÃ³dulo de definiÃ§Ã£o: EXES Exibir estatisticas de teste acumuladas **********/
 
 #else
 #endif

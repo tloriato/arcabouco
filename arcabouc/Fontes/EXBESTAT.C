@@ -1,29 +1,29 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: EXES Exibir estatisticas de teste acumuladas
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: EXES Exibir estatisticas de teste acumuladas
 *
 *  Arquivo gerado:              Exbestat.c
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Exibe o conteúdo do arquivo acumulador de estatísticas de massas de teste.
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Exibe o conteÃºdo do arquivo acumulador de estatÃ­sticas de massas de teste.
 *
-*  $EIU Interface com o usuário pessoa
-*     Deve ser fornecido um parâmetro /a<nome>
-*     no qual <nome> é o nome do arquivo de acumulação de estatísticas
-*     gerado com apoio do arcabouço.
+*  $EIU Interface com o usuÃ¡rio pessoa
+*     Deve ser fornecido um parÃ¢metro /a<nome>
+*     no qual <nome> Ã© o nome do arquivo de acumulaÃ§Ã£o de estatÃ­sticas
+*     gerado com apoio do arcabouÃ§o.
 *
 ***************************************************************************/
 
@@ -44,16 +44,16 @@
 
 #define  DIM_NOME_ARQ      250
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
 
    static char * TST_ObterInicioExtensao( char * NomeArqParm ) ;
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: EXES &Exibir conteúdo do arquivo estatisticas
+*  $FC FunÃ§Ã£o: EXES &Exibir conteÃºdo do arquivo estatisticas
 *
 ***********************************************************************/
 
@@ -92,7 +92,7 @@
          printf( "\nLES - Laboratorio de Engenharia de Software DI/PUC-Rio" ) ;
          printf( "\n      Teste automatizado de modulos C, exibir estatisticas (c) 2006\n" ) ;
 
-      /* Obter parâmetros exibe estatisticas */
+      /* Obter parÃ¢metros exibe estatisticas */
 
          for ( inxParm = 1 ; inxParm < NumParm ; inxParm ++ )
          {
@@ -140,7 +140,7 @@
             } /* fim if */
          } /* fim repete */
 
-      /* Controlar parâmetros exibir estatisticas */
+      /* Controlar parÃ¢metros exibir estatisticas */
 
          if ( NomeArquivoEstatisticas[ 0 ] == 0 )
          {
@@ -151,7 +151,7 @@
                Erro = 4 ;
             } /* if */
 
-         } /* fim ativa: Controlar parâmetros exibir estatisticas */
+         } /* fim ativa: Controlar parÃ¢metros exibir estatisticas */
 
       /* Exibir sintaxe de uso do programa exibir estatisticas */
 
@@ -170,9 +170,9 @@
 
          } /* fim ativa: Exibir sintaxe de uso do programa exibir estatisticas */
 
-      /* Exibir conteúdo do estatisticas */
+      /* Exibir conteÃºdo do estatisticas */
 
-         /* Obter total de vários acumuladores */
+         /* Obter total de vÃ¡rios acumuladores */
 
             NomeArquivoProx = NomeArquivoEstatisticas ;
 
@@ -193,7 +193,7 @@
                   strcpy( NomeArquivoCorr , NomeArquivoEstatisticas ) ;
                } /* if */
 
-            /* Efetuar a acumulação de acumuladores */
+            /* Efetuar a acumulaÃ§Ã£o de acumuladores */
 
                if ( TST_ObterInicioExtensao( NomeArquivoCorr ) == NULL )
                {
@@ -232,7 +232,7 @@
                   return 4 ;
                } /* if */
 
-            } /* fim repete: Obter total de vários acumuladores */
+            } /* fim repete: Obter total de vÃ¡rios acumuladores */
 
          /* Exibir total acumulado de todos acumuladores */
 
@@ -259,30 +259,30 @@
 
       return 0 ;
 
-   } /* Fim função: EXES &Exibir conteúdo do arquivo estatisticas */
+   } /* Fim funÃ§Ã£o: EXES &Exibir conteÃºdo do arquivo estatisticas */
 
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TSTG &Obter origem do nome da extensão de arquivo
+*  $FC FunÃ§Ã£o: TSTG &Obter origem do nome da extensÃ£o de arquivo
 *
-*  $ED Descrição da função
-*     Procura o início do nome da extensão contido no nome do arquivo
-*     dado por parâmetro
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Procura o inÃ­cio do nome da extensÃ£o contido no nome do arquivo
+*     dado por parÃ¢metro
 *
 *     Evite o uso de nomes de arquivos com dois ou mais caracteres ".".
-*     Isto pode confundir no caso de se desejar a adição de algum nome
-*     de extensão padrão.
+*     Isto pode confundir no caso de se desejar a adiÃ§Ã£o de algum nome
+*     de extensÃ£o padrÃ£o.
 *
-*  $EP Parâmetros
+*  $EP ParÃ¢metros
 *     $P NomeArqParm - nome de arquivo a ser analisado
 *
 *  $FV Valor retornado
-*     Ponteiro para o caractere '.' que separa a extensão.
-*     Será NULL caso o nome do arquivo não contenha extensão.
+*     Ponteiro para o caractere '.' que separa a extensÃ£o.
+*     SerÃ¡ NULL caso o nome do arquivo nÃ£o contenha extensÃ£o.
 *
 ***********************************************************************/
 
@@ -305,7 +305,7 @@
 
       return NULL ;
 
-   } /* Fim função: TSTG &Obter origem do nome da extensão de arquivo */
+   } /* Fim funÃ§Ã£o: TSTG &Obter origem do nome da extensÃ£o de arquivo */
 
-/********** Fim do módulo de implementação: EXES Exibir estatisticas de teste acumuladas **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: EXES Exibir estatisticas de teste acumuladas **********/
 

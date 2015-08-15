@@ -1,4 +1,4 @@
-/* Gerar uma permutação aleatória de um vetor contendo os n 
+/* Gerar uma permutaÃ§Ã£o aleatÃ³ria de um vetor contendo os n 
 *  primeiros inteiros
 *  Modo de uso
 *     GerarPermutacao n
@@ -60,7 +60,7 @@ int main( int numParm , char ** vtParm )
 	
 	if ( Erro != 0 )
    {
-      printf( "\nNúmero de elementos a permutar errado: %s" , ParmBuffer ) ;
+      printf( "\nNÃºmero de elementos a permutar errado: %s" , ParmBuffer ) ;
       printf( "\nModo de usar:  gerapermutacao  n  np em que 2 <= n < %d e nP >= 1" , DIM_VET ) ;
       return 4 ;
    } /* if */
@@ -79,7 +79,7 @@ for ( conta = 0 ; conta < numPermut ; conta ++ )
 {
    ALT_GerarPermutacao( numGera , Vetor ) ;
 
-/* Exibir Permutação */
+/* Exibir PermutaÃ§Ã£o */
 
    printf( "\n\nPermutacao" ) ;
 

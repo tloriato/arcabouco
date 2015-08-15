@@ -2,55 +2,55 @@
 #define INTRPCNT_
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: ICNT Interpretador de contadores
+*  $MCD M√≥dulo de defini√ß√£o: ICNT Interpretador de contadores
 *
 *  Arquivo gerado:              INTRPCNT.H
 *  Letras identificadoras:      ICNT
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     ContÈm o interpretador de comandos de contagem.
-*     Este mÛdulo deve ser referenciado no mÛdulo de teste genÈrico
-*     e a funÁ„o de interpretaÁ„o deve ser incorporada no
-*     "daisy chain" que chama interpretadores sucessivos atÈ que
+*  $ED Descri√ß√£o do m√≥dulo
+*     Cont√©m o interpretador de comandos de contagem.
+*     Este m√≥dulo deve ser referenciado no m√≥dulo de teste gen√©rico
+*     e a fun√ß√£o de interpreta√ß√£o deve ser incorporada no
+*     "daisy chain" que chama interpretadores sucessivos at√© que
 *     um deles interprete o comando.
 *
-*  $EIU Interface com o usu·rio pessoa
-*     Comandos de contagem sempre disponÌveis
+*  $EIU Interface com o usu√°rio pessoa
+*     Comandos de contagem sempre dispon√≠veis
 *
 *     =inicializarcontadores   <nome arquivo contadores acumulado>
 *          o nome do arquivo pode ser nulo.
-*          Se o nome do arquivo for ".", ser· tambÈm tratado como nulo.
+*          Se o nome do arquivo for ".", ser√° tamb√©m tratado como nulo.
 *
-*     =terminarcontadores    <n˙mero contadores iguais a zero esperado>
+*     =terminarcontadores    <n√∫mero contadores iguais a zero esperado>
 *          Grava o arquivo de contadores acumulados, caso esteja
-*          definido (nome n„o vazio).
+*          definido (nome n√£o vazio).
 *
 *     =registraracumulador   <nome arquivo contadores acumulado>
 *          substitui o nome registrado.
 *          o nome do arquivo pode ser nulo.
-*          Se o nome do arquivo for ".", ser· tambÈm tratado como nulo.
+*          Se o nome do arquivo for ".", ser√° tamb√©m tratado como nulo.
 *
 *     =lercontadores         <nome arquivo contadores>
-*          leÍ o arquivo e atribui os valores iniciais somente se
+*          le√™ o arquivo e atribui os valores iniciais somente se
 *          o contador tiver sido lido de um arquivo acumulado.
 *
 *     =gravarcontadores      <nome arquivo contadores acumulado>
 *          grava o arquivo de contadores acumulado registrado.
-*          A gravaÁ„o ocorre tambÈm ao terminar contadores
+*          A grava√ß√£o ocorre tamb√©m ao terminar contadores
 *
 *     =zerartodoscontadores
 *
@@ -58,21 +58,21 @@
 *
 *     =iniciarcontagem
 *          Ativa a contagem. Este comando precisa ser dado.
-*          =inicializarcontadores n„o ativa a contagem, somente ativa
-*          o mÛdulo
+*          =inicializarcontadores n√£o ativa a contagem, somente ativa
+*          o m√≥dulo
 *
 *     =pararcontagem
 *          Desativa a contagem
 *
-*     =contagemcontador   <n˙mero esperado>
+*     =contagemcontador   <n√∫mero esperado>
 *
 *     =exibircontagem
 *
-*     =numcontadores      <n˙mero esperado>
+*     =numcontadores      <n√∫mero esperado>
 *
-*     =contagemtotal      <somatÛrio das contagens esperado>
+*     =contagemtotal      <somat√≥rio das contagens esperado>
 *
-*     =verificarcontagens <n˙mero contadores zero iguais a zero esperado>
+*     =verificarcontagens <n√∫mero contadores zero iguais a zero esperado>
 *
 ***************************************************************************/
  
@@ -82,19 +82,19 @@
    #define INTRPCNT_EXT extern
 #endif
 
-/***** DeclaraÁıes exportadas pelo mÛdulo *****/
+/***** Declara√ß√µes exportadas pelo m√≥dulo *****/
 
 #include    "TST_Espc.h"
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: ICNT &Interpretar comandos de contagem
+*  $FC Fun√ß√£o: ICNT &Interpretar comandos de contagem
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Esta funÁ„o interpreta todos os comandos especÌficos para
-*     a contagem da passagem do controle da execuÁ„o por determinado
-*     ponto do cÛdigo fonte.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Esta fun√ß√£o interpreta todos os comandos espec√≠ficos para
+*     a contagem da passagem do controle da execu√ß√£o por determinado
+*     ponto do c√≥digo fonte.
 *
 *     Interpreta os comandos
 *
@@ -117,7 +117,7 @@
 
 #undef INTRPCNT_EXT
 
-/********** Fim do mÛdulo de definiÁ„o: ICNT Interpretador de contadores **********/
+/********** Fim do m√≥dulo de defini√ß√£o: ICNT Interpretador de contadores **********/
 
 #else
 #endif

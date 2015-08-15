@@ -2,85 +2,85 @@
 #define CESPDIN_
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: CED  Controlador de espaÁos de dados alocados dinamicamente
+*  $MCD M√≥dulo de defini√ß√£o: CED  Controlador de espa√ßos de dados alocados dinamicamente
 *
 *  Arquivo gerado:              CESPDIN.h
 *  Letras identificadoras:      CED
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
 *     5       avs   18/mai/2008 corrigir e ampliar CESPDIN
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     O mÛdulo de instrumentaÁ„o CESPDIN disponibiliza um conjunto de
-*     funÁıes para
-*     - controlar a extravas„o de espaÁos de dados alocados ao usu·rio
-*     - controlar o acesso a espaÁos j· desalocados
-*     - controlar a consistÍncia entre o tipo implÌcito de um ponteiro e o
-*       tipo do espaÁo por ele apontado
-*     - controlar o vazamento de memÛria
-*     - simular ter-se atingido o limite de memÛria disponÌvel
-*     - gerar aleatoriamente a falta de memÛria
-*     - controlar a integridade da estrutura de espaÁos de dados din‚micos
-*     - exibir o conteÁudo de espaÁos de dados em formato hexadecimal
+*  $ED Descri√ß√£o do m√≥dulo
+*     O m√≥dulo de instrumenta√ß√£o CESPDIN disponibiliza um conjunto de
+*     fun√ß√µes para
+*     - controlar a extravas√£o de espa√ßos de dados alocados ao usu√°rio
+*     - controlar o acesso a espa√ßos j√° desalocados
+*     - controlar a consist√™ncia entre o tipo impl√≠cito de um ponteiro e o
+*       tipo do espa√ßo por ele apontado
+*     - controlar o vazamento de mem√≥ria
+*     - simular ter-se atingido o limite de mem√≥ria dispon√≠vel
+*     - gerar aleatoriamente a falta de mem√≥ria
+*     - controlar a integridade da estrutura de espa√ßos de dados din√¢micos
+*     - exibir o conte√ßudo de espa√ßos de dados em formato hexadecimal
 *
-*  $EIU Interface com o usu·rio pessoa
-*     Para fazer com que um determinado mÛdulo tenha todos os usos de
-*     malloc, calloc, _msize e free controlados, basta incluir o mÛdulo de
-*     definiÁ„o deste mÛdulo. Idealmente use uma construÁ„o similar a:
+*  $EIU Interface com o usu√°rio pessoa
+*     Para fazer com que um determinado m√≥dulo tenha todos os usos de
+*     malloc, calloc, _msize e free controlados, basta incluir o m√≥dulo de
+*     defini√ß√£o deste m√≥dulo. Idealmente use uma constru√ß√£o similar a:
 *
 *     #ifdef _DEBUG
 *        #include "cespdin.h"
 *     #endif
 *
-*     Isto far· com que todas as chamadas malloc e free do mÛdulo controlado
-*     sejam direcionadas para as funÁıes equivalentes disponibilizadas
-*     pelo presente mÛdulo.
+*     Isto far√° com que todas as chamadas malloc e free do m√≥dulo controlado
+*     sejam direcionadas para as fun√ß√µes equivalentes disponibilizadas
+*     pelo presente m√≥dulo.
 *
-*     Para possibilitar a remoÁ„o autom·tica da instrumentaÁ„o
-*     circunde todos os usos de funÁıes desse mÛdulo porventura existentes
-*     no mÛdulo a testar com o comando de compilaÁ„o condicional
+*     Para possibilitar a remo√ß√£o autom√°tica da instrumenta√ß√£o
+*     circunde todos os usos de fun√ß√µes desse m√≥dulo porventura existentes
+*     no m√≥dulo a testar com o comando de compila√ß√£o condicional
 *
 *     #ifdef _DEBUG
-*        chamadas a funÛcıes de CESPDIN
+*        chamadas a fun√≥c√µes de CESPDIN
 *     #endif
 *
-*     Se corretamente codificado a recompilaÁ„o do mÛdulo instrumentado
+*     Se corretamente codificado a recompila√ß√£o do m√≥dulo instrumentado
 *     sem o nome _DEBUG definido deveria resultar em zero erros de
-*     compilaÁ„o.
+*     compila√ß√£o.
 *
-*     OBSERVA«√O: Antes de recompilar, destrua o correspondente mÛdulo objeto,
-*     para que o make n„o o encontre durante a reconstruÁ„o do construto.
+*     OBSERVA√á√ÉO: Antes de recompilar, destrua o correspondente m√≥dulo objeto,
+*     para que o make n√£o o encontre durante a reconstru√ß√£o do construto.
 *
-*     Para o correto funcionamento das funÁıes desse mÛdulo, È necess·rio
-*     que o mÛdulo CESPDIN contenha um comando similar a:
+*     Para o correto funcionamento das fun√ß√µes desse m√≥dulo, √© necess√°rio
+*     que o m√≥dulo CESPDIN contenha um comando similar a:
 *
 *     #pragma pack (1)
 *
-*     existente no Visual Studio C/C++. Esse comando introduz dependÍncias
-*     de plataforma, tornando n„o port·til o mÛdulo CESPDIN.
+*     existente no Visual Studio C/C++. Esse comando introduz depend√™ncias
+*     de plataforma, tornando n√£o port√°til o m√≥dulo CESPDIN.
 *
 *     Ao mover para outra plataforma de desenvolvimento, procure
-*     documentaÁ„o sobre a forma com que esta plataforma aloca espaÁos,
-*     em particular como alinha os espaÁos. ApÛs faÁa os ajustes necess·rios,
-*     atÈ no struct que contÈm o espaÁo efetivamente alocado (espaÁo
-*     instrumentado) de modo que satisfaÁa as regras de alinhamento da
+*     documenta√ß√£o sobre a forma com que esta plataforma aloca espa√ßos,
+*     em particular como alinha os espa√ßos. Ap√≥s fa√ßa os ajustes necess√°rios,
+*     at√© no struct que cont√©m o espa√ßo efetivamente alocado (espa√ßo
+*     instrumentado) de modo que satisfa√ßa as regras de alinhamento da
 *     nova plataforma.
 *
-*     Em geral, os sintomas de mau funcionamento apÛs a remoÁ„o de #pragma
-*     s„o pequenas, de maneira geral circunscritas a extravasıes de espaÁo
-*     passarem despercebidas pela instrumentaÁ„o.
+*     Em geral, os sintomas de mau funcionamento ap√≥s a remo√ß√£o de #pragma
+*     s√£o pequenas, de maneira geral circunscritas a extravas√µes de espa√ßo
+*     passarem despercebidas pela instrumenta√ß√£o.
 *
 ***************************************************************************/
  
@@ -93,42 +93,42 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: CED Modos de exibiÁ„o
+*  $TC Tipo de dados: CED Modos de exibi√ß√£o
 *
 *
-*  $ED DescriÁ„o do tipo
-*     Enumera todos os modos de listar espaÁos alocados
+*  $ED Descri√ß√£o do tipo
+*     Enumera todos os modos de listar espa√ßos alocados
 *
 ***********************************************************************/
 
    typedef enum {
 
          CED_ExibirTodos    = 1 ,
-               /* Exibir todos os espaÁos */
+               /* Exibir todos os espa√ßos */
 
          CED_ExibirAtivos   = 2 ,
-               /* Exibir todos os espaÁos ativos */
+               /* Exibir todos os espa√ßos ativos */
 
          CED_ExibirInativos = 3
-               /* Exibir todos os espaÁos inativos */
+               /* Exibir todos os espa√ßos inativos */
 
    } CED_tpModoExibir ;
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Inicializar o controlador de alocaÁ„o de espaÁos din‚micos
+*  $FC Fun√ß√£o: CED  &Inicializar o controlador de aloca√ß√£o de espa√ßos din√¢micos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Esta funÁ„o inicializa o controlador de espaÁos em memÛria din‚mica.
-*     A funÁ„o deve ser chamada uma ˙nica vez, antes de qualquer outra funÁ„o
-*     do mÛdulo.
-*     Sugere-se que seja chamada ao iniciar o teste do mÛdulo controlado.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Esta fun√ß√£o inicializa o controlador de espa√ßos em mem√≥ria din√¢mica.
+*     A fun√ß√£o deve ser chamada uma √∫nica vez, antes de qualquer outra fun√ß√£o
+*     do m√≥dulo.
+*     Sugere-se que seja chamada ao iniciar o teste do m√≥dulo controlado.
 *
-*     OBS. O mÛdulo de teste genÈrico faz esta inicializaÁ„o sempre.
+*     OBS. O m√≥dulo de teste gen√©rico faz esta inicializa√ß√£o sempre.
 *
-*  $EP Par‚metros
-*     $P pArqLogParm - ponteiro para o arquivo log de teste. N„o pode ser nulo.
+*  $EP Par√¢metros
+*     $P pArqLogParm - ponteiro para o arquivo log de teste. N√£o pode ser nulo.
 *
 ***********************************************************************/
 
@@ -137,66 +137,66 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Alocar espaÁo malloc
+*  $FC Fun√ß√£o: CED  &Alocar espa√ßo malloc
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Nos mÛdulos controlados esta funÁ„o instrumenta a funÁ„o "malloc".
-*     A instrumentaÁ„o È transparente para o mÛdulo controlado,
-*     basta que inclua o mÛdulo de definiÁ„o CESPDIN.H.
-*     Ou seja, se o mÛdulo de definiÁ„o "CESPDIN.H" for incluido,
-*     a presente funÁ„o ser· utilizada ao chamar "malloc" dentro de algum
-*     mÛdulo cliente. N„o sendo incluido "CESPDIN.H", ser· chamada
-*     diretamente a funÁ„o "malloc" padr„o de C.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Nos m√≥dulos controlados esta fun√ß√£o instrumenta a fun√ß√£o "malloc".
+*     A instrumenta√ß√£o √© transparente para o m√≥dulo controlado,
+*     basta que inclua o m√≥dulo de defini√ß√£o CESPDIN.H.
+*     Ou seja, se o m√≥dulo de defini√ß√£o "CESPDIN.H" for incluido,
+*     a presente fun√ß√£o ser√° utilizada ao chamar "malloc" dentro de algum
+*     m√≥dulo cliente. N√£o sendo incluido "CESPDIN.H", ser√° chamada
+*     diretamente a fun√ß√£o "malloc" padr√£o de C.
 *
-*     O valor (parte ˙til do espaÁo alocado) È inicializado para o
-*     caractere '|', permitindo a verificaÁ„o de se o valor foi
-*     corretamente inicializado ou n„o apÛs ‡ inicializaÁ„o a ser realizada
-*     pela funÁ„o cliente.
+*     O valor (parte √∫til do espa√ßo alocado) √© inicializado para o
+*     caractere '|', permitindo a verifica√ß√£o de se o valor foi
+*     corretamente inicializado ou n√£o ap√≥s √† inicializa√ß√£o a ser realizada
+*     pela fun√ß√£o cliente.
 *
-*     Para assegurar transparÍncia È definida a macro CED_MALLOC
+*     Para assegurar transpar√™ncia √© definida a macro CED_MALLOC
 *     que providencia os argumentos linha e arquivo fonte. Estes, por sua
-*     vez, permitem identificar onde o espaÁo foi alocado, facilitando
-*     resolver eventuais problemas de vazamento de memÛria
-*     e/ou de uso incorreto de espaÁos.
+*     vez, permitem identificar onde o espa√ßo foi alocado, facilitando
+*     resolver eventuais problemas de vazamento de mem√≥ria
+*     e/ou de uso incorreto de espa√ßos.
 *
-*     A funÁ„o aloca um "struct" contendo diversos controles alÈm do
-*     espaÁo ˙til (valor). O campo valor deste "struct" corresponde ao
-*     espaÁo que seria alocado pela funÁ„o de biblioteca "malloc".
+*     A fun√ß√£o aloca um "struct" contendo diversos controles al√©m do
+*     espa√ßo √∫til (valor). O campo valor deste "struct" corresponde ao
+*     espa√ßo que seria alocado pela fun√ß√£o de biblioteca "malloc".
 *     O ponteiro retornado aponta para o campo valor, tornando
-*     transparente o fato de se utilizar "malloc" ou esta funÁ„o.
-*     Cabe salientar que o comportamento anÙmalo com e sem sintrumentaÁ„o
-*     variam sensivelmente quando se instrumenta ou n„o as achamadas
+*     transparente o fato de se utilizar "malloc" ou esta fun√ß√£o.
+*     Cabe salientar que o comportamento an√¥malo com e sem sintrumenta√ß√£o
+*     variam sensivelmente quando se instrumenta ou n√£o as achamadas
 *     a "malloc".
 *
-*     A funÁ„o pode simular o esgotamento de memÛria. Para isto È necess·rio
-*     estabelecer um limite atravÈs de uma das funÁıes a isto destinadas.
-*     Por exemplo, se o limite de espaÁo alocado for diferente de zero e o
-*     total de espaÁo j· alocado acrescido do espaÁo solicitado for maior
-*     do que o limite estabelecido, a funÁ„o n„o aloca espaÁo e retorna NULL,
-*     simulando falta de memÛria.
+*     A fun√ß√£o pode simular o esgotamento de mem√≥ria. Para isto √© necess√°rio
+*     estabelecer um limite atrav√©s de uma das fun√ß√µes a isto destinadas.
+*     Por exemplo, se o limite de espa√ßo alocado for diferente de zero e o
+*     total de espa√ßo j√° alocado acrescido do espa√ßo solicitado for maior
+*     do que o limite estabelecido, a fun√ß√£o n√£o aloca espa√ßo e retorna NULL,
+*     simulando falta de mem√≥ria.
 *
-*     A funÁ„o pode simular esgotamento aleatÛrio de memÛria. Para isto
-*     È necess·rio estabelecer a freq¸Íncia de NULLs simulados, veja o
+*     A fun√ß√£o pode simular esgotamento aleat√≥rio de mem√≥ria. Para isto
+*     √© necess√°rio estabelecer a freq√º√™ncia de NULLs simulados, veja o
 *     comando =limitarfrequencia em INTRPCED.C
 *
-*     Consulte as funÁıes CED_Limitar... para detalhes das formas de
+*     Consulte as fun√ß√µes CED_Limitar... para detalhes das formas de
 *     limite que podem ser estabelecidas.
 *
-*  $EP Par‚metros
-*     $P Tamanho          - n˙mero de bytes do valor a ser alocado.
-*     $P numLinhaFonte    - n˙mero da linha do cÛdigo fonte onde foi
-*                           chamada a funÁ„o. Use __LINE__ como argumento
+*  $EP Par√¢metros
+*     $P Tamanho          - n√∫mero de bytes do valor a ser alocado.
+*     $P numLinhaFonte    - n√∫mero da linha do c√≥digo fonte onde foi
+*                           chamada a fun√ß√£o. Use __LINE__ como argumento
 *                           da chamada.
 *     $P NomeArquivoFonte - nome do arquivo fonte contendo a chamada.
 *                           Use __FILE__ como argumento da chamada.
 *
 *  $FV Valor retornado
-*     Ponteiro void para o espaÁo ˙til disponibilizado para a funÁ„o
-*     cliente. O espaÁo ˙til corresponde a o que seria retornado por malloc
+*     Ponteiro void para o espa√ßo √∫til disponibilizado para a fun√ß√£o
+*     cliente. O espa√ßo √∫til corresponde a o que seria retornado por malloc
 *
-*  $EIU Interface com usu·rio pessoa
-*     Ao invÈs de utilizar a funÁ„o CED_Malloc utilize a macro CED_MALLOC
-*     uma vez que esta fornece automaticamente a identificaÁ„o do local
+*  $EIU Interface com usu√°rio pessoa
+*     Ao inv√©s de utilizar a fun√ß√£o CED_Malloc utilize a macro CED_MALLOC
+*     uma vez que esta fornece automaticamente a identifica√ß√£o do local
 *     em que foi realizada a chamada.
 *
 ***********************************************************************/
@@ -211,11 +211,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Alocar espaÁo todo zerado calloc
+*  $FC Fun√ß√£o: CED  &Alocar espa√ßo todo zerado calloc
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Aloca um espaÁo de Tamanho bytes todos iguais a \0.
-*     Utiliza a funÁ„o CED_Malloc. Veja a documentaÁ„o desta.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Aloca um espa√ßo de Tamanho bytes todos iguais a \0.
+*     Utiliza a fun√ß√£o CED_Malloc. Veja a documenta√ß√£o desta.
 *
 ***********************************************************************/
 
@@ -229,15 +229,15 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Realocar espaÁo alocado realloc
+*  $FC Fun√ß√£o: CED  &Realocar espa√ßo alocado realloc
 *
-*  $ED DescriÁ„o da funÁ„o
-*     A funÁ„o realloc de C/C++ n„o È implementada pelo mÛdulo CESPDIN.
-*     De maneira geral tambÈm È recomendado que n„o seja utilizada,
+*  $ED Descri√ß√£o da fun√ß√£o
+*     A fun√ß√£o realloc de C/C++ n√£o √© implementada pelo m√≥dulo CESPDIN.
+*     De maneira geral tamb√©m √© recomendado que n√£o seja utilizada,
 *     uma vez que pode mudar o valor do ponteiro. Isso pode provocar
-*     problemas caso um espaÁo seja referenciado por mais de um ponteiros.
+*     problemas caso um espa√ßo seja referenciado por mais de um ponteiros.
 *
-*     A interface È similar ‡ de CED_Malloc.
+*     A interface √© similar √† de CED_Malloc.
 *
 ***********************************************************************/
 
@@ -251,22 +251,22 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Desalocar espaÁo
+*  $FC Fun√ß√£o: CED  &Desalocar espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Elimina o elemento da lista de controle. Todos os bytes s„o tornados
-*     iguais a 'x'. O identificador do tipo do espaÁo tambÈm
-*     È destruÌdo, possibilitando verificar se ele ainda est· alocado.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Elimina o elemento da lista de controle. Todos os bytes s√£o tornados
+*     iguais a 'x'. O identificador do tipo do espa√ßo tamb√©m
+*     √© destru√≠do, possibilitando verificar se ele ainda est√° alocado.
 *
-*     Ao usar esta funÁ„o deve-se tomar o cuidado de nunca usar free para
-*     desalocar um espaÁo controlado por este mÛdulo.
-*     Ou seja, evite o uso de malloc e free em mÛdulos distintos em
-*     que malloc est· num mÛdulo controlado e free n„o.
-*     O mais seguro È ou ter todos os mÛdulos que manipulam uma determinada
+*     Ao usar esta fun√ß√£o deve-se tomar o cuidado de nunca usar free para
+*     desalocar um espa√ßo controlado por este m√≥dulo.
+*     Ou seja, evite o uso de malloc e free em m√≥dulos distintos em
+*     que malloc est√° num m√≥dulo controlado e free n√£o.
+*     O mais seguro √© ou ter todos os m√≥dulos que manipulam uma determinada
 *     estrutura de dados sob controle, ou ter nenhum.
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para o campo valor (espaÁo ˙til) do espaÁo
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para o campo valor (espa√ßo √∫til) do espa√ßo
 *                   a ser liberado
 *
 ***********************************************************************/
@@ -276,15 +276,15 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Exibir conte˙do do espaÁo
+*  $FC Fun√ß√£o: CED  &Exibir conte√∫do do espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Exibe o conteudo completo de um espaÁo de memÛria.
-*     A parte ˙til È exibida em formato hexadecimal convencional
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Exibe o conteudo completo de um espa√ßo de mem√≥ria.
+*     A parte √∫til √© exibida em formato hexadecimal convencional
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para o valor (parte ˙til) contido no espaÁo
-*                   alocado, È o ponteiro retornado por CED_Malloc.
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para o valor (parte √∫til) contido no espa√ßo
+*                   alocado, √© o ponteiro retornado por CED_Malloc.
 *
 ***********************************************************************/
 
@@ -293,15 +293,15 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Exibir todos os espaÁos
+*  $FC Fun√ß√£o: CED  &Exibir todos os espa√ßos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Exibe todos os espaÁos que satisfazem uma determinada regra.
-*     Ver o tipo CED_tpModoExibir para uma explicaÁ„o quanto ‡s regras
-*     de seleÁ„o de espaÁos a exibir.
-*        CED_ExibirTodos     - exibe todos os espaÁos
-*        CED_ExibirAtivos    - exibe os espaÁos marcados ativos
-*        CED_ExibirInativos  - exibe os espaÁos marcados n„o ativos
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Exibe todos os espa√ßos que satisfazem uma determinada regra.
+*     Ver o tipo CED_tpModoExibir para uma explica√ß√£o quanto √†s regras
+*     de sele√ß√£o de espa√ßos a exibir.
+*        CED_ExibirTodos     - exibe todos os espa√ßos
+*        CED_ExibirAtivos    - exibe os espa√ßos marcados ativos
+*        CED_ExibirInativos  - exibe os espa√ßos marcados n√£o ativos
 *
 ***********************************************************************/
 
@@ -310,44 +310,44 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Definir tipo do espaÁo
+*  $FC Fun√ß√£o: CED  &Definir tipo do espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Caso o tipo do espaÁo ainda n„o esteja definido, atribui o tipo.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Caso o tipo do espa√ßo ainda n√£o esteja definido, atribui o tipo.
 *
-*     O tipo do espaÁo È inicializado para CED_ID_TIPO_VALOR_NULO
-*     quando da alocaÁ„o com CED_Malloc. Posteriormente pode ser
-*     alterado com a presente funÁ„o.
+*     O tipo do espa√ßo √© inicializado para CED_ID_TIPO_VALOR_NULO
+*     quando da aloca√ß√£o com CED_Malloc. Posteriormente pode ser
+*     alterado com a presente fun√ß√£o.
 *
-*     A atribuiÁ„o ser· realizada somente se uma das condiÁıes a seguir
+*     A atribui√ß√£o ser√° realizada somente se uma das condi√ß√µes a seguir
 *     for verdadeira:
-*     - o tipo a ser atribuido È CED_ID_TIPO_VALOR_NULO
-*     - ou o tipo do espaÁo È CED_ID_TIPO_VALOR_NULO
+*     - o tipo a ser atribuido √© CED_ID_TIPO_VALOR_NULO
+*     - ou o tipo do espa√ßo √© CED_ID_TIPO_VALOR_NULO
 *
-*     Para trocar o tipo de um espaÁo precisa-se primeiro torn·-lo
+*     Para trocar o tipo de um espa√ßo precisa-se primeiro torn√°-lo
 *     igual a CED_ID_TIPO_VALOR_NULO para, depois, atribuir o novo tipo.
 *
-*     Uma vez definido o tipo do espaÁo, funÁıes cliente podem controlar
-*     a consistÍncia entre o tipo implicitamente associado ao ponteiro
-*     e o tipo que o espaÁo de fato contÈm.
+*     Uma vez definido o tipo do espa√ßo, fun√ß√µes cliente podem controlar
+*     a consist√™ncia entre o tipo implicitamente associado ao ponteiro
+*     e o tipo que o espa√ßo de fato cont√©m.
 *
-*     Sugere-se que o desenvolvedor da aplicaÁ„o crie uma tabela global
+*     Sugere-se que o desenvolvedor da aplica√ß√£o crie uma tabela global
 *     contendo um "enum" com os nomes de todos os tipos ('typedef struct')
-*     que podem ser utilizados como declaradores de espaÁos din‚micos.
-*     O embri„o da tabela existe em: arcabouc\tabelas\idTiposEspaco.def
+*     que podem ser utilizados como declaradores de espa√ßos din√¢micos.
+*     O embri√£o da tabela existe em: arcabouc\tabelas\idTiposEspaco.def
 *
-*     O presente sistema de controle de tipos n„o prevÍ mecanismos para
-*     tratamento de heranÁa.
+*     O presente sistema de controle de tipos n√£o prev√™ mecanismos para
+*     tratamento de heran√ßa.
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para o campo valor (espaÁo ˙til) do espaÁo
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para o campo valor (espa√ßo √∫til) do espa√ßo
 *                   a ser tipado
-*     $P idTipo   - novo identificador de tipo a ser dado ao espaÁo.
+*     $P idTipo   - novo identificador de tipo a ser dado ao espa√ßo.
 *
 *  $FV Valor retornado
-*     TRUE   1    - se a atribuiÁ„o foi bem sucedida
-*     FALSE  0    - se n„o foi possÌvel atribuir. Isto ser· o caso se
-*                   o tipo do esp·co j· estava definido ao chamar a funÁ„o,
+*     TRUE   1    - se a atribui√ß√£o foi bem sucedida
+*     FALSE  0    - se n√£o foi poss√≠vel atribuir. Isto ser√° o caso se
+*                   o tipo do esp√°co j√° estava definido ao chamar a fun√ß√£o,
 *                   ou se o ponteiro for NULL.
 *
 ***********************************************************************/
@@ -357,26 +357,26 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Marcar ativo o espaÁo
+*  $FC Fun√ß√£o: CED  &Marcar ativo o espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Marca determinado espaÁo como ativo.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Marca determinado espa√ßo como ativo.
 *
-*     A marca ativo/n„o ativo È utilizada para apoiar o controle de
-*     vazamento de memÛria. Siga o seguinte roteiro:
-*     - Marque todos os espaÁos n„o ativos.
-*     - A partir das ‚ncoras, percorra as estruturas ativas marcando
-*       ativos os espaÁos visitados. Este percorrimento È recursivo.
-*       Retorna-se da chamada se encontrar um espaÁo j· marcado ativo, ou
-*       se n„o tiver para onde caminhar. Note que para poder fazer isto
-*       È necess·rio conhecer-se o tipo dos dados contidos em cada um
-*       dos espaÁos alocados.
-*     - Percorra a lista de todos os espaÁos verificando se cada espaÁo
-*       visitado È ou n„o inativo. Os n„o ativos provavelmente correspondem
-*       a vazamento de memÛria.
+*     A marca ativo/n√£o ativo √© utilizada para apoiar o controle de
+*     vazamento de mem√≥ria. Siga o seguinte roteiro:
+*     - Marque todos os espa√ßos n√£o ativos.
+*     - A partir das √¢ncoras, percorra as estruturas ativas marcando
+*       ativos os espa√ßos visitados. Este percorrimento √© recursivo.
+*       Retorna-se da chamada se encontrar um espa√ßo j√° marcado ativo, ou
+*       se n√£o tiver para onde caminhar. Note que para poder fazer isto
+*       √© necess√°rio conhecer-se o tipo dos dados contidos em cada um
+*       dos espa√ßos alocados.
+*     - Percorra a lista de todos os espa√ßos verificando se cada espa√ßo
+*       visitado √© ou n√£o inativo. Os n√£o ativos provavelmente correspondem
+*       a vazamento de mem√≥ria.
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para o campo valor (espaÁo ˙til) do espaÁo
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para o campo valor (espa√ßo √∫til) do espa√ßo
 *                   a ser marcado
 *
 ***********************************************************************/
@@ -386,13 +386,13 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Marcar n„o ativo o espaÁo
+*  $FC Fun√ß√£o: CED  &Marcar n√£o ativo o espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Ver CED_MarcarEspacoAtivo
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para o campo valor (espaÁo ˙til) do espaÁo
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para o campo valor (espa√ßo √∫til) do espa√ßo
 *                   a ser marcado
 *
 ***********************************************************************/
@@ -402,10 +402,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Marcar n„o ativos todos os espaÁos
+*  $FC Fun√ß√£o: CED  &Marcar n√£o ativos todos os espa√ßos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Percorre todos os espaÁos alocados marcando-os inativos.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Percorre todos os espa√ßos alocados marcando-os inativos.
 *
 *     Veja: CED_MarcarEspacoAtivo
 *
@@ -416,22 +416,22 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Limitar memÛria disponÌvel
+*  $FC Fun√ß√£o: CED  &Limitar mem√≥ria dispon√≠vel
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Estabelece um limite de memÛria disponÌvel.
-*     A funÁ„o CED_Malloc retornar· NULL caso a adiÁ„o do espaÁo solicitada
-*     adicionada ao total ˙til j· alocado ultrapassar o limite estabelecido.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Estabelece um limite de mem√≥ria dispon√≠vel.
+*     A fun√ß√£o CED_Malloc retornar√° NULL caso a adi√ß√£o do espa√ßo solicitada
+*     adicionada ao total √∫til j√° alocado ultrapassar o limite estabelecido.
 *
-*     Embora a funÁ„o possa ser chamada a qualquer momento, recomenda-se
+*     Embora a fun√ß√£o possa ser chamada a qualquer momento, recomenda-se
 *     que seja chamada antes do primeiro caso de teste capaz de alocar
-*     espaÁo de memÛria din‚mica por intermÈdio da funÁ„o CED_Malloc
-*     contida nesse mÛdulo.
+*     espa√ßo de mem√≥ria din√¢mica por interm√©dio da fun√ß√£o CED_Malloc
+*     contida nesse m√≥dulo.
 *
-*  $EP Par‚metros
-*     $P NovoLimiteMemoria - Estabelece o limite de memÛria disponÌvel.
-*                            Caso seja zero, o controle de limite n„o
-*                            ser· efetuado por CED_Malloc.
+*  $EP Par√¢metros
+*     $P NovoLimiteMemoria - Estabelece o limite de mem√≥ria dispon√≠vel.
+*                            Caso seja zero, o controle de limite n√£o
+*                            ser√° efetuado por CED_Malloc.
 *
 ***********************************************************************/
 
@@ -440,21 +440,21 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Limitar n˙mero de espaÁos alocados
+*  $FC Fun√ß√£o: CED  &Limitar n√∫mero de espa√ßos alocados
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Limita o n˙mero de espaÁos alocados. Esta funÁ„o afeta o comportamento
-*     de CED_Malloc, estabelecendo um limite para o n˙mero total de
-*     espaÁos alocados em um dado momento.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Limita o n√∫mero de espa√ßos alocados. Esta fun√ß√£o afeta o comportamento
+*     de CED_Malloc, estabelecendo um limite para o n√∫mero total de
+*     espa√ßos alocados em um dado momento.
 *
-*     Embora a funÁ„o possa ser chamada a qualquer momento, recomenda-se
+*     Embora a fun√ß√£o possa ser chamada a qualquer momento, recomenda-se
 *     que seja chamada antes do primeiro caso de teste que provoque
-*     alocaÁ„o de espaÁo de memÛria.
+*     aloca√ß√£o de espa√ßo de mem√≥ria.
 *
-*  $EP Par‚metros
-*     $P numTotalEspacos - indica o limite de espaÁos que podem estar
-*                          alocados a cada instante. Se zero, n„o
-*                          ser· realizado o controle.
+*  $EP Par√¢metros
+*     $P numTotalEspacos - indica o limite de espa√ßos que podem estar
+*                          alocados a cada instante. Se zero, n√£o
+*                          ser√° realizado o controle.
 *
 ***********************************************************************/
 
@@ -463,27 +463,27 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Limitar com freq¸Íncia de geraÁ„o de NULL
+*  $FC Fun√ß√£o: CED  &Limitar com freq√º√™ncia de gera√ß√£o de NULL
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Esta funÁ„o estabelece a freq¸Íncia com a qual n„o dever· ser
-*     gerado NULL, o complemento a esta freq¸Íncia È a frequ¸Íncia com
-*     a qual dever· ser retornado NULL (n„o aloca) independentemente da
-*     existÍncia ou n„o de memÛria disponÌvel.
-*     A funÁ„o visa apoiar a verificaÁ„o de se o comportamento de um
-*     programa leva em conta os retornos de falta de memÛria.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Esta fun√ß√£o estabelece a freq√º√™ncia com a qual n√£o dever√° ser
+*     gerado NULL, o complemento a esta freq√º√™ncia √© a frequ√º√™ncia com
+*     a qual dever√° ser retornado NULL (n√£o aloca) independentemente da
+*     exist√™ncia ou n√£o de mem√≥ria dispon√≠vel.
+*     A fun√ß√£o visa apoiar a verifica√ß√£o de se o comportamento de um
+*     programa leva em conta os retornos de falta de mem√≥ria.
 *
-*  $EP Par‚metros
-*     $P Frequencia - È um inteiro 10 <= Frequencia < 1000 e que indica
-*                     a freq¸Íncia em cada 1000 alocaÁıes em que memÛria
-*                     ser· alocada. Exemplo: para que 95% das vezes
-*                     ocorra alocaÁ„o, forneÁa o par‚metro 950, j· se for
-*                     desejado que ocorra em 99,9% das vezes, forneÁa
-*                     999. Se zero, n„o ser· realizada a simulaÁ„o de
-*                     falta de memÛria.
+*  $EP Par√¢metros
+*     $P Frequencia - √© um inteiro 10 <= Frequencia < 1000 e que indica
+*                     a freq√º√™ncia em cada 1000 aloca√ß√µes em que mem√≥ria
+*                     ser√° alocada. Exemplo: para que 95% das vezes
+*                     ocorra aloca√ß√£o, forne√ßa o par√¢metro 950, j√° se for
+*                     desejado que ocorra em 99,9% das vezes, forne√ßa
+*                     999. Se zero, n√£o ser√° realizada a simula√ß√£o de
+*                     falta de mem√≥ria.
 *
 *  $FV Valor retornado
-*     TRUE   se tiver sido estabelecido o limite por freq¸Íncia
+*     TRUE   se tiver sido estabelecido o limite por freq√º√™ncia
 *     FALSE  se tiver ocorrido algum erro
 *
 ***********************************************************************/
@@ -493,10 +493,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Limitar, eliminar limites
+*  $FC Fun√ß√£o: CED  &Limitar, eliminar limites
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Esta funÁ„o elimina todos os limites de memÛria por ventura em vigor.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Esta fun√ß√£o elimina todos os limites de mem√≥ria por ventura em vigor.
 *
 ***********************************************************************/
 
@@ -505,22 +505,22 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter o tipo do espaÁo de dados
+*  $FC Fun√ß√£o: CED  &Obter o tipo do espa√ßo de dados
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna o identificador do tipo do espaÁo apontado.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna o identificador do tipo do espa√ßo apontado.
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para o campo valor (espaÁo ˙til) do espaÁo
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para o campo valor (espa√ßo √∫til) do espa√ßo
 *                   do qual se deseja saber o tipo
 *
 *  $FV Valor retornado
 *     Tipo do valor retornado, cajo tenha sido definido, ou um dos valores:
 *
-*        CED_ID_TIPO_ESPACO_NULO  se nunca foi atribuÌdo um tipo ao espaÁo
-*        CED_ID_TIPO_ILEGAL       se o espaÁo n„o corresponder a um espaÁo
-*                                 controlado pelo mÛdulo CESPDIN
-*        CED_ID_TIPO_NULL         se o par‚metro Ponteiro for NULL
+*        CED_ID_TIPO_ESPACO_NULO  se nunca foi atribu√≠do um tipo ao espa√ßo
+*        CED_ID_TIPO_ILEGAL       se o espa√ßo n√£o corresponder a um espa√ßo
+*                                 controlado pelo m√≥dulo CESPDIN
+*        CED_ID_TIPO_NULL         se o par√¢metro Ponteiro for NULL
 *
 ***********************************************************************/
 
@@ -529,13 +529,13 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter tamanho do valor contido no espaÁo
+*  $FC Fun√ß√£o: CED  &Obter tamanho do valor contido no espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna o n˙mero de bytes ˙teis do espaÁo
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna o n√∫mero de bytes √∫teis do espa√ßo
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para a porÁ„o ˙til do espaÁo
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para a por√ß√£o √∫til do espa√ßo
 *                   da qual se deseja saber o tamanho
 *
 ***********************************************************************/
@@ -545,10 +545,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter tamanho do espaÁo alocado _msize
+*  $FC Fun√ß√£o: CED  &Obter tamanho do espa√ßo alocado _msize
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Implementa a funÁ„o _msize disponÌvel no Visual Studio C/C++
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Implementa a fun√ß√£o _msize dispon√≠vel no Visual Studio C/C++
 *
 ***********************************************************************/
 
@@ -557,10 +557,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter n˙mero de espaÁos alocados
+*  $FC Fun√ß√£o: CED  &Obter n√∫mero de espa√ßos alocados
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna o n˙mero de elementos da lista de espaÁos alocados
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna o n√∫mero de elementos da lista de espa√ßos alocados
 *
 ***********************************************************************/
 
@@ -569,10 +569,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter total de espaÁos alocados
+*  $FC Fun√ß√£o: CED  &Obter total de espa√ßos alocados
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna o n˙mero total de vezes que foi chamada a funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna o n√∫mero total de vezes que foi chamada a fun√ß√£o
 *     CED_Malloc.
 *
 ***********************************************************************/
@@ -582,11 +582,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter n˙mero total de NULLs gerados
+*  $FC Fun√ß√£o: CED  &Obter n√∫mero total de NULLs gerados
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna o n˙mero de NULLs retornados em virtude de limitaÁıes impostas.
-*     Veja as funÁıes CED_LimitarXXX
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna o n√∫mero de NULLs retornados em virtude de limita√ß√µes impostas.
+*     Veja as fun√ß√µes CED_LimitarXXX
 *
 ***********************************************************************/
 
@@ -595,14 +595,14 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter n˙mero de espaÁos segundo regra
+*  $FC Fun√ß√£o: CED  &Obter n√∫mero de espa√ßos segundo regra
 *
-*  $ED DescriÁ„o da funÁ„o
-*     ObtÈm o n˙mero de elementos contidos na lista de espaÁos alocados,
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Obt√©m o n√∫mero de elementos contidos na lista de espa√ßos alocados,
 *     segundo a regra:
-*        CED_ExibirTodos     - exibe todos os espaÁos
-*        CED_ExibirAtivos    - exibe os espaÁos marcados ativos
-*        CED_ExibirInativos  - exibe os espaÁos marcados n„o ativos
+*        CED_ExibirTodos     - exibe todos os espa√ßos
+*        CED_ExibirAtivos    - exibe os espa√ßos marcados ativos
+*        CED_ExibirInativos  - exibe os espa√ßos marcados n√£o ativos
 *
 ***********************************************************************/
 
@@ -611,10 +611,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Obter espaÁo total alocado
+*  $FC Fun√ß√£o: CED  &Obter espa√ßo total alocado
 *
-*  $ED DescriÁ„o da funÁ„o
-*     ObtÈm o total, em bytes, de espaÁos ˙teis alocados.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Obt√©m o total, em bytes, de espa√ßos √∫teis alocados.
 *
 ***********************************************************************/
 
@@ -623,24 +623,24 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Iterador: iniciar iterador de espaÁos
+*  $FC Fun√ß√£o: CED  &Iterador: iniciar iterador de espa√ßos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Inicia o iterador com o primeiro espaÁo da lista de controle de espaÁos
-*     din‚micos.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Inicia o iterador com o primeiro espa√ßo da lista de controle de espa√ßos
+*     din√¢micos.
 *
 *     O iterador pode ser utilizado para verificar a integridade dos
-*     espaÁos de dados sob controle do mÛdulo. Para isto a funÁ„o de
-*     verificaÁ„o de espaÁos deve percorrer todos os espaÁos alocados
+*     espa√ßos de dados sob controle do m√≥dulo. Para isto a fun√ß√£o de
+*     verifica√ß√£o de espa√ßos deve percorrer todos os espa√ßos alocados
 *     disparando o controle individual para cada um deles.
 *
-*     Pode-se tambÈm simular um garbage collector, percorrendo todos
-*     os espaÁos e marc·-los inativos. Depois percorrer, a partir
-*     das ‚ncoras, todos os espaÁos adjacentes, marcando ativos os
-*     espaÁos visitados. Evidentemente se j· estiver marcado ativo
-*     retorna-se para tratar do prÛximo estado pendente na pilha.
-*     Ao final, os espaÁos que ainda estiverem marcados inativos
-*     correspondem a vazamento de memÛria.
+*     Pode-se tamb√©m simular um garbage collector, percorrendo todos
+*     os espa√ßos e marc√°-los inativos. Depois percorrer, a partir
+*     das √¢ncoras, todos os espa√ßos adjacentes, marcando ativos os
+*     espa√ßos visitados. Evidentemente se j√° estiver marcado ativo
+*     retorna-se para tratar do pr√≥ximo estado pendente na pilha.
+*     Ao final, os espa√ßos que ainda estiverem marcados inativos
+*     correspondem a vazamento de mem√≥ria.
 *
 ***********************************************************************/
 
@@ -649,14 +649,14 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Iterador: avanÁar para o prÛximo espaÁo
+*  $FC Fun√ß√£o: CED  &Iterador: avan√ßar para o pr√≥ximo espa√ßo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     AvanÁa o iterador para o prÛximo espaÁo.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Avan√ßa o iterador para o pr√≥ximo espa√ßo.
 *
 *  $FV Valor retornado
 *     TRUE  caso o espaco para o qual caminhou existe.
-*     FALSE se n„o existe iterador ou chegou ao fim da lista de espaÁos
+*     FALSE se n√£o existe iterador ou chegou ao fim da lista de espa√ßos
 *
 ***********************************************************************/
 
@@ -665,10 +665,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Iterador: obter referÍncia para o espaÁo corrente
+*  $FC Fun√ß√£o: CED  &Iterador: obter refer√™ncia para o espa√ßo corrente
 *
-*  $ED DescriÁ„o da funÁ„o
-*     ObtÈm a referÍncia para a parte ˙til do espaÁo corrente.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Obt√©m a refer√™ncia para a parte √∫til do espa√ßo corrente.
 *
 ***********************************************************************/
 
@@ -677,12 +677,12 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Iterador: existe espaÁo corrente
+*  $FC Fun√ß√£o: CED  &Iterador: existe espa√ßo corrente
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Verifica se o iterador referencia um espaÁo corrente.
-*     Caso retorne FALSE, o iterador chegou ao final da lista de espaÁos
-*     ou, ent„o, ainda n„o foi inicializado.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Verifica se o iterador referencia um espa√ßo corrente.
+*     Caso retorne FALSE, o iterador chegou ao final da lista de espa√ßos
+*     ou, ent√£o, ainda n√£o foi inicializado.
 *
 ***********************************************************************/
 
@@ -691,10 +691,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Iterador: terminar iterador
+*  $FC Fun√ß√£o: CED  &Iterador: terminar iterador
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Desativa o iterador. A referÍncia para o espaÁo corrente passa
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Desativa o iterador. A refer√™ncia para o espa√ßo corrente passa
 *     a ser NULL.
 *
 ***********************************************************************/
@@ -704,15 +704,15 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Iterador: excluir espaÁo corrente
+*  $FC Fun√ß√£o: CED  &Iterador: excluir espa√ßo corrente
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Elimina o espaÁo corrente da lista de espaÁos controlados.
-*     O espaÁo È liberado tornando ilegais todos os acessos realizados
-*     por funÁıes do usu·rio.
-*     Na realidade esta funÁ„o corresponde a um CED_Free.
-*     Utilize esta funÁ„o somente para para eliminar espaÁos sabidamente
-*     inativos, ou para deturpar ao testar reaÁıes a anomalias em estruturas
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Elimina o espa√ßo corrente da lista de espa√ßos controlados.
+*     O espa√ßo √© liberado tornando ilegais todos os acessos realizados
+*     por fun√ß√µes do usu√°rio.
+*     Na realidade esta fun√ß√£o corresponde a um CED_Free.
+*     Utilize esta fun√ß√£o somente para para eliminar espa√ßos sabidamente
+*     inativos, ou para deturpar ao testar rea√ß√µes a anomalias em estruturas
 *     de dados.
 *
 ***********************************************************************/
@@ -722,14 +722,14 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Verificar se espaÁo È ativo
+*  $FC Fun√ß√£o: CED  &Verificar se espa√ßo √© ativo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna TRUE se o espaÁo referenciado est· marcado ativo
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna TRUE se o espa√ßo referenciado est√° marcado ativo
 *
-*  $EP Par‚metros
-*     $P Ponteiro - ponteiro para o campo valor (espaÁo ˙til) do espaÁo
-*                   do qual se deseja saber se È ativo ou n„o
+*  $EP Par√¢metros
+*     $P Ponteiro - ponteiro para o campo valor (espa√ßo √∫til) do espa√ßo
+*                   do qual se deseja saber se √© ativo ou n√£o
 *
 ***********************************************************************/
 
@@ -738,36 +738,36 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Verificar a integridade de um espaÁo de dados
+*  $FC Fun√ß√£o: CED  &Verificar a integridade de um espa√ßo de dados
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Verifica a integridade de um determinado espaÁo de dados.
-*     Retorna o n˙mero de falhas encontradas.
-*     Esta funÁ„o pode levar a um cancelamento do programa, caso o
-*     espaÁo de dados esteja danificado, ou o ponteiro n„o aponte
-*     para um espaÁo controlado.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Verifica a integridade de um determinado espa√ßo de dados.
+*     Retorna o n√∫mero de falhas encontradas.
+*     Esta fun√ß√£o pode levar a um cancelamento do programa, caso o
+*     espa√ßo de dados esteja danificado, ou o ponteiro n√£o aponte
+*     para um espa√ßo controlado.
 *
-*  $EP Par‚metros
-*     $P Ponteiro para a porÁ„o ˙til do espaÁo. Este È o ponteiro
-*                 retornado pela funÁ„o CED_Malloc
+*  $EP Par√¢metros
+*     $P Ponteiro para a por√ß√£o √∫til do espa√ßo. Este √© o ponteiro
+*                 retornado pela fun√ß√£o CED_Malloc
 *
 *     $P int pVerificarValor( void * pValor )
-*                 funÁ„o fornecida pelo cliente para verificar a corretude
-*                 do espaÁo ˙til. A funÁ„o recebe como par‚metro um
-*                 ponteiro para o espaÁo a verificar e deve retornar
-*                      0  FALSE  caso o espaÁo n„o esteja correto e
+*                 fun√ß√£o fornecida pelo cliente para verificar a corretude
+*                 do espa√ßo √∫til. A fun√ß√£o recebe como par√¢metro um
+*                 ponteiro para o espa√ßo a verificar e deve retornar
+*                      0  FALSE  caso o espa√ßo n√£o esteja correto e
 *                   != 0  TRUE   se estiver correto.
 *                 Todas as mensagens de erro devem ser dadas
-*                 pela funÁ„o de verificaÁ„o. Procure utilizar as
-*                 funÁıes do mÛdulo GENERICO para exibir as mensagens
-*                 e realizar as comparaÁıes.
-*                 Caso n„o deseje verificar o valor, forneÁa NULL como
+*                 pela fun√ß√£o de verifica√ß√£o. Procure utilizar as
+*                 fun√ß√µes do m√≥dulo GENERICO para exibir as mensagens
+*                 e realizar as compara√ß√µes.
+*                 Caso n√£o deseje verificar o valor, forne√ßa NULL como
 *                 argumento.
 *
 *  $FV Valor retornado
-*     TRUE   se espaÁo È v·lido ou o ponteiro for NULL
-*     FALSE  se n„o for um espaÁo controlado pelo mÛdulo CESPDIN, ou
-*            se o conte˙do do espaÁo total n„o for v·lido
+*     TRUE   se espa√ßo √© v√°lido ou o ponteiro for NULL
+*     FALSE  se n√£o for um espa√ßo controlado pelo m√≥dulo CESPDIN, ou
+*            se o conte√∫do do espa√ßo total n√£o for v√°lido
 *
 ***********************************************************************/
 
@@ -777,22 +777,22 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CED  &Verificar todos os espaÁos alocados
+*  $FC Fun√ß√£o: CED  &Verificar todos os espa√ßos alocados
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Percorre toda a lista, verificando um a um os espaÁos.
-*     Caso um ou mais espaÁos estejam errados, pode ocorrer
-*     cancelamento da execuÁ„o em virtude de acesso ilegal a memÛria.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Percorre toda a lista, verificando um a um os espa√ßos.
+*     Caso um ou mais espa√ßos estejam errados, pode ocorrer
+*     cancelamento da execu√ß√£o em virtude de acesso ilegal a mem√≥ria.
 *
-*  $EP Par‚metros
-*     $P pVerificarValor - È o ponteiro para uma funÁ„o que verifica o conte˙do
-*                          do espaÁo ˙til. O par‚metro pValor dessa funÁ„o
-*                          apontar· para o valor a ser controlado.
-*                          Se NULL n„o verifica o espaÁo ˙til.
+*  $EP Par√¢metros
+*     $P pVerificarValor - √© o ponteiro para uma fun√ß√£o que verifica o conte√∫do
+*                          do espa√ßo √∫til. O par√¢metro pValor dessa fun√ß√£o
+*                          apontar√° para o valor a ser controlado.
+*                          Se NULL n√£o verifica o espa√ßo √∫til.
 *
 *  $FV Valor retornado
-*     TRUE   se todos os espaÁos est„o v·lidos
-*     FALSE  caso contr·rio
+*     TRUE   se todos os espa√ßos est√£o v√°lidos
+*     FALSE  caso contr√°rio
 *
 ***********************************************************************/
 
@@ -800,7 +800,7 @@
 
 /***********************************************************************
 
-/* CÛdigo final do mÛdulo */
+/* C√≥digo final do m√≥dulo */
 
 #if !defined( CESPDIN_OWN )
    #define    malloc     CED_MALLOC
@@ -812,7 +812,7 @@
 
 #undef CESPDIN_EXT
 
-/********** Fim do mÛdulo de definiÁ„o: CED  Controlador de espaÁos de dados alocados dinamicamente **********/
+/********** Fim do m√≥dulo de defini√ß√£o: CED  Controlador de espa√ßos de dados alocados dinamicamente **********/
 
 #else
 #endif

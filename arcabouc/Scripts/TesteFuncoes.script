@@ -1,7 +1,7 @@
 // Script:    TesteGenerico.script
 // Autor:     Arndt von Staa
 // Data:      12/ago/2003
-// PropÛsito: Testar as funÁıes do mÛdulo de teste genÈrico
+// Prop√≥sito: Testar as fun√ß√µes do m√≥dulo de teste gen√©rico
 //
 
 == Teste de booleanos
@@ -69,7 +69,7 @@
 == Teste espacos de 16 bytes iguais
 =espaco     "abcdefghijklmnop"  "abcdefghijklmnop"
 
-== Teste espacos de 16 bytes n„o iguais 
+== Teste espacos de 16 bytes n√£o iguais 
 =espaco     "abcdefghijklmnop"  "abcdefghijklmno"
 =recuperar -2
 
@@ -90,7 +90,7 @@
 == Teste espacos longos iguais
 =espaco     "zzxvczxvzxvzxcvzxvzcvxcvzxvzxvcabcdefghijklmn"  "zzxvczxvzxvzxcvzxvzcvxcvzxvzxvcabcdefghijklmn"
 
-== Teste espacos longos n„o iguais (caractere 22 È r deveria ser c)
+== Teste espacos longos n√£o iguais (caractere 22 √© r deveria ser c)
 =espaco     "zzxvczxvzxvzxcvzxvzcvxcvzxvzxvcabcdefghijklmn"  "zzxvczxvzxvzxcvzxvzcvxrvzxvzxvcabcdefghijklmn"
 =recuperar -2
 

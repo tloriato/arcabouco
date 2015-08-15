@@ -2,82 +2,82 @@
 #define CONTA_
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: CNT  Contadores de passagem
+*  $MCD M√≥dulo de defini√ß√£o: CNT  Contadores de passagem
 *
 *  Arquivo gerado:              CONTA.h
 *  Letras identificadoras:      CNT
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     Este mÛdulo implementa funÁıes para o controle de cobertura dos
-*     testes de mÛdulos. O controle de cobertura baseia-se
+*  $ED Descri√ß√£o do m√≥dulo
+*     Este m√≥dulo implementa fun√ß√µes para o controle de cobertura dos
+*     testes de m√≥dulos. O controle de cobertura baseia-se
 *     em contagem de passagens
 *
-*     Os contadores s„o identificados por nomes simbÛlicos (strings).
+*     Os contadores s√£o identificados por nomes simb√≥licos (strings).
 *     Para assegurar o controle efetivo, deve ser criado um arquivo
-*     com todos os nomes de contadores definidos no mÛdulo a testar.
+*     com todos os nomes de contadores definidos no m√≥dulo a testar.
 *     Ver comando  =lercontadores  em INTRPCNT.C
-*     Este arquivo dever· ser lido antes de iniciar os testes.
-*     Ao final a tabela de sÌmbolos pode ser examinada ‡ procura de
-*     contadores que n„o tenham sido contados (continuam comzero) durante
-*     a execuÁ„o do teste.
+*     Este arquivo dever√° ser lido antes de iniciar os testes.
+*     Ao final a tabela de s√≠mbolos pode ser examinada √† procura de
+*     contadores que n√£o tenham sido contados (continuam comzero) durante
+*     a execu√ß√£o do teste.
 *
-*     Os mÛdulos a serem medidos devem ser marcados com chamadas para
-*     a funÁ„o de contagem disponibilizada pelo presente mÛdulo:
+*     Os m√≥dulos a serem medidos devem ser marcados com chamadas para
+*     a fun√ß√£o de contagem disponibilizada pelo presente m√≥dulo:
 *        CNT_Conta( <nome> ) ;
-*     em que <nome> È um dos nomes que figura no arquivo de contagem.
+*     em que <nome> √© um dos nomes que figura no arquivo de contagem.
 *     Deve-se assegurar que todas as chamadas utilizem nomes diferentes
-*     dos demais nomes utilizados em outras chamadas a esta funÁ„o.
+*     dos demais nomes utilizados em outras chamadas a esta fun√ß√£o.
 *
 *     Os contadores podem ser inicializados com valores. Os seguintes
-*     valores tÍm significado especial:
-*        -1 - contador opcional. Caso o teste n„o passe pela correspondente
-*             chamada ‡ funÁ„o de contagem, o sistema n„o acusar·
+*     valores t√™m significado especial:
+*        -1 - contador opcional. Caso o teste n√£o passe pela correspondente
+*             chamada √† fun√ß√£o de contagem, o sistema n√£o acusar√°
 *             erro de falta de cobertura.
 *        -2 - contador proibido. Deve ser utilizado para marcar os
-*             fragmentos de cÛdigo que em uma execuÁ„o correta normal
+*             fragmentos de c√≥digo que em uma execu√ß√£o correta normal
 *             jamais devem ser executados. Estes fragmentos correspondem
-*             tipicamente ao cÛdigo de controle de integridade da execuÁ„o.
+*             tipicamente ao c√≥digo de controle de integridade da execu√ß√£o.
 *
-*     Cada linha de texto do arquivo de declaraÁ„o poder· ser um de:
+*     Cada linha de texto do arquivo de declara√ß√£o poder√° ser um de:
 *
-*       // coment·rio - linha de coment·rio
+*       // coment√°rio - linha de coment√°rio
 *
 *       linha em branco
 *
-*       linha de declaraÁ„o, no formato:
-*          nome\=numero  - definiÁ„o de um contador.
-*                          nome È o string que identifica o contador
-*                          \= È o operador de inicializaÁ„o, opcional
-*                          numero È o valor inicial a ser atribuÌdo
-*                                 sÛ pode ser fornecido se o operador \=
+*       linha de declara√ß√£o, no formato:
+*          nome\=numero  - defini√ß√£o de um contador.
+*                          nome √© o string que identifica o contador
+*                          \= √© o operador de inicializa√ß√£o, opcional
+*                          numero √© o valor inicial a ser atribu√≠do
+*                                 s√≥ pode ser fornecido se o operador \=
 *                                 for fornecido
 *
-*     Os contadores podem ser acumulados em arquivos de totatilzaÁ„o.
+*     Os contadores podem ser acumulados em arquivos de totatilza√ß√£o.
 *     Isto permite controlar a cobertura dos testes quando forem
-*     utilizadas v·rias massas (scripts) de teste.
-*     O arquivo de totalizaÁ„o tem o mesmo formato que o de definiÁ„o
+*     utilizadas v√°rias massas (scripts) de teste.
+*     O arquivo de totaliza√ß√£o tem o mesmo formato que o de defini√ß√£o
 *     de contadores.
 *
-*     Antes de iniciar a execuÁ„os dos testes deve ser lido o arquivo
-*     de definiÁ„o de contadores e, se for o caso, identificado
-*     o arquivo de totalizaÁ„o.
+*     Antes de iniciar a execu√ß√£os dos testes deve ser lido o arquivo
+*     de defini√ß√£o de contadores e, se for o caso, identificado
+*     o arquivo de totaliza√ß√£o.
 *
 *     Ao terminar os testes deve ser verificada a cobertura medida.
-*     Caso esta n„o seja integral, as massas de teste devem ser
+*     Caso esta n√£o seja integral, as massas de teste devem ser
 *     corrigidas de modo que a cobertura passe a ser integral.
 *
 *     Veja os comandos de teste
@@ -86,39 +86,39 @@
 *        =verificarcontagens
 *        =terminarcontadores
 *
-*     definidos no mÛdulo de interpretaÁ„o de comandos de contagem
+*     definidos no m√≥dulo de interpreta√ß√£o de comandos de contagem
 *        INTRPCNT
 *
-*  $EIU Interface com o usu·rio pessoa
-*     Ao desenvolver mÛdulos que dever„o ser medidos siga as
-*     seguintes instruÁıes:
+*  $EIU Interface com o usu√°rio pessoa
+*     Ao desenvolver m√≥dulos que dever√£o ser medidos siga as
+*     seguintes instru√ß√µes:
 *
-*     - Assegure que a funÁ„o CNT_InicializarContadores seja
-*       chamada antes de iniciar a mediÁ„o
+*     - Assegure que a fun√ß√£o CNT_InicializarContadores seja
+*       chamada antes de iniciar a medi√ß√£o
 *
-*     - Assegure que a funÁ„o de declaraÁ„o de contadores seja
-*       lida antes de iniciar a mediÁ„o
+*     - Assegure que a fun√ß√£o de declara√ß√£o de contadores seja
+*       lida antes de iniciar a medi√ß√£o
 *
-*     - Assegure que a funÁ„o CNT_IniciarContagem seja chamada
-*       ao iniciar a execuÁ„o do cÛdigo a ser medido
+*     - Assegure que a fun√ß√£o CNT_IniciarContagem seja chamada
+*       ao iniciar a execu√ß√£o do c√≥digo a ser medido
 *
-*     - Dependendo do modo de medir inclua no mÛdulo a medir
+*     - Dependendo do modo de medir inclua no m√≥dulo a medir
 *       fragmentos similares a
 *          #ifdef _DEBUG
 *             CNT_CONTAR( NomeContador ) ;
 *          #endif
 *       em todos os ligares em que deseje medir passagem de controle.
 *
-*     - Assegure que cada chamada a esta funÁ„o referencie um
-*       contador n„o referenciado pelas demais chamadas.
+*     - Assegure que cada chamada a esta fun√ß√£o referencie um
+*       contador n√£o referenciado pelas demais chamadas.
 *
-*     - Ao terminar a execuÁ„o da porÁ„o de cÛdigo a medir
-*       chame a funÁ„o CNT_PararContagem
+*     - Ao terminar a execu√ß√£o da por√ß√£o de c√≥digo a medir
+*       chame a fun√ß√£o CNT_PararContagem
 *
-*     - Antes de terminar a execuÁ„o chame a funÁ„o CNT_VerificarContagem
-*       Esta funÁ„o listar· todos os contadores que contenham zero,
-*       ou seja que n„o tenham figurado em uma chamada para
-*       CNT_CONTAR no decorrer da execuÁ„o.
+*     - Antes de terminar a execu√ß√£o chame a fun√ß√£o CNT_VerificarContagem
+*       Esta fun√ß√£o listar√° todos os contadores que contenham zero,
+*       ou seja que n√£o tenham figurado em uma chamada para
+*       CNT_CONTAR no decorrer da execu√ß√£o.
 *
 *     Este processo pode ser modificado no caso de se querer realizar
 *     outras formas de contagem.
@@ -134,7 +134,7 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: CNT CondiÁıes de retorno
+*  $TC Tipo de dados: CNT Condi√ß√µes de retorno
 *
 *
 ***********************************************************************/
@@ -148,48 +148,48 @@
                /* CNT Encontrou erro */
 
          CNT_CondRetNaoContador = -12 ,
-               /* CNT Contador n„o existe */
+               /* CNT Contador n√£o existe */
 
          CNT_CondRetOpcional = -13 ,
-               /* CNT Contador È opcional */
+               /* CNT Contador √© opcional */
 
          CNT_CondRetProibido = -14 ,
-               /* CNT Contador n„o pode ser contado */
+               /* CNT Contador n√£o pode ser contado */
 
          CNT_CondRetInicializado = -15 ,
-               /* CNT MÛdulo contador j· inicializado */
+               /* CNT M√≥dulo contador j√° inicializado */
 
          CNT_CondRetNaoInicializado = -16 ,
-               /* CNT MÛdulo contador n„o inicializado */
+               /* CNT M√≥dulo contador n√£o inicializado */
 
          CNT_CondRetNaoIterador = -17
-               /* CNT Iterador lista ordenada n„o incializado */
+               /* CNT Iterador lista ordenada n√£o incializado */
 
    } CNT_tpCondRet ;
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Inicializar contadores
+*  $FC Fun√ß√£o: CNT  &Inicializar contadores
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Esta funÁ„o inicializa uma seÁ„o de contagem.
-*     Uma aplicaÁ„o pode conter diversas seÁıes de contagem mutuamente
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Esta fun√ß√£o inicializa uma se√ß√£o de contagem.
+*     Uma aplica√ß√£o pode conter diversas se√ß√µes de contagem mutuamente
 *     independentes.
-*     Esta funÁ„o deve ser chamada exatamente uma vez no inÌcio de
-*     cada seÁ„o.
-*     Ao final da seÁ„o deve ser chamada a funÁ„o
+*     Esta fun√ß√£o deve ser chamada exatamente uma vez no in√≠cio de
+*     cada se√ß√£o.
+*     Ao final da se√ß√£o deve ser chamada a fun√ß√£o
 *        CNT_TerminarContadores
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     $P NomeArquivo - ponteiro para o nome do arquivo de contagem
-*                   acumulada. Se NULL ou se n„o conseguir abrir,
-*                   n„o existe arquivo de contagem acumulada.
-*                   Sempre deve ser lido o arquivo de definiÁ„o de
-*                   contadores. Ao ler n„o ser„o alterados os valores
+*                   acumulada. Se NULL ou se n√£o conseguir abrir,
+*                   n√£o existe arquivo de contagem acumulada.
+*                   Sempre deve ser lido o arquivo de defini√ß√£o de
+*                   contadores. Ao ler n√£o ser√£o alterados os valores
 *                   de contagem porventura inicializados.
-*                   Ao final da seÁ„o de contagem ser· gerado o arquivo
-*                   de contagem acumulada, caso o par‚metro tenha sido
+*                   Ao final da se√ß√£o de contagem ser√° gerado o arquivo
+*                   de contagem acumulada, caso o par√¢metro tenha sido
 *                   diferente de NULL.
 *
 ***********************************************************************/
@@ -199,10 +199,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Terminar contadores
+*  $FC Fun√ß√£o: CNT  &Terminar contadores
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Termina a seÁ„o de contagem.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Termina a se√ß√£o de contagem.
 *     Grava o arquivo de contagem acumulada caso tenha sido definido.
 *
 *     Veja CNT_InicializarContadores para mais detalhes.
@@ -214,11 +214,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Iniciar a contagem
+*  $FC Fun√ß√£o: CNT  &Iniciar a contagem
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Inicia a contagem. Enquanto esta funÁ„o n„o tiver sido chamada,
-*     n„o È realizada a contagem ao passar pela funÁ„o CNT_Contar
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Inicia a contagem. Enquanto esta fun√ß√£o n√£o tiver sido chamada,
+*     n√£o √© realizada a contagem ao passar pela fun√ß√£o CNT_Contar
 *
 *     Contagem pode ser parada com CNT_PararContagem
 *
@@ -229,13 +229,13 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Parar contagem
+*  $FC Fun√ß√£o: CNT  &Parar contagem
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Para a contagem. ApÛs este comando todas as chamadas da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Para a contagem. Ap√≥s este comando todas as chamadas da fun√ß√£o
 *     CNT_Contar realizam nada.
-*     A contagem somente ser· iniciada ou retomada com uma chamada
-*     da funÁ„o CNT_IniciarContagem
+*     A contagem somente ser√° iniciada ou retomada com uma chamada
+*     da fun√ß√£o CNT_IniciarContagem
 *
 ***********************************************************************/
 
@@ -244,11 +244,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Registrar arquivo acumulador
+*  $FC Fun√ß√£o: CNT  &Registrar arquivo acumulador
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Registra ou substitui o nome do arquivo acumulador registrado no
-*     mÛdulo contador
+*     m√≥dulo contador
 *
 ***********************************************************************/
 
@@ -257,11 +257,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Ler arquivo de definiÁ„o de contadores
+*  $FC Fun√ß√£o: CNT  &Ler arquivo de defini√ß√£o de contadores
 *
 *  $FV Valor retornado
-*     Retorna o n˙mero de erros de leitura reportado.
-*     O formato do arquivo est· descrito no cabeÁalho do mÛdulo.
+*     Retorna o n√∫mero de erros de leitura reportado.
+*     O formato do arquivo est√° descrito no cabe√ßalho do m√≥dulo.
 *
 ***********************************************************************/
 
@@ -270,13 +270,13 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Gravar arquivo de contagem acumulada
+*  $FC Fun√ß√£o: CNT  &Gravar arquivo de contagem acumulada
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Grava os contadores e respectivas contagens em um arquivo ASCII.
 *     Pode ser utilizado para gerar arquivos contendo totais parciais.
-*     O Arquivo de acumulaÁ„o È definido ao inicializar o mÛdulo contador
-*     e È gravado ao terminar este mÛdulo. Ver comandos:
+*     O Arquivo de acumula√ß√£o √© definido ao inicializar o m√≥dulo contador
+*     e √© gravado ao terminar este m√≥dulo. Ver comandos:
 *        =inicializarcontadores
 *        =terminarcontadores
 *     em INTRPCNT
@@ -288,43 +288,43 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Contar
+*  $FC Fun√ß√£o: CNT  &Contar
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Adiciona 1 ao contador dado.
 *     Se o contador continha -1 - atribui 1 a ele.
 *     Se o contador continha -2 - emite uma mensagem de erro acusando
-*           a execuÁ„o de um fragmento de cÛdigo proibido.
+*           a execu√ß√£o de um fragmento de c√≥digo proibido.
 *
-*     No mÛdulo a medir devem ser inseridas chamadas para esta funÁ„o em
-*     todos os lugares em que interessa contar conforme a estratÈgia de
+*     No m√≥dulo a medir devem ser inseridas chamadas para esta fun√ß√£o em
+*     todos os lugares em que interessa contar conforme a estrat√©gia de
 *     contagem utilizada.
 *
-*  $EP Par‚metros
-*     $P NomeContador - È um string terminado em zero. N„o pode
+*  $EP Par√¢metros
+*     $P NomeContador - √© um string terminado em zero. N√£o pode
 *                       conter o string "\=", uma vez que este sinaliza
-*                       inÌcio de inicializaÁ„o do contador.
-*                       N„o pode ser NULL.
-*     $P numLinha     - o n˙mero da linha do cÛdigo fonte em que foi
-*                       chamada a funÁ„o, use a constante __LINE__
+*                       in√≠cio de inicializa√ß√£o do contador.
+*                       N√£o pode ser NULL.
+*     $P numLinha     - o n√∫mero da linha do c√≥digo fonte em que foi
+*                       chamada a fun√ß√£o, use a constante __LINE__
 *                       ou, entao, use a macro CNT_CONTAR
 *
 *  $FV Valor retornado
 *     CNT_CondRetOK       se processou normal
 *     CNT_CondRetProibido se tentou contar um contador marcado proibido,
 *                         i.e. contagem inicializada para -2
-*     CNT_CondRetNaoContador   se tentou contar um contador que n„o consta
+*     CNT_CondRetNaoContador   se tentou contar um contador que n√£o consta
 *                         da tabela de contadores lida de arquivo
-*                         ou se o contador contÈm um valor ilegal ( <= -3 )
-*     CNT_CondRetNaoInicializado   se o mÛdulo ainda n„o foi inicializado
+*                         ou se o contador cont√©m um valor ilegal ( <= -3 )
+*     CNT_CondRetNaoInicializado   se o m√≥dulo ainda n√£o foi inicializado
 *
-*  $EIU Interface com usu·rio pessoa
-*     Sinaliza erro na saÌda se
-*        Nome do contador n„o existe
+*  $EIU Interface com usu√°rio pessoa
+*     Sinaliza erro na sa√≠da se
+*        Nome do contador n√£o existe
 *        Se for tentado contar um contador proibido
 *
-*     As mensagens indicam a causa e o n˙mero da linha de cÛdigo fonte
-*     que contÈm a chamada para a funÁ„o CNT_Contar
+*     As mensagens indicam a causa e o n√∫mero da linha de c√≥digo fonte
+*     que cont√©m a chamada para a fun√ß√£o CNT_Contar
 *
 ***********************************************************************/
 
@@ -336,14 +336,14 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Verificar contagem
+*  $FC Fun√ß√£o: CNT  &Verificar contagem
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Verifica se existe algum contador com contagem igual a zero
 *     (nunca foi contado). Emite uma mensagem para cada contador
 *     zero encontrado.
-*     Retorna o n˙mero de erros reportados.
-*       -1 se ainda n„o incializado
+*     Retorna o n√∫mero de erros reportados.
+*       -1 se ainda n√£o incializado
 *
 ***********************************************************************/
 
@@ -352,11 +352,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Obter valor de contagem
+*  $FC Fun√ß√£o: CNT  &Obter valor de contagem
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Retorna CNT_CondRetNaoContador se o contador n„o existe
-*     Obs. o valor de todas as condiÁıes de retorno s„o negativas.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Retorna CNT_CondRetNaoContador se o contador n√£o existe
+*     Obs. o valor de todas as condi√ß√µes de retorno s√£o negativas.
 *
 ***********************************************************************/
 
@@ -365,7 +365,7 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Obter n˙mero de contadores
+*  $FC Fun√ß√£o: CNT  &Obter n√∫mero de contadores
 *
 ***********************************************************************/
 
@@ -374,7 +374,7 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Obter total de contagem
+*  $FC Fun√ß√£o: CNT  &Obter total de contagem
 *
 ***********************************************************************/
 
@@ -383,13 +383,13 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Iterador: obter contagem corrente
+*  $FC Fun√ß√£o: CNT  &Iterador: obter contagem corrente
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Retorna a contagem associada com o contador corrente do iterador
 *
-*     Retorna CNT_CondRetNaoIterador caso este n„o tenha sido iniciado
-*     ou j· tenha percorrido todos os contadores
+*     Retorna CNT_CondRetNaoIterador caso este n√£o tenha sido iniciado
+*     ou j√° tenha percorrido todos os contadores
 *
 ***********************************************************************/
 
@@ -398,12 +398,12 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Iterator: obter nome de contador corrente
+*  $FC Fun√ß√£o: CNT  &Iterator: obter nome de contador corrente
 *
 *  $FV Valor retornado
 *     Retorna o ponteiro para o nome do contador.
-*     Jamais altere o nome pois o contador se tornaria inacessÌvel.
-*     Retorna NULL se o iterador n„o est· ativo.
+*     Jamais altere o nome pois o contador se tornaria inacess√≠vel.
+*     Retorna NULL se o iterador n√£o est√° ativo.
 *
 ***********************************************************************/
 
@@ -412,7 +412,7 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Iterador: avanÁar para o prÛximo contador
+*  $FC Fun√ß√£o: CNT  &Iterador: avan√ßar para o pr√≥ximo contador
 *
 ***********************************************************************/
 
@@ -421,11 +421,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Iterator: iniciar percorrimento da lista em ordem alfabÈtica
+*  $FC Fun√ß√£o: CNT  &Iterator: iniciar percorrimento da lista em ordem alfab√©tica
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Inicializa ou reinicializa o iterador que percorre a lista ordenada.
-*     A qualquer momento no m·ximo um um iterador estar· ativo.
+*     A qualquer momento no m√°ximo um um iterador estar√° ativo.
 *
 *     O iterador pode ser utilizado para pecorrer toda a lista de
 *     contadores.
@@ -437,11 +437,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Iterator: verificar se o iterador est· ativo
+*  $FC Fun√ß√£o: CNT  &Iterator: verificar se o iterador est√° ativo
 *
 *  $FV Valor retornado
 *     TRUE  se estiver ativo
-*     FALSE se o mÛdulo n„o estiver inicializado ou o iterador j· tiver
+*     FALSE se o m√≥dulo n√£o estiver inicializado ou o iterador j√° tiver
 *           chegado ao final da lista
 *
 ***********************************************************************/
@@ -451,7 +451,7 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Zerar todos contadores
+*  $FC Fun√ß√£o: CNT  &Zerar todos contadores
 *
 ***********************************************************************/
 
@@ -460,7 +460,7 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Zerar contador dado
+*  $FC Fun√ß√£o: CNT  &Zerar contador dado
 *
 ***********************************************************************/
 
@@ -469,14 +469,14 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  &Verificar a estrutura dos contadores
+*  $FC Fun√ß√£o: CNT  &Verificar a estrutura dos contadores
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Verifica a integridade da estrutura de dados do mÛdulo contador
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Verifica a integridade da estrutura de dados do m√≥dulo contador
 *
 *  $FV Valor retornado
-*     Retorna o n˙mero de erros estruturais encontrados. Este n˙mero
-*     n„o corresponde ‡ totalidade de erros, uma vez que o processamento
+*     Retorna o n√∫mero de erros estruturais encontrados. Este n√∫mero
+*     n√£o corresponde √† totalidade de erros, uma vez que o processamento
 *     pode ser interrompido dependendo da severidade do erro encontrado.
 *
 ***********************************************************************/
@@ -489,7 +489,7 @@
 
 #undef CONTA_EXT
 
-/********** Fim do mÛdulo de definiÁ„o: CNT  Contadores de passagem **********/
+/********** Fim do m√≥dulo de defini√ß√£o: CNT  Contadores de passagem **********/
 
 #else
 #endif

@@ -2,56 +2,56 @@
 #define TABSIMB_
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: TBS  Tabela de sÌmbolos
+*  $MCD M√≥dulo de defini√ß√£o: TBS  Tabela de s√≠mbolos
 *
 *  Arquivo gerado:              TABSIMB.h
 *  Letras identificadoras:      TBS
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     Implementa tabelas de sÌmbolos genÈricas, i.e. que contÈm dados
+*  $ED Descri√ß√£o do m√≥dulo
+*     Implementa tabelas de s√≠mbolos gen√©ricas, i.e. que cont√©m dados
 *        de qualquer tipo.
 *     Podem existir n tabelas simultaneamente.
-*     Cada tabela È homogÍnea quanto ao tipo dos dados que armazena.
-*     Cada dado contÈm o sÌmbolo e o correspondente valor.
-*     Para a tabela de sÌmbolos È irrelevante a estrutura dos dados
-*        armazenados, ou seja n„o È necess·rio conhecer o tipo especÌfico.
-*     A tabela n„o se preocupa com possÌvel ordenaÁ„o dos sÌmbolos
+*     Cada tabela √© homog√™nea quanto ao tipo dos dados que armazena.
+*     Cada dado cont√©m o s√≠mbolo e o correspondente valor.
+*     Para a tabela de s√≠mbolos √© irrelevante a estrutura dos dados
+*        armazenados, ou seja n√£o √© necess√°rio conhecer o tipo espec√≠fico.
+*     A tabela n√£o se preocupa com poss√≠vel ordena√ß√£o dos s√≠mbolos
 *        contidos nos dados.
-*     Os ponteiros para os dados s„o copiados para dentro da tabela.
-*        N„o È copiado o valor apontado por estes ponteiros.
-*     Os dados passam a pertencer ‡ tabela, ou seja, caso um sÌmbolo seja
-*        excluÌdo, ser· destruÌdo o correspondente dado.
-*     Cada tabela referencia uma funÁ„o que determina como devem
-*        ser acessados os sÌmbolos contidos nos dados nela contidos.
-*     A funÁ„o de obtenÁ„o do sÌmbolo contido em um dado È dependente do tipo
-*        deste dado. Conseq¸entemente a tabela passa a ser implicitamente
-*        tipada com o tipo correspondente aos dados que contÈm. Um uso
-*        incorreto dos tipos pode provocar erro de execuÁ„o (cancelamento
-*        da execuÁ„o por acesso a endereÁos - ponteiros - ilegais)
-*     Cada tabela referencia uma funÁ„o que determina como devem ser
+*     Os ponteiros para os dados s√£o copiados para dentro da tabela.
+*        N√£o √© copiado o valor apontado por estes ponteiros.
+*     Os dados passam a pertencer √† tabela, ou seja, caso um s√≠mbolo seja
+*        exclu√≠do, ser√° destru√≠do o correspondente dado.
+*     Cada tabela referencia uma fun√ß√£o que determina como devem
+*        ser acessados os s√≠mbolos contidos nos dados nela contidos.
+*     A fun√ß√£o de obten√ß√£o do s√≠mbolo contido em um dado √© dependente do tipo
+*        deste dado. Conseq√ºentemente a tabela passa a ser implicitamente
+*        tipada com o tipo correspondente aos dados que cont√©m. Um uso
+*        incorreto dos tipos pode provocar erro de execu√ß√£o (cancelamento
+*        da execu√ß√£o por acesso a endere√ßos - ponteiros - ilegais)
+*     Cada tabela referencia uma fun√ß√£o que determina como devem ser
 *        desalocados os dados nela contidos.
 *        Isto permite armazenar dados compostos que contenham ponteiros
-*        para espaÁos que devam ser desalocados. Evita-se, assim, o
-*        vazamento de memÛria.
-*     A funÁ„o de liberaÁ„o de espaÁos de elementos deve assegurar a
-*        liberaÁ„o de todos os espaÁos de um elemento. Esta funÁ„o
-*        È chamada antes de se desalocar o espaÁo. Caso n„o seja
-*        necess·rio desalocar espaÁos referenciados pelo dado, o ponteiro
-*        para esta funÁ„o de liberaÁ„o poder· ser NULL .
+*        para espa√ßos que devam ser desalocados. Evita-se, assim, o
+*        vazamento de mem√≥ria.
+*     A fun√ß√£o de libera√ß√£o de espa√ßos de elementos deve assegurar a
+*        libera√ß√£o de todos os espa√ßos de um elemento. Esta fun√ß√£o
+*        √© chamada antes de se desalocar o espa√ßo. Caso n√£o seja
+*        necess√°rio desalocar espa√ßos referenciados pelo dado, o ponteiro
+*        para esta fun√ß√£o de libera√ß√£o poder√° ser NULL .
 *
 ***************************************************************************/
  
@@ -61,7 +61,7 @@
    #define TABSIMB_EXT extern
 #endif
 
-/***** DeclaraÁıes exportadas pelo mÛdulo *****/
+/***** Declara√ß√µes exportadas pelo m√≥dulo *****/
 
 #ifdef _DEBUG
    #include    "Generico.h"
@@ -72,11 +72,11 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: TBS CondiÁıes de retorno
+*  $TC Tipo de dados: TBS Condi√ß√µes de retorno
 *
 *
-*  $ED DescriÁ„o do tipo
-*     CondiÁıes de retorno das funÁıes da tabela de sÌmbolos
+*  $ED Descri√ß√£o do tipo
+*     Condi√ß√µes de retorno das fun√ß√µes da tabela de s√≠mbolos
 *
 ***********************************************************************/
 
@@ -86,57 +86,57 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
                /* Concluiu corretamente */
 
          TBS_CondRetSimboloExiste ,
-               /* SÌmbolo j· existe */
+               /* S√≠mbolo j√° existe */
 
          TBS_CondRetSimboloNaoExiste
-               /* SÌmbolo n„o existe */
+               /* S√≠mbolo n√£o existe */
 
    } TBS_tpCondRet ;
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  &Criar tabela de sÌmbolos
+*  $FC Fun√ß√£o: TBS  &Criar tabela de s√≠mbolos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Cria uma tabela de sÌmbolos que armazenar· sÌmbolos de determinado
-*     tipo. Os possÌveis tipos s„o desconhecidos a priori. A tipagem
-*     È implicita. N„o existe identificador de tipo associado ‡ tabela.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Cria uma tabela de s√≠mbolos que armazenar√° s√≠mbolos de determinado
+*     tipo. Os poss√≠veis tipos s√£o desconhecidos a priori. A tipagem
+*     √© implicita. N√£o existe identificador de tipo associado √† tabela.
 *
-*  $EP Par‚metros
-*     tamVetor  - tamanho do vetor de randomizaÁ„o. Procure sempre
-*                 escolher um n˙mero primo. Isto tende a otimizar a
-*                 randomizaÁ„o.
+*  $EP Par√¢metros
+*     tamVetor  - tamanho do vetor de randomiza√ß√£o. Procure sempre
+*                 escolher um n√∫mero primo. Isto tende a otimizar a
+*                 randomiza√ß√£o.
 *
-*     ObterSimbolo - ponteiro para funÁ„o que retorna um ponteiro
-*                    para o string do sÌmbolo contido na estrutura de dados
-*                    fornecida por par‚metro
-*                 ProtÛtipo da funÁ„o :
+*     ObterSimbolo - ponteiro para fun√ß√£o que retorna um ponteiro
+*                    para o string do s√≠mbolo contido na estrutura de dados
+*                    fornecida por par√¢metro
+*                 Prot√≥tipo da fun√ß√£o :
 *
 *                       char * ObterSimbolo( void * pDado )
 *
-*                 A funÁ„o dever retornar:
+*                 A fun√ß√£o dever retornar:
 *                    ponteiro para o string contido em dado
 *
-*                 A funÁ„o n„o realiza controle de existÍncia do string.
-*                 Como o tipo dos dados È indefinido (void), este poder· ser
-*                 qualquer estrutura t„o complexa quanto se queira.
-*                 No entanto, qualquer sÌmbolo ser· sempre um string
+*                 A fun√ß√£o n√£o realiza controle de exist√™ncia do string.
+*                 Como o tipo dos dados √© indefinido (void), este poder√° ser
+*                 qualquer estrutura t√£o complexa quanto se queira.
+*                 No entanto, qualquer s√≠mbolo ser√° sempre um string
 *                 terminado em zero.
 *
-*     LiberarDado  - ponteiro para funÁ„o que libera os espaÁos apontados
+*     LiberarDado  - ponteiro para fun√ß√£o que libera os espa√ßos apontados
 *                    pelo dado referenciado por um elemento da tabela de
-*                    sÌmbolos. Caso n„o existam tais ponteirospode-se
+*                    s√≠mbolos. Caso n√£o existam tais ponteirospode-se
 *                    passar o argumento NULL.
 *
 *  $FV Valor retornado
 *     Se executou corretamente retorna o ponteiro para a tabela de
-*     sÌmbolos criada.
-*     Este ponteiro deve ser utilizado pelas funÁıes de manipulaÁ„o de
-*     sÌmbolos e da prÛpria tabela.
+*     s√≠mbolos criada.
+*     Este ponteiro deve ser utilizado pelas fun√ß√µes de manipula√ß√£o de
+*     s√≠mbolos e da pr√≥pria tabela.
 *
-*     Se ocorreu algum erro, por exemplo falta de memÛria ou dados errados,
-*     a funÁ„o retornar· NULL. N„o ser· feita qualquer discriminaÁ„o quanto
+*     Se ocorreu algum erro, por exemplo falta de mem√≥ria ou dados errados,
+*     a fun√ß√£o retornar√° NULL. N√£o ser√° feita qualquer discrimina√ß√£o quanto
 *     ao tipo de problema ocorrido.
 *
 ***********************************************************************/
@@ -149,13 +149,13 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  &Destruir tabela de sÌmbolos
+*  $FC Fun√ß√£o: TBS  &Destruir tabela de s√≠mbolos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     DestrÛi a tabela fornecida. O ponteiro para a tabela n„o È modificado.
-*     Se ocorrer algum erro durante a destruiÁ„o, a tabela resultar·
-*     estruturalmente incorreta. OBS. n„o existe previs„o para possÌveis
-*     falhas de execuÁ„o.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Destr√≥i a tabela fornecida. O ponteiro para a tabela n√£o √© modificado.
+*     Se ocorrer algum erro durante a destrui√ß√£o, a tabela resultar√°
+*     estruturalmente incorreta. OBS. n√£o existe previs√£o para poss√≠veis
+*     falhas de execu√ß√£o.
 *
 *  $FV Valor retornado
 *     TBS_CondRetOK    - destruiu sem problemas
@@ -167,20 +167,20 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  &Validar tabela de sÌmbolos
+*  $FC Fun√ß√£o: TBS  &Validar tabela de s√≠mbolos
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Valida a estrutura da tabela. A funÁ„o verifica todas as
-*     assertivas estruturais da tabela de sÌmbolos
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Valida a estrutura da tabela. A fun√ß√£o verifica todas as
+*     assertivas estruturais da tabela de s√≠mbolos
 *
-*     Esta funÁ„o depende da existÍncia do arcabouÁo de teste.
-*     Ser· compilada se e somente se o nome _DEBUG estiver definido.
+*     Esta fun√ß√£o depende da exist√™ncia do arcabou√ßo de teste.
+*     Ser√° compilada se e somente se o nome _DEBUG estiver definido.
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     pTabela - ponteiro para a tabela a verificar
 *
 *  $FV Valor retornado
-*     TST_CondRetOK   - se a estrutura est· correta
+*     TST_CondRetOK   - se a estrutura est√° correta
 *     TST_CondRetErro - se estiver incorreta
 *
 ***********************************************************************/
@@ -194,37 +194,37 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  &Inserir sÌmbolo
+*  $FC Fun√ß√£o: TBS  &Inserir s√≠mbolo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Insere um dado contendo um sÌmbolo na tabela dada.
-*     … inserido o ponteiro, n„o a cÛpia do dado. Caso o elemento da
-*     tabela seja destrÌdo, o correspondente dado tambÈm o ser·.
-*     No entanto, caso o dado contenha referÍncias, estas n„o ser„o
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Insere um dado contendo um s√≠mbolo na tabela dada.
+*     √â inserido o ponteiro, n√£o a c√≥pia do dado. Caso o elemento da
+*     tabela seja destr√≠do, o correspondente dado tamb√©m o ser√°.
+*     No entanto, caso o dado contenha refer√™ncias, estas n√£o ser√£o
 *     processadas ao destruir.
 *
-*     LimitaÁıes:
-*     - sÌmbolos devem sempre ser strings terminados em zero.
-*     - as funÁıes internas s„o sensÌveis ‡ caixa e ‡ existeÍncia
-*       de caracteres diacrÌticos.
-*     - o dado contendo o sÌmbolo passa a ser controlado pela tabela.
-*       N„o È feita cÛpia dele ao inserir.
-*     - dados n„o podem conter ponteiros para outros espaÁos, exceto no
+*     Limita√ß√µes:
+*     - s√≠mbolos devem sempre ser strings terminados em zero.
+*     - as fun√ß√µes internas s√£o sens√≠veis √† caixa e √† existe√™ncia
+*       de caracteres diacr√≠ticos.
+*     - o dado contendo o s√≠mbolo passa a ser controlado pela tabela.
+*       N√£o √© feita c√≥pia dele ao inserir.
+*     - dados n√£o podem conter ponteiros para outros espa√ßos, exceto no
 *       caso de nem a tabela nem elementos individuais jamais serem
-*       destruÌdos durante a execuÁ„o do programa.
-*     - caso a funÁ„o n„o consiga inserir o dado (o sÌmbolo contido
-*       no dado j· existe na tabela), cabe ‡ funÁ„o cliente destruir
-*       a estrutura de dados enviada. Caso isto n„o seja feito, poder·
-*       ocorrer vazamento de memÛria.
+*       destru√≠dos durante a execu√ß√£o do programa.
+*     - caso a fun√ß√£o n√£o consiga inserir o dado (o s√≠mbolo contido
+*       no dado j√° existe na tabela), cabe √† fun√ß√£o cliente destruir
+*       a estrutura de dados enviada. Caso isto n√£o seja feito, poder√°
+*       ocorrer vazamento de mem√≥ria.
 *
-*  $EP Par‚metros
-*     pTabela - ponteiro para a tabela onde deve ser inserido o sÌmbolo
-*     pDado   - ponteiro para o dado que contÈm o sÌmbolo. O tipo do
+*  $EP Par√¢metros
+*     pTabela - ponteiro para a tabela onde deve ser inserido o s√≠mbolo
+*     pDado   - ponteiro para o dado que cont√©m o s√≠mbolo. O tipo do
 *               dado deve ser consistente com o tipo registrado na tabela
 *
 *  $FV Valor retornado
-*     TBS_CondRetOK            - inseriu um sÌmbolo novo
-*     TBS_CondRetSÌmboloExiste - se n„o inseriu por j· existir
+*     TBS_CondRetOK            - inseriu um s√≠mbolo novo
+*     TBS_CondRetS√≠mboloExiste - se n√£o inseriu por j√° existir
 *
 ***********************************************************************/
 
@@ -234,22 +234,22 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  &Procurar sÌmbolo
+*  $FC Fun√ß√£o: TBS  &Procurar s√≠mbolo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Procura o sÌmbolo dado
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Procura o s√≠mbolo dado
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     pTabela  - ponteiro para a tabela onde procura
-*     pSimbolo - ponteiro para um string (sÌmbolo) a procurar
+*     pSimbolo - ponteiro para um string (s√≠mbolo) a procurar
 *
 *  $FV Valor retornado
-*     Se encontrou: ponteiro para o dado correspondente ao sÌmbolo
-*                   o ponteiro ser· consistente com o tipo registrado
-*                   na tabela. Exceto o atributo sÌmbolo, qualquer outro
-*                   atributo desta estrutura poder· ser alterado
-*                   externamente ‡ tabela de sÌmbolos
-*     Se n„o encontrou: NULL
+*     Se encontrou: ponteiro para o dado correspondente ao s√≠mbolo
+*                   o ponteiro ser√° consistente com o tipo registrado
+*                   na tabela. Exceto o atributo s√≠mbolo, qualquer outro
+*                   atributo desta estrutura poder√° ser alterado
+*                   externamente √† tabela de s√≠mbolos
+*     Se n√£o encontrou: NULL
 *
 ***********************************************************************/
 
@@ -259,23 +259,23 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  &Excluir sÌmbolo
+*  $FC Fun√ß√£o: TBS  &Excluir s√≠mbolo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Exclui o sÌmbolo dado da tabela dada.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Exclui o s√≠mbolo dado da tabela dada.
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     pTabela    - ponteiro para a tabela onde deve excluir.
 *     pSimbolo   - ponteiro para o simbolo correspondente ao dado
 *                  a ser eliminado da tabela
 *
 *  $FV Valor retornado
-*     TBS_CondRetOK               - se foi excluÌdo
-*     TBS_CondRetSimboloNaoExiste - se o sÌmbolo j· n„o existia na tabela
+*     TBS_CondRetOK               - se foi exclu√≠do
+*     TBS_CondRetSimboloNaoExiste - se o s√≠mbolo j√° n√£o existia na tabela
 *
-*  $DE ObservaÁıes
-*     Note que o dado contido na tabela ser· destruÌdo e que n„o È
-*     feita cÛpia ao inseri-lo na tabela.
+*  $DE Observa√ß√µes
+*     Note que o dado contido na tabela ser√° destru√≠do e que n√£o √©
+*     feita c√≥pia ao inseri-lo na tabela.
 *
 ***********************************************************************/
 
@@ -284,7 +284,7 @@ typedef struct TBS_tagTabela * TBS_tppTabela ;
 
 #undef TABSIMB_EXT
 
-/********** Fim do mÛdulo de definiÁ„o: TBS  Tabela de sÌmbolos **********/
+/********** Fim do m√≥dulo de defini√ß√£o: TBS  Tabela de s√≠mbolos **********/
 
 #else
 #endif

@@ -2,48 +2,48 @@
 #define LerParm_
 /***************************************************************************
 *
-*  $MCD MÛdulo de definiÁ„o: LER  Ler par‚metros de comandos
+*  $MCD M√≥dulo de defini√ß√£o: LER  Ler par√¢metros de comandos
 *
 *  Arquivo gerado:              LerParm.h
 *  Letras identificadoras:      LER
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     ProvÍ funÁıes para a leitura e an·lise lÈxica dos comandos de teste.
-*     Pressupıe-se que cada comando de teste esteja integralmente em
+*  $ED Descri√ß√£o do m√≥dulo
+*     Prov√™ fun√ß√µes para a leitura e an√°lise l√©xica dos comandos de teste.
+*     Pressup√µe-se que cada comando de teste esteja integralmente em
 *     uma linha.
 *     Cada comando de teste inicia com o caractere '=' seguido de um string
 *     que identifica o comando.
-*     Cada comando pode requerer zero ou mais par‚metros que se encontram na
+*     Cada comando pode requerer zero ou mais par√¢metros que se encontram na
 *     mesma linha que o comando.
-*     Par‚metros podem ser literis ou simbÛlicos.
-*     Os par‚metros simbÛlicos precisam ser declarados antes de serem
+*     Par√¢metros podem ser literis ou simb√≥licos.
+*     Os par√¢metros simb√≥licos precisam ser declarados antes de serem
 *     utilizados.
-*     Os par‚metros tÍm tipo e a leitura deve respeitar esses tipos.
+*     Os par√¢metros t√™m tipo e a leitura deve respeitar esses tipos.
 *
-*     Se for do interesse do programador, mÛdulos de teste especÌfico
-*     podem ler e processar por conta prÛpria linhas do script. Isto
-*     pode ser necess·rio quando um mÛdulo necessita de um grande
-*     n˙mero de par‚metros ou de dados especiais.
+*     Se for do interesse do programador, m√≥dulos de teste espec√≠fico
+*     podem ler e processar por conta pr√≥pria linhas do script. Isto
+*     pode ser necess√°rio quando um m√≥dulo necessita de um grande
+*     n√∫mero de par√¢metros ou de dados especiais.
 *
-*  $EIU Interface com o usu·rio pessoa
-*     Este mÛdulo interpreta os comandos de teste globalmente disponÌveis:
+*  $EIU Interface com o usu√°rio pessoa
+*     Este m√≥dulo interpreta os comandos de teste globalmente dispon√≠veis:
 *
 *     =declararparm   <nome>  <idTipo>  <literal>
-*        declara o par‚metro <nome> do <tipo> definido com o valor <literal>
+*        declara o par√¢metro <nome> do <tipo> definido com o valor <literal>
 *        <tipo> pode ser um de:
 *           i - inteiro (long)
 *           f - flutuante (double)
@@ -52,12 +52,12 @@
 *        O valor de literal tem que estar em conformidade com o tipo
 *
 *     =exibirdeclaracao <nome>
-*        exibe a declaraÁ„o do par‚metro <nome> em formato "dump de memÛria"
+*        exibe a declara√ß√£o do par√¢metro <nome> em formato "dump de mem√≥ria"
 *
-*     Literais devem obedecer ‡s regras lÈxicas utilizadas pela linguagem C.
+*     Literais devem obedecer √†s regras l√©xicas utilizadas pela linguagem C.
 *
-*     Estes comandos sempre estar„o disponÌveis. Os demais comandos de
-*     teste est„o impementados no mÛdulo TESTLER especÌfico para este mÛdulo.
+*     Estes comandos sempre estar√£o dispon√≠veis. Os demais comandos de
+*     teste est√£o impementados no m√≥dulo TESTLER espec√≠fico para este m√≥dulo.
 *
 ***************************************************************************/
  
@@ -67,7 +67,7 @@
    #define LerParm_EXT extern
 #endif
 
-/***** DeclaraÁıes exportadas pelo mÛdulo *****/
+/***** Declara√ß√µes exportadas pelo m√≥dulo *****/
 
 #define  LER_DIM_NOME     32
 #define  LER_DIM_STRING  500
@@ -76,7 +76,7 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: LER CondiÁıes de retorno
+*  $TC Tipo de dados: LER Condi√ß√µes de retorno
 *
 *
 ***********************************************************************/
@@ -87,48 +87,48 @@
                /* Ler retorno OK */
 
          LER_CondRetNaoAbriu
-               /* Ler n„o abriu arquivo */
+               /* Ler n√£o abriu arquivo */
 
    } LER_tpCondRet ;
 
-/***** Dados exportados pelo mÛdulo *****/
+/***** Dados exportados pelo m√≥dulo *****/
 
-   /* Estrutura de dados: *LER  Dados globais p˙blicos */
+   /* Estrutura de dados: *LER  Dados globais p√∫blicos */
 
    LerParm_EXT int LER_TamBuffer ;
          /* Tamanho do string contido no buffer de leitura
                *
-               *$ED DescriÁ„o
-               *   ContÈm o n˙mero total de caracteres do buffer, excluindo o zero.
+               *$ED Descri√ß√£o
+               *   Cont√©m o n√∫mero total de caracteres do buffer, excluindo o zero.
                *   Jamais altere este valor. */
 
    LerParm_EXT int  LER_InxBuffer ;
          /* Cursor do buffer de leitura
                *
-               *$ED DescriÁ„o
-               *   O cursor de leitura indexa o primeiro caractere n„o lido contido
+               *$ED Descri√ß√£o
+               *   O cursor de leitura indexa o primeiro caractere n√£o lido contido
                *   no buffer.
-               *   O cursor È zerado sempre que uma nova linha for lida.
-               *   O cursor È avanÁado ao ler um par‚metro, sendo colocado no
-               *   primeiro caractere imediatamente apÛs ao par‚metro lido.
+               *   O cursor √© zerado sempre que uma nova linha for lida.
+               *   O cursor √© avan√ßado ao ler um par√¢metro, sendo colocado no
+               *   primeiro caractere imediatamente ap√≥s ao par√¢metro lido.
                *   Evite acessar caracteres quando LER_InxBuffer > LER_TamBuffer */
 
    LerParm_EXT char LER_Buffer[ LER_DIM_BUFFER + 1 ] ;
          /* Buffer de leitura
                *
-               *$ED DescriÁ„o
-               *   ContÈm a linha corrente do script a ser processada.
+               *$ED Descri√ß√£o
+               *   Cont√©m a linha corrente do script a ser processada.
                *   Jamais altere o valor do buffer. */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Inicializar mÛdulo LerParm
+*  $FC Fun√ß√£o: LER  &Inicializar m√≥dulo LerParm
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Inicializa o mÛdulo.
-*     Deve ser chamada antes de iniciar a an·lise de comandos.
-*     Deve ser chamada uma ˙nica vez no inÌcio ou apÛs terminar o mÛdulo.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Inicializa o m√≥dulo.
+*     Deve ser chamada antes de iniciar a an√°lise de comandos.
+*     Deve ser chamada uma √∫nica vez no in√≠cio ou ap√≥s terminar o m√≥dulo.
 *
 ***********************************************************************/
 
@@ -137,12 +137,12 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Terminar mÛdulo LerParm
+*  $FC Fun√ß√£o: LER  &Terminar m√≥dulo LerParm
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Fecha o arquivo de leitura e sinaliza mÛdulo de leitura n„o
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Fecha o arquivo de leitura e sinaliza m√≥dulo de leitura n√£o
 *     inicializado.
-*     ApÛs esta funÁ„o somente poder· ser chamada a funÁ„p
+*     Ap√≥s esta fun√ß√£o somente poder√° ser chamada a fun√ß√£p
 *     LER_InicializarLeitura
 *
 ***********************************************************************/
@@ -152,12 +152,12 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Obter nome do arquivo script
+*  $FC Fun√ß√£o: LER  &Obter nome do arquivo script
 *
 *  $FV Valor retornado
 *     Retorna o ponteiro para o nome do arquivo script sendo processado.
-*     Deve-se tomar cuidado para n„o alterar este nome.
-*     Ser· NULL se n„a tem arquivo aberto ou o mÛdulo n„o est· inicializado.
+*     Deve-se tomar cuidado para n√£o alterar este nome.
+*     Ser√° NULL se n√£a tem arquivo aberto ou o m√≥dulo n√£o est√° inicializado.
 *
 ***********************************************************************/
 
@@ -166,7 +166,7 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Obter n˙mero de linhas lidas atÈ o momento
+*  $FC Fun√ß√£o: LER  &Obter n√∫mero de linhas lidas at√© o momento
 *
 ***********************************************************************/
 
@@ -175,21 +175,21 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Abrir arquivo script de teste
+*  $FC Fun√ß√£o: LER  &Abrir arquivo script de teste
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Abre o arquivo que contÈm o script de teste.
-*     A extens„o default do arquivo de comandos script de teste È
-*     ".script" e ser· acrescida ao nome do arquivo caso este n„o
-*     contenha nome de extens„o.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Abre o arquivo que cont√©m o script de teste.
+*     A extens√£o default do arquivo de comandos script de teste √©
+*     ".script" e ser√° acrescida ao nome do arquivo caso este n√£o
+*     contenha nome de extens√£o.
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     $P NomeArqParm - nome do arquivo contendo o script de teste
 *
 *  $FV Valor retornado
-*     LER_CondRetOK        - caso tenha sido possÌvel abrir o arquivo.
+*     LER_CondRetOK        - caso tenha sido poss√≠vel abrir o arquivo.
 *     LER_CondRetNaoAbriu  - caso tenha ocorrido algum erro.
-*                            N„o h· discriminaÁ„o do erro encontrado.
+*                            N√£o h√° discrimina√ß√£o do erro encontrado.
 *
 ***********************************************************************/
 
@@ -198,15 +198,15 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Ler linha script eliminando brancos ao final
+*  $FC Fun√ß√£o: LER  &Ler linha script eliminando brancos ao final
 *
-*  $ED DescriÁ„o da funÁ„o
-*     LÍ uma linha do arquivo script e elimina os caracteres branco,
-*     fim de linha, tabulaÁ„o etc. do final da linha lida.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     L√™ uma linha do arquivo script e elimina os caracteres branco,
+*     fim de linha, tabula√ß√£o etc. do final da linha lida.
 *
 *  $FV Valor retornado
 *     Retorna o tamanho da linha lida.
-*     Ser·:
+*     Ser√°:
 *        -1 caso tenha ocorrido fim de arquivo.
 *        -2 caso tenha ocorrido algum problema de leitura.
 *
@@ -217,24 +217,24 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Interpretar comandos de teste
+*  $FC Fun√ß√£o: LER  &Interpretar comandos de teste
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Interpreta os comandos de teste disponibilizados pelo mÛdulo
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Interpreta os comandos de teste disponibilizados pelo m√≥dulo
 *     de leitura.
 *
-*     Ver a descriÁ„o do mÛdulo para mais detalhes
+*     Ver a descri√ß√£o do m√≥dulo para mais detalhes
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     $P - Comando de teste a ser interpretado
 *
 *  $FV Valor retornado
 *     TST_CondRetOK          - caso tenha interpretado corretamente
 *     TST_CondRetNaoExecutou - caso o comando de teste a interpretar
-*               n„o pertenÁa ao conjunto de LER
-*     TST_CondRetErro        - caso o comando de teste È do conjunto de LER
-*                              e est· sintaticamente errado.
-*                              Neste caso È gerada uma mensagem de erro no
+*               n√£o perten√ßa ao conjunto de LER
+*     TST_CondRetErro        - caso o comando de teste √© do conjunto de LER
+*                              e est√° sintaticamente errado.
+*                              Neste caso √© gerada uma mensagem de erro no
 *                              log.
 *
 ***********************************************************************/
@@ -244,20 +244,20 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Declarar par‚metro simbÛlico
+*  $FC Fun√ß√£o: LER  &Declarar par√¢metro simb√≥lico
 *
-*  $EP Par‚metros
-*     Interpreta uma linha de comando de teste contendo uma declaraÁ„o de
-*     nome simbÛlico.
-*     Todas as declaraÁıes tÍm o formato:
+*  $EP Par√¢metros
+*     Interpreta uma linha de comando de teste contendo uma declara√ß√£o de
+*     nome simb√≥lico.
+*     Todas as declara√ß√µes t√™m o formato:
 *       =declararparm  <nome> <tipo> <literal>
 *          em que o <literal> deve estar consistente com o <tipo>
-*     S„o geradas mensagens de erro no log de teste caso a declaraÁ„o
-*     n„o possa ser realizada.
+*     S√£o geradas mensagens de erro no log de teste caso a declara√ß√£o
+*     n√£o possa ser realizada.
 *
 *  $FV Valor retornado
-*     TRUE  - se a declaraÁ„o ocorreu
-*     FALSE - caso contr·rio
+*     TRUE  - se a declara√ß√£o ocorreu
+*     FALSE - caso contr√°rio
 *
 ***********************************************************************/
 
@@ -266,11 +266,11 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Exibir declaraÁ„o de sÌmbolo
+*  $FC Fun√ß√£o: LER  &Exibir declara√ß√£o de s√≠mbolo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Exibe o SÌmbolo e o valor associado ao sÌmbolo, sendo que este
-*     È exibido em hexadecimal.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Exibe o S√≠mbolo e o valor associado ao s√≠mbolo, sendo que este
+*     √© exibido em hexadecimal.
 *
 ***********************************************************************/
 
@@ -279,34 +279,34 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Ler linha de par‚metros
+*  $FC Fun√ß√£o: LER  &Ler linha de par√¢metros
 *
-*  $ED DescriÁ„o da funÁ„o
-*     LÍ um n˙mero vari·vel de par‚metros
+*  $ED Descri√ß√£o da fun√ß√£o
+*     L√™ um n√∫mero vari√°vel de par√¢metros
 *
-*  $EP Par‚metros
-*     $P Tipos   È um string contendo a identificaÁ„o dos tipos dos par‚metros
+*  $EP Par√¢metros
+*     $P Tipos   √© um string contendo a identifica√ß√£o dos tipos dos par√¢metros
 *                a serem lidos.
-*     $P ...     Os demais par‚metros s„o referÍncias (ponteiros) para os
-*                espaÁos onde dever„o ser armazenados os valores lidos.
+*     $P ...     Os demais par√¢metros s√£o refer√™ncias (ponteiros) para os
+*                espa√ßos onde dever√£o ser armazenados os valores lidos.
 *
 *     Tal como em scanf deve-se tomar o cuidado de assegurar que a lista
-*     de referÍncia e o string de tipos tenha o mesmo tamanho
-*     e que os indicadores de tipo sejam consistentes com a referÍncia
+*     de refer√™ncia e o string de tipos tenha o mesmo tamanho
+*     e que os indicadores de tipo sejam consistentes com a refer√™ncia
 *     posicionalmente correspondentes.
 *
-*     Ao ler um campo, primeiro procura-se ler um nome de par‚metro j·
-*     declarado. Caso isto seja possÌvel e o tipo esteja correto
-*     È "lido" o valor contido no par‚metro.
-*     Caso n„o seja possÌvel, tenta ler um literal em acordo com o tipo
+*     Ao ler um campo, primeiro procura-se ler um nome de par√¢metro j√°
+*     declarado. Caso isto seja poss√≠vel e o tipo esteja correto
+*     √© "lido" o valor contido no par√¢metro.
+*     Caso n√£o seja poss√≠vel, tenta ler um literal em acordo com o tipo
 *     dado.
 *
-*     Gera mensagens de erro para par‚metros desconhecidos, sintaxe errada
+*     Gera mensagens de erro para par√¢metros desconhecidos, sintaxe errada
 *     e tipo inconsistente com o solicitado no correspondente caractere no
 *     string Tipos.
 *
 *  $FV Valor retornado
-*     Retorna o n˙mero de campos lidos atÈ concluir ou atÈ encontrar
+*     Retorna o n√∫mero de campos lidos at√© concluir ou at√© encontrar
 *     um erro.
 *
 ***********************************************************************/
@@ -316,23 +316,23 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Ler par‚metro caractere
+*  $FC Fun√ß√£o: LER  &Ler par√¢metro caractere
 *
-*  $EP Par‚metros
-*     $P Parm È um ponteiro para um caractere que receber· o valor lido
+*  $EP Par√¢metros
+*     $P Parm √© um ponteiro para um caractere que receber√° o valor lido
 *
 *  $FV Valor retornado
 *     TRUE  - se leu
 *     FALSE - se ocorreu algum erro
 *
-*  $FGP Tipos e Vari·veis globais externas do prÛprio mÛdulo
-*     inxBuffer - È avanÁado para o primeiro caractere branco imediatamente
+*  $FGP Tipos e Vari√°veis globais externas do pr√≥prio m√≥dulo
+*     inxBuffer - √© avan√ßado para o primeiro caractere branco imediatamente
 *                 a seguir do caractere lido
 *
-*  $EIU Interface com usu·rio pessoa
+*  $EIU Interface com usu√°rio pessoa
 *     Um caractere deve vir entre aspas simples. Valem os caracteres de controle
 *     \n \r \t \a \v \f \\ \' \" \? e \0
-*     S„o geradas mensagens de erro no log
+*     S√£o geradas mensagens de erro no log
 *
 ***********************************************************************/
 
@@ -341,21 +341,21 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Ler par‚metro inteiro
+*  $FC Fun√ß√£o: LER  &Ler par√¢metro inteiro
 *
-*  $EP Par‚metros
-*     $P Parm È um ponteiro para um int que receber· o valor lido
+*  $EP Par√¢metros
+*     $P Parm √© um ponteiro para um int que receber√° o valor lido
 *
 *  $FV Valor retornado
 *     TRUE  - se leu
 *     FALSE - se ocorreu algum erro
 *
-*  $FGP Tipos e Vari·veis globais externas do prÛprio mÛdulo
-*     inxBuffer - È avanÁado para o primeiro caractere branco imediatamente
+*  $FGP Tipos e Vari√°veis globais externas do pr√≥prio m√≥dulo
+*     inxBuffer - √© avan√ßado para o primeiro caractere branco imediatamente
 *                 a seguir do int lido
 *
-*  $EIU Interface com usu·rio pessoa
-*     S„o geradas mensagens de erro no log
+*  $EIU Interface com usu√°rio pessoa
+*     S√£o geradas mensagens de erro no log
 *
 ***********************************************************************/
 
@@ -364,22 +364,22 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Ler par‚metro flutuante
+*  $FC Fun√ß√£o: LER  &Ler par√¢metro flutuante
 *
-*  $EP Par‚metros
-*     $P Parm È um ponteiro para um double que receber· o valor lido
+*  $EP Par√¢metros
+*     $P Parm √© um ponteiro para um double que receber√° o valor lido
 *
 *  $FV Valor retornado
 *     TRUE  - se leu
 *     FALSE - se ocorreu algum erro
 *
-*  $FGP Tipos e Vari·veis globais externas do prÛprio mÛdulo
-*     inxBuffer - È avanÁado para o primeiro caractere branco imediatamente
+*  $FGP Tipos e Vari√°veis globais externas do pr√≥prio m√≥dulo
+*     inxBuffer - √© avan√ßado para o primeiro caractere branco imediatamente
 *                 a seguir do double lido
 *
-*  $EIU Interface com usu·rio pessoa
-*     S„o v·lidas todas as formas de literal double aceitas pelo scanf.
-*     S„o geradas mensagens de erro no log
+*  $EIU Interface com usu√°rio pessoa
+*     S√£o v√°lidas todas as formas de literal double aceitas pelo scanf.
+*     S√£o geradas mensagens de erro no log
 *
 ***********************************************************************/
 
@@ -388,25 +388,25 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Ler par‚metro nome
+*  $FC Fun√ß√£o: LER  &Ler par√¢metro nome
 *
-*  $EP Par‚metros
-*     $P Parm       È um ponteiro para um caractere que receber· o nome lido
-*     $P tamString  È o tamanho do nome que foi lido
-*     $P dimString  È o tamanho m·ximo que o nome poder· ter, j·
+*  $EP Par√¢metros
+*     $P Parm       √© um ponteiro para um caractere que receber√° o nome lido
+*     $P tamString  √© o tamanho do nome que foi lido
+*     $P dimString  √© o tamanho m√°ximo que o nome poder√° ter, j√°
 *                   descontado o zero final
 *
 *  $FV Valor retornado
 *     TRUE  - se leu
 *     FALSE - se ocorreu algum erro
 *
-*  $FGP Tipos e Vari·veis globais externas do prÛprio mÛdulo
-*     inxBuffer - È avanÁado para o primeiro caractere branco imediatamente
+*  $FGP Tipos e Vari√°veis globais externas do pr√≥prio m√≥dulo
+*     inxBuffer - √© avan√ßado para o primeiro caractere branco imediatamente
 *                 a seguir do nome lido
 *
-*  $EIU Interface com usu·rio pessoa
-*     S„o v·lidas as mesmas regras de nomes C.
-*     S„o geradas mensagens de erro no log
+*  $EIU Interface com usu√°rio pessoa
+*     S√£o v√°lidas as mesmas regras de nomes C.
+*     S√£o geradas mensagens de erro no log
 *
 ***********************************************************************/
 
@@ -415,28 +415,28 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Ler par‚metro string
+*  $FC Fun√ß√£o: LER  &Ler par√¢metro string
 *
-*  $EP Par‚metros
-*     $P Parm       È um ponteiro para um caractere que receber· o string lido
-*     $P tamString  È o tamanho do string que foi lido
-*     $P dimString  È o tamanho m·ximo que o string poder· ter, j·
+*  $EP Par√¢metros
+*     $P Parm       √© um ponteiro para um caractere que receber√° o string lido
+*     $P tamString  √© o tamanho do string que foi lido
+*     $P dimString  √© o tamanho m√°ximo que o string poder√° ter, j√°
 *                   descontado o zero final
 *
 *  $FV Valor retornado
 *     TRUE  - se leu
 *     FALSE - se ocorreu algum erro
 *
-*  $FGP Tipos e Vari·veis globais externas do prÛprio mÛdulo
-*     inxBuffer - È avanÁado para o primeiro caractere branco imediatamente
+*  $FGP Tipos e Vari√°veis globais externas do pr√≥prio m√≥dulo
+*     inxBuffer - √© avan√ßado para o primeiro caractere branco imediatamente
 *                 a seguir do string lido
 *
-*  $EIU Interface com usu·rio pessoa
+*  $EIU Interface com usu√°rio pessoa
 *     Um string deve vir entre aspas duplas.
 *     Um string pode conter caracteres de controle
 *     \n \r \t \a \v \f \\ \' \" \? e \0
 *
-*     S„o geradas mensagens de erro no log
+*     S√£o geradas mensagens de erro no log
 *
 ***********************************************************************/
 
@@ -445,10 +445,10 @@
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: LER  &Pular comando de teste
+*  $FC Fun√ß√£o: LER  &Pular comando de teste
 *
-*  $ED DescriÁ„o da funÁ„o
-*     AvanÁa o cursor do buffer de leitura por cima de um comando de teste.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Avan√ßa o cursor do buffer de leitura por cima de um comando de teste.
 *     Todos os comandos de teste principiam com o prefixo '='
 *
 ***********************************************************************/
@@ -457,7 +457,7 @@
 
 #undef LerParm_EXT
 
-/********** Fim do mÛdulo de definiÁ„o: LER  Ler par‚metros de comandos **********/
+/********** Fim do m√≥dulo de defini√ß√£o: LER  Ler par√¢metros de comandos **********/
 
 #else
 #endif

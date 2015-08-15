@@ -1,22 +1,22 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TCED Teste controle de espaço dinâmico
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: TCED Teste controle de espaÃ§o dinÃ¢mico
 *
 *  Arquivo gerado:              TESTCED.c
 *  Letras identificadoras:      TCED
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -32,7 +32,7 @@
 
 typedef     int      BOOL ;
 
-/* Tabela dos nomes dos comandos de teste específicos */
+/* Tabela dos nomes dos comandos de teste especÃ­ficos */
 
 static const char ResetEspacosCmd[ ]            = "=resetespaco" ;
 static const char AlocarEspacoCmd[ ]            = "=alocarespaco" ;
@@ -68,7 +68,7 @@ static void * vtEspaco[ DIM_VT_ESPACO ] ;
        
 static int EhPrimeiraVez = TRUE ;
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
 
    static void InstrumentarString( char * pString , int dimString ) ;
 
@@ -78,26 +78,26 @@ static int EhPrimeiraVez = TRUE ;
 
    static BOOL VerificarString( char * String , int dimString ) ;
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TCED &Efetuar comando de teste do controle de espaço dinâmico
+*  $FC FunÃ§Ã£o: TCED &Efetuar comando de teste do controle de espaÃ§o dinÃ¢mico
 *
-*  $ED Descrição da função
-*     Esta função testa as funções do módulo de controle
-*     de espaço dinâmico que não são controladas pelo módulo
-*     INTESPAC ICED Interpretador de comandos de controle de espaço dinâmico
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Esta funÃ§Ã£o testa as funÃ§Ãµes do mÃ³dulo de controle
+*     de espaÃ§o dinÃ¢mico que nÃ£o sÃ£o controladas pelo mÃ³dulo
+*     INTESPAC ICED Interpretador de comandos de controle de espaÃ§o dinÃ¢mico
 *
-*     O módulo TCNTESP interpreta os comandos de teste utilizados para
-*     controlar os acesso a espaços de dados dinâmicos.
-*     O contexto é formado por um vetor de 4 espaços que podem ser
-*     endereçados pelo parâmetro <inxEspaco> dom comando.
-*     São seguintes os comandos interpretados:
+*     O mÃ³dulo TCNTESP interpreta os comandos de teste utilizados para
+*     controlar os acesso a espaÃ§os de dados dinÃ¢micos.
+*     O contexto Ã© formado por um vetor de 4 espaÃ§os que podem ser
+*     endereÃ§ados pelo parÃ¢metro <inxEspaco> dom comando.
+*     SÃ£o seguintes os comandos interpretados:
 *
 *     =resetespaco
-*         esvazia todos os registros de referência a espaços alocados
+*         esvazia todos os registros de referÃªncia a espaÃ§os alocados
 *
 *     =alocarespaco               <inxEspaco>  <tam>  <lin>  <NomeArquivo>
 *         efetua um malloc
@@ -106,65 +106,65 @@ static int EhPrimeiraVez = TRUE ;
 *         efetua um free
 *
 *     =exibirespaco               <inxEspaco>
-*         exibe o conteúdo de um espaço em formato hexadecimal
+*         exibe o conteÃºdo de um espaÃ§o em formato hexadecimal
 *
 *     =inserirstringespaco        <inxEspaco>  string terminado em \n
-*         atribui um valor ao espaço. Pode ser utilizado para corromper
-*         as estruturas de dados armazenadas em memória dinâmica
+*         atribui um valor ao espaÃ§o. Pode ser utilizado para corromper
+*         as estruturas de dados armazenadas em memÃ³ria dinÃ¢mica
 *
 *     =deturparespaco             <inxEspaco>  <deslocamento>  <charHexa>
-*         atribui um valor em memória relativa a um dado espaço.
+*         atribui um valor em memÃ³ria relativa a um dado espaÃ§o.
 *         Pode ser utilizado para corromper a estrutura de controle
-*         de espaços dinâmicos
+*         de espaÃ§os dinÃ¢micos
 *
 *     =verificarespaco            <inxEspaco>  <numFalhasEsperadas>
-*         examina a validade do registro de determinado espaço. O espaço
-*         pode conter falhas em virtude de possíveis corrupções com
+*         examina a validade do registro de determinado espaÃ§o. O espaÃ§o
+*         pode conter falhas em virtude de possÃ­veis corrupÃ§Ãµes com
 *         o comando =deturparespaco
 *
 *     =definirtipoespaco          <inxEspaco>  <idTipo>  <condEsperada>
-*         define o tipo associado ao espaço
+*         define o tipo associado ao espaÃ§o
 *
 *     =obtertipoespaco            <inxEspaco>  <idTipoEsperado>
-*         obtém o tipo do espaço
+*         obtÃ©m o tipo do espaÃ§o
 *
 *     =obterstringespaco          <inxEspaco>  stringEsperado terminado em \n
-*         obtém o string contido no espaço
+*         obtÃ©m o string contido no espaÃ§o
 *
 *     =obtertamanhoespaco         <inxEspaco>  <TamanhoEsperado>
-*         obtém o tamanho do valor contido no espaço
+*         obtÃ©m o tamanho do valor contido no espaÃ§o
 *
 *     =marcarespacoativo          <inxEspaco>
-*         marca o espaço ativo
+*         marca o espaÃ§o ativo
 *
 *     =marcarespaconaoativo       <inxEspaco>
-*         marca o espaço inativo
+*         marca o espaÃ§o inativo
 *
 *     =marcartodosnaoativos
-*         torna inativos todos os espaços
+*         torna inativos todos os espaÃ§os
 *
 *     =verificarespacoativo       <inxEspaco>
-*         verifica se determinado espaço é ativo
+*         verifica se determinado espaÃ§o Ã© ativo
 *
 *     =iniciariteradorespacos
 *         inicia ou restaura o iterador que percorre o conjunto de todos os
-*         espaços dinâmicos alocados
+*         espaÃ§os dinÃ¢micos alocados
 *
 *     =avancarproximoespaco       <condEsperada>
-*         caminha para o próximo espaço na lista
+*         caminha para o prÃ³ximo espaÃ§o na lista
 *
 *     =obterespacocorrente        <inxEspaco>
-*         obtém a referência para o espaço corrente do iterador atribuindo-a
+*         obtÃ©m a referÃªncia para o espaÃ§o corrente do iterador atribuindo-a
 *         ao elemento <inxEspaco>
 *
 *     =existeespacocorrente       <condEsperada>
-*         verifica se o iterador está ou não ativo
+*         verifica se o iterador estÃ¡ ou nÃ£o ativo
 *
 *     =terminariteradorespaco
-*         termina aexecução do iterador
+*         termina aexecuÃ§Ã£o do iterador
 *
 *     =excluirespacocorrente
-*         elimina o espaço corrente da lista de espaços controlados
+*         elimina o espaÃ§o corrente da lista de espaÃ§os controlados
 *
 ***********************************************************************/
 
@@ -201,7 +201,7 @@ static int EhPrimeiraVez = TRUE ;
 
       InstrumentarString( StringParm , DIM_STRING_PARM ) ;
 
-      /* Tratar: Reinicializar módulo de teste espeçifico */
+      /* Tratar: Reinicializar mÃ³dulo de teste espeÃ§ifico */
 
          if ( strcmp( ComandoTeste , ResetEspacosCmd ) == 0 )
          {
@@ -229,9 +229,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Tratar: Reinicializar módulo de teste espeçifico */
+         } /* fim ativa: Tratar: Reinicializar mÃ³dulo de teste espeÃ§ifico */
 
-      /* Tratar: Deturpar espaço */
+      /* Tratar: Deturpar espaÃ§o */
 
          else if ( strcmp( ComandoTeste , DeturparEspacoCmd ) == 0 )
          {
@@ -249,9 +249,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Tratar: Deturpar espaço */
+         } /* fim ativa: Tratar: Deturpar espaÃ§o */
 
-      /* Tratar: Atribuir string ao espaço */
+      /* Tratar: Atribuir string ao espaÃ§o */
 
          else if ( strcmp( ComandoTeste , InserirStringEspacoCmd ) == 0 )
          {
@@ -270,9 +270,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Tratar: Atribuir string ao espaço */
+         } /* fim ativa: Tratar: Atribuir string ao espaÃ§o */
 
-      /* Testar: Obter string contido no espaço */
+      /* Testar: Obter string contido no espaÃ§o */
 
          else if ( strcmp( ComandoTeste , ObterStringEspacoCmd ) == 0 )
          {
@@ -288,11 +288,11 @@ static int EhPrimeiraVez = TRUE ;
             } /* if */
 
             return TST_CompararEspaco( StringParm , vtEspaco[ inxEspaco ] ,
-                      strlen( StringParm ) , "Conteúdo do valor errado." ) ;
+                      strlen( StringParm ) , "ConteÃºdo do valor errado." ) ;
 
-         } /* fim ativa: Testar: Obter string contido no espaço */
+         } /* fim ativa: Testar: Obter string contido no espaÃ§o */
 
-      /* Testar: CED &Alocar espaço */
+      /* Testar: CED &Alocar espaÃ§o */
 
          else if ( strcmp( ComandoTeste , AlocarEspacoCmd ) == 0 )
          {
@@ -314,9 +314,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Alocar espaço */
+         } /* fim ativa: Testar: CED &Alocar espaÃ§o */
 
-      /* Testar: CED &Desalocar espaço */
+      /* Testar: CED &Desalocar espaÃ§o */
 
          else if ( strcmp( ComandoTeste , DesalocarEspacoCmd ) == 0 )
          {
@@ -336,9 +336,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Desalocar espaço */
+         } /* fim ativa: Testar: CED &Desalocar espaÃ§o */
 
-      /* Testar: CED &Exibir conteúdo bruto do espaço */
+      /* Testar: CED &Exibir conteÃºdo bruto do espaÃ§o */
 
          else if ( strcmp( ComandoTeste , ExibirEspacoBrutoCmd ) == 0 )
          {
@@ -358,9 +358,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Exibir conteúdo bruto do espaço */
+         } /* fim ativa: Testar: CED &Exibir conteÃºdo bruto do espaÃ§o */
 
-      /* Testar: CED &Exibir conteúdo útil do espaço */
+      /* Testar: CED &Exibir conteÃºdo Ãºtil do espaÃ§o */
 
          else if ( strcmp( ComandoTeste , ExibirEspacoCmd ) == 0 )
          {
@@ -378,9 +378,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Exibir conteúdo útil do espaço */
+         } /* fim ativa: Testar: CED &Exibir conteÃºdo Ãºtil do espaÃ§o */
 
-      /* Testar: CED &Verificar a integridade de um espaço de dados */
+      /* Testar: CED &Verificar a integridade de um espaÃ§o de dados */
 
          else if ( strcmp( ComandoTeste , VerificarEspacoCmd ) == 0 )
          {
@@ -398,11 +398,11 @@ static int EhPrimeiraVez = TRUE ;
                                              VerificarValor ) ;
 
             return TST_CompararBool( valEsperado , valObtido ,
-                   "Verificação resultou errado." ) ;
+                   "VerificaÃ§Ã£o resultou errado." ) ;
 
-         } /* fim ativa: Testar: CED &Verificar a integridade de um espaço de dados */
+         } /* fim ativa: Testar: CED &Verificar a integridade de um espaÃ§o de dados */
 
-      /* Testar: CED &Definir o tipo do espaço */
+      /* Testar: CED &Definir o tipo do espaÃ§o */
 
          else if ( strcmp( ComandoTeste , DefinirTipoEspacoCmd ) == 0 )
          {
@@ -419,11 +419,11 @@ static int EhPrimeiraVez = TRUE ;
             valObtido = CED_DefinirTipoEspaco( vtEspaco[ inxEspaco ] , idTipo );
 
             return TST_CompararInt( valEsperado , valObtido ,
-                   "Condição de retorno errada." ) ;
+                   "CondiÃ§Ã£o de retorno errada." ) ;
 
-         } /* fim ativa: Testar: CED &Definir o tipo do espaço */
+         } /* fim ativa: Testar: CED &Definir o tipo do espaÃ§o */
 
-      /* Testar: CED &Obter o tipo do espaço */
+      /* Testar: CED &Obter o tipo do espaÃ§o */
 
          else if ( strcmp( ComandoTeste , ObterTipoEspacoCmd ) == 0 )
          {
@@ -440,11 +440,11 @@ static int EhPrimeiraVez = TRUE ;
             valObtido = CED_ObterTipoEspaco( vtEspaco[ inxEspaco ] ) ;
 
             return TST_CompararInt( valEsperado , valObtido ,
-                   "Tipo do espaço errado." ) ;
+                   "Tipo do espaÃ§o errado." ) ;
 
-         } /* fim ativa: Testar: CED &Obter o tipo do espaço */
+         } /* fim ativa: Testar: CED &Obter o tipo do espaÃ§o */
 
-      /* Testar: CED &Obter tamanho do valor contido no espaço */
+      /* Testar: CED &Obter tamanho do valor contido no espaÃ§o */
 
          else if ( strcmp( ComandoTeste , ObterTamanhoEspacoCmd ) == 0 )
          {
@@ -463,9 +463,9 @@ static int EhPrimeiraVez = TRUE ;
             return TST_CompararInt( valEsperado , valObtido ,
                    "Tamanho do valor errado." ) ;
 
-         } /* fim ativa: Testar: CED &Obter tamanho do valor contido no espaço */
+         } /* fim ativa: Testar: CED &Obter tamanho do valor contido no espaÃ§o */
 
-      /* Testar: CED &Marcar ativo o espaço */
+      /* Testar: CED &Marcar ativo o espaÃ§o */
 
          else if ( strcmp( ComandoTeste , MarcarEspacoAtivoCmd ) == 0 )
          {
@@ -483,9 +483,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Marcar ativo o espaço */
+         } /* fim ativa: Testar: CED &Marcar ativo o espaÃ§o */
 
-      /* Testar: CED &Marcar não ativo o espaço */
+      /* Testar: CED &Marcar nÃ£o ativo o espaÃ§o */
 
          else if ( strcmp( ComandoTeste , MarcarEspacoNaoAtivoCmd ) == 0 )
          {
@@ -503,9 +503,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Marcar não ativo o espaço */
+         } /* fim ativa: Testar: CED &Marcar nÃ£o ativo o espaÃ§o */
 
-      /* Testar: CED &Marcar não ativos todos os espaços */
+      /* Testar: CED &Marcar nÃ£o ativos todos os espaÃ§os */
 
          else if ( strcmp( ComandoTeste , MarcarTodosNaoAtivosCmd ) == 0 )
          {
@@ -514,9 +514,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Marcar não ativos todos os espaços */
+         } /* fim ativa: Testar: CED &Marcar nÃ£o ativos todos os espaÃ§os */
 
-      /* Testar: CED &Verificar se espaço é ativo */
+      /* Testar: CED &Verificar se espaÃ§o Ã© ativo */
 
          else if ( strcmp( ComandoTeste , VerificarEspacoAtivoCmd ) == 0 )
          {
@@ -533,11 +533,11 @@ static int EhPrimeiraVez = TRUE ;
             valObtido = CED_EhEspacoAtivo( vtEspaco[ inxEspaco ] ) ;
 
             return TST_CompararInt( valEsperado , valObtido ,
-                   "Marca de espaço ativo errada." ) ;
+                   "Marca de espaÃ§o ativo errada." ) ;
 
-         } /* fim ativa: Testar: CED &Verificar se espaço é ativo */
+         } /* fim ativa: Testar: CED &Verificar se espaÃ§o Ã© ativo */
 
-      /* Testar CED  &Limitar com freqüência de geração de NULL */
+      /* Testar CED  &Limitar com freqÃ¼Ãªncia de geraÃ§Ã£o de NULL */
 
          else if ( strcmp( ComandoTeste , VerificarFrequenciaCmd ) == 0 )
          {
@@ -554,7 +554,7 @@ static int EhPrimeiraVez = TRUE ;
             valObtido = CED_LimitarFrequencia( Frequencia ) ;
             if ( !valObtido )
             {
-               return TST_NotificarFalha( "Freqüência limite de malloc em erro." ) ;
+               return TST_NotificarFalha( "FreqÃ¼Ãªncia limite de malloc em erro." ) ;
             } /* if */
 
             for( i = 0 ; i < numAllocs ; i++ )
@@ -575,11 +575,11 @@ static int EhPrimeiraVez = TRUE ;
             PercentObtido   = PercentObtido / numAllocs ;
 
             return TST_CompararFloat( PercentEsperado , PercentObtido , Tolerancia ,
-                        "Número de NULLs gerados está fora da tolerância." ) ;
+                        "NÃºmero de NULLs gerados estÃ¡ fora da tolerÃ¢ncia." ) ;
 
-         } /* fim ativa: Testar CED  &Limitar com freqüência de geração de NULL */
+         } /* fim ativa: Testar CED  &Limitar com freqÃ¼Ãªncia de geraÃ§Ã£o de NULL */
 
-      /* Testar: CED &Iterador: iniciar iterador de espaços */
+      /* Testar: CED &Iterador: iniciar iterador de espaÃ§os */
 
          else if ( strcmp( ComandoTeste , IniciarIteradorEspacosCmd ) == 0 )
          {
@@ -588,9 +588,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Iterador: iniciar iterador de espaços */
+         } /* fim ativa: Testar: CED &Iterador: iniciar iterador de espaÃ§os */
 
-      /* Testar: CED &Iterador: avançar para o próximo espaço */
+      /* Testar: CED &Iterador: avanÃ§ar para o prÃ³ximo espaÃ§o */
 
          else if ( strcmp( ComandoTeste , AvancarProximoEspacoCmd ) == 0 )
          {
@@ -606,11 +606,11 @@ static int EhPrimeiraVez = TRUE ;
             valObtido = CED_AvancarProximoEspaco( ) ;
 
             return TST_CompararInt( valEsperado , valObtido ,
-                   "Condição de avanço errada." ) ;
+                   "CondiÃ§Ã£o de avanÃ§o errada." ) ;
 
-         } /* fim ativa: Testar: CED &Iterador: avançar para o próximo espaço */
+         } /* fim ativa: Testar: CED &Iterador: avanÃ§ar para o prÃ³ximo espaÃ§o */
 
-      /* Testar: CED &Iterador: obter referência para o espaço corrente */
+      /* Testar: CED &Iterador: obter referÃªncia para o espaÃ§o corrente */
 
          else if ( strcmp( ComandoTeste , ObterEspacoCorrenteCmd ) == 0 )
          {
@@ -628,9 +628,9 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Iterador: obter referência para o espaço corrente */
+         } /* fim ativa: Testar: CED &Iterador: obter referÃªncia para o espaÃ§o corrente */
 
-      /* Testar: CED &Iterador: existe espaço corrente */
+      /* Testar: CED &Iterador: existe espaÃ§o corrente */
 
          else if ( strcmp( ComandoTeste , ExisteEspacoCorrenteCmd ) == 0 )
          {
@@ -646,11 +646,11 @@ static int EhPrimeiraVez = TRUE ;
             valObtido = CED_ExisteEspacoCorrente( ) ;
 
             return TST_CompararInt( valEsperado , valObtido ,
-                   "Condição de existência de iterador errada." ) ; {
+                   "CondiÃ§Ã£o de existÃªncia de iterador errada." ) ; {
 
-            } /* fim repete: Testar: CED &Iterador: existe espaço corrente */
+            } /* fim repete: Testar: CED &Iterador: existe espaÃ§o corrente */
 
-         } /* fim ativa: Testar: CED &Iterador: existe espaço corrente */
+         } /* fim ativa: Testar: CED &Iterador: existe espaÃ§o corrente */
 
       /* Testar: CED &Iterador: terminar iterador */
 
@@ -663,7 +663,7 @@ static int EhPrimeiraVez = TRUE ;
 
          } /* fim ativa: Testar: CED &Iterador: terminar iterador */
 
-      /* Testar: CED &Iterador: excluir espaço corrente */
+      /* Testar: CED &Iterador: excluir espaÃ§o corrente */
 
          else if ( strcmp( ComandoTeste , ExcluirEspacoCorrenteCmd ) == 0 )
          {
@@ -672,22 +672,22 @@ static int EhPrimeiraVez = TRUE ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar: CED &Iterador: excluir espaço corrente */
+         } /* fim ativa: Testar: CED &Iterador: excluir espaÃ§o corrente */
 
       return TST_CondRetNaoConhec ;
 
-   } /* Fim função: TCED &Efetuar comando de teste do controle de espaço dinâmico */
+   } /* Fim funÃ§Ã£o: TCED &Efetuar comando de teste do controle de espaÃ§o dinÃ¢mico */
 
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TCED -Instrumentar string local
+*  $FC FunÃ§Ã£o: TCED -Instrumentar string local
 *
-*  $ED Descrição da função
-*     Adiciona controle de extravasão a um espaço destinado para string
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Adiciona controle de extravasÃ£o a um espaÃ§o destinado para string
 *
 ***********************************************************************/
 
@@ -700,16 +700,16 @@ static int EhPrimeiraVez = TRUE ;
       pString[ dimString - 2 ] = '\xFC' ;
       memset( pString , '?' , dimString - 2 ) ;
 
-   } /* Fim função: TCED -Instrumentar string local */
+   } /* Fim funÃ§Ã£o: TCED -Instrumentar string local */
 
 
 /***********************************************************************
 *
-*  $FC Função: TCED -Verificar índice de espaço
+*  $FC FunÃ§Ã£o: TCED -Verificar Ã­ndice de espaÃ§o
 *
-*  $ED Descrição da função
-*     Verifica se o índice do registro de espaço de dados contido no comando
-*     de teste é válido.
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Verifica se o Ã­ndice do registro de espaÃ§o de dados contido no comando
+*     de teste Ã© vÃ¡lido.
 *
 ***********************************************************************/
 
@@ -732,25 +732,25 @@ static int EhPrimeiraVez = TRUE ;
 
       return TRUE ;
 
-   } /* Fim função: TCED -Verificar índice de espaço */
+   } /* Fim funÃ§Ã£o: TCED -Verificar Ã­ndice de espaÃ§o */
 
 
 /***********************************************************************
 *
-*  $FC Função: TCED -Verificar valor contido no espaço
+*  $FC FunÃ§Ã£o: TCED -Verificar valor contido no espaÃ§o
 *
-*  $ED Descrição da função
-*     Esta função ilustra a interface de verificação
-*     Se o espaço inicia com caractere "vazio (recém alocado)"
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Esta funÃ§Ã£o ilustra a interface de verificaÃ§Ã£o
+*     Se o espaÃ§o inicia com caractere "vazio (recÃ©m alocado)"
 *     todo ele deve estar vazio.
 *
-*     A implementação da presente função não pode ser utilizada
-*     quando a alocação de espaços for realizada por malloc,
-*     uma vez que depende da função CED_ObterEspaco que não
-*     existe para espaços alocados com malloc.
+*     A implementaÃ§Ã£o da presente funÃ§Ã£o nÃ£o pode ser utilizada
+*     quando a alocaÃ§Ã£o de espaÃ§os for realizada por malloc,
+*     uma vez que depende da funÃ§Ã£o CED_ObterEspaco que nÃ£o
+*     existe para espaÃ§os alocados com malloc.
 *
-*     Para poder ser utilizada com espaços alocados com malloc,
-*     a verificação deve ser possível conhecendo-se apenas o
+*     Para poder ser utilizada com espaÃ§os alocados com malloc,
+*     a verificaÃ§Ã£o deve ser possÃ­vel conhecendo-se apenas o
 *     ponteiro para o valor.
 *
 ***********************************************************************/
@@ -776,15 +776,15 @@ static int EhPrimeiraVez = TRUE ;
 
       return 1 ;
 
-   } /* Fim função: TCED -Verificar valor contido no espaço */
+   } /* Fim funÃ§Ã£o: TCED -Verificar valor contido no espaÃ§o */
 
 
 /***********************************************************************
 *
-*  $FC Função: TCED -Verificar extravasão de string
+*  $FC FunÃ§Ã£o: TCED -Verificar extravasÃ£o de string
 *
-*  $ED Descrição da função
-*     Verifica se ocorreu extravasão em string local controlado
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Verifica se ocorreu extravasÃ£o em string local controlado
 *
 ***********************************************************************/
 
@@ -798,7 +798,7 @@ static int EhPrimeiraVez = TRUE ;
       } /* if */
       return TRUE ;
 
-   } /* Fim função: TCED -Verificar extravasão de string */
+   } /* Fim funÃ§Ã£o: TCED -Verificar extravasÃ£o de string */
 
-/********** Fim do módulo de implementação: TCED Teste controle de espaço dinâmico **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: TCED Teste controle de espaÃ§o dinÃ¢mico **********/
 

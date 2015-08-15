@@ -1,22 +1,22 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: CNT  Contadores de passagem
+*  $MCI M√≥dulo de implementa√ß√£o: CNT  Contadores de passagem
 *
 *  Arquivo gerado:              CONTA.c
 *  Letras identificadoras:      CNT
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -58,17 +58,17 @@
 #define   COMENTARIO              "//"
 #define   OP_ATRIBUICAO           '='
 
-const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicializado." ;
+const char ContadorNaoInicializado[ ] = "M√≥dulo contadores ainda n√£o foi inicializado." ;
 
 /***********************************************************************
 *
 *  $TC Tipo de dados: CNT Descritor de contador
 *
 *
-*  $ED DescriÁ„o do tipo
-*     Cada contador È identificado por um nome.
-*     O acesso ao nome se dar· atrabÈs de uma tabela de sÌmbolos.
-*     AlÈm disso ser· mantida uma lista linear de contadores, ordenada
+*  $ED Descri√ß√£o do tipo
+*     Cada contador √© identificado por um nome.
+*     O acesso ao nome se dar√° atrab√©s de uma tabela de s√≠mbolos.
+*     Al√©m disso ser√° mantida uma lista linear de contadores, ordenada
 *     em ordem crescente pelo nome do contador.
 *
 ***********************************************************************/
@@ -76,50 +76,50 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
    typedef struct tgContador {
 
          struct tgContador * pProxContador ;
-               /* PrÛximo contador na lista ordenada de contadores */
+               /* Pr√≥ximo contador na lista ordenada de contadores */
 
          long Contagem ;
                /* Valor de contagem do contador
                *
-               *$ED DescriÁ„o
+               *$ED Descri√ß√£o
                *
-               *   Conta o n˙mero de vezes que a funÁ„o CNT_Contar
-               *   foi ativada com relaÁ„o ao contador */
+               *   Conta o n√∫mero de vezes que a fun√ß√£o CNT_Contar
+               *   foi ativada com rela√ß√£o ao contador */
 
          char NomeContador[ DIM_NOME_CONTADOR ] ;
-               /* Nome do contador, string C padr„o */
+               /* Nome do contador, string C padr√£o */
 
          int Fonte ;
                /* Fonte do nome
                *
-               *$ED DescriÁ„o
-               *   O atributo contÈm "ARQUIVO_ACUMULADOR" se o contador
+               *$ED Descri√ß√£o
+               *   O atributo cont√©m "ARQUIVO_ACUMULADOR" se o contador
                *   tiver sido lido de um arquivo acumulador ou
                *   "ARQUIVO_DEFINICAO" se tiver sido lido de um arquivo
                *   de definicao. Se ao ler de um arquivo de definicao
                *   o contador estiver marcado "ARQUIVO_ACUMULADOR",
-               *   o indicador È mudado para "ARQUIVO_DEFINICAO".
-               *   Se j· era "ARQUIVO_DEFINICAO", È emitida uma mensagem
-               *   de erro de duplicidade de definiÁ„o. */
+               *   o indicador √© mudado para "ARQUIVO_DEFINICAO".
+               *   Se j√° era "ARQUIVO_DEFINICAO", √© emitida uma mensagem
+               *   de erro de duplicidade de defini√ß√£o. */
 
    } tpContador ;
 
-/*****  Dados encapsulados no mÛdulo  *****/
+/*****  Dados encapsulados no m√≥dulo  *****/
 
       static int Inicializado = FALSE ;
-            /* Controle de inicializaÁ„o de contadores
+            /* Controle de inicializa√ß√£o de contadores
                *
-               *$ED DescriÁ„o
-               *   Controla se o sistema de contagem foi ou n„o iniciado */
+               *$ED Descri√ß√£o
+               *   Controla se o sistema de contagem foi ou n√£o iniciado */
 
       static int EfetuaContagem = FALSE ;
             /* Controle de contagem
                *
-               *$ED DescriÁ„o
-               *   Contagem È realizada somente se EfetuaContagem == TRUE */
+               *$ED Descri√ß√£o
+               *   Contagem √© realizada somente se EfetuaContagem == TRUE */
 
       static TBS_tppTabela pTabela = NULL ;
-            /* Ponteiro para a tabela de sÌmbolos em uso */
+            /* Ponteiro para a tabela de s√≠mbolos em uso */
 
       static tpContador * pContadorCorr = NULL ;
             /* Ponteiro para contador corrente do iterador */
@@ -128,27 +128,27 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
             /* Origem da lista ordenada de contadores */
 
       static int numContadores = 0 ;
-            /* N˙mero total de contadores */
+            /* N√∫mero total de contadores */
 
       static int numTotalErros = 0 ;
-            /* N˙mero total de erros encontrados atÈ o momento */
+            /* N√∫mero total de erros encontrados at√© o momento */
 
       static long ContagemTotal = 0 ;
             /* Contagem total
                *
-               *$ED DescriÁ„o
-               *     ContÈm a somatÛria de todas as contagens */
+               *$ED Descri√ß√£o
+               *     Cont√©m a somat√≥ria de todas as contagens */
 
       static char NomeArquivoAcumulador[ DIM_NOME_ARQUIVO ] ;
             /* Nome do arquivo acumulador de contadores */
 
       static int    numLinha = 0 ;
-            /* N˙mero da linha do arquivo sendo lido */
+            /* N√∫mero da linha do arquivo sendo lido */
 
       static char   BufferLeitura[ DIM_BUFFER ] ;
             /* Buffer de leitura de contadores */
 
-/***** ProtÛtipos das funÁıes encapuladas no mÛdulo *****/
+/***** Prot√≥tipos das fun√ß√µes encapuladas no m√≥dulo *****/
 
    static char * ObterNomeContador( void * pDado ) ;
 
@@ -161,11 +161,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
    static void ExibirPrefixo( int numLinha ) ;
 
-/*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Inicializar contadores
+*  Fun√ß√£o: CNT  &Inicializar contadores
 *  ****/
 
    CNT_tpCondRet CNT_InicializarContadores( char * NomeArquivo )
@@ -174,7 +174,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
       if ( Inicializado == TRUE )
       {
          ExibirPrefixo( -1 ) ;
-         fprintf( TST_ObterArqLog( ) , "Contadores j· foram inicializados."  ) ;
+         fprintf( TST_ObterArqLog( ) , "Contadores j√° foram inicializados."  ) ;
          return CNT_CondRetInicializado ;
       } /* if */
 
@@ -220,11 +220,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
          } /* if */
          return CNT_CondRetOK ;
 
-   } /* Fim funÁ„o: CNT  &Inicializar contadores */
+   } /* Fim fun√ß√£o: CNT  &Inicializar contadores */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Terminar contadores
+*  Fun√ß√£o: CNT  &Terminar contadores
 *  ****/
 
    CNT_tpCondRet CNT_TerminarContadores( )
@@ -246,7 +246,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
             numErros = CNT_GravarContadores( NomeArquivoAcumulador ) ;
          } /* if */
 
-      /* Inicializar as vari·veis de controle e a tabela */
+      /* Inicializar as vari√°veis de controle e a tabela */
 
          TBS_DestruirTabela( pTabela ) ;
          pTabela = NULL ;
@@ -260,11 +260,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
          return CNT_CondRetOK ;
 
-   } /* Fim funÁ„o: CNT  &Terminar contadores */
+   } /* Fim fun√ß√£o: CNT  &Terminar contadores */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Iniciar a contagem
+*  Fun√ß√£o: CNT  &Iniciar a contagem
 *  ****/
 
    void CNT_IniciarContagem( )
@@ -273,17 +273,17 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
       if ( Inicializado == FALSE )
       {
          ExibirPrefixo( -1 ) ;
-         fprintf( TST_ObterArqLog( ) , "Contadores ainda n„o foram inicializados."  ) ;
+         fprintf( TST_ObterArqLog( ) , "Contadores ainda n√£o foram inicializados."  ) ;
          return ;
       } /* if */
 
       EfetuaContagem = TRUE ;
 
-   } /* Fim funÁ„o: CNT  &Iniciar a contagem */
+   } /* Fim fun√ß√£o: CNT  &Iniciar a contagem */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Parar contagem
+*  Fun√ß√£o: CNT  &Parar contagem
 *  ****/
 
    void CNT_PararContagem( )
@@ -298,11 +298,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       EfetuaContagem = FALSE ;
 
-   } /* Fim funÁ„o: CNT  &Parar contagem */
+   } /* Fim fun√ß√£o: CNT  &Parar contagem */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Registrar arquivo acumulador
+*  Fun√ß√£o: CNT  &Registrar arquivo acumulador
 *  ****/
 
    void CNT_RegistrarAcumulador( char * NomeArquivo )
@@ -323,11 +323,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
          MontarNomeArquivo( NomeArquivoAcumulador , EXT_ACUMULADOR ) ;
       } /* if */
 
-   } /* Fim funÁ„o: CNT  &Registrar arquivo acumulador */
+   } /* Fim fun√ß√£o: CNT  &Registrar arquivo acumulador */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Ler arquivo de definiÁ„o de contadores
+*  Fun√ß√£o: CNT  &Ler arquivo de defini√ß√£o de contadores
 *  ****/
 
    int CNT_LerContadores( char * NomeArquivoDefinicao )
@@ -348,11 +348,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return LerContadores( NomeArquivo , ARQUIVO_DEFINICAO ) ;
 
-   } /* Fim funÁ„o: CNT  &Ler arquivo de definiÁ„o de contadores */
+   } /* Fim fun√ß√£o: CNT  &Ler arquivo de defini√ß√£o de contadores */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Gravar arquivo de contagem acumulada
+*  Fun√ß√£o: CNT  &Gravar arquivo de contagem acumulada
 *  ****/
 
    int CNT_GravarContadores( char * NomeArquivo )
@@ -367,20 +367,20 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       tpContador * pContador ;
 
-      /* Abrir arquivo acumulador para gravaÁ„o */
+      /* Abrir arquivo acumulador para grava√ß√£o */
 
          pArq = fopen( NomeArquivo , "w" ) ;
          if ( pArq == NULL )
          {
             ExibirPrefixo( -1 ) ;
-            fprintf( TST_ObterArqLog( ) , "N„o abriu o arquivo de acumuladores %s" ,
+            fprintf( TST_ObterArqLog( ) , "N√£o abriu o arquivo de acumuladores %s" ,
                      NomeArquivo ) ;
             return 1 ;
          } /* if */
 
       /* Gerar arquivo acumulador */
 
-         /* Gravar cabeÁalho de arquivo de acumuladores */
+         /* Gravar cabe√ßalho de arquivo de acumuladores */
 
             time( & StartTime ) ;
             pTime = localtime( & StartTime ) ;
@@ -419,11 +419,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
          return 0 ;
 
-   } /* Fim funÁ„o: CNT  &Gravar arquivo de contagem acumulada */
+   } /* Fim fun√ß√£o: CNT  &Gravar arquivo de contagem acumulada */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Contar
+*  Fun√ß√£o: CNT  &Contar
 *  ****/
 
    CNT_tpCondRet CNT_Contar( char * NomeContador , int numLinha )
@@ -438,7 +438,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
       if ( Inicializado == FALSE )
       {
          ExibirPrefixo( -1 ) ;
-         fprintf( TST_ObterArqLog( ) , "Contadores ainda n„o foram inicializados."  ) ;
+         fprintf( TST_ObterArqLog( ) , "Contadores ainda n√£o foram inicializados."  ) ;
          return CNT_CondRetNaoInicializado ;
       } /* if */
 
@@ -457,20 +457,20 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
             } else if ( pContador->Contagem == -2 )
             {
                ExibirPrefixo( numLinha ) ;
-               fprintf( TST_ObterArqLog( ) , "Contador \"%s\" n„o deve ser contado." ,
+               fprintf( TST_ObterArqLog( ) , "Contador \"%s\" n√£o deve ser contado." ,
                         NomeContador ) ;
                return CNT_CondRetProibido ;
             } else
             {
                ExibirPrefixo( numLinha ) ;
-               fprintf( TST_ObterArqLog( ) , "Contador \"%s\" contÈm valor ilegal: %d." ,
+               fprintf( TST_ObterArqLog( ) , "Contador \"%s\" cont√©m valor ilegal: %d." ,
                         NomeContador , pContador->Contagem ) ;
                return CNT_CondRetNaoContador ;
             } /* if */
          } else
          {
             ExibirPrefixo( numLinha ) ;
-            fprintf( TST_ObterArqLog( ) , "Contador \"%s\" n„o existe." ,
+            fprintf( TST_ObterArqLog( ) , "Contador \"%s\" n√£o existe." ,
                      NomeContador ) ;
             return CNT_CondRetNaoContador ;
          } /* if */
@@ -478,11 +478,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return CNT_CondRetOK ;
 
-   } /* Fim funÁ„o: CNT  &Contar */
+   } /* Fim fun√ß√£o: CNT  &Contar */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Verificar contagem
+*  Fun√ß√£o: CNT  &Verificar contagem
 *  ****/
 
    int CNT_VerificarContagem( )
@@ -505,7 +505,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
          {
             numErros ++ ;
             ExibirPrefixo( 0 ) ;
-            fprintf( TST_ObterArqLog( ) , "Contagem em \"%s\" È zero." ,
+            fprintf( TST_ObterArqLog( ) , "Contagem em \"%s\" √© zero." ,
                      pContador->NomeContador ) ;
          } /* if */
          pContador = pContador->pProxContador ;
@@ -513,11 +513,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return numErros ;
 
-   } /* Fim funÁ„o: CNT  &Verificar contagem */
+   } /* Fim fun√ß√£o: CNT  &Verificar contagem */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Obter valor de contagem
+*  Fun√ß√£o: CNT  &Obter valor de contagem
 *  ****/
 
    long CNT_ObterContagem( char * NomeContador )
@@ -540,11 +540,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return pContador->Contagem ;
 
-   } /* Fim funÁ„o: CNT  &Obter valor de contagem */
+   } /* Fim fun√ß√£o: CNT  &Obter valor de contagem */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Obter n˙mero de contadores
+*  Fun√ß√£o: CNT  &Obter n√∫mero de contadores
 *  ****/
 
    int CNT_ObterNumeroContadores( )
@@ -559,11 +559,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return numContadores ;
 
-   } /* Fim funÁ„o: CNT  &Obter n˙mero de contadores */
+   } /* Fim fun√ß√£o: CNT  &Obter n√∫mero de contadores */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Obter total de contagem
+*  Fun√ß√£o: CNT  &Obter total de contagem
 *  ****/
 
    long CNT_ObterContagemTotal( )
@@ -578,11 +578,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return ContagemTotal ;
 
-   } /* Fim funÁ„o: CNT  &Obter total de contagem */
+   } /* Fim fun√ß√£o: CNT  &Obter total de contagem */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Iterador: obter contagem corrente
+*  Fun√ß√£o: CNT  &Iterador: obter contagem corrente
 *  ****/
 
    long CNT_ObterContagemCorrente( )
@@ -602,11 +602,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return CNT_CondRetNaoIterador ;
 
-   } /* Fim funÁ„o: CNT  &Iterador: obter contagem corrente */
+   } /* Fim fun√ß√£o: CNT  &Iterador: obter contagem corrente */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Iterator: obter nome de contador corrente
+*  Fun√ß√£o: CNT  &Iterator: obter nome de contador corrente
 *  ****/
 
    char * CNT_ObterContadorCorrente( )
@@ -626,11 +626,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return NULL ;
 
-   } /* Fim funÁ„o: CNT  &Iterator: obter nome de contador corrente */
+   } /* Fim fun√ß√£o: CNT  &Iterator: obter nome de contador corrente */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Iterador: avanÁar para o prÛximo contador
+*  Fun√ß√£o: CNT  &Iterador: avan√ßar para o pr√≥ximo contador
 *  ****/
 
    void CNT_IrProximoContador( )
@@ -648,11 +648,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
          pContadorCorr = pContadorCorr->pProxContador ;
       } /* if */
 
-   } /* Fim funÁ„o: CNT  &Iterador: avanÁar para o prÛximo contador */
+   } /* Fim fun√ß√£o: CNT  &Iterador: avan√ßar para o pr√≥ximo contador */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Iterator: iniciar percorrimento da lista em ordem alfabÈtica
+*  Fun√ß√£o: CNT  &Iterator: iniciar percorrimento da lista em ordem alfab√©tica
 *  ****/
 
    void CNT_IniciarIterador( )
@@ -667,11 +667,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       pContadorCorr = pOrgListaContadores ;
 
-   } /* Fim funÁ„o: CNT  &Iterator: iniciar percorrimento da lista em ordem alfabÈtica */
+   } /* Fim fun√ß√£o: CNT  &Iterator: iniciar percorrimento da lista em ordem alfab√©tica */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Iterator: verificar se o iterador est· ativo
+*  Fun√ß√£o: CNT  &Iterator: verificar se o iterador est√° ativo
 *  ****/
 
    int CNT_EhAtivoIterador( )
@@ -690,11 +690,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
       } /* if */
       return FALSE ;
 
-   } /* Fim funÁ„o: CNT  &Iterator: verificar se o iterador est· ativo */
+   } /* Fim fun√ß√£o: CNT  &Iterator: verificar se o iterador est√° ativo */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Zerar todos contadores
+*  Fun√ß√£o: CNT  &Zerar todos contadores
 *  ****/
 
    CNT_tpCondRet CNT_ZerarContadores( )
@@ -721,11 +721,11 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return CNT_CondRetOK ;
 
-   } /* Fim funÁ„o: CNT  &Zerar todos contadores */
+   } /* Fim fun√ß√£o: CNT  &Zerar todos contadores */
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Zerar contador dado
+*  Fun√ß√£o: CNT  &Zerar contador dado
 *  ****/
 
    CNT_tpCondRet CNT_ZerarContador( char * NomeContador )
@@ -751,7 +751,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
       } else
       {
          ExibirPrefixo( -1 ) ;
-         fprintf( TST_ObterArqLog( ) , "Contador \"%s\" n„o existe." ,
+         fprintf( TST_ObterArqLog( ) , "Contador \"%s\" n√£o existe." ,
                    NomeContador ) ;
          return CNT_CondRetNaoContador ;
 
@@ -759,13 +759,13 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return CNT_CondRetOK ;
 
-   } /* Fim funÁ„o: CNT  &Zerar contador dado */
+   } /* Fim fun√ß√£o: CNT  &Zerar contador dado */
 
 #ifdef _DEBUG
 
 /***************************************************************************
 *
-*  FunÁ„o: CNT  &Verificar a estrutura dos contadores
+*  Fun√ß√£o: CNT  &Verificar a estrutura dos contadores
 *  ****/
 
    int CNT_VerificarEstruturaContadores( )
@@ -784,7 +784,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
          return 1 ;
       } /* if */
 
-      /* Verificar se contadores est· inicializado */
+      /* Verificar se contadores est√° inicializado */
 
          if ( Inicializado == FALSE )
          {
@@ -799,7 +799,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
          {
             numErros ++ ;
             ExibirPrefixo( -1 ) ;
-            fprintf( TST_ObterArqLog( ) , "Tabela de sÌmbolos (contadores) em erro." ) ;
+            fprintf( TST_ObterArqLog( ) , "Tabela de s√≠mbolos (contadores) em erro." ) ;
          } /* if */
 
       /* Verificar a lista de contadores */
@@ -814,7 +814,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
             while ( pContador != NULL ) {
 
-            /* Verificar conte˙do de contagem */
+            /* Verificar conte√∫do de contagem */
 
                numSimbolos++ ;
 
@@ -832,10 +832,10 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
                {
                   numErros   ++ ;
                   ExibirPrefixo( 0 ) ;
-                  fprintf( TST_ObterArqLog( ) , "Nome de contador È vazio." ) ;
+                  fprintf( TST_ObterArqLog( ) , "Nome de contador √© vazio." ) ;
                } /* if */
 
-            /* Verificar ordenaÁ„o do nome de contadores */
+            /* Verificar ordena√ß√£o do nome de contadores */
 
                if ( pContadorAnt != NULL )
                {
@@ -843,7 +843,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
                   {
                      numErros ++ ;
                      ExibirPrefixo( 0 ) ;
-                     fprintf( TST_ObterArqLog( ) , "Erro de ordenaÁ„o na lsiat de contadores." ) ;
+                     fprintf( TST_ObterArqLog( ) , "Erro de ordena√ß√£o na lsiat de contadores." ) ;
                      fprintf( TST_ObterArqLog( ) , "\n                    Primeiro: %s" ,
                                  pContadorAnt->NomeContador ) ;
                      fprintf( TST_ObterArqLog( ) , "\n                    Segundo:  %s" ,
@@ -851,7 +851,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
                   } /* if */
                } /* if */
 
-            /* AvanÁar para o prÛximo contador */
+            /* Avan√ßar para o pr√≥ximo contador */
 
                pContadorAnt = pContador ;
                pContador    = pContador->pProxContador ;
@@ -862,7 +862,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
             {
                numErros   ++ ;
                ExibirPrefixo( 0 ) ;
-               fprintf( TST_ObterArqLog( ) , "N˙mero de contadores errado. Tabela È: %d  Lista È: %d" ,
+               fprintf( TST_ObterArqLog( ) , "N√∫mero de contadores errado. Tabela √©: %d  Lista √©: %d" ,
                         numContadores , numSimbolos ) ;
             } /* if */
 
@@ -870,20 +870,20 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return numErros ;
 
-   } /* Fim funÁ„o: CNT  &Verificar a estrutura dos contadores */
+   } /* Fim fun√ß√£o: CNT  &Verificar a estrutura dos contadores */
 
 #endif
 
 
-/*****  CÛdigo das funÁıes encapsuladas no mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes encapsuladas no m√≥dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  -Obter nome do contador
+*  $FC Fun√ß√£o: CNT  -Obter nome do contador
 *
-*  $ED DescriÁ„o da funÁ„o
-*     ObtÈm o ponteiro para o nome do contador
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Obt√©m o ponteiro para o nome do contador
 *
 ***********************************************************************/
 
@@ -895,15 +895,15 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
       pContador = ( tpContador * ) pDado ;
       return pContador->NomeContador ;
 
-   } /* Fim funÁ„o: CNT  -Obter nome do contador */
+   } /* Fim fun√ß√£o: CNT  -Obter nome do contador */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  -Montar nome de arquivo
+*  $FC Fun√ß√£o: CNT  -Montar nome de arquivo
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Adiciona o nome de extens„o caso o nome de arquivo n„o o contenha
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Adiciona o nome de extens√£o caso o nome de arquivo n√£o o contenha
 *
 ***********************************************************************/
 
@@ -927,18 +927,18 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
       strcat( NomeArquivo , "." ) ;
       strcat( NomeArquivo , NomeExtensao ) ;
 
-   } /* Fim funÁ„o: CNT  -Montar nome de arquivo */
+   } /* Fim fun√ß√£o: CNT  -Montar nome de arquivo */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  -Ler linha limpa
+*  $FC Fun√ß√£o: CNT  -Ler linha limpa
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     Le linha acumulador limpa
 *
 *  $FV Valor retornado
-*     Retorna o n˙mero de linhas lidas
+*     Retorna o n√∫mero de linhas lidas
 *       -1 se fim de arquivo
 *       -2 se erro de leitura
 *
@@ -994,32 +994,32 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
          return i + 1 ;
 
-   } /* Fim funÁ„o: CNT  -Ler linha limpa */
+   } /* Fim fun√ß√£o: CNT  -Ler linha limpa */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  -Ler arquivo de definiÁ„o de contadores
+*  $FC Fun√ß√£o: CNT  -Ler arquivo de defini√ß√£o de contadores
 *
-*  $ED DescriÁ„o da funÁ„o
-*     LÍ o conjunto de contadores definidos em um arquivo
+*  $ED Descri√ß√£o da fun√ß√£o
+*     L√™ o conjunto de contadores definidos em um arquivo
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     NomeArquivo
 *     Fonte       - identifica o tipo de arquivo
 *                      ARQUIVO_DEFINICAO
 *                      ARQUIVO_ACUMULADOR
-*                   A fonte È utilizada para controlar duplicidade de
-*                   declaraÁ„o de contadores
+*                   A fonte √© utilizada para controlar duplicidade de
+*                   declara√ß√£o de contadores
 *
 *  $FV Valor retornado
-*     Retorna o n˙mero de erros encontrados
+*     Retorna o n√∫mero de erros encontrados
 *
 *  $FA Arquivos manipulados
 *     Formato do arquivo de contadores
 *
-*     Cada linha poder· ser uma de
-*       //              - coment·rio, ignorado
+*     Cada linha poder√° ser uma de
+*       //              - coment√°rio, ignorado
 *       linha em branco - ignorada
 *       nome            - nome de um contador, inicializado para 0
 *       nome\=vv        - nome de um contador inicializado para vv
@@ -1028,10 +1028,10 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 *                      vv == -2 contador proibido.
 *                      vv <= -3 erro de dado
 *     Nomes podem ser quaisquer strings, podendo conter brancos.
-*     Os caracteres em branco finais ser„o eliminados
+*     Os caracteres em branco finais ser√£o eliminados
 *
-*  $EIU Interface com usu·rio pessoa
-*     Erro - arquivo n„o existe e È de definiÁ„o
+*  $EIU Interface com usu√°rio pessoa
+*     Erro - arquivo n√£o existe e √© de defini√ß√£o
 *     Erro - nome definido mais de uma vez
 *
 ***********************************************************************/
@@ -1065,7 +1065,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
             if ( Fonte == ARQUIVO_DEFINICAO )
             {
                ExibirPrefixo( -1 ) ;
-               fprintf( TST_ObterArqLog( ) , "N„o abriu o arquivo \"%s\"" ,
+               fprintf( TST_ObterArqLog( ) , "N√£o abriu o arquivo \"%s\"" ,
                         NomeArquivo ) ;
                numErros ++ ;
             } /* if */
@@ -1086,19 +1086,19 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
             } /* fim ativa: Tratar linha de contadores em branco */
 
-         /* Tratar linha de contadores coment·rio */
+         /* Tratar linha de contadores coment√°rio */
 
             else if ( memcmp( BufferLeitura , COMENTARIO , strlen( COMENTARIO )) == 0 )
             {
 
-            } /* fim ativa: Tratar linha de contadores coment·rio */
+            } /* fim ativa: Tratar linha de contadores coment√°rio */
 
-         /* Tratar linha de declaraÁ„o de contador */
+         /* Tratar linha de declara√ß√£o de contador */
 
             else
             {
 
-               /* Extrair nome e inicializaÁ„o de linha */
+               /* Extrair nome e inicializa√ß√£o de linha */
 
                   ValorContagem = 0 ;
 
@@ -1110,7 +1110,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
                      if ( OpAtribuicao != OP_ATRIBUICAO )
                      {
                         ExibirPrefixo( numLinha ) ;
-                        fprintf( TST_ObterArqLog( ) , "\nOperador atribuiÁ„o incorreto: %s" ,
+                        fprintf( TST_ObterArqLog( ) , "\nOperador atribui√ß√£o incorreto: %s" ,
                                  BufferLeitura ) ;
                         numErros ++ ;
                      } /* if */
@@ -1126,7 +1126,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
                   } else if ( numCampos != 1 )
                   {
                      ExibirPrefixo( numLinha ) ;
-                     fprintf( TST_ObterArqLog( ) , "\nFormato correto: nome\\=valor. …: %s" ,
+                     fprintf( TST_ObterArqLog( ) , "\nFormato correto: nome\\=valor. √â: %s" ,
                               BufferLeitura ) ;
                      numErros ++ ;
                   } /* if */
@@ -1159,7 +1159,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
                         if ( pContador->Fonte == ARQUIVO_DEFINICAO )
                         {
                            ExibirPrefixo( numLinha ) ;
-                           fprintf( TST_ObterArqLog( ) , "Nome de contador duplicado em arquivo de definiÁ„o: %s" ,
+                           fprintf( TST_ObterArqLog( ) , "Nome de contador duplicado em arquivo de defini√ß√£o: %s" ,
                                     NomeContador ) ;
                            numErros ++ ;
                         } else {
@@ -1202,7 +1202,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
                   } /* fim ativa: Inserir contador em lista ordenada */
 
-            } /* fim ativa: Tratar linha de declaraÁ„o de contador */
+            } /* fim ativa: Tratar linha de declara√ß√£o de contador */
 
          /* Ler nova linha de contador */
 
@@ -1219,15 +1219,15 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       return numErros ;
 
-   } /* Fim funÁ„o: CNT  -Ler arquivo de definiÁ„o de contadores */
+   } /* Fim fun√ß√£o: CNT  -Ler arquivo de defini√ß√£o de contadores */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: CNT  -Exibir prefixo de mensagem
+*  $FC Fun√ß√£o: CNT  -Exibir prefixo de mensagem
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Exibe o prefixo de mensagens de erro geradas pelo mÛdulo de contagem
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Exibe o prefixo de mensagens de erro geradas pelo m√≥dulo de contagem
 *
 ***********************************************************************/
 
@@ -1247,7 +1247,7 @@ const char ContadorNaoInicializado[ ] = "MÛdulo contadores ainda n„o foi inicial
 
       TST_ExibirPrefixo( ERRO_CONTADOR , Msg ) ;
 
-   } /* Fim funÁ„o: CNT  -Exibir prefixo de mensagem */
+   } /* Fim fun√ß√£o: CNT  -Exibir prefixo de mensagem */
 
-/********** Fim do mÛdulo de implementaÁ„o: CNT  Contadores de passagem **********/
+/********** Fim do m√≥dulo de implementa√ß√£o: CNT  Contadores de passagem **********/
 

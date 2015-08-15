@@ -14,7 +14,7 @@ SRC_PATH := Fontes
 OBJ_PATH := Objetos
 APP_PATH := Produto
 
-CFLAGS := -g -I$(SRC_PATH) -Wall
+CFLAGS := -g -I$(SRC_PATH) -Wall -std=c99
 
 ###############################################################
 OBJ := $(SRC:.C=.o)

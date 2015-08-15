@@ -1,23 +1,23 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: TBS  Tabela de sÌmbolos
+*  $MCI M√≥dulo de implementa√ß√£o: TBS  Tabela de s√≠mbolos
 *
 *  Arquivo gerado:              TABSIMB.c
 *  Letras identificadoras:      TBS
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
 *     5       avs   18/mai/2008 corrigir e ampliar CESPDIN
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -36,7 +36,7 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: TBS Elemento de lista de colis„o
+*  $TC Tipo de dados: TBS Elemento de lista de colis√£o
 *
 *
 ***********************************************************************/
@@ -56,7 +56,7 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: TBS Tipo cabeÁa de tabela
+*  $TC Tipo de dados: TBS Tipo cabe√ßa de tabela
 *
 *
 ***********************************************************************/
@@ -64,31 +64,31 @@
    typedef struct TBS_tagTabela {
 
          unsigned tamVtHash ;
-               /* Tamanho do vetor de randomizaÁ„o */
+               /* Tamanho do vetor de randomiza√ß√£o */
 
          tpLista ** pVtHash ;
-               /* Ponteiro para o vetor de randomizaÁ„o
+               /* Ponteiro para o vetor de randomiza√ß√£o
                *
-               *$ED DescriÁ„o
+               *$ED Descri√ß√£o
                *   Este ponteiro aponta para um vetor alocado dinamicamente.
-               *   Vetores s„o tratados como ponteiros, donde surge o ponteiro para
-               *   ponteiro ( "**" ) na declaraÁ„o. */
+               *   Vetores s√£o tratados como ponteiros, donde surge o ponteiro para
+               *   ponteiro ( "**" ) na declara√ß√£o. */
 
          char * ( * ObterSimbolo) ( void * pDado ) ;
-               /* Ponteiro para funÁ„o obter sÌmbolo */
+               /* Ponteiro para fun√ß√£o obter s√≠mbolo */
 
          void ( * LiberarDado ) ( void * pDado ) ;
-               /* Ponteiro para a funÁ„o de destruiÁ„o da estrutura de dados que contÈm o sÌmbolo
+               /* Ponteiro para a fun√ß√£o de destrui√ß√£o da estrutura de dados que cont√©m o s√≠mbolo
                *
-               *$ED DescriÁ„o
-               *   Caso elemento da tabela de sÌmbolos contenha um ou mais ponteiros
-               *   para espaÁos que devem ser desalocados quando for desalocado o
-               *   elemento, este atributo deve conter o ponteiro para a funÁ„o que
-               *   realiza o free destes espaÁos. */
+               *$ED Descri√ß√£o
+               *   Caso elemento da tabela de s√≠mbolos contenha um ou mais ponteiros
+               *   para espa√ßos que devem ser desalocados quando for desalocado o
+               *   elemento, este atributo deve conter o ponteiro para a fun√ß√£o que
+               *   realiza o free destes espa√ßos. */
 
    } TBS_tpTabela ;
 
-/***** ProtÛtipos das funÁıes encapuladas no mÛdulo *****/
+/***** Prot√≥tipos das fun√ß√µes encapuladas no m√≥dulo *****/
 
    static void LiberarElemento( TBS_tpTabela * pTabela ,
                                 tpLista      * pElem    ) ;
@@ -99,11 +99,11 @@
 
    static unsigned Hash( char * pSimbolo , unsigned tamVtHash ) ;
 
-/*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
 
 /***************************************************************************
 *
-*  FunÁ„o: TBS  &Criar tabela de sÌmbolos
+*  Fun√ß√£o: TBS  &Criar tabela de s√≠mbolos
 *  ****/
 
    TBS_tppTabela TBS_CriarTabela(
@@ -144,11 +144,11 @@
 
       return pTabela ;
 
-   } /* Fim funÁ„o: TBS  &Criar tabela de sÌmbolos */
+   } /* Fim fun√ß√£o: TBS  &Criar tabela de s√≠mbolos */
 
 /***************************************************************************
 *
-*  FunÁ„o: TBS  &Destruir tabela de sÌmbolos
+*  Fun√ß√£o: TBS  &Destruir tabela de s√≠mbolos
 *  ****/
 
    void TBS_DestruirTabela( TBS_tppTabela pTabela )
@@ -165,7 +165,7 @@
 
       for ( inxElem = 0 ; inxElem < pTabela->tamVtHash ; inxElem++ ) {
 
-      /* Destruir todos elementos de lista de colis„o */
+      /* Destruir todos elementos de lista de colis√£o */
 
          pElem = pTabela->pVtHash[ inxElem ] ;
          while ( pElem != NULL )
@@ -175,18 +175,18 @@
             pElem = pProx ;
          } /* while */
 
-      } /* fim repete: Raiz de TBS  &Destruir tabela de sÌmbolos */
+      } /* fim repete: Raiz de TBS  &Destruir tabela de s√≠mbolos */
 
       free( pTabela->pVtHash ) ;
       free( pTabela ) ;
 
-   } /* Fim funÁ„o: TBS  &Destruir tabela de sÌmbolos */
+   } /* Fim fun√ß√£o: TBS  &Destruir tabela de s√≠mbolos */
 
 #ifdef _DEBUG
 
 /***************************************************************************
 *
-*  FunÁ„o: TBS  &Validar tabela de sÌmbolos
+*  Fun√ß√£o: TBS  &Validar tabela de s√≠mbolos
 *  ****/
 
    TST_tpCondRet TBS_ValidarTabela( TBS_tppTabela pTabela )
@@ -200,34 +200,34 @@
          TST_ASSERT( pTabela != NULL ) ;
       #endif
 
-      /* Validar existÍncia de dados da cabeÁa */
+      /* Validar exist√™ncia de dados da cabe√ßa */
 
          if ( pTabela->tamVtHash <= 1 )
          {
-            return TST_NotificarFalha( "Tamanho incorreto do vetor de randomizaÁ„o." ) ;
+            return TST_NotificarFalha( "Tamanho incorreto do vetor de randomiza√ß√£o." ) ;
          } /* if */
 
          if ( pTabela->pVtHash == NULL )
          {
-            return TST_NotificarFalha( "Falta vetor de randomizaÁ„o." ) ;
+            return TST_NotificarFalha( "Falta vetor de randomiza√ß√£o." ) ;
          } /* if */
 
          if ( pTabela->ObterSimbolo == NULL )
          {
-            return TST_NotificarFalha( "Falta funÁ„o obter simbolo." ) ;
+            return TST_NotificarFalha( "Falta fun√ß√£o obter simbolo." ) ;
          } /* if */
 
-      /* Validar listas de colis„o */
+      /* Validar listas de colis√£o */
 
          for ( inxHash = 0 ; inxHash < pTabela->tamVtHash ; inxHash ++ ) {
 
-         /* Validar toda a lista de colis„o */
+         /* Validar toda a lista de colis√£o */
 
             pElem = pTabela->pVtHash[ inxHash ] ;
 
             while ( pElem != NULL ) {
 
-            /* Validar elemento da lista de colis„o */
+            /* Validar elemento da lista de colis√£o */
 
                if ( pElem->pDado == NULL )
                {
@@ -237,14 +237,14 @@
                if ( Hash( pTabela->ObterSimbolo( pElem->pDado ) ,
                               pTabela->tamVtHash ) != inxHash )
                {
-                  return TST_NotificarFalha( "Õndice has de elemento est· incorreto." ) ;
+                  return TST_NotificarFalha( "√çndice has de elemento est√° incorreto." ) ;
                } /* if */
 
                if ( pElem->pAnt != NULL )
                {
                   if ( pElem->pAnt->pProx != pElem )
                   {
-                     return TST_NotificarFalha( "Erro de encadeamento ‡ esquerda em elemento de lista." ) ;
+                     return TST_NotificarFalha( "Erro de encadeamento √† esquerda em elemento de lista." ) ;
                   } /* if */
                } else
                {
@@ -258,25 +258,25 @@
                {
                   if ( pElem->pProx->pAnt != pElem )
                   {
-                     return TST_NotificarFalha( "Erro de encadeamento ‡ direita em elemento de lista." ) ;
+                     return TST_NotificarFalha( "Erro de encadeamento √† direita em elemento de lista." ) ;
                   } /* if */
                } /* if */
 
                pElem = pElem->pProx ;
 
-            } /* fim repete: Validar toda a lista de colis„o */
+            } /* fim repete: Validar toda a lista de colis√£o */
 
-         } /* fim repete: Validar listas de colis„o */
+         } /* fim repete: Validar listas de colis√£o */
 
       return TST_CondRetOK ;
 
-   } /* Fim funÁ„o: TBS  &Validar tabela de sÌmbolos */
+   } /* Fim fun√ß√£o: TBS  &Validar tabela de s√≠mbolos */
 
 #endif
 
 /***************************************************************************
 *
-*  FunÁ„o: TBS  &Inserir sÌmbolo
+*  Fun√ß√£o: TBS  &Inserir s√≠mbolo
 *  ****/
 
    TBS_tpCondRet TBS_InserirSimbolo( TBS_tppTabela pTabela ,
@@ -292,7 +292,7 @@
          TST_ASSERT( pDado   != NULL ) ;
       #endif
 
-      /* Procurar sÌmbolo */
+      /* Procurar s√≠mbolo */
 
          if ( ProcurarSimbolo( pTabela ,
                                pTabela->ObterSimbolo( pDado ) ,
@@ -301,7 +301,7 @@
             return TBS_CondRetSimboloExiste ;
          } /* if */
 
-      /* Inserir o sÌmbolo */
+      /* Inserir o s√≠mbolo */
 
          pElem = ( tpLista * ) malloc( sizeof( tpLista )) ;
          pElem->pDado = pDado ;
@@ -316,11 +316,11 @@
 
          return TBS_CondRetOK ;
 
-   } /* Fim funÁ„o: TBS  &Inserir sÌmbolo */
+   } /* Fim fun√ß√£o: TBS  &Inserir s√≠mbolo */
 
 /***************************************************************************
 *
-*  FunÁ„o: TBS  &Procurar sÌmbolo
+*  Fun√ß√£o: TBS  &Procurar s√≠mbolo
 *  ****/
 
    void * TBS_ProcurarSimbolo( TBS_tppTabela pTabela ,
@@ -343,11 +343,11 @@
 
       return pElem->pDado ;
 
-   } /* Fim funÁ„o: TBS  &Procurar sÌmbolo */
+   } /* Fim fun√ß√£o: TBS  &Procurar s√≠mbolo */
 
 /***************************************************************************
 *
-*  FunÁ„o: TBS  &Excluir sÌmbolo
+*  Fun√ß√£o: TBS  &Excluir s√≠mbolo
 *  ****/
 
    TBS_tpCondRet TBS_ExcluirSimbolo( TBS_tppTabela pTabela ,
@@ -384,19 +384,19 @@
 
       return TBS_CondRetOK ;
 
-   } /* Fim funÁ„o: TBS  &Excluir sÌmbolo */
+   } /* Fim fun√ß√£o: TBS  &Excluir s√≠mbolo */
 
 
-/*****  CÛdigo das funÁıes encapsuladas no mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes encapsuladas no m√≥dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  -Liberar elemento da tabela
+*  $FC Fun√ß√£o: TBS  -Liberar elemento da tabela
 *
-*  $ED DescriÁ„o da funÁ„o
-*     Elimina os espaÁos apontados pelo valor do elemento, o valor e o
-*     prÛprio elemento.
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Elimina os espa√ßos apontados pelo valor do elemento, o valor e o
+*     pr√≥prio elemento.
 *
 ***********************************************************************/
 
@@ -411,12 +411,12 @@
       free( pElem->pDado ) ;
       free( pElem ) ;
 
-   } /* Fim funÁ„o: TBS  -Liberar elemento da tabela */
+   } /* Fim fun√ß√£o: TBS  -Liberar elemento da tabela */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  -Procurar o sÌmbolo
+*  $FC Fun√ß√£o: TBS  -Procurar o s√≠mbolo
 *
 ***********************************************************************/
 
@@ -441,12 +441,12 @@
 
       return NULL ;
 
-   } /* Fim funÁ„o: TBS  -Procurar o sÌmbolo */
+   } /* Fim fun√ß√£o: TBS  -Procurar o s√≠mbolo */
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TBS  -Computar hash
+*  $FC Fun√ß√£o: TBS  -Computar hash
 *
 ***********************************************************************/
 
@@ -467,7 +467,7 @@
 
       return inxHash % tamVtHash ;
 
-   } /* Fim funÁ„o: TBS  -Computar hash */
+   } /* Fim fun√ß√£o: TBS  -Computar hash */
 
-/********** Fim do mÛdulo de implementaÁ„o: TBS  Tabela de sÌmbolos **********/
+/********** Fim do m√≥dulo de implementa√ß√£o: TBS  Tabela de s√≠mbolos **********/
 

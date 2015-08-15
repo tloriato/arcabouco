@@ -1,22 +1,22 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TTBS Teste tabela de símbolos
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: TTBS Teste tabela de sÃ­mbolos
 *
 *  Arquivo gerado:              TestTBS.c
 *  Letras identificadoras:      TTBS
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -80,7 +80,7 @@ typedef struct
 
 TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
 
    static char * ObterSimboloTipoUm( void * pDado ) ;
 
@@ -94,21 +94,21 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
    static int ValidarIdTipo( int idTipo ) ;
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TTBS &Testar tabela de símbolos
+*  $FC FunÃ§Ã£o: TTBS &Testar tabela de sÃ­mbolos
 *
-*  $ED Descrição da função
-*     Podem ser criadas até 10 tabelas, identificadas pelos índices 0 a 10
-*     Estão disponíveis 2 tipos de símbolos 1 e 2
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Podem ser criadas atÃ© 10 tabelas, identificadas pelos Ã­ndices 0 a 10
+*     EstÃ£o disponÃ­veis 2 tipos de sÃ­mbolos 1 e 2
 *
-*     Comandos disponíveis:
+*     Comandos disponÃ­veis:
 *
 *     =resettestetab
-*           - anula o vetor de tabelas. Provoca vazamento de memória
+*           - anula o vetor de tabelas. Provoca vazamento de memÃ³ria
 *     =criartab                     inxTab  tamTab  idTipo
 *     =destruirtab                  inxTab
 *     =validartab                   inxTab
@@ -256,7 +256,7 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
             } /* if */
 
             return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condição de retorno errada em símbolo tipo um."                   ) ;
+                     "CondiÃ§Ã£o de retorno errada em sÃ­mbolo tipo um."                   ) ;
 
          } /* fim ativa: Testar Inserir simbolo tipo um */
 
@@ -284,7 +284,7 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
             return TST_CompararInt( CondRetEsp ,
                           TBS_InserirSimbolo( vtTabelas[ inxTabela ] , pDado2 ) ,
-                     "Condição de retorno errada em símbolo tipo dois."                   ) ;
+                     "CondiÃ§Ã£o de retorno errada em sÃ­mbolo tipo dois."                   ) ;
 
          } /* fim ativa: Testar Inserir simbolo tipo dois */
 
@@ -315,7 +315,7 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
             return TST_CompararInt( CondRetEsp ,
                           TBS_InserirSimbolo( vtTabelas[ inxTabela ] , pDado3 ) ,
-                     "Condição de retorno errada em símbolo tipo dois."                   ) ;
+                     "CondiÃ§Ã£o de retorno errada em sÃ­mbolo tipo dois."                   ) ;
 
          } /* fim ativa: Testar Inserir simbolo tipo tres */
 
@@ -335,11 +335,11 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
             return TST_CompararInt( CondRetEsp ,
                       TBS_ExcluirSimbolo( vtTabelas[ inxTabela ] , StringDado ) ,
-                     "Condição de retorno errada ao excluir."                   ) ;
+                     "CondiÃ§Ã£o de retorno errada ao excluir."                   ) ;
 
          } /* fim ativa: Testar excluir simbolo */
 
-      /* Testar procurar símbolo tipo 1 */
+      /* Testar procurar sÃ­mbolo tipo 1 */
 
          else if ( strcmp( ComandoTeste , PROCURAR_SIMB_UM_CMD ) == 0 )
          {
@@ -358,7 +358,7 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
             if ( ValIntEsp == -1 )
             {
                return TST_CompararPonteiroNulo( 0 , pDado1 ,
-                         "Dado tipo um não deveria existir." ) ;
+                         "Dado tipo um nÃ£o deveria existir." ) ;
             } /* if */
 
             if ( pDado1 == NULL )
@@ -370,9 +370,9 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
             return TST_CompararInt( ValIntEsp , pDado1->Conta ,
                          "Valor tipo um errado." ) ;
 
-         } /* fim ativa: Testar procurar símbolo tipo 1 */
+         } /* fim ativa: Testar procurar sÃ­mbolo tipo 1 */
 
-      /* Testar procurar símbolo tipo 2 */
+      /* Testar procurar sÃ­mbolo tipo 2 */
 
          else if ( strcmp( ComandoTeste , PROCURAR_SIMB_DOIS_CMD ) == 0 )
          {
@@ -391,7 +391,7 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
             if ( ValCharEsp == '*' )
             {
                return TST_CompararPonteiroNulo( 0 , pDado2 ,
-                         "Dado tipo dois não deveria existir." ) ;
+                         "Dado tipo dois nÃ£o deveria existir." ) ;
             } /* if */
 
             if ( pDado2 == NULL )
@@ -403,9 +403,9 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
             return TST_CompararChar( ValCharEsp , pDado2->Id ,
                          "Valor tipo dois errado." ) ;
 
-         } /* fim ativa: Testar procurar símbolo tipo 2 */
+         } /* fim ativa: Testar procurar sÃ­mbolo tipo 2 */
 
-      /* Testar procurar símbolo tipo 3 */
+      /* Testar procurar sÃ­mbolo tipo 3 */
 
          else if ( strcmp( ComandoTeste , PROCURAR_SIMB_TRES_CMD ) == 0 )
          {
@@ -425,15 +425,15 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
             if ( pDado3 == NULL )
             {
                return TST_CompararPonteiroNulo( 1 , pDado3 ,
-                         "Dado tipo três deveria existir." ) ;
+                         "Dado tipo trÃªs deveria existir." ) ;
             } /* if */
 
             return TST_CompararString( StringValor , pDado3->pString ,
-                         "Valor tipo três errado." ) ;
+                         "Valor tipo trÃªs errado." ) ;
 
-         } /* fim ativa: Testar procurar símbolo tipo 3 */
+         } /* fim ativa: Testar procurar sÃ­mbolo tipo 3 */
 
-      /* Testar validar Tabela de símbolos */
+      /* Testar validar Tabela de sÃ­mbolos */
       #ifdef _DEBUG
 
          else if ( strcmp( ComandoTeste , VALIDAR_TAB_CMD ) == 0 )
@@ -450,20 +450,20 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
             return TBS_ValidarTabela( vtTabelas[ inxTabela ] ) ;
 
-         } /* fim ativa: Testar validar Tabela de símbolos */
+         } /* fim ativa: Testar validar Tabela de sÃ­mbolos */
       #endif
 
       return TST_CondRetNaoConhec ;
 
-   } /* Fim função: TTBS &Testar tabela de símbolos */
+   } /* Fim funÃ§Ã£o: TTBS &Testar tabela de sÃ­mbolos */
 
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TTBS -Obter símbolo tipo 1
+*  $FC FunÃ§Ã£o: TTBS -Obter sÃ­mbolo tipo 1
 *
 ***********************************************************************/
 
@@ -476,12 +476,12 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
       return (( tpTipo1 * ) pDado )->SimboloUm ;
 
-   } /* Fim função: TTBS -Obter símbolo tipo 1 */
+   } /* Fim funÃ§Ã£o: TTBS -Obter sÃ­mbolo tipo 1 */
 
 
 /***********************************************************************
 *
-*  $FC Função: TTBS -Obter símbolo tipo 2
+*  $FC FunÃ§Ã£o: TTBS -Obter sÃ­mbolo tipo 2
 *
 ***********************************************************************/
 
@@ -494,12 +494,12 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
       return (( tpTipo2 * ) pDado )->SimboloDois ;
 
-   } /* Fim função: TTBS -Obter símbolo tipo 2 */
+   } /* Fim funÃ§Ã£o: TTBS -Obter sÃ­mbolo tipo 2 */
 
 
 /***********************************************************************
 *
-*  $FC Função: TTBS -Obter símbolo tipo 3
+*  $FC FunÃ§Ã£o: TTBS -Obter sÃ­mbolo tipo 3
 *
 ***********************************************************************/
 
@@ -512,12 +512,12 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
       return (( tpTipo3 * ) pDado )->SimboloTres ;
 
-   } /* Fim função: TTBS -Obter símbolo tipo 3 */
+   } /* Fim funÃ§Ã£o: TTBS -Obter sÃ­mbolo tipo 3 */
 
 
 /***********************************************************************
 *
-*  $FC Função: TTBS -Liberar dado tipo 3
+*  $FC FunÃ§Ã£o: TTBS -Liberar dado tipo 3
 *
 ***********************************************************************/
 
@@ -530,12 +530,12 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
       free( (( tpTipo3 * ) pDado )->pString ) ;
 
-   } /* Fim função: TTBS -Liberar dado tipo 3 */
+   } /* Fim funÃ§Ã£o: TTBS -Liberar dado tipo 3 */
 
 
 /***********************************************************************
 *
-*  $FC Função: TTBS -Validar indice de tabela
+*  $FC FunÃ§Ã£o: TTBS -Validar indice de tabela
 *
 ***********************************************************************/
 
@@ -564,12 +564,12 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
          
       return TRUE ;
 
-   } /* Fim função: TTBS -Validar indice de tabela */
+   } /* Fim funÃ§Ã£o: TTBS -Validar indice de tabela */
 
 
 /***********************************************************************
 *
-*  $FC Função: TTBS -Validar id tipo
+*  $FC FunÃ§Ã£o: TTBS -Validar id tipo
 *
 ***********************************************************************/
 
@@ -585,7 +585,7 @@ TBS_tppTabela   vtTabelas[ DIM_VT_TABELAS ] ;
 
       return FALSE ;
 
-   } /* Fim função: TTBS -Validar id tipo */
+   } /* Fim funÃ§Ã£o: TTBS -Validar id tipo */
 
-/********** Fim do módulo de implementação: TTBS Teste tabela de símbolos **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: TTBS Teste tabela de sÃ­mbolos **********/
 

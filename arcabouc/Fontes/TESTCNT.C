@@ -1,22 +1,22 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: TCNT Teste contadores de passagem
+*  $MCI M√≥dulo de implementa√ß√£o: TCNT Teste contadores de passagem
 *
 *  Arquivo gerado:              TestCnt.c
 *  Letras identificadoras:      TCNT
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -44,14 +44,14 @@ static const char IR_PROX_CONTADOR_CMD[ ]         = "=iterarproximocontador" ;
 static const char EH_ITERADOR_ATIVO_CMD[ ]        = "=ehiteradorativo" ;
 static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontadores" ;
 
-/*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TCNT &Teste de contador de passagem
+*  $FC Fun√ß√£o: TCNT &Teste de contador de passagem
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     =contar                    <nome contador> <num linha> <condRet>
 *     =iniciariteradorcontadores
 *     =exibircontadorcorrente
@@ -97,11 +97,11 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
 
             return TST_CompararInt( CondRetEsp ,
                       CNT_Contar( NomeContador , numLinha ) ,
-                      "CondiÁ„o de retorno errada." ) ;
+                      "Condi√ß√£o de retorno errada." ) ;
 
          } /* fim ativa: Tratar CNT  &Contar */
 
-      /* Tratar CNT  &Iterador: iniciar percorrimento da lista em ordem alfabÈtica */
+      /* Tratar CNT  &Iterador: iniciar percorrimento da lista em ordem alfab√©tica */
 
          else if ( strcmp( ComandoTeste , INICIAR_ITERADOR_CMD ) == 0 )
          {
@@ -114,7 +114,7 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Tratar CNT  &Iterador: iniciar percorrimento da lista em ordem alfabÈtica */
+         } /* fim ativa: Tratar CNT  &Iterador: iniciar percorrimento da lista em ordem alfab√©tica */
 
       /* Tratar CNT  &Iterador: exibir contador corrente */
 
@@ -130,7 +130,7 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
                TST_ExibirPrefixo( "!!!" , Msg ) ;
             } else
             {
-               return TST_NotificarFalha( "Iterador n„o est· ativo." ) ;
+               return TST_NotificarFalha( "Iterador n√£o est√° ativo." ) ;
             } /* if */
 
             return TST_CondRetOK ;
@@ -177,7 +177,7 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
             pNome = CNT_ObterContadorCorrente( ) ;
             if ( pNome == NULL )
             {
-               return TST_NotificarFalha( "Iterador n„o est· ativo." ) ;
+               return TST_NotificarFalha( "Iterador n√£o est√° ativo." ) ;
             } /* if */
 
             return TST_CompararString( Msg , pNome ,
@@ -185,7 +185,7 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
 
          } /* fim ativa: Tratar CNT  &Iterator: obter nome de contador corrente */
 
-      /* Tratar CNT  &Iterador: avanÁar para o prÛximo contador */
+      /* Tratar CNT  &Iterador: avan√ßar para o pr√≥ximo contador */
 
          else if ( strcmp( ComandoTeste , IR_PROX_CONTADOR_CMD ) == 0 )
          {
@@ -198,9 +198,9 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Tratar CNT  &Iterador: avanÁar para o prÛximo contador */
+         } /* fim ativa: Tratar CNT  &Iterador: avan√ßar para o pr√≥ximo contador */
 
-      /* Tratar CNT  &Iterator: verificar se o iterador est· ativo */
+      /* Tratar CNT  &Iterator: verificar se o iterador est√° ativo */
 
          else if ( strcmp( ComandoTeste , EH_ITERADOR_ATIVO_CMD ) == 0 )
          {
@@ -220,7 +220,7 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
                       CNT_EhAtivoIterador( ) ,
                       "Estado iterador ativo errado." ) ;
 
-         } /* fim ativa: Tratar CNT  &Iterator: verificar se o iterador est· ativo */
+         } /* fim ativa: Tratar CNT  &Iterator: verificar se o iterador est√° ativo */
 
       /* Tratar CNT  &Verificar a estrutura dos contadores */
       #ifdef _DEBUG
@@ -248,7 +248,7 @@ static const char VERIFICAR_ESTRUTURA_CMD[ ]      = "=verificarestruturacontador
 
       return TST_CondRetNaoConhec ;
 
-   } /* Fim funÁ„o: TCNT &Teste de contador de passagem */
+   } /* Fim fun√ß√£o: TCNT &Teste de contador de passagem */
 
-/********** Fim do mÛdulo de implementaÁ„o: TCNT Teste contadores de passagem **********/
+/********** Fim do m√≥dulo de implementa√ß√£o: TCNT Teste contadores de passagem **********/
 

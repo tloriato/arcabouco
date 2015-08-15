@@ -1,7 +1,7 @@
 // Script:    TesteContadores.script
 // Autor:     Arndt von Staa
 // Data:      18/fev/2006
-// Propósito: Testar o módulo contadores
+// PropÃ³sito: Testar o mÃ³dulo contadores
 //
 
 == Iniciar contagem
@@ -29,7 +29,7 @@
 =contagemcontador   "xyz"    20
 =contagemcontador   "outro * com ? brancos . e : especiais"   -1
 
-== Exibir o conteúdo dos contadores
+== Exibir o conteÃºdo dos contadores
 =exibircontagem   "abcd"
 =exibircontagem   "cde"
 =exibircontagem   "xyz"
@@ -62,7 +62,7 @@
 =contagemcontador   "abcd"       1
 =contagemcontador   "outro * com ? brancos . e : especiais"   1
 
-== Verificar contagem proibida após ativar
+== Verificar contagem proibida apÃ³s ativar
 =contar             "cde"   12   -14
 =contagemcontador   "cde"   -2
 =AceitaFalhasAcumuladas      1
@@ -146,7 +146,7 @@
 == Registrar acumulador
 =registraracumulador   "\\lixo\\acumulador"
 
-== Controlar espaços alocados
+== Controlar espaÃ§os alocados
 =exibirtodosespacos          1
 =obternumeroespacosalocados  10
 

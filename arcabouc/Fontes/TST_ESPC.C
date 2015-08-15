@@ -1,21 +1,21 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TSTE Interface de teste específico
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: TSTE Interface de teste especÃ­fico
 *
 *  Arquivo gerado:              Tst_Espc.c
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -23,11 +23,11 @@
 #include "Tst_Espc.h"
 #undef Tst_Espc_OWN
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 /***************************************************************************
 *
-*  Função: TSTE &Efetuar comandos de teste específicos
+*  FunÃ§Ã£o: TSTE &Efetuar comandos de teste especÃ­ficos
 *  ****/
 
    TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
@@ -35,7 +35,7 @@
 
       return TST_CondRetNaoImplementado ;
 
-   } /* Fim função: TSTE &Efetuar comandos de teste específicos */
+   } /* Fim funÃ§Ã£o: TSTE &Efetuar comandos de teste especÃ­ficos */
 
-/********** Fim do módulo de implementação: TSTE Interface de teste específico **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: TSTE Interface de teste especÃ­fico **********/
 

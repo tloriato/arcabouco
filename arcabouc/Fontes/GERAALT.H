@@ -2,30 +2,30 @@
 #define GERAALT_
 /***************************************************************************
 *
-*  $MCD Módulo de definição: ALT  Gerador de números aleatórios
+*  $MCD MÃ³dulo de definiÃ§Ã£o: ALT  Gerador de nÃºmeros aleatÃ³rios
 *
 *  Arquivo gerado:              GERAALT.h
 *  Letras identificadoras:      ALT
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Implementa um pequeno conjunto de geradores de números aleatórios.
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Implementa um pequeno conjunto de geradores de nÃºmeros aleatÃ³rios.
 *
-*  $EIM Interface com outros módulos
-*     Antes de gerar qualquer número deve ser chamada a função
+*  $EIM Interface com outros mÃ³dulos
+*     Antes de gerar qualquer nÃºmero deve ser chamada a funÃ§Ã£o
 *     ALT_Inicializar.
 *
 ***************************************************************************/
@@ -39,29 +39,29 @@
 
 /***********************************************************************
 *
-*  $FC Função: ALT  &Inicializar o gerador de números aleatórios
+*  $FC FunÃ§Ã£o: ALT  &Inicializar o gerador de nÃºmeros aleatÃ³rios
 *
-*  $ED Descrição da função
-*     Inicializa o gerador de números aleatórios.
-*     Esta função deve ser chamada antes de qualquer outra do módulo GERAALT
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Inicializa o gerador de nÃºmeros aleatÃ³rios.
+*     Esta funÃ§Ã£o deve ser chamada antes de qualquer outra do mÃ³dulo GERAALT
 *
-*  $EP Parâmetros
+*  $EP ParÃ¢metros
 *     Base - se == 0 utiliza a semente normal (PI 3141592653 )
-*                  isto gerará a mesma seqüência de números aleatórios
-*                  a seguir da inicialização. Esta semente é tida como
-*                  uma boa semente, a distribuição é virtualmente uniforme
-*                  e a cardinalidade é a maior possível.
+*                  isto gerarÃ¡ a mesma seqÃ¼Ãªncia de nÃºmeros aleatÃ³rios
+*                  a seguir da inicializaÃ§Ã£o. Esta semente Ã© tida como
+*                  uma boa semente, a distribuiÃ§Ã£o Ã© virtualmente uniforme
+*                  e a cardinalidade Ã© a maior possÃ­vel.
 *            se == 1 utiliza a PI | time( )
-*                  isto gera uma seqüência de números aleatórios
-*                  diferente a cada inicialização
+*                  isto gera uma seqÃ¼Ãªncia de nÃºmeros aleatÃ³rios
+*                  diferente a cada inicializaÃ§Ã£o
 *            outros - utiliza o valor fornecido como semente
 *                  deve ser tomado cuidado pois uma semente mal escolhida
-*                  pode levar à geração de uma seqüência não aleatória,
+*                  pode levar Ã  geraÃ§Ã£o de uma seqÃ¼Ãªncia nÃ£o aleatÃ³ria,
 *                  ou de cardinalidade limitada.
 *
 *  $ER Requisitos
-*     Esta função deve ser chamada uma única vez e isso antes de gerar
-*     o primeiro número aleatório
+*     Esta funÃ§Ã£o deve ser chamada uma Ãºnica vez e isso antes de gerar
+*     o primeiro nÃºmero aleatÃ³rio
 *
 ***********************************************************************/
 
@@ -70,13 +70,13 @@
 
 /***********************************************************************
 *
-*  $FC Função: ALT  &Gerar inteiro em uniformemente distribuído
+*  $FC FunÃ§Ã£o: ALT  &Gerar inteiro em uniformemente distribuÃ­do
 *
-*  $ED Descrição da função
-*     Gerar um número inteiro uniformemente distribuído em um
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Gerar um nÃºmero inteiro uniformemente distribuÃ­do em um
 *     intervalo dado
 *
-*  $EP Parâmetros
+*  $EP ParÃ¢metros
 *     $P Inf - limite inferior, inclusive
 *     $P Sup - limite superior, inclusive
 *
@@ -85,7 +85,7 @@
 *
 *  $EAE Assertivas de entradas esperadas
 *     Inf <= Sup
-*     Dados errados provocarão um comportamento errático no programa.
+*     Dados errados provocarÃ£o um comportamento errÃ¡tico no programa.
 *
 ***********************************************************************/
 
@@ -94,43 +94,43 @@
 
 /***********************************************************************
 *
-*  $FC Função: ALT  &Gerar distribuição dada por tabela de freqüências
+*  $FC FunÃ§Ã£o: ALT  &Gerar distribuiÃ§Ã£o dada por tabela de freqÃ¼Ãªncias
 *
-*  $ED Descrição da função
-*     Gerar distribuição segundo tabela de freqüências
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Gerar distribuiÃ§Ã£o segundo tabela de freqÃ¼Ãªncias
 *
-*  $EP Parâmetros
-*     $P numElem - número de elementos (intervalos) da tabela
-*                  o número de intervalos é na realidade igual a numElem + 1
+*  $EP ParÃ¢metros
+*     $P numElem - nÃºmero de elementos (intervalos) da tabela
+*                  o nÃºmero de intervalos Ã© na realidade igual a numElem + 1
 *     $P vetElem - vetor de elementos da tabela
-*                  Os valores dos elementos são números entre 0 e Limite - 1
+*                  Os valores dos elementos sÃ£o nÃºmeros entre 0 e Limite - 1
 *                  Os elementos devem estar em ordem crescente.
-*                  Os elementos correspondem a uma função cumulativa
-*                  Exemplo, se forem desejados as freqüências
+*                  Os elementos correspondem a uma funÃ§Ã£o cumulativa
+*                  Exemplo, se forem desejados as freqÃ¼Ãªncias
 *                     10% 30% e 60%
 *                  devem ser fornecidos os dados 2 {10 , 40} 100
-*     $P Limite  - é o limite superior da distribuição de freqüências
-*                  Permite chegar a freqüências muito pequenas, por exemplo
-*                  para uma distribuição de freqüências 9999/10000 e
-*                  1/10000 forneça os parâmetros
+*     $P Limite  - Ã© o limite superior da distribuiÃ§Ã£o de freqÃ¼Ãªncias
+*                  Permite chegar a freqÃ¼Ãªncias muito pequenas, por exemplo
+*                  para uma distribuiÃ§Ã£o de freqÃ¼Ãªncias 9999/10000 e
+*                  1/10000 forneÃ§a os parÃ¢metros
 *                  1 9999 10000
 *
 *  $FV Valor retornado
-*     O índice da freqüência 0 <= indice <= numElem, com uma probabilidade
+*     O Ã­ndice da freqÃ¼Ãªncia 0 <= indice <= numElem, com uma probabilidade
 *     igual ao correspondente intervalo.
 *
-*     A probabilidade x é dada por
+*     A probabilidade x Ã© dada por
 *         x = ( vetElem[ i ] - vetElem[ i - 1 ] ) / Limite
 *         para todos i , 0 <= i <= numElem
-*            sendo que vetElem[ -1      ] é assumido igual a 0
-*            sendo que vetElem[ numElem ] é assumido igual a Limite
+*            sendo que vetElem[ -1      ] Ã© assumido igual a 0
+*            sendo que vetElem[ numElem ] Ã© assumido igual a Limite
 *
 *  $EAE Assertivas de entradas esperadas
 *     numElem >= 1
 *     vetElem[ numElem - 1 ] < Limite
 *     para todos i, 0 <= i < numElem : vetElem[ i - 1 ] < vetElem[ i ]
-*             sendo que vetElem[ -1 ] é considerado igual a 0
-*     Dados errados provocarão um comportamento errático no programa.
+*             sendo que vetElem[ -1 ] Ã© considerado igual a 0
+*     Dados errados provocarÃ£o um comportamento errÃ¡tico no programa.
 *
 ***********************************************************************/
 
@@ -139,22 +139,22 @@
 
 /***********************************************************************
 *
-*  $FC Função: ALT  &Gerar permutação randômica uniformemente distribuída
+*  $FC FunÃ§Ã£o: ALT  &Gerar permutaÃ§Ã£o randÃ´mica uniformemente distribuÃ­da
 *
-*  $ED Descrição da função
-*     Gera uma permutação de n elementos uniformemente distribuída.
-*     O algoritmo utilizado é o "Knuth shuffle" descrito na Wikipedia.
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Gera uma permutaÃ§Ã£o de n elementos uniformemente distribuÃ­da.
+*     O algoritmo utilizado Ã© o "Knuth shuffle" descrito na Wikipedia.
 *
-*  $EP Parâmetros
-*     $P tamVetor - número de elementos a serem embaralhados
+*  $EP ParÃ¢metros
+*     $P tamVetor - nÃºmero de elementos a serem embaralhados
 *     $P    Vetor - elementos a serem embaralhados. O vetor deve conter
-*                   pelo menos tamVetor elementos. Caso não contenha, os
-*                   resultados serão impreditíveis, possivelmente
+*                   pelo menos tamVetor elementos. Caso nÃ£o contenha, os
+*                   resultados serÃ£o impreditÃ­veis, possivelmente
 *                   desastrosos.
 *                   O vetor deve estar inicializado com os elementos a
 *                   serem permutados. Por exemplo, no caso de um baralho,
-*                   o vetor deve ser inicializado com a seqüência de
-*                   índices das cartas (0 a 51).
+*                   o vetor deve ser inicializado com a seqÃ¼Ãªncia de
+*                   Ã­ndices das cartas (0 a 51).
 *
 ***********************************************************************/
 
@@ -163,7 +163,7 @@
 
 #undef GERAALT_EXT
 
-/********** Fim do módulo de definição: ALT  Gerador de números aleatórios **********/
+/********** Fim do mÃ³dulo de definiÃ§Ã£o: ALT  Gerador de nÃºmeros aleatÃ³rios **********/
 
 #else
 #endif

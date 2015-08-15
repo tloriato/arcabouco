@@ -1,29 +1,29 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: TLER Teste de ler par‚metros
+*  $MCI M√≥dulo de implementa√ß√£o: TLER Teste de ler par√¢metros
 *
 *  Arquivo gerado:              TESTLER.c
 *  Letras identificadoras:      TLER
 *
-*  Nome da base de software:    ArcabouÁo para a automaÁ„o de testes de programas redigidos em C
+*  Nome da base de software:    Arcabou√ßo para a automa√ß√£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 AutomatizaÁ„o dos testes de mÛdulos C
+*  Projeto: INF 1301 / 1628 Automatiza√ß√£o dos testes de m√≥dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor    Data     ObservaÁıes
-*     4       avs   01/fev/2006 criar linguagem script simbÛlica
-*     3       avs   08/dez/2004 uniformizaÁ„o dos exemplos
-*     2       avs   07/jul/2003 unificaÁ„o de todos os mÛdulos em um sÛ projeto
-*     1       avs   16/abr/2003 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor    Data     Observa√ß√µes
+*     4       avs   01/fev/2006 criar linguagem script simb√≥lica
+*     3       avs   08/dez/2004 uniformiza√ß√£o dos exemplos
+*     2       avs   07/jul/2003 unifica√ß√£o de todos os m√≥dulos em um s√≥ projeto
+*     1       avs   16/abr/2003 in√≠cio desenvolvimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     Teste do mÛdulo ler par‚metros.
-*     Este mÛdulo ser· desenvolvido em duas etapas
+*  $ED Descri√ß√£o do m√≥dulo
+*     Teste do m√≥dulo ler par√¢metros.
+*     Este m√≥dulo ser√° desenvolvido em duas etapas
 *     - a primeira um teste direto
-*     - a segunda um teste utilizando o prÛprio mÛdulo lerparm para
-*       ler os par‚metros dos comandos.
+*     - a segunda um teste utilizando o pr√≥prio m√≥dulo lerparm para
+*       ler os par√¢metros dos comandos.
 *
 ***************************************************************************/
 
@@ -51,14 +51,14 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 #define  TRUE      1
 #define  FALSE     0
 
-/*****  CÛdigo das funÁıes exportadas pelo mÛdulo  *****/
+/*****  C√≥digo das fun√ß√µes exportadas pelo m√≥dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: TLER &Teste especÌfico do mÛdulo LerParm
+*  $FC Fun√ß√£o: TLER &Teste espec√≠fico do m√≥dulo LerParm
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *     =lerparm-cis:          int     char    string
 *     =lerparm-ss:           string  string
 *     =lerparm-s:            string
@@ -112,7 +112,7 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             numLidos = LER_LerParametros( "cis" , &ValChar1 , &ValInt1 , ValStr1 ) ;
 
-            CondRet = TST_CompararInt( 3 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 3 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -158,7 +158,7 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             numLidos = LER_LerParametros( "ss" , ValStr1 , ValStr2 ) ;
 
-            CondRet = TST_CompararInt( 2 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 2 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -198,7 +198,7 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             numLidos = LER_LerParametros( "s" , ValStr1 ) ;
 
-            CondRet = TST_CompararInt( 1 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 1 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -230,7 +230,7 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             numLidos = LER_LerParametros( "ii" , &ValInt1 , &ValInt2 ) ;
 
-            CondRet = TST_CompararInt( 2 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 2 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -270,7 +270,7 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             numLidos = LER_LerParametros( "fi" , &ValDouble , &ValInt1 ) ;
 
-            CondRet = TST_CompararInt( 2 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 2 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -310,7 +310,7 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             numLidos = LER_LerParametros( "n" , ValStr1 ) ;
 
-            CondRet = TST_CompararInt( 1 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 1 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -328,14 +328,14 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
          } /* fim ativa: Ler linha tipo n */
 
-      /* Comparar par‚metros char */
+      /* Comparar par√¢metros char */
 
          else if ( strcmp( ComandoTeste , COMPARAR_CHAR_CMD ) == 0 )
          {
 
             numLidos = LER_LerParametros( "cc" , &ValChar1 , &ValChar2 ) ;
 
-            CondRet = TST_CompararInt( 2 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 2 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -344,16 +344,16 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             return TST_CompararChar( ValChar1 , ValChar2 , "Caracteres diferentes." ) ;
 
-         } /* fim ativa: Comparar par‚metros char */
+         } /* fim ativa: Comparar par√¢metros char */
 
-      /* Comparar par‚metros inteiro */
+      /* Comparar par√¢metros inteiro */
 
          else if ( strcmp( ComandoTeste , COMPARAR_INT_CMD ) == 0 )
          {
 
             numLidos = LER_LerParametros( "ii" , &ValInt1 , &ValInt2 ) ;
 
-            CondRet = TST_CompararInt( 2 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 2 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -362,16 +362,16 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             return TST_CompararInt( ValInt1 , ValInt2 , "Int diferentes." ) ;
 
-         } /* fim ativa: Comparar par‚metros inteiro */
+         } /* fim ativa: Comparar par√¢metros inteiro */
 
-      /* Comparar par‚metros double */
+      /* Comparar par√¢metros double */
 
          else if ( strcmp( ComandoTeste , COMPARAR_DOUBLE_CMD ) == 0 )
          {
 
             numLidos = LER_LerParametros( "ff" , &ValDouble , &ParmDouble ) ;
 
-            CondRet = TST_CompararInt( 2 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 2 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -380,16 +380,16 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             return TST_CompararFloat( ValDouble , ParmDouble , 0. , "Double diferentes." ) ;
 
-         } /* fim ativa: Comparar par‚metros double */
+         } /* fim ativa: Comparar par√¢metros double */
 
-      /* Comparar par‚metros string */
+      /* Comparar par√¢metros string */
 
          else if ( strcmp( ComandoTeste , COMPARAR_STRING_CMD ) == 0 )
          {
 
             numLidos = LER_LerParametros( "ss" , ValStr1 , ValStr2 ) ;
 
-            CondRet = TST_CompararInt( 2 , numLidos , "N„o leu todos os par‚metros." ) ;
+            CondRet = TST_CompararInt( 2 , numLidos , "N√£o leu todos os par√¢metros." ) ;
 
             if ( CondRet != TST_CondRetOK )
             {
@@ -398,11 +398,11 @@ static const char COMPARAR_STRING_CMD[ ]   = "=compararparmstring" ;
 
             return TST_CompararString( ValStr1 , ValStr2 , "String diferentes." ) ;
 
-         } /* fim ativa: Comparar par‚metros string */
+         } /* fim ativa: Comparar par√¢metros string */
 
       return TST_CondRetNaoConhec ;
 
-   } /* Fim funÁ„o: TLER &Teste especÌfico do mÛdulo LerParm */
+   } /* Fim fun√ß√£o: TLER &Teste espec√≠fico do m√≥dulo LerParm */
 
-/********** Fim do mÛdulo de implementaÁ„o: TLER Teste de ler par‚metros **********/
+/********** Fim do m√≥dulo de implementa√ß√£o: TLER Teste de ler par√¢metros **********/
 

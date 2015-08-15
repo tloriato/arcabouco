@@ -1,10 +1,10 @@
 // Script:    TesteControleEspaco-Voa.script
 // Autor:     Arndt von Staa
 // Data:      13/abr/2006
-// PropÛsito: Testar deturpaÁ„o e verificaÁ„o da estrutura de controle de espaÁos din‚micos
+// Prop√≥sito: Testar deturpa√ß√£o e verifica√ß√£o da estrutura de controle de espa√ßos din√¢micos
 //
 
-== Alocar espaÁos  de tamanhos 2 5 e 15
+== Alocar espa√ßos  de tamanhos 2 5 e 15
 =alocarespaco           2   2   2  "dado2"
 =alocarespaco           1   5   5  "dado1"
 =alocarespaco           0  15  15  "dado0"
@@ -14,36 +14,36 @@
 =exibirespaco           3
 =verificarespaco        3   1
 
-== Verificar a lista de todos os espaÁos
+== Verificar a lista de todos os espa√ßos
 =verificartodosespacos  1
 
-== inserir exato no espaÁo
+== inserir exato no espa√ßo
 =inserirstringespaco    0   "cccccccccccccc"
 =exibirespaco           0
 =obterstringespaco      0   "cccccccccccccc"
 
-== inserir 1 menor no espaÁo
+== inserir 1 menor no espa√ßo
 =inserirstringespaco    1   "aaa"
 =exibirespaco           1
 =obterstringespaco      1   "aaa"
 
-== inserir 1 maior no espaÁo
+== inserir 1 maior no espa√ßo
 =inserirstringespaco    2   "aa"
 =exibirespaco           2
 =obterstringespaco      2   "aa"
 
-== Verificar um a um todos os espaÁos com conte˙do inicializado, espaÁo 2 est· em erro
+== Verificar um a um todos os espa√ßos com conte√∫do inicializado, espa√ßo 2 est√° em erro
 =verificarespaco        0   1
 =verificarespaco        1   1
 =verificarespaco        2   0
 
-== Obter total de falhas atÈ este ponto
+== Obter total de falhas at√© este ponto
 =AceitaFalhasAcumuladas   4
 
-== Verificar a lista de todos os espaÁos
+== Verificar a lista de todos os espa√ßos
 =verificartodosespacos  0
 
-== Obter total de falhas atÈ este ponto
+== Obter total de falhas at√© este ponto
 =AceitaFalhasAcumuladas   2
 
 == Deturpar, sem destruir
@@ -52,23 +52,23 @@
 =deturparespaco         0   5   85
 =exibirespaco           0
 
-== Deturpar controle antes, controle apÛs j· est· deturpado
+== Deturpar controle antes, controle ap√≥s j√° est√° deturpado
 =deturparespaco         2  -1   33
 =verificarespaco        2   1
 =recuperar
 =AceitaFalhasAcumuladas   3
 
-== Deturpar identificaÁao do espaÁo
+== Deturpar identifica√ßao do espa√ßo
 =deturparespaco         1 -54   129
 =verificarespaco        1   0
 =AceitaFalhasAcumuladas   2
 
-== Deturpar encadeamento apÛs
+== Deturpar encadeamento ap√≥s
 =deturparespaco         1 -58   85
 =verificarespaco        1   0
 =AceitaFalhasAcumuladas   3
 
-== Deturpar encadeamento antes (espaÁo apÛs foi corrigido para NULL)
+== Deturpar encadeamento antes (espa√ßo ap√≥s foi corrigido para NULL)
 =deturparespaco       1 -62   85
 =verificarespaco      1   0
 =AceitaFalhasAcumuladas   3
@@ -78,27 +78,27 @@
 =verificarespaco      3   0
 =AceitaFalhasAcumuladas   3
 
-== Deturpar tamanho total, controles j· est„o deturpados, encadeamento errado
+== Deturpar tamanho total, controles j√° est√£o deturpados, encadeamento errado
 =deturparespaco       2 -66   85
 =verificarespaco      2   0
 =AceitaFalhasAcumuladas   5
 
-== Deturpar anterior de espaÁo origem
+== Deturpar anterior de espa√ßo origem
 =alocarespaco         4  10   15  "dado2"
 =deturparespaco       4 -62   1
 =exibirbruto          4
 =verificarespaco      4   0
 =AceitaFalhasAcumuladas   3
 
-== Repetir verificaÁ„o para controlar correÁ„o
+== Repetir verifica√ß√£o para controlar corre√ß√£o
 =exibirbruto          4
 =verificarespaco      4   1
 
-== Repetir verificaÁ„o de deturpaÁ„o de pAnt no meio corrigida para NULL
+== Repetir verifica√ß√£o de deturpa√ß√£o de pAnt no meio corrigida para NULL
 =verificarespaco      1   0
 =AceitaFalhasAcumuladas   3
 
-== Deturpar marca digital do espaco, È tratado como NULL
+== Deturpar marca digital do espaco, √© tratado como NULL
 =deturparespaco       4 -70   1
 =exibirbruto          4
 =verificarespaco      4   0
@@ -111,7 +111,7 @@
 =desalocarespaco      4
 =AceitaFalhasAcumuladas   13
 
-== Verificar n˙mero de espacos remanescentes
+== Verificar n√∫mero de espacos remanescentes
 =obternumeroespacosalocados 5
 
 // fim

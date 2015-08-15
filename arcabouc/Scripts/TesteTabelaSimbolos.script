@@ -1,27 +1,27 @@
 // Script:    TesteTabSimbolos.script
 // Autor:     Arndt von Staa
 // Data:      18/fev/2006
-// PropÛsito: Testar o mÛdulo tabela de simbolos utilizado no arcabouÁo
+// Prop√≥sito: Testar o m√≥dulo tabela de simbolos utilizado no arcabou√ßo
 //
 
 == Inicializar o modulo de teste
 =resettestetab
 =obternumeroespacosalocados   0
 
-== Testar criaÁ„o de tabela do tipo 1       
+== Testar cria√ß√£o de tabela do tipo 1       
 // inxTabela tamTabela idTipo
 
 =criartab   0  5  1
 
-== Testar criaÁ„o de tabela de tipo errado        
+== Testar cria√ß√£o de tabela de tipo errado        
 =criartab   1  11  0
 =recuperar
 
-== Testar criaÁ„o de tabela de tamanho errado        
+== Testar cria√ß√£o de tabela de tamanho errado        
 =criartab   1   1  1
 =recuperar
 
-== Testar criaÁ„o de tabela j· existente         
+== Testar cria√ß√£o de tabela j√° existente         
 =criartab   0   3  2
 =recuperar
 
@@ -33,7 +33,7 @@
 // inxtabela conta  simbolo condret       
 =inssimboloum   0  1   "abcd"  0
 
-== Testar validar tabela com um sÌmbolo
+== Testar validar tabela com um s√≠mbolo
 =validartab     0  
 
 == Testar inserir simbolo existente em tabela do tipo 1 
@@ -43,28 +43,28 @@
 =inssimboloum   1    2 "bbbb"  0
 =recuperar
 
-== Verificar total de espaÁos alocados
+== Verificar total de espa√ßos alocados
 =obternumeroespacosalocados   4
 
 == Testar procurar simbolo encontra
 // inxtabela idTipo string condret
 =procurarsimboloum  0  "abcd"  1
 
-== Testar procurar simbolo n„o encontra
+== Testar procurar simbolo n√£o encontra
 =procurarsimboloum  0  "abc"  -1
 
 == Testar excluir simbolo
 // inxTabela string condRet    
 =excluirsimbolo     0  "abcd"  0
 
-== Testar excluir simbolo n„o existe
+== Testar excluir simbolo n√£o existe
 =excluirsimbolo     0  "abcd"  2
 
-== Testar procurar simbolo n„o encontra
+== Testar procurar simbolo n√£o encontra
 =procurarsimboloum  0  "acbd"  0
 =recuperar
 
-== Testar procurar simbolo n„o encontra
+== Testar procurar simbolo n√£o encontra
 =procurarsimboloum  0  "acbd"  -1
 
 == Testar validar tabela esvaziada
@@ -77,7 +77,7 @@
 //-------------------------------------------------------------------------
 //
 
-== Testar criaÁ„o de tabela do tipo 2
+== Testar cria√ß√£o de tabela do tipo 2
 =criartab   1   2  2 
 
 == Testar validar outra tabela existente e vazia 
@@ -118,7 +118,7 @@
 == Testar inserir simbolo 8 em tabela do tipo 2 
 =inssimbolodois   0  'h'  "8901"  0                 
 
-== Validar tabela com 8 sÌmbolos
+== Validar tabela com 8 s√≠mbolos
 =validartab   0
 
 == Testar procurar simbolo 1 em tabela do tipo 2 
@@ -169,7 +169,7 @@
 == Testar excluir simbolo 7 inexistente em tabela do tipo 2 
 =excluirsimbolo   0  "7890"  2                 
 
-== Validar tabela com 4 sÌmbolos restantes
+== Validar tabela com 4 s√≠mbolos restantes
 =validartab   0
 
 == Validar espaco dos 4 simbolos restantes
@@ -199,7 +199,7 @@
 == Testar procurar simbolo 8 em tabela do tipo 2 
 =procurarsimbolodois   0  "8901"  'h'                 
 
-== Validar tabela com 4 sÌmbolos restantes
+== Validar tabela com 4 s√≠mbolos restantes
 =validartab   0
 
 == Destruir tabela
@@ -222,7 +222,7 @@
 =inssimbolodois   0  'g'  "7890"  0                 
 =inssimbolodois   0  'h'  "8901"  0                 
 
-== Validar tabela com 8 sÌmbolos
+== Validar tabela com 8 s√≠mbolos
 =validartab   0
 
 == Testar procurar os simbolo inseridos na tabela 
@@ -238,7 +238,7 @@
 =procurarsimbolodois   0  "5678"  'e'                 
 =procurarsimbolodois   0  "1234"  'a'                 
 
-== Validar tabela com 8 sÌmbolos
+== Validar tabela com 8 s√≠mbolos
 =validartab   0
 
 == Testar excluir simbolo 1 em tabela do tipo 2 
@@ -275,26 +275,26 @@
 == Destruir tabela
 =destruirtab 0
 
-== Controlar espaÁos remanescentes
+== Controlar espa√ßos remanescentes
 =obternumeroespacosalocados  0
 
 //
 //----------------------------------------------
 //
-// Teste tabela contendo valor que aponta para um espaÁo
+// Teste tabela contendo valor que aponta para um espa√ßo
 
 == Criar tabela do tipo 3
 =criartab   3  13  3 
 
-== Inserir sÌmbolos tipo 3
+== Inserir s√≠mbolos tipo 3
 =inssimbolotres   3   "abcd"  "1234"  0                 
 =inssimbolotres   3   "efgh"  "5678"  0                 
 =inssimbolotres   3   "ijkl"  "9012"  0                 
 
-== Controlar espaÁos remanescentes
+== Controlar espa√ßos remanescentes
 =obternumeroespacosalocados  11
 
-== Obter os sÌmbolos
+== Obter os s√≠mbolos
 =procurarsimbolotres   3   "ijkl"  "9012"  0 
 =procurarsimbolotres   3   "abcd"  "1234"  0     
 =procurarsimbolotres   3   "ijkl"  "9012"  0 
@@ -304,7 +304,7 @@
 == Eliminar um simbolo
 =excluirsimbolo   3  "ijkl"  0                 
 
-== Controlar espaÁos remanescentes
+== Controlar espa√ßos remanescentes
 =obternumeroespacosalocados  8
 =verificartodosespacos       1
 
@@ -312,7 +312,7 @@
 =destruirtab 3
 =verificartodosespacos       1
 
-== Controlar espaÁos remanescentes
+== Controlar espa√ßos remanescentes
 =exibirtodosespacos          1
 =obternumeroespacosalocados  0
 

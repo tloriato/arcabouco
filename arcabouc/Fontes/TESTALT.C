@@ -1,24 +1,24 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TALT Teste do gerador de números aleatórios
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: TALT Teste do gerador de nÃºmeros aleatÃ³rios
 *
 *  Arquivo gerado:              TESTALT.c
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Testa e exemplifica o uso do gerador de números aleatórios
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Testa e exemplifica o uso do gerador de nÃºmeros aleatÃ³rios
 *
 ***************************************************************************/
 
@@ -47,7 +47,7 @@ static char ExibirUniformeCmd[   ]  = "=exibiruniforme" ;
 static char ExibirFrequenciaCmd[ ]  = "=exibirfrequencia" ;
 static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** ProtÃ³tipos das funÃ§Ãµes encapuladas no mÃ³dulo *****/
 
    static TST_tpCondRet ExibirPermutacao( ) ;
 
@@ -59,12 +59,12 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
    static TST_tpCondRet ExibirFrequencia( void ) ;
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TALT &Efetuar o teste de função do módulo aleatorio
+*  $FC FunÃ§Ã£o: TALT &Efetuar o teste de funÃ§Ã£o do mÃ³dulo aleatorio
 *
 ***********************************************************************/
 
@@ -74,7 +74,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
       unsigned int Semente ;
       int      numLidos ;
 
-      /* Testar Inicializar gerador de números aleatórios */
+      /* Testar Inicializar gerador de nÃºmeros aleatÃ³rios */
 
          if ( strcmp( ComandoTeste , TestarInicializarCmd ) == 0 )
          {
@@ -89,46 +89,46 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
             return TST_CondRetOK ;
 
-         } /* fim ativa: Testar Inicializar gerador de números aleatórios */
+         } /* fim ativa: Testar Inicializar gerador de nÃºmeros aleatÃ³rios */
 
-      /* Testar distribuição uniforme */
+      /* Testar distribuiÃ§Ã£o uniforme */
 
          else if ( strcmp( ComandoTeste , ExibirUniformeCmd ) == 0 )
          {
 
             return ExibirUniforme( ) ;
 
-         } /* fim ativa: Testar distribuição uniforme */
+         } /* fim ativa: Testar distribuiÃ§Ã£o uniforme */
 
-      /* Testar distribuição freqüências */
+      /* Testar distribuiÃ§Ã£o freqÃ¼Ãªncias */
 
          else if ( strcmp( ComandoTeste , ExibirFrequenciaCmd ) == 0 )
          {
 
             return ExibirFrequencia( ) ;
 
-         } /* fim ativa: Testar distribuição freqüências */
+         } /* fim ativa: Testar distribuiÃ§Ã£o freqÃ¼Ãªncias */
 
-      /* Testar permutação randômica */
+      /* Testar permutaÃ§Ã£o randÃ´mica */
 
          else if ( strcmp( ComandoTeste , TestarPermutacaoCmd ) == 0 )
          {
 
             return ExibirPermutacao( ) ;
 
-         } /* fim ativa: Testar permutação randômica */
+         } /* fim ativa: Testar permutaÃ§Ã£o randÃ´mica */
 
       return TST_CondRetNaoConhec ;
 
-   } /* Fim função: TALT &Efetuar o teste de função do módulo aleatorio */
+   } /* Fim funÃ§Ã£o: TALT &Efetuar o teste de funÃ§Ã£o do mÃ³dulo aleatorio */
 
 
-/*****  Código das funções encapsuladas no módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes encapsuladas no mÃ³dulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TALT -Exibir permutação randômica uniformemente distribuída
+*  $FC FunÃ§Ã£o: TALT -Exibir permutaÃ§Ã£o randÃ´mica uniformemente distribuÃ­da
 *
 ***********************************************************************/
 
@@ -143,7 +143,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
       int i ;
 
-      /* Ler parâmetros do vetor */
+      /* Ler parÃ¢metros do vetor */
 
          numLidos = LER_LerParametros( "ii" , &numGera , &numElem ) ;
          if ( ( numLidos != 2 )
@@ -163,9 +163,9 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
          ALT_GerarPermutacao( numElem , Vetor ) ;
 
-      /* Exibir Permutação */
+      /* Exibir PermutaÃ§Ã£o */
 
-         fprintf( TST_ObterArqLog( ) , "\n\nPermutação" ) ;
+         fprintf( TST_ObterArqLog( ) , "\n\nPermutaÃ§Ã£o" ) ;
 
          for( i = 0 ; i < numElem ; i ++ )
          {
@@ -175,12 +175,12 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
       return TST_CondRetOK ;
 
-   } /* Fim função: TALT -Exibir permutação randômica uniformemente distribuída */
+   } /* Fim funÃ§Ã£o: TALT -Exibir permutaÃ§Ã£o randÃ´mica uniformemente distribuÃ­da */
 
 
 /***********************************************************************
 *
-*  $FC Função: TALT -Exibir distribuicao
+*  $FC FunÃ§Ã£o: TALT -Exibir distribuicao
 *
 ***********************************************************************/
 
@@ -207,7 +207,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
          fprintf( TST_ObterArqLog( ) , " %4d = %6d" , i , Vet[ i ] ) ;
       } /* for */
 
-      fprintf( TST_ObterArqLog( ) , "\n\n%s, fração do total gerado\n" , Mensagem ) ;
+      fprintf( TST_ObterArqLog( ) , "\n\n%s, fraÃ§Ã£o do total gerado\n" , Mensagem ) ;
 
       j = 0 ;
 
@@ -225,12 +225,12 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
       fprintf( TST_ObterArqLog( ) , "\n\n" ) ;
 
-   } /* Fim função: TALT -Exibir distribuicao */
+   } /* Fim funÃ§Ã£o: TALT -Exibir distribuicao */
 
 
 /***********************************************************************
 *
-*  $FC Função: TALT -Zerar vetor de números gerados
+*  $FC FunÃ§Ã£o: TALT -Zerar vetor de nÃºmeros gerados
 *
 ***********************************************************************/
 
@@ -244,12 +244,12 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
          Vet[ i ] = 0 ;
       } /* for */
 
-   } /* Fim função: TALT -Zerar vetor de números gerados */
+   } /* Fim funÃ§Ã£o: TALT -Zerar vetor de nÃºmeros gerados */
 
 
 /***********************************************************************
 *
-*  $FC Função: TALT -Exibir distribuição uniforme
+*  $FC FunÃ§Ã£o: TALT -Exibir distribuiÃ§Ã£o uniforme
 *
 ***********************************************************************/
 
@@ -270,7 +270,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
              Desvio       ,
              A             ;
 
-      /* Ler parâmetros distribuição uniforme */
+      /* Ler parÃ¢metros distribuiÃ§Ã£o uniforme */
 
          numLidos = LER_LerParametros( "iiiff" , &numGera , &Inf , &Sup ,
                                        &DesvioEsp , &Tolerancia ) ;
@@ -285,7 +285,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
             return TST_CondRetParm ;
          } /* if */
 
-      /* Gerar distribuição uniforme */
+      /* Gerar distribuiÃ§Ã£o uniforme */
 
          ZerarVetor( ) ;
 
@@ -294,7 +294,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
             Vet[ ALT_GerarDistUniforme( Inf , Sup ) ] ++ ;
          } /* for */
 
-      /* Calcular média e desvio padrão uniforme */
+      /* Calcular mÃ©dia e desvio padrÃ£o uniforme */
 
          MediaEsperada = ( 1. / ( Sup - Inf + 1 )) ;
 
@@ -313,19 +313,19 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
          fprintf( TST_ObterArqLog( ) , "\n\n   Desvio: %8lf" ,
                   Desvio ) ;
 
-      /* Exibir distribuição uniforme */
+      /* Exibir distribuiÃ§Ã£o uniforme */
 
-         ExibirDistribuicao( numGera , Inf , Sup , "Distribuição uniforme." ) ;
+         ExibirDistribuicao( numGera , Inf , Sup , "DistribuiÃ§Ã£o uniforme." ) ;
 
          return TST_CompararFloat( DesvioEsp , Desvio , Tolerancia ,
                   "Desvio discrepa muito." ) ;
 
-   } /* Fim função: TALT -Exibir distribuição uniforme */
+   } /* Fim funÃ§Ã£o: TALT -Exibir distribuiÃ§Ã£o uniforme */
 
 
 /***********************************************************************
 *
-*  $FC Função: TALT -Exibir distribuição de freqüências
+*  $FC FunÃ§Ã£o: TALT -Exibir distribuiÃ§Ã£o de freqÃ¼Ãªncias
 *
 ***********************************************************************/
 
@@ -341,7 +341,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
       int vetElem[ DIM_VET + 1 ]  ;
 
-      /* Ler parâmetros freqüências */
+      /* Ler parÃ¢metros freqÃ¼Ãªncias */
 
          numLidos = LER_LerParametros( "ii" , &numGera , &Limite ) ;
          if ( ( numLidos != 2 )
@@ -364,7 +364,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
             if ( vetElem[ numElem ] <= Anterior )
             {
-               TST_ExibirPrefixo( ERRO_LER , "Parâmetro freqüência fora de ordem" ) ;
+               TST_ExibirPrefixo( ERRO_LER , "ParÃ¢metro freqÃ¼Ãªncia fora de ordem" ) ;
                return TST_CondRetParm ;
             } /* if */
 
@@ -373,7 +373,7 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
 
          } /* while */
 
-      /* Gerar tabela de freqüências */
+      /* Gerar tabela de freqÃ¼Ãªncias */
 
          ZerarVetor( ) ;
 
@@ -382,11 +382,11 @@ static char TestarPermutacaoCmd[ ]  = "=exibirpermutacao" ;
             Vet[ ALT_GerarFrequencia( numElem , vetElem , Limite ) ] ++ ;
          } /* for */
 
-         ExibirDistribuicao( numGera , 0 , numElem , "Distribuição de freqüência." ) ;
+         ExibirDistribuicao( numGera , 0 , numElem , "DistribuiÃ§Ã£o de freqÃ¼Ãªncia." ) ;
 
       return TST_CondRetOK ;
 
-   } /* Fim função: TALT -Exibir distribuição de freqüências */
+   } /* Fim funÃ§Ã£o: TALT -Exibir distribuiÃ§Ã£o de freqÃ¼Ãªncias */
 
-/********** Fim do módulo de implementação: TALT Teste do gerador de números aleatórios **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: TALT Teste do gerador de nÃºmeros aleatÃ³rios **********/
 

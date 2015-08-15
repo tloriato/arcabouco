@@ -1,7 +1,7 @@
 // Script:    TesteContadores.script
 // Autor:     Arndt von Staa
 // Data:      15/fev/2006
-// PropÛsito: Testar o mÛdulo de leitura de par‚metros de comando de teste
+// Prop√≥sito: Testar o m√≥dulo de leitura de par√¢metros de comando de teste
 //
 
 == Verificar linha 1
@@ -11,7 +11,7 @@
 =lerparm-cis:    'a'   -1  "b"
 
 == Verificar linha 2
-=lerparm-cis:    'a'   -123  "·ÁÈ„"
+=lerparm-cis:    'a'   -123  "√°√ß√©√£"
 
 == Verificar inteiro sozinho
 =lerparm-ii:    -1 +10
@@ -39,7 +39,7 @@
 =lerparm-n:    a_b123cde
 =lerparm-n:    a
 
-== Verificar ler nome errado inicia com n˙mero
+== Verificar ler nome errado inicia com n√∫mero
 =lerparm-n:    2
 =recuperar
 =AceitaFalhasAcumuladas  2
@@ -68,7 +68,7 @@
 =declararparm     String0  string   ""
 =exibirdeclaracao String0
 
-== Repete a declaraÁ„o
+== Repete a declara√ß√£o
 =declararparm   String0
 =recuperar
 =AceitaFalhasAcumuladas  1
@@ -79,7 +79,7 @@
 =exibirdeclaracao String1       
 
 == Declara string de tamanho 12
-=declararparm     String12  string   "a·„‚‡‰A¡√¬¿ƒ"
+=declararparm     String12  string   "a√°√£√¢√†√§A√Å√É√Ç√Ä√Ñ"
 =exibirdeclaracao String12
 
 == Declara string com caracteres especiais
@@ -114,7 +114,7 @@
 =declararparm     Double   double 1.1E-1
 =exibirdeclaracao Double
 
-== Comparar par‚metros caractere
+== Comparar par√¢metros caractere
 =compararparmchar   'q'   Char
 =compararparmchar   Char  'q'  
 =compararparmchar   Char  Char
@@ -124,17 +124,17 @@
 =recuperar
 =AceitaFalhasAcumuladas  2
 
-== Comparar par‚metros inteiro
+== Comparar par√¢metros inteiro
 =compararparmint   Inteiro  255 
 =compararparmint   255  Inteiro  
 =compararparmint   Inteiro  Inteiro  
 
-== Comparar par‚metros double
+== Comparar par√¢metros double
 =compararparmdouble  Double   1.1E-1 
 =compararparmdouble  1.1E-1   Double
 =compararparmdouble  Double   Double 
 
-== Comparar par‚metros string
+== Comparar par√¢metros string
 =declararparm  StringTeste   string   "abc de\0fg\r\""
 =compararparmstring    StringTeste   "abc de\0"
 =compararparmstring    "abc de\0" StringTeste ;

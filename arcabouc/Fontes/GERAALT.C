@@ -1,22 +1,22 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: ALT  Gerador de números aleatórios
+*  $MCI MÃ³dulo de implementaÃ§Ã£o: ALT  Gerador de nÃºmeros aleatÃ³rios
 *
 *  Arquivo gerado:              GERAALT.c
 *  Letras identificadoras:      ALT
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\ARCABOUC.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
 ***************************************************************************/
 
@@ -27,11 +27,11 @@
 #include "GERAALT.h"
 #undef GERAALT_OWN
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  CÃ³digo das funÃ§Ãµes exportadas pelo mÃ³dulo  *****/
 
 /***************************************************************************
 *
-*  Função: ALT  &Inicializar o gerador de números aleatórios
+*  FunÃ§Ã£o: ALT  &Inicializar o gerador de nÃºmeros aleatÃ³rios
 *  ****/
 
    void ALT_Inicializar( unsigned int Base )
@@ -48,11 +48,11 @@
          srand( Base ) ;
       } /* if */
 
-   } /* Fim função: ALT  &Inicializar o gerador de números aleatórios */
+   } /* Fim funÃ§Ã£o: ALT  &Inicializar o gerador de nÃºmeros aleatÃ³rios */
 
 /***************************************************************************
 *
-*  Função: ALT  &Gerar inteiro em uniformemente distribuído
+*  FunÃ§Ã£o: ALT  &Gerar inteiro em uniformemente distribuÃ­do
 *  ****/
 
    int ALT_GerarDistUniforme( int Inf , int Sup )
@@ -72,11 +72,11 @@
       #pragma warning(default:4244)
       return Inf + i ;
 
-   } /* Fim função: ALT  &Gerar inteiro em uniformemente distribuído */
+   } /* Fim funÃ§Ã£o: ALT  &Gerar inteiro em uniformemente distribuÃ­do */
 
 /***************************************************************************
 *
-*  Função: ALT  &Gerar distribuição dada por tabela de freqüências
+*  FunÃ§Ã£o: ALT  &Gerar distribuiÃ§Ã£o dada por tabela de freqÃ¼Ãªncias
 *  ****/
 
    int ALT_GerarFrequencia( int numElem , int * vetElem , int Limite )
@@ -95,11 +95,11 @@
       } /* for */
       return numElem ;
 
-   } /* Fim função: ALT  &Gerar distribuição dada por tabela de freqüências */
+   } /* Fim funÃ§Ã£o: ALT  &Gerar distribuiÃ§Ã£o dada por tabela de freqÃ¼Ãªncias */
 
 /***************************************************************************
 *
-*  Função: ALT  &Gerar permutação randômica uniformemente distribuída
+*  FunÃ§Ã£o: ALT  &Gerar permutaÃ§Ã£o randÃ´mica uniformemente distribuÃ­da
 *  ****/
 
    void ALT_GerarPermutacao( int   tamVetor ,
@@ -118,7 +118,7 @@
          Vetor[ i   ] = Temp ;
       } /* for */
 
-   } /* Fim função: ALT  &Gerar permutação randômica uniformemente distribuída */
+   } /* Fim funÃ§Ã£o: ALT  &Gerar permutaÃ§Ã£o randÃ´mica uniformemente distribuÃ­da */
 
-/********** Fim do módulo de implementação: ALT  Gerador de números aleatórios **********/
+/********** Fim do mÃ³dulo de implementaÃ§Ã£o: ALT  Gerador de nÃºmeros aleatÃ³rios **********/
 
