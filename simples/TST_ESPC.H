@@ -2,36 +2,36 @@
 #define Tst_Espc_
 /***************************************************************************
 *
-*  $MCD Módulo de definição: TSTE Interface de teste específico
+*  $MCD MÃ³dulo de definiÃ§Ã£o: TSTE Interface de teste especÃ­fico
 *
 *  Arquivo gerado:              Tst_Espc.h
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    ArcabouÃ§o para a automaÃ§Ã£o de testes de programas redigidos em C
 *  Arquivo da base de software: C:\AUTOTEST\PROJETOS\INSTRUM.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
+*  Projeto: INF 1301 / 1628 AutomatizaÃ§Ã£o dos testes de mÃ³dulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*  $HA HistÃ³rico de evoluÃ§Ã£o:
+*     VersÃ£o  Autor    Data     ObservaÃ§Ãµes
+*     4       avs   01/fev/2006 criar linguagem script simbÃ³lica
+*     3       avs   08/dez/2004 uniformizaÃ§Ã£o dos exemplos
+*     2       avs   07/jul/2003 unificaÃ§Ã£o de todos os mÃ³dulos em um sÃ³ projeto
+*     1       avs   16/abr/2003 inÃ­cio desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Este módulo consta somente do módulo de definição de todos os módulos
-*     de teste específicos a serem desenvolvidos, e também da especificação
-*     do tipo de condições de retorno deste módulo.
+*  $ED DescriÃ§Ã£o do mÃ³dulo
+*     Este mÃ³dulo consta somente do mÃ³dulo de definiÃ§Ã£o de todos os mÃ³dulos
+*     de teste especÃ­ficos a serem desenvolvidos, e tambÃ©m da especificaÃ§Ã£o
+*     do tipo de condiÃ§Ãµes de retorno deste mÃ³dulo.
 *
-*     Ele estabelece a interface a ser utilizada pelo módulo de teste
-*     genérico com todos os módulos de teste específico a serem
+*     Ele estabelece a interface a ser utilizada pelo mÃ³dulo de teste
+*     genÃ©rico com todos os mÃ³dulos de teste especÃ­fico a serem
 *     desenvolvidos.
 *
-*     Os módulos de teste específico devem sempre incluir este módulo
-*     de definição e, idealmente, não devem adicionar mais itens
-*     à interface.
+*     Os mÃ³dulos de teste especÃ­fico devem sempre incluir este mÃ³dulo
+*     de definiÃ§Ã£o e, idealmente, nÃ£o devem adicionar mais itens
+*     Ã  interface.
 *
 ***************************************************************************/
  
@@ -41,7 +41,7 @@
    #define Tst_Espc_EXT extern
 #endif
 
-/***** Declarações exportadas pelo módulo *****/
+/***** DeclaraÃ§Ãµes exportadas pelo mÃ³dulo *****/
 
 #define     SINALIZA_ERRO       ">>>"
 #define     SINALIZA_RECUPERA   "<<<"
@@ -50,12 +50,12 @@
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: TST Condições de retorno do módulo de teste
+*  $TC Tipo de dados: TST CondiÃ§Ãµes de retorno do mÃ³dulo de teste
 *
 *
-*  $ED Descrição do tipo
-*     Este tipo enumera todas as condições de retorno que podem ser
-*     geradas pela função de teste específica.
+*  $ED DescriÃ§Ã£o do tipo
+*     Este tipo enumera todas as condiÃ§Ãµes de retorno que podem ser
+*     geradas pela funÃ§Ã£o de teste especÃ­fica.
 *
 ***********************************************************************/
 
@@ -67,70 +67,70 @@
          TST_CondRetErro ,
                /* Comando de teste encontrou uma ou mais falhas
                *
-               *$ED Descrição
-               *   Esta condição sinaliza que um ou mais resultados da execução
-               *   da função sob teste resultou em um valor diferente do esperado. */
+               *$ED DescriÃ§Ã£o
+               *   Esta condiÃ§Ã£o sinaliza que um ou mais resultados da execuÃ§Ã£o
+               *   da funÃ§Ã£o sob teste resultou em um valor diferente do esperado. */
 
          TST_CondRetParm ,
-               /* Comando de teste está com a sintaxe em erro
+               /* Comando de teste estÃ¡ com a sintaxe em erro
                *
-               *$ED Descrição
-               *   A presente condição de retorno deve ser retornada caso a sintaxe
+               *$ED DescriÃ§Ã£o
+               *   A presente condiÃ§Ã£o de retorno deve ser retornada caso a sintaxe
                *   ou os valores do comando de teste estiverem em erro.
                *
-               *   Todos os fragmentos de interpretação devem:
-               *   - realizar a análise dos parâmetros do comando
-               *   - verificar se todos os parâmetros foram lidos
-               *   - verificar se os valores dos parâmetros estão corretos
-               *     por exemplo: verificar se os índices de acesso a elementos
-               *     estão dentro dos limites dos correspondentes vetores.
-               *   - efetuar a função a testar
-               *   - verificar se os resultados retornados por esta função estão
+               *   Todos os fragmentos de interpretaÃ§Ã£o devem:
+               *   - realizar a anÃ¡lise dos parÃ¢metros do comando
+               *   - verificar se todos os parÃ¢metros foram lidos
+               *   - verificar se os valores dos parÃ¢metros estÃ£o corretos
+               *     por exemplo: verificar se os Ã­ndices de acesso a elementos
+               *     estÃ£o dentro dos limites dos correspondentes vetores.
+               *   - efetuar a funÃ§Ã£o a testar
+               *   - verificar se os resultados retornados por esta funÃ§Ã£o estÃ£o
                *     corretos */
 
          TST_CondRetNaoExecutou ,
-               /* Comando de teste não se destina ao presente interpretador
+               /* Comando de teste nÃ£o se destina ao presente interpretador
                *
-               *$ED Descrição
-               *   Esta condição deve ser retornada por todas as funções de interpretação
-               *   de comandos de teste relativas a módulos do próprio arcabouço,
-               *   caso não tenha sido encontrado um comando válido. Isso permite
+               *$ED DescriÃ§Ã£o
+               *   Esta condiÃ§Ã£o deve ser retornada por todas as funÃ§Ãµes de interpretaÃ§Ã£o
+               *   de comandos de teste relativas a mÃ³dulos do prÃ³prio arcabouÃ§o,
+               *   caso nÃ£o tenha sido encontrado um comando vÃ¡lido. Isso permite
                *   estabelecer um "daisy chain" de interpretadores em que cada qual
-               *   tenha finalidade específica no contexto do arcabouço. */
+               *   tenha finalidade especÃ­fica no contexto do arcabouÃ§o. */
 
          TST_CondRetNaoConhec ,
-               /* Comando de teste não é conhecido
+               /* Comando de teste nÃ£o Ã© conhecido
                *
-               *$ED Descrição
-               *   Esta condição deve ser retornada por todas as funções de interpretação
-               *   de casos de teste específico visando determinado módulo em teste,
-               *   sempre que esse interpretador não consiga identificar o comando.
+               *$ED DescriÃ§Ã£o
+               *   Esta condiÃ§Ã£o deve ser retornada por todas as funÃ§Ãµes de interpretaÃ§Ã£o
+               *   de casos de teste especÃ­fico visando determinado mÃ³dulo em teste,
+               *   sempre que esse interpretador nÃ£o consiga identificar o comando.
                *
-               *   Cabe salientar a diferença entre TST_CondRetNaoExecutou e
-               *   TST_CondRetNaoConhec. A primeira corresponde à não interpretação
-               *   de um comando possivelmente válido em interpretadores subsequentes.
-               *   A segunda corresponde a comandos não válidos considerando todos
+               *   Cabe salientar a diferenÃ§a entre TST_CondRetNaoExecutou e
+               *   TST_CondRetNaoConhec. A primeira corresponde Ã  nÃ£o interpretaÃ§Ã£o
+               *   de um comando possivelmente vÃ¡lido em interpretadores subsequentes.
+               *   A segunda corresponde a comandos nÃ£o vÃ¡lidos considerando todos
                *   os interpretadores. */
 
          TST_CondRetNaoImplementado ,
-               /* Comando de teste não implementado
+               /* Comando de teste nÃ£o implementado
                *
-               *$ED Descrição
-               *   Esta condição deve ser retornada ao interpretar um comando de teste
-               *   específico ainda não implementado.
+               *$ED DescriÃ§Ã£o
+               *   Esta condiÃ§Ã£o deve ser retornada ao interpretar um comando de teste
+               *   especÃ­fico ainda nÃ£o implementado.
                *
-               *   Recomenda-se que o desenvolvimento dos módulos sob teste e do
-               *   correpondente módulo de teste específico se dê incrementalmente.
-               *   Consequentemente diversos comandos não estarão implementados
-               *   no início do desenvolvimento. Esta incompleteza poderá ser
-               *   sinalizada com esta condição de retorno. */
+               *   Recomenda-se que o desenvolvimento dos mÃ³dulos sob teste e do
+               *   correpondente mÃ³dulo de teste especÃ­fico se dÃª incrementalmente.
+               *   Consequentemente diversos comandos nÃ£o estarÃ£o implementados
+               *   no inÃ­cio do desenvolvimento. Esta incompleteza poderÃ¡ ser
+               *   sinalizada com esta condiÃ§Ã£o de retorno. */
 
          TST_CondRetMemoria
-               /* Faltou memória para executar o comando
+               /* Faltou memÃ³ria para executar o comando
                *
-               *$ED Descrição
-               *   Esta condição deve ser retornada caso tenha ocorrido algum erro
-               *   quando o módulo de teste específico tentar alocar memória ou
+               *$ED DescriÃ§Ã£o
+               *   Esta condiÃ§Ã£o deve ser retornada caso tenha ocorrido algum erro
+               *   quando o mÃ³dulo de teste especÃ­fico tentar alocar memÃ³ria ou
                *   outro recurso. */
 
    } TST_tpCondRet ;
@@ -138,82 +138,82 @@
 
 /***********************************************************************
 *
-*  $FC Função: TSTE &Efetuar comandos de teste específicos
+*  $FC FunÃ§Ã£o: TSTE &Efetuar comandos de teste especÃ­ficos
 *
-*  $ED Descrição da função
-*     Efetua os diversos comandos de teste específicos para o módulo
+*  $ED DescriÃ§Ã£o da funÃ§Ã£o
+*     Efetua os diversos comandos de teste especÃ­ficos para o mÃ³dulo
 *     sendo testado.
 *
-*     Cada módulo de teste específico deve desenvolver esta função.
-*     Poderá conter diversas outras conforme necessário. No entanto
-*     estas devem todas ser funções encapsuladas no módulo (static)
+*     Cada mÃ³dulo de teste especÃ­fico deve desenvolver esta funÃ§Ã£o.
+*     PoderÃ¡ conter diversas outras conforme necessÃ¡rio. No entanto
+*     estas devem todas ser funÃ§Ãµes encapsuladas no mÃ³dulo (static)
 *
-*     Freqüentemente é necessário desenvolver um contexto para o teste.
-*     Por exemplo, pode ser necessário tratar n elementos disponibilizados
-*     pelo módulo sob teste. Neste caso deveria ser criado um vetor
-*     global com referências para estas elemento. Ao iniciar os teste
-*     este vetor deverá ser inicializado. Ao terminar, os elementos do
-*     vetor referenciando algum elemento devem ser destruídos.
+*     FreqÃ¼entemente Ã© necessÃ¡rio desenvolver um contexto para o teste.
+*     Por exemplo, pode ser necessÃ¡rio tratar n elementos disponibilizados
+*     pelo mÃ³dulo sob teste. Neste caso deveria ser criado um vetor
+*     global com referÃªncias para estas elemento. Ao iniciar os teste
+*     este vetor deverÃ¡ ser inicializado. Ao terminar, os elementos do
+*     vetor referenciando algum elemento devem ser destruÃ­dos.
 *
 *     Uma das formas para estabelecer o contexto seria a de incluir
-*     no mçodulo de teste específico comando semelhantes a:
+*     no mÃ§odulo de teste especÃ­fico comando semelhantes a:
 *
-*       =iniciaXXX  que inicializa o contexto do módulo sob teste para
-*                   vazio. Este comando deve ser utilizado uma única vez
-*                   logo ao inciar a execução do teste.
+*       =iniciaXXX  que inicializa o contexto do mÃ³dulo sob teste para
+*                   vazio. Este comando deve ser utilizado uma Ãºnica vez
+*                   logo ao inciar a execuÃ§Ã£o do teste.
 *       =reset      restaura o contexto para vazio. Este comando usualmente
-*                   assumirá que o contexto a esvaziar esteja correto.
-*                   O comando deverá liberar os espaços alocados aos
-*                   elementos, anular as referências a ele, inicializar
-*                   valores de vetores de referências, etc.
+*                   assumirÃ¡ que o contexto a esvaziar esteja correto.
+*                   O comando deverÃ¡ liberar os espaÃ§os alocados aos
+*                   elementos, anular as referÃªncias a ele, inicializar
+*                   valores de vetores de referÃªncias, etc.
 *                   O comando tem utilidade especial ao segmentar um teste
 *                   em partes estanques e ao controlar vazamento de
-*                   memória.
-*       =terminaXXX este comando destrói todo o contexto e não o
-*                   reinicializa. O objetivo é poder verificar vazamento
-*                   de memória.
+*                   memÃ³ria.
+*       =terminaXXX este comando destrÃ³i todo o contexto e nÃ£o o
+*                   reinicializa. O objetivo Ã© poder verificar vazamento
+*                   de memÃ³ria.
 *
-*     Evidentemente, outra forma seria a de alterar as funções de
-*     inicialização e término do módulo de teste genérico o que é pouco
-*     recomendável pois viola o princípio de um mesmo módulo genérico
+*     Evidentemente, outra forma seria a de alterar as funÃ§Ãµes de
+*     inicializaÃ§Ã£o e tÃ©rmino do mÃ³dulo de teste genÃ©rico o que Ã© pouco
+*     recomendÃ¡vel pois viola o princÃ­pio de um mesmo mÃ³dulo genÃ©rico
 *     servir para testar todos os construtos.
 *
-*     Para cada função do módulo a ser testado deve existir pelo menos
+*     Para cada funÃ§Ã£o do mÃ³dulo a ser testado deve existir pelo menos
 *     um comando. Em alguns casos pode ser interessante criar
-*     comandos que armazenem, alterem ou consultem variáveis de
-*     estado do próprio módulo de teste. Ver os comentários sobre
+*     comandos que armazenem, alterem ou consultem variÃ¡veis de
+*     estado do prÃ³prio mÃ³dulo de teste. Ver os comentÃ¡rios sobre
 *     contexto acima.
 *
-*     Todos os controles de consistência devem ser realizados no
-*     módulo de teste específico.
+*     Todos os controles de consistÃªncia devem ser realizados no
+*     mÃ³dulo de teste especÃ­fico.
 *
-*     A função TST_EfetuarComando( ) deve retornar as condições de retorno
-*     identificadas no tipo TST_tpCondRet definida no módulo TesteGen.
+*     A funÃ§Ã£o TST_EfetuarComando( ) deve retornar as condiÃ§Ãµes de retorno
+*     identificadas no tipo TST_tpCondRet definida no mÃ³dulo TesteGen.
 *
-*     As funções do módulo sob teste que retornam algum valor sempre
-*     devem sempre ter este valor verificado, mesmo sendo uma condição de
-*     retorno. Para fazer a vereficação da corretude, recomenda-se
-*     utilizar as funções TST_CompararXXX definidas no módulo genérico.
-*     Assegura-se assim a uniformidade da saída gerada durante o teste.
+*     As funÃ§Ãµes do mÃ³dulo sob teste que retornam algum valor sempre
+*     devem sempre ter este valor verificado, mesmo sendo uma condiÃ§Ã£o de
+*     retorno. Para fazer a vereficaÃ§Ã£o da corretude, recomenda-se
+*     utilizar as funÃ§Ãµes TST_CompararXXX definidas no mÃ³dulo genÃ©rico.
+*     Assegura-se assim a uniformidade da saÃ­da gerada durante o teste.
 *
-*     Para realizar a análise de um comando de teste recomenda-se
-*     utilizar as funções definidas no módulo LerParm. Elas, além
-*     de realizarem a análise léxica, permitem o uso intercambiável
-*     de parâmetros simbólicos ou literais. Também realizam a
-*     verificação da corretude dos tipos dos parâmetros, contribuindo
-*     assim para a redução de erros de redação de scripts de teste
+*     Para realizar a anÃ¡lise de um comando de teste recomenda-se
+*     utilizar as funÃ§Ãµes definidas no mÃ³dulo LerParm. Elas, alÃ©m
+*     de realizarem a anÃ¡lise lÃ©xica, permitem o uso intercambiÃ¡vel
+*     de parÃ¢metros simbÃ³licos ou literais. TambÃ©m realizam a
+*     verificaÃ§Ã£o da corretude dos tipos dos parÃ¢metros, contribuindo
+*     assim para a reduÃ§Ã£o de erros de redaÃ§Ã£o de scripts de teste
 *     que possam passar despercebidos.
 *
-*     As funções a serem testadas que requeiram algum argumento, devem
-*     ser chamadas com valores (parâmetros) extraídos do comando de
+*     As funÃ§Ãµes a serem testadas que requeiram algum argumento, devem
+*     ser chamadas com valores (parÃ¢metros) extraÃ­dos do comando de
 *     teste sendo executado.
 *
-*  $EP Parâmetros
+*  $EP ParÃ¢metros
 *     $P ComandoTeste - String contendo o comando
 *
 *  $FV Valor retornado
-*     TST_CondRetXXX       - veja a descriÓcão dos possíveis valores
-*                            retornados na especificação do correspondente
+*     TST_CondRetXXX       - veja a descriÃ“cÃ£o dos possÃ­veis valores
+*                            retornados na especificaÃ§Ã£o do correspondente
 *                            enum
 *
 ***********************************************************************/
@@ -222,7 +222,7 @@
 
 #undef Tst_Espc_EXT
 
-/********** Fim do módulo de definição: TSTE Interface de teste específico **********/
+/********** Fim do mÃ³dulo de definiÃ§Ã£o: TSTE Interface de teste especÃ­fico **********/
 
 #else
 #endif

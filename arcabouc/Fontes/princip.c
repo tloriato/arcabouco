@@ -105,8 +105,8 @@
 
       /* Exibir logo do programa */
 
-         printf( "\n\nLES - LaboratÃ³rio de Engenharia de Software DI/PUC-Rio" ) ;
-         printf( "\n      ArcabouÃ§o de teste de mÃ³dulos C  (c) 2006\n" ) ;
+         printf( "\n\nLES - Laboratório de Engenharia de Software DI/PUC-Rio" ) ;
+         printf( "\n      Arcabouço de teste de módulos C  (c) 2006\n" ) ;
          printf( "\n---------------------------------------------" ) ;
          printf( "\n      Construto sob teste: %s\n" , vtValorParm[ 0 ] ) ;
 
@@ -116,7 +116,7 @@
          LogDefinido    = 0 ;
          Erro           = 0 ;
 
-      /* Ler os parÃ¢metros da linha de comando */
+      /* Ler os parâmetros da linha de comando */
 
          for ( inxParm = 1 ; inxParm < NumParm ; inxParm ++ ) {
 

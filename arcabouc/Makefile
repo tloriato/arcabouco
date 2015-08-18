@@ -29,7 +29,7 @@ all: $(OBJ_P)
 	$(AR) -rcs $(APP_P) $^
 
 clean:
-	rm $(APP_P) $(OBJ_P)
+	rm $(APP_P) $(OBJ_P) $(AUTODEPS)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	$(CC) -c $(CFLAGS) $< -o $@
