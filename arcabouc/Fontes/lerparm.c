@@ -26,10 +26,10 @@
 #include  <stdarg.h>
 #include  <ctype.h>
 #include  <malloc.h>
-#include  <process.h>
 
 #include  "generico.h"
 #include  "tabsimb.h"
+#include  "process.h"
 
 #define LerParm_OWN
 #include "LerParm.h"
