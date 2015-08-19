@@ -25,13 +25,13 @@
 #include    <process.h>
 
 #define GENERICO_OWN
-#include "GENERICO.h"
+#include "generico.h"
 #undef GENERICO_OWN
 
 #include    "lerparm.h"
-#include    "intrpCNT.h"
-#include    "intrpCED.h"
-#include    "CEspDin.h"
+#include    "intrpcnt.h"
+#include    "intrpced.h"
+#include    "cespdin.h"
 
 /* Constantes internas */
 

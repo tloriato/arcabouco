@@ -27,11 +27,11 @@
 #include    <string.h>
 
 #define CESPDIN_OWN
-#include "CESPDIN.h"
+#include "cespdin.h"
 #undef CESPDIN_OWN
 
-#include    "Generico.h"
-#include    "GeraAlt.h"
+#include    "generico.h"
+#include    "geraalt.h"
 
 #include    "../Tabelas/IdTiposEspaco.def"
 

@@ -25,11 +25,11 @@
 #include    <stdio.h>
 
 #define INTRPCNT_OWN
-#include "INTRPCNT.H"
+#include "intrpcnt.h"
 #undef INTRPCNT_OWN
 
-#include    "Generico.h"
-#include    "LerParm.h"
+#include    "generico.h"
+#include    "lerparm.h"
 #include    "conta.h"
 
 #define     DIM_MSG             500

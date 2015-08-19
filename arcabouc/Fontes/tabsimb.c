@@ -27,11 +27,11 @@
 #include   <malloc.h>
 
 #define TABSIMB_OWN
-#include "TABSIMB.h"
+#include "tabsimb.h"
 #undef TABSIMB_OWN
 
 #ifdef _DEBUG
-   #include   "CEspDin.h"
+   #include   "cespdin.h"
 #endif
 
 /***********************************************************************

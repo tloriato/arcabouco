@@ -32,7 +32,7 @@
 #include  "process.h"
 
 #define LerParm_OWN
-#include "LerParm.h"
+#include "lerparm.h"
 #undef LerParm_OWN
 
 #define            ID_TIPO_NOME            'n'

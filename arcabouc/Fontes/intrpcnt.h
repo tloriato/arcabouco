@@ -84,7 +84,7 @@
 
 /***** Declarações exportadas pelo módulo *****/
 
-#include    "TST_Espc.h"
+#include    "tst_espc.h"
 
 
 /***********************************************************************
