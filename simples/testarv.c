@@ -47,7 +47,7 @@
 #include    <string.h>
 #include    <stdio.h>
 
-#include    "TST_ESPC.H"
+#include    "tst_espc.h"
 
 #include    "generico.h"
 #include    "lerparm.h"

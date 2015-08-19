@@ -24,7 +24,7 @@
 #include   <stdio.h>
 
 #define ARVORE_OWN
-#include "ARVORE.H"
+#include "arvore.h"
 #undef ARVORE_OWN
 
 /***********************************************************************
