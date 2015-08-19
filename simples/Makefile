@@ -1,14 +1,20 @@
 SRC := arvore.c \
 	testarv.c
 
-APP := testarv
-LIB := ../arcabouc/Produto/ArcaboucoTeste.a
+#APP := testarv
+APP := testarv.exe
+#LIB := ../arcabouc/Produto/ArcaboucoTeste.a
+LIB := ../arcabouc/Produto/ArcaboucoTeste.lib
 HEADERS := ../arcabouc/Fontes
-OBJ_PATH := Build
+#OBJ_PATH := Build
+OBJ_PATH := Build-win
 
 CFLAGS := -g -Wall -I"$(HEADERS)" -std=c99 -Wno-comment
 LDFLAGS := -g -Wall
 
+CC := /home/developer/toolchains/mingw-win32/bin/i686-w64-mingw32-gcc
+AR := /home/developer/toolchains/mingw-win32/bin/i686-w64-mingw32-ar
+CFLAGS += -fexec-charset="ISO-8859-1" -finput-charset="UTF-8"
 ######################################
 
 OBJ := $(SRC:.c=.o)
