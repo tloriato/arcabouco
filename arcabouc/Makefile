@@ -19,8 +19,8 @@ APP_PATH_WIN := Produto
 
 CFLAGS := -g -I$(SRC_PATH) -Wall -std=c99 -Wno-comment
 
-CC_WIN := /home/developer/toolchains/mingw-win32/bin/i686-w64-mingw32-gcc
-AR_WIN := /home/developer/toolchains/mingw-win32/bin/i686-w64-mingw32-ar
+CC_WIN := i686-w64-mingw32-gcc
+AR_WIN := i686-w64-mingw32-ar
 CFLAGS_WIN := $(CFLAGS) -fexec-charset="ISO-8859-1" -finput-charset="UTF-8"
 
 ###############################################################
