@@ -31,3 +31,4 @@ $(OBJ_PATH)/%.d: %.c
 	$(CC) $(CFLAGS) -MM -MP -MT $(DF).o $< > $(DF).d
 
 -include $(AUTODEPS)
+.PHONY: clean
