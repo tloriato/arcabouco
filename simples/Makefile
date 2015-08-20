@@ -28,7 +28,7 @@ AUTODEPS := $(patsubst %.c,$(OBJ_PATH)/%.d,$(SRC))
 DF = $(OBJ_PATH)/$(*F)
 
 all: $(OBJ_P)
-	$(CC) $(LDLAGS) $(OBJ_P) $(LIB) -o $(APP)
+	$(CC) $(LDFLAGS) $(OBJ_P) $(LIB) -o $(APP)
 
 win: $(OBJ_P_WIN)
 	$(CC_WIN) $(LDFAGS_WIN) $(OBJ_P_WIN) $(LIB_WIN) -o $(APP_WIN)
