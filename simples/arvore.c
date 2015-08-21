@@ -70,7 +70,7 @@
 *
 *
 *  $ED Descrição do tipo
-*     A cabea da árvore é o ponto de acesso para uma determinada árvore.
+*     A cabeça da árvore é o ponto de acesso para uma determinada árvore.
 *     Por intermédio da referência para o nó corrente e do ponteiro
 *     pai pode-se navegar a árvore sem necessitar de uma pilha.
 *     Pode-se, inclusive, operar com a árvore em forma de co-rotina.
