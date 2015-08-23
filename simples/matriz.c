@@ -4,9 +4,6 @@
 *  Arquivo gerado:              matriz.c
 *  Letras identificadoras:      MAT
 *
-*  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
-*
 *  Projeto: Disciplinas INF 1628 / 1301
 *  Autores: tdn - Thiago Duarte Naves
 *
@@ -18,10 +15,7 @@
 
 #include   <malloc.h>
 #include   <stdio.h>
-
-#define MATRIZ_OWN
-#include "matriz.h"
-#undef MATRIZ_OWN
+#include   "matriz.h"
 
 /***********************************************************************
 *
@@ -33,32 +27,54 @@
 *
 ***********************************************************************/
 
-   typedef struct tgNoMatriz {
+   typedef struct tgCelulaMatriz {
 
-         struct tgNoMatriz * pNoPai ;
-               /* Ponteiro para pai
+         struct tgCelulaMatriz * pCelNorte ;
+               /* Ponteiro para a célula acima
                *
                *$EED Assertivas estruturais
-               *   É NULL sse o nó é raiz
-               *   Se não for raiz, um de pNoEsq ou pNoDir de pNoPai da célula
-               *   corrente apontam para o nó corrente */
+               *   É NULL só se a célula estiver na primeira linha
+               *   Se não for NULL, pCelSul de pCelNorte aponta para esta célula */
 
-         struct tgNoMatriz * pNoEsq ;
-               /* Ponteiro para filho à esquerda
-               *
-               *$EED Assertivas estruturais
-               *   se pNoEsq da célula X != NULL então pNoPai de pNoEsq aponta para o nó X */
+         struct tgCelulaMatriz * pCelNordeste ;
+               /* Ponteiro para a célula acima à direita
+                *
+                *$EED Assertivas estruturais
+                *   É NULL só se a célula estiver na primeira linha ou na última coluna
+                *   Se não for NULL, pCelSudoeste de pCelNordeste aponta para esta célula */
 
-         struct tgNoMatriz * pNoDir ;
-               /* Ponteiro para filho à direita
-               *
-               *$EED Assertivas estruturais
-               *   se pNoDir da célula X != NULL então pNoPai de pNoDir aponta para o nó X */
+         struct tgCelulaMatriz * pCelNoroeste ;
+               /* Ponteiro para a célula acima à esquerda
+                *
+                *$EED Assertivas estruturais
+                *   É NULL só se a célula estiver na primeira linha ou na primeira coluna
+                *   Se não for NULL, pCelSudeste de pCelNoroeste aponta para esta célula */
 
-         char Valor ;
-               /* Valor da célula */
+         struct tgCelulaMatriz * pCelSul ;
+               /* Ponteiro para a célula abaixo
+                *
+                *$EED Assertivas estruturais
+                *   É NULL só se a célula estiver na última linha
+                *   Se não for NULL, pCelNorte de pCelSul aponta para esta célula */
 
-   } tpNoMatriz ;
+         struct tgCelulaMatriz * pCelSudeste ;
+               /* Ponteiro para a célula abaixo à direita
+                *
+                *$EED Assertivas estruturais
+                *   É NULL só se a célula estiver na última linha ou na última coluna
+                *   Se não for NULL, pCelNoroeste de pCelSudeste aponta para esta célula */
+
+         struct tgCelulaMatriz * pCelSudoeste ;
+               /* Ponteiro para a célula abaixo à esquerda
+                *
+                *$EED Assertivas estruturais
+                *   É NULL só se a célula estiver na última linha ou na primeira coluna
+                *   Se não for NULL, pCelNordeste de pCelSudoeste aponta para esta célula */
+
+         LIS_tppLista Lista ;
+               /* Estrutura de lista contida na célula */
+
+   } tpCelulaMatriz ;
 
 /***********************************************************************
 *
@@ -67,34 +83,35 @@
 *
 *  $ED Descrição do tipo
 *     A cabeça da mariz é o ponto de acesso para uma determinada mariz.
-*     Por intermédio da referência para o nó corrente e do ponteiro
-*     pai pode-se navegar a mariz sem necessitar de uma pilha.
+*     Por intermédio da referência para célula corrente e dos ponteiros
+*     para as células vizinhas pode-se navegar a mariz sem necessitar
+*     de uma pilha.
 *     Pode-se, inclusive, operar com a mariz em forma de co-rotina.
+*     Os índices LinhaCorr e ColCorr permitem calcular a posição
+*     relativa entre a célula corrente e a desejada pelo usuário.
+*     LinhasTot e ColsTot permitem determinar se a célula desejada
+*     existe sem a necessidade de navegar na matriz.
 *
 ***********************************************************************/
 
    typedef struct tgMatriz {
 
-         tpNoMatriz * pNoRaiz ;
-               /* Ponteiro para a raiz da mariz */
+         tpCelulaMatriz * pCelRaiz ;
+               /* Ponteiro para a raiz da mariz: Célula superior esquerda,
+                * Coluna 0, Linha 0 */
 
-         tpNoMatriz * pNoCorr ;
+         tpNoMatriz * pCelCorr ;
                /* Ponteiro para o nó corrente da mariz */
+
+         unsigned int LinhaCorr ;
+               /* Índice da linha de pCelCorr */
+
+         unsigned int ColCorr ;
+               /* Índice da coluna de pCelCorr */
 
    } tpMatriz ;
 
-/*****  Dados encapsulados no módulo  *****/
 
-      static tpMatriz * pMatriz = NULL ;
-            /* Ponteiro para a cabea da mariz */
-
-/***** Protótipos das funções encapuladas no módulo *****/
-
-   static tpNoMatriz * CriarNo( char ValorParm ) ;
-
-   static MAT_tpCondRet CriarNoRaiz( char ValorParm ) ;
-
-   static void DestroiMatriz( tpNoMatriz * pNo ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -103,22 +120,16 @@
 *  Função: MAT Criar mariz
 *  ****/
 
-   MAT_tpCondRet MAT_CriarMatriz( MAT_tpHandle * Handle )
+   MAT_tpCondRet MAT_CriarMatriz( MAT_tpMatriz * pMatriz )
    {
 
-      if ( pMatriz != NULL )
-      {
-         MAT_DestruirMatriz( ) ;
-      } /* if */
-
-      pMatriz = ( tpMatriz * ) malloc( sizeof( tpMatriz )) ;
-      if ( pMatriz == NULL )
+      *pMatriz = malloc( sizeof( tpMatriz )) ;
+      if ( *pMatriz == NULL )
       {
          return MAT_CondRetFaltouMemoria ;
       } /* if */
 
-      pMatriz->pNoRaiz = NULL ;
-      pMatriz->pNoCorr = NULL ;
+      memset( *pMatriz, 0, sizeof( tpMatriz ) ) ;
 
       return MAT_CondRetOK ;
 
@@ -129,13 +140,20 @@
 *  Função: MAT Destruir mariz
 *  ****/
 
-   void MAT_DestruirMatriz( MAT_tpHandle Handle )
+   void MAT_DestruirMatriz( MAT_tpMatriz Matriz )
    {
+
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz;
+      tpCelulaMatriz * pCel ;
 
       if ( pMatriz != NULL )
       {
-         if ( pMatriz->pNoRaiz != NULL )
+         if ( pMatriz->pCelRaiz != NULL )
          {
+            pCel = pMatriz->pCelRaiz;
+            while ( pCel != NULL )
+            {
+               // 
             DestroiMatriz( pMatriz->pNoRaiz ) ;
          } /* if */
          free( pMatriz ) ;
@@ -149,7 +167,7 @@
 *  Função: MAT Adicionar filho à esquerda
 *  ****/
 
-   MAT_tpCondRet MAT_InserirEsquerda( MAT_tpHandle Handle, char ValorParm )
+   MAT_tpCondRet MAT_InserirEsquerda( MAT_tpMatriz Matriz, char ValorParm )
    {
 
       MAT_tpCondRet CondRet ;
@@ -198,7 +216,7 @@
 *  Função: MAT Adicionar filho à direita
 *  ****/
 
-   MAT_tpCondRet MAT_InserirDireita( MAT_tpHandle Handle, char ValorParm )
+   MAT_tpCondRet MAT_InserirDireita( MAT_tpMatriz Matriz, char ValorParm )
    {
 
       MAT_tpCondRet CondRet ;
@@ -247,7 +265,7 @@
 *  Função: MAT Ir para nó pai
 *  ****/
 
-   MAT_tpCondRet MAT_IrPai( MAT_tpHandle Handle )
+   MAT_tpCondRet MAT_IrPai( MAT_tpMatriz Matriz )
    {
 
       if ( pMatriz == NULL )
@@ -274,7 +292,7 @@
 *  Função: MAT Ir para nó à esquerda
 *  ****/
 
-   MAT_tpCondRet MAT_IrNoEsquerda( MAT_tpHandle Handle )
+   MAT_tpCondRet MAT_IrNoEsquerda( MAT_tpMatriz Matriz )
    {
 
       if ( pMatriz == NULL )
@@ -302,7 +320,7 @@
 *  Função: MAT Ir para nó à direita
 *  ****/
 
-   MAT_tpCondRet MAT_IrNoDireita( MAT_tpHandle Handle )
+   MAT_tpCondRet MAT_IrNoDireita( MAT_tpMatriz Matriz )
    {
 
       if ( pMatriz == NULL )
@@ -330,7 +348,7 @@
 *  Função: MAT Obter valor corrente
 *  ****/
 
-   MAT_tpCondRet MAT_ObterValorCorr( MAT_tpHandle Handle, char * ValorParm )
+   MAT_tpCondRet MAT_ObterValorCorr( MAT_tpMatriz Matriz, char * ValorParm )
    {
 
       if ( pMatriz == NULL )
@@ -363,7 +381,7 @@
 *
 ***********************************************************************/
 
-   tpNoMatriz * CriarNo( MAT_tpHandle Handle, char ValorParm )
+   tpNoMatriz * CriarNo( MAT_tpMatriz Matriz, char ValorParm )
    {
 
       tpNoMatriz * pNo ;
@@ -394,7 +412,7 @@
 *
 ***********************************************************************/
 
-   MAT_tpCondRet CriarNoRaiz( MAT_tpHandle Handle, char ValorParm )
+   MAT_tpCondRet CriarNoRaiz( MAT_tpMatriz Matriz, char ValorParm )
    {
 
       MAT_tpCondRet CondRet ;
@@ -437,7 +455,7 @@
 *
 ***********************************************************************/
 
-   void DestroiMatriz( MAT_tpHandle Handle, tpNoMatriz * pNo )
+   void DestroiMatriz( MAT_tpMatriz Matriz, tpNoMatriz * pNo )
    {
 
       if ( pNo->pNoEsq != NULL )

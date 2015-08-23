@@ -31,20 +31,26 @@
 *     O nó corrente será nulo se e somente se a mariz estiver vazia.
 *
 ***************************************************************************/
- 
-#if defined( MATRIZ_OWN )
-   #define MATRIZ_EXT
-#else
-   #define MATRIZ_EXT extern
-#endif
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: MAT Handle da matriz visto pelo usuário
+*  Módulo de lista duplamente encadeada
 *
 *
 ***********************************************************************/
-typedef void * MAT_tpHandle;
+
+#include "lista.h"
+
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: MAT Matriz da matriz visto pelo usuário
+*
+*
+***********************************************************************/
+
+typedef void * MAT_tpMatriz;
+
 
 /***********************************************************************
 *
@@ -58,22 +64,28 @@ typedef void * MAT_tpHandle;
          MAT_CondRetOK = 0 ,
                /* Executou correto */
 
-         MAT_CondRetNaoCriouHandle = 1 ,
+         MAT_CondRetNaoCriouMatriz = 1 ,
                /* Não criou o handle */
 
          MAT_CondRetErroEstrutura = 2 ,
                /* Estrutura da mariz está errada */
 
          MAT_CondRetMatrizNaoExiste = 3 ,
-               /* mariz não existe */
+               /* Mariz não existe */
 
          MAT_CondRetMatrizVazia = 4 ,
-               /* mariz está vazia */
+               /* Mariz está vazia */
 
          MAT_CondRetNaoPossuiCelula = 5 ,
-               /* Nó corrente não possui a célula desejada */
+               /* Matriz não possui a célula desejada */
 
-         MAT_CondRetFaltouMemoria = 6
+         MAT_CondRetNaoPossuiColuna = 6 ,
+               /* Matriz não possui a coluna desejada */
+
+         MAT_CondRetNaoPossuiLinha = 7 ,
+               /* Matriz não possui a linha desejada */
+
+         MAT_CondRetFaltouMemoria = 8
                /* Faltou memória ao alocar dados */
 
    } MAT_tpCondRet ;
@@ -84,138 +96,181 @@ typedef void * MAT_tpHandle;
 *  $FC Função: MAT Criar mariz
 *
 *  $ED Descrição da função
-*     Cria uma nova mariz vazia.
+*     Cria uma nova mariz vazia
+*     Se não for possível criar a matriz, Matriz será NULL
 *
 *  $EP Parâmetros
-*     $P Handle - ponteiro para retorno do handle da matriz
-*                 Este parâmetro é passado por referência.
+*     $P Matriz - parâmetro para retorno do matriz
+*                 Este parâmetro é passado por referência
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
+*     MAT_CondRetNaoCriouMatriz
 *     MAT_CondRetFaltouMemoria
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_CriarMatriz( MAT_tpHandle * Handle ) ;
+   MAT_tpCondRet MAT_CriarMatriz( MAT_tpMatriz * pMatriz ) ;
 
 
 /***********************************************************************
 *
 *  $FC Função: MAT Destruir mariz
 *
+*  $ED Descrição da função
+*     Destrói o corpo e o handle da mariz, anulando a mariz passada
+*     Essa função se encarrega de destruir as listas contidas na matriz
+*     Faz nada caso a mariz passada não exista
+*
 *  $EP Parâmetros
-*     $P Handle - handle da matriz a ser destruída
+*     $P Matriz - matriz a ser destruída
+*
+***********************************************************************/
+
+   void MAT_DestruirMatriz( MAT_tpMatriz Matriz ) ;
+
+
+/***********************************************************************
+*
+*  $FC Função: MAT Inserir coluna
 *
 *  $ED Descrição da função
-*     Destrói o corpo e o handle da mariz, anulando a mariz passada.
-*     Faz nada caso a mariz passada não exista.
-*
-***********************************************************************/
-
-   void MAT_DestruirMatriz( MAT_tpHandle Handle ) ;
-
-
-/***********************************************************************
-*
-*  $FC Função: MAT Adicionar filho à esquerda
+*     Adiciona uma coluna vazia à direita da matriz
 *
 *  $EP Parâmetros
-*     $P ValorParm - valor a ser inserido no novo nó.
+*     $P Matriz - matriz a ser estendida
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
 *     MAT_CondRetErroEstrutura
 *     MAT_CondRetFaltouMemoria
-*     MAT_CondRetNaoEhFolha     - caso não seja folha para a esquerda
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_InserirEsquerda( MAT_tpHandle Handle, char ValorParm ) ;
+   MAT_tpCondRet MAT_InserirColuna( MAT_tpMatriz Matriz ) ;
 
 
 /***********************************************************************
 *
-*  $FC Função: MAT Adicionar filho à direita
+*  $FC Função: MAT Inserir linha
+*
+*  $ED Descrição da função
+*     Adiciona uma linha vazia abaixo da matriz
 *
 *  $EP Parâmetros
-*     $P ValorParm - valor a ser inserido no novo nó
+*     $P Matriz - matriz a ser estendida
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
 *     MAT_CondRetErroEstrutura
 *     MAT_CondRetFaltouMemoria
-*     MAT_CondRetNaoEhFolha     - caso não seja folha para a direita
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_InserirDireita( MAT_tpHandle Handle, char ValorParm ) ;
+   MAT_tpCondRet MAT_InserirLinha( MAT_tpMatriz Matriz ) ;
 
 
 /***********************************************************************
 *
-*  $FC Função: MAT Ir para nó pai
+*  $FC Função: MAT Ler célula
 *
-*  $FV Valor retornado
-*     MAT_CondRetOK
-*     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetMatrizVazia
-*     MAT_CondRetNoEhRaiz
-*
-***********************************************************************/
-
-   MAT_tpCondRet MAT_IrPai( MAT_tpHandle Handle, void ) ;
-
-
-/***********************************************************************
-*
-*  $FC Função: MAT Ir para nó à esquerda
-*
-*  $FV Valor retornado
-*     MAT_CondRetOK
-*     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetMatrizVazia
-*     MAT_CondRetNaoPossuiFilho   - nó corrente não possui filho à esquerda
-*
-***********************************************************************/
-
-   MAT_tpCondRet MAT_IrNoEsquerda( MAT_tpHandle Handle, void ) ;
-
-
-/***********************************************************************
-*
-*  $FC Função: MAT Ir para nó à direita
-*
-*  $FV Valor retornado
-*     MAT_CondRetOK
-*     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetMatrizVazia
-*     MAT_CondRetNaoPossuiFilho   - nó corrente não possui filho à direita
-*
-***********************************************************************/
-
-   MAT_tpCondRet MAT_IrNoDireita( MAT_tpHandle Handle, void ) ;
-
-
-/***********************************************************************
-*
-*  $FC Função: MAT Obter valor corrente
+*  $ED Descrição da função
+*     Obtém a lista contida em uma célula da matriz
 *
 *  $EP Parâmetros
-*     $P ValorParm - é o parâmetro que receberá o valor contido no nó.
-*                    Este parâmetro é passado por referência.
+*     $P Matriz - matriz a ser lida
+*     $P Coluna - coluna da célula desejada
+*                 a coluna mais à esquerda tem índice 0
+*     $P Linha  - linha da célula desejada
+*                 a linha mais à esquerda tem índice 0
+*     $P Lista  - retorno da lista armazenada na célula
+*                 Este parâmetro é passado por referência
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
 *     MAT_CondRetMatrizNaoExiste
 *     MAT_CondRetMatrizVazia
+*     MAT_CondRetNaoPossuiCelula
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_ObterValorCorr( MAT_tpHandle Handle, char * ValorParm ) ;
+   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz, unsigned int Coluna, unsigned int Linha, LIS_tppLista * Lista ) ;
 
-#undef MATRIZ_EXT
+
+/***********************************************************************
+*
+*  $FC Função: MAT Escrever célula
+*
+*  $ED Descrição da função
+*     Adiciona uma lista a uma célula da matriz
+*
+*  $EP Parâmetros
+*     $P Matriz - matriz a ser modificada
+*     $P Coluna - coluna da célula desejada
+*                 a coluna mais à esquerda tem índice 0
+*     $P Linha  - linha da célula desejada
+*                 a linha mais à esquerda tem índice 0
+*     $P Lista  - lista a armazenar na célula
+*
+*  $FV Valor retornado
+*     MAT_CondRetOK
+*     MAT_CondRetMatrizNaoExiste
+*     MAT_CondRetMatrizVazia
+*     MAT_CondRetNaoPossuiCelula
+*
+***********************************************************************/
+
+   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz, unsigned int Coluna, unsigned int Linha, LIS_tppLista Lista ) ;
+
+
+/***********************************************************************
+*
+*  $FC Função: MAT Excluir coluna
+*
+*  $ED Descrição da função
+*     Exclui a coluna especificada da matriz
+*     Essa função se encarrega de destruir as listas contidas na coluna excluida
+*
+*  $EP Parâmetros
+*     $P Matriz - matriz a ser modificada
+*     $P Coluna - coluna que se deseja excluir
+*                 a coluna mais à esquerda tem índice 0
+*
+*  $FV Valor retornado
+*     MAT_CondRetOK
+*     MAT_CondRetMatrizNaoExiste
+*     MAT_CondRetMatrizVazia
+*     MAT_CondRetNaoPossuiColuna
+*
+***********************************************************************/
+
+   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz, unsigned int Coluna ) ;
+
+
+/***********************************************************************
+*
+*  $FC Função: MAT Excluir linha
+*
+*  $ED Descrição da função
+*     Exclui a linha especificada da matriz
+*     Essa função se encarrega de destruir as listas contidas na linha excluida
+*
+*  $EP Parâmetros
+*     $P Matriz - matriz a ser modificada
+*     $P Linha  - linha que se deseja excluir
+*                 a linha mais à esquerda tem índice 0
+*
+*  $FV Valor retornado
+*     MAT_CondRetOK
+*     MAT_CondRetMatrizNaoExiste
+*     MAT_CondRetMatrizVazia
+*     MAT_CondRetNaoPossuiLinha
+*
+***********************************************************************/
+
+   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz, unsigned int Linha ) ;
+
 
 /********** Fim do módulo de definição: Módulo mariz **********/
 
-#else
 #endif
