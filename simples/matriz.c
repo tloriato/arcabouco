@@ -100,7 +100,7 @@
                /* Ponteiro para a raiz da mariz: Célula superior esquerda,
                 * Coluna 0, Linha 0 */
 
-         tpNoMatriz * pCelCorr ;
+         tpCelualaMatriz * pCelCorr ;
                /* Ponteiro para o nó corrente da mariz */
 
          unsigned int LinhaCorr ;
@@ -109,9 +109,18 @@
          unsigned int ColCorr ;
                /* Índice da coluna de pCelCorr */
 
+         unsigned int QuantidadeLinhas ;
+               /* Número de linhas da matriz */
+
+         unsigned int QuantidadeColunas ;
+               /* Número de colunas da matriz */
+
    } tpMatriz ;
 
 
+/***** Protótipos das funções encapuladas no módulo *****/
+
+   static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha );
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -123,13 +132,11 @@
    MAT_tpCondRet MAT_CriarMatriz( MAT_tpMatriz * pMatriz )
    {
 
-      *pMatriz = malloc( sizeof( tpMatriz )) ;
+      *pMatriz = calloc( sizeof( tpMatriz ) , 1 ) ;
       if ( *pMatriz == NULL )
       {
          return MAT_CondRetFaltouMemoria ;
       } /* if */
-
-      memset( *pMatriz, 0, sizeof( tpMatriz ) ) ;
 
       return MAT_CondRetOK ;
 
@@ -153,9 +160,11 @@
             pCel = pMatriz->pCelRaiz;
             while ( pCel != NULL )
             {
-               // 
-            DestroiMatriz( pMatriz->pNoRaiz ) ;
+               pCel = pCel->pCelSul;
+               MAT_ExcluirLinha( Matriz , 0 );
+            } /* while */
          } /* if */
+
          free( pMatriz ) ;
          pMatriz = NULL ;
       } /* if */
@@ -164,313 +173,113 @@
 
 /***************************************************************************
 *
-*  Função: MAT Adicionar filho à esquerda
+*  Função: MAT Inserir coluna
 *  ****/
 
-   MAT_tpCondRet MAT_InserirEsquerda( MAT_tpMatriz Matriz, char ValorParm )
+   MAT_tpCondRet MAT_InserirColuna( MAT_tpMatriz Matriz )
    {
-
-      MAT_tpCondRet CondRet ;
-
-      tpNoMatriz * pCorr ;
-      tpNoMatriz * pNo ;
-
-      /* Tratar vazio, esquerda */
-
-         CondRet = CriarNoRaiz( ValorParm ) ;
-         if ( CondRet != MAT_CondRetNaoCriouRaiz )
-         {
-            return CondRet ;
-         } /* if */
-
-      /* Criar nó à esquerda de folha */
-
-         pCorr = pMatriz->pNoCorr ;
-         if ( pCorr == NULL )
-         {
-            return MAT_CondRetErroEstrutura ;
-         } /* if */
-               
-         if ( pCorr->pNoEsq == NULL )
-         {
-            pNo = CriarNo( ValorParm ) ;
-            if ( pNo == NULL )
-            {
-               return MAT_CondRetFaltouMemoria ;
-            } /* if */
-            pNo->pNoPai      = pCorr ;
-            pCorr->pNoEsq    = pNo ;
-            pMatriz->pNoCorr = pNo ;
-
-            return MAT_CondRetOK ;
-         } /* if */
-
-      /* Tratar não folha à esquerda */
-
-         return MAT_CondRetNaoEhFolha ;
-
-   } /* Fim função: MAT Adicionar filho à esquerda */
+   } /* Fim função: MAT Inserir coluna */
 
 /***************************************************************************
 *
-*  Função: MAT Adicionar filho à direita
+*  Função: MAT Inserir linha
 *  ****/
 
-   MAT_tpCondRet MAT_InserirDireita( MAT_tpMatriz Matriz, char ValorParm )
+   MAT_tpCondRet MAT_InserirLinha( MAT_tpMatriz Matriz )
    {
-
-      MAT_tpCondRet CondRet ;
-
-      tpNoMatriz * pCorr ;
-      tpNoMatriz * pNo ;
-
-      /* Tratar vazio, direita */
-
-         CondRet = CriarNoRaiz( ValorParm ) ;
-         if ( CondRet != MAT_CondRetNaoCriouRaiz )
-         {
-            return CondRet ;
-         } /* if */
-
-      /* Criar nó à direita de folha */
-
-         pCorr = pMatriz->pNoCorr ;
-         if ( pCorr == NULL )
-         {
-            return MAT_CondRetErroEstrutura ;
-         } /* if */
-
-         if ( pCorr->pNoDir == NULL )
-         {
-            pNo = CriarNo( ValorParm ) ;
-            if ( pNo == NULL )
-            {
-               return MAT_CondRetFaltouMemoria ;
-            } /* if */
-            pNo->pNoPai      = pCorr ;
-            pCorr->pNoDir    = pNo ;
-            pMatriz->pNoCorr = pNo ;
-
-            return MAT_CondRetOK ;
-         } /* if */
-
-      /* Tratar não folha à direita */
-
-         return MAT_CondRetNaoEhFolha ;
-
-   } /* Fim função: MAT Adicionar filho à direita */
+   } /* Fim função: MAT Inserir linha */
 
 /***************************************************************************
 *
-*  Função: MAT Ir para nó pai
+*  Função: MAT Ler célula
 *  ****/
 
-   MAT_tpCondRet MAT_IrPai( MAT_tpMatriz Matriz )
+   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista * Lista )
    {
 
-      if ( pMatriz == NULL )
-      {
-         return MAT_CondRetMatrizNaoExiste ;
-      } /* if */
-      if ( pMatriz->pNoCorr == NULL )
-      {
-         return MAT_CondRetMatrizVazia ;
-      } /* if */
-
-      if ( pMatriz->pNoCorr->pNoPai != NULL )
-      {
-         pMatriz->pNoCorr = pMatriz->pNoCorr->pNoPai ;
-         return MAT_CondRetOK ;
-      } else {
-         return MAT_CondRetNohEhRaiz ;
-      } /* if */
-
-   } /* Fim função: MAT Ir para nó pai */
-
-/***************************************************************************
-*
-*  Função: MAT Ir para nó à esquerda
-*  ****/
-
-   MAT_tpCondRet MAT_IrNoEsquerda( MAT_tpMatriz Matriz )
-   {
-
-      if ( pMatriz == NULL )
+      if ( Matriz == NULL )
       {
          return MAT_CondRetMatrizNaoExiste ;
       } /* if */
 
-      if ( pMatriz->pNoCorr == NULL )
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz;
+
+      if ( Lista == NULL )
       {
-         return MAT_CondRetMatrizVazia ;
+         return MAT_CondRetPonteiroRetornoNulo ;
       } /* if */
 
-      if ( pMatriz->pNoCorr->pNoEsq == NULL )
+      if (( Coluna >= pMatriz->QuantidadeColunas ) ||
+          ( Linha >= pMatriz->QuantidadeLinhas ))
       {
-         return MAT_CondRetNaoPossuiFilho ;
+         return MAT_CondRetNaoPossuiCelula;
       } /* if */
 
-      pMatriz->pNoCorr = pMatriz->pNoCorr->pNoEsq ;
+      tpCelulaMatriz * pCel = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
+      if ( pCel == NULL )
+      {
+         return MAT_CondRetErroEstrutura;
+      } /* if */
+
+      *Lista = pCel->Lista;
       return MAT_CondRetOK ;
 
-   } /* Fim função: MAT Ir para nó à esquerda */
+   } /* Fim função: MAT Ler célula */
 
 /***************************************************************************
 *
-*  Função: MAT Ir para nó à direita
+*  Função: MAT Escrever célula
 *  ****/
 
-   MAT_tpCondRet MAT_IrNoDireita( MAT_tpMatriz Matriz )
+   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista Lista )
    {
-
-      if ( pMatriz == NULL )
-      {
-         return MAT_CondRetMatrizNaoExiste ;
-      } /* if */
-
-      if ( pMatriz->pNoCorr == NULL )
-      {
-         return MAT_CondRetMatrizVazia ;
-      } /* if */
-
-      if ( pMatriz->pNoCorr->pNoDir == NULL )
-      {
-         return MAT_CondRetNaoPossuiFilho ;
-      } /* if */
-
-      pMatriz->pNoCorr = pMatriz->pNoCorr->pNoDir ;
-      return MAT_CondRetOK ;
-
-   } /* Fim função: MAT Ir para nó à direita */
+   } /* Fim função: MAT Escrever célula */
 
 /***************************************************************************
 *
-*  Função: MAT Obter valor corrente
+*  Função: MAT Excluir coluna
 *  ****/
 
-   MAT_tpCondRet MAT_ObterValorCorr( MAT_tpMatriz Matriz, char * ValorParm )
+   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , unsigned int Coluna )
    {
+   } /* Fim função: MAT Excluir coluna */
 
-      if ( pMatriz == NULL )
-      {
-         return MAT_CondRetMatrizNaoExiste ;
-      } /* if */
-      if ( pMatriz->pNoCorr == NULL )
-      {
-         return MAT_CondRetMatrizVazia ;
-      } /* if */
-      * ValorParm = pMatriz->pNoCorr->Valor ;
+/***************************************************************************
+*
+*  Função: MAT Excluir linha
+*  ****/
 
-      return MAT_CondRetOK ;
-
-   } /* Fim função: MAT Obter valor corrente */
+   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , unsigned int Linha )
+   {
+   } /* Fim função: MAT Excluir linha */
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
 
-
 /***********************************************************************
 *
-*  $FC Função: MAT Criar nó da mariz
+*  $FC Função: MAT Obter célula nas coordenadas
 *
-*  $FV Valor retornado
-*     Ponteiro para o nó criado.
-*     Será NULL caso a memória tenha se esgotado.
-*     Os ponteiros da célula criada estarão nulos e o valor é igual ao do
-*     parâmetro.
+*  $ED Descrição da função
+*     Essa função retorna um ponteiro para a célula da matriz nas coordenadas
+*     (Coluna, Linha). Essa função tem o efeito colateral de atualizar o
+*     ponteiro para a célula atual na estrutura da matriz.
 *
-***********************************************************************/
+*  $EP Parâmetros
+*     $P Matriz - matriz que contém a célula desejada
+*     $P Coluna - coluna da célula desejada
+*                 a coluna mais à esquerda tem índice 0
+*     $P Linha  - linha da célula desejada
+*                 a linha mais à esquerda tem índice 0
 
-   tpNoMatriz * CriarNo( MAT_tpMatriz Matriz, char ValorParm )
-   {
-
-      tpNoMatriz * pNo ;
-
-      pNo = ( tpNoMatriz * ) malloc( sizeof( tpNoMatriz )) ;
-      if ( pNo == NULL )
-      {
-         return NULL ;
-      } /* if */
-
-      pNo->pNoPai = NULL ;
-      pNo->pNoEsq = NULL ;
-      pNo->pNoDir = NULL ;
-      pNo->Valor  = ValorParm ;
-      return pNo ;
-
-   } /* Fim função: MAT Criar nó da mariz */
-
-
-/***********************************************************************
-*
-*  $FC Função: MAT Criar nó raiz da mariz
-*
-*  $FV Valor retornado
-*     MAT_CondRetOK
-*     MAT_CondRetFaltouMemoria
-*     MAT_CondRetNaoCriouRaiz
-*
-***********************************************************************/
-
-   MAT_tpCondRet CriarNoRaiz( MAT_tpMatriz Matriz, char ValorParm )
-   {
-
-      MAT_tpCondRet CondRet ;
-      tpNoMatriz * pNo ;
-
-      if ( pMatriz == NULL )
-      {
-         CondRet = MAT_CriarMatriz( ) ;
-
-         if ( CondRet != MAT_CondRetOK )
-         {
-            return CondRet ;
-         } /* if */
-      } /* if */
-
-      if ( pMatriz->pNoRaiz == NULL )
-      {
-         pNo = CriarNo( ValorParm ) ;
-         if ( pNo == NULL )
-         {
-            return MAT_CondRetFaltouMemoria ;
-         } /* if */
-         pMatriz->pNoRaiz = pNo ;
-         pMatriz->pNoCorr = pNo ;
-
-         return MAT_CondRetOK ;
-      } /* if */
-
-      return MAT_CondRetNaoCriouRaiz ;
-
-   } /* Fim função: MAT Criar nó raiz da mariz */
-
-
-/***********************************************************************
-*
-*  $FC Função: MAT Destruir a estrutura da mariz
-*
 *  $EAE Assertivas de entradas esperadas
-*     pNoMatriz != NULL
+*     Matriz != NULL
 *
 ***********************************************************************/
 
-   void DestroiMatriz( MAT_tpMatriz Matriz, tpNoMatriz * pNo )
+   static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha )
    {
-
-      if ( pNo->pNoEsq != NULL )
-      {
-         DestroiMatriz( pNo->pNoEsq ) ;
-      } /* if */
-
-      if ( pNo->pNoDir != NULL )
-      {
-         DestroiMatriz( pNo->pNoDir ) ;
-      } /* if */
-
-      free( pNo ) ;
-
-   } /* Fim função: MAT Destruir a estrutura da mariz */
+   }
 
 /********** Fim do módulo de implementação: Módulo mariz **********/
 

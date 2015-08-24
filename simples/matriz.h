@@ -85,8 +85,11 @@ typedef void * MAT_tpMatriz;
          MAT_CondRetNaoPossuiLinha = 7 ,
                /* Matriz não possui a linha desejada */
 
-         MAT_CondRetFaltouMemoria = 8
+         MAT_CondRetFaltouMemoria = 8 ,
                /* Faltou memória ao alocar dados */
+
+         MAT_CondRetPonteiroRetornoNulo = 9
+               /* Ponteiro passado por parâmetro para retorno é NULL */
 
    } MAT_tpCondRet ;
 
@@ -191,10 +194,11 @@ typedef void * MAT_tpMatriz;
 *     MAT_CondRetMatrizNaoExiste
 *     MAT_CondRetMatrizVazia
 *     MAT_CondRetNaoPossuiCelula
+*     MAT_CondRetPonteiroRetornoNulo
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz, unsigned int Coluna, unsigned int Linha, LIS_tppLista * Lista ) ;
+   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista * Lista ) ;
 
 
 /***********************************************************************
@@ -220,7 +224,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz, unsigned int Coluna, unsigned int Linha, LIS_tppLista Lista ) ;
+   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista Lista ) ;
 
 
 /***********************************************************************
@@ -244,7 +248,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz, unsigned int Coluna ) ;
+   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , unsigned int Coluna ) ;
 
 
 /***********************************************************************
@@ -268,7 +272,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz, unsigned int Linha ) ;
+   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , unsigned int Linha ) ;
 
 
 /********** Fim do módulo de definição: Módulo mariz **********/
