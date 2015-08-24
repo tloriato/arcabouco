@@ -121,6 +121,7 @@
 /***** Protótipos das funções encapuladas no módulo *****/
 
    static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha );
+   static MAT_tpCondRet ValidarCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -150,7 +151,7 @@
    void MAT_DestruirMatriz( MAT_tpMatriz Matriz )
    {
 
-      tpMatriz * pMatriz = ( tpMatriz * ) Matriz;
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
       tpCelulaMatriz * pCel ;
 
       if ( pMatriz != NULL )
@@ -161,7 +162,7 @@
             while ( pCel != NULL )
             {
                pCel = pCel->pCelSul;
-               MAT_ExcluirLinha( Matriz , 0 );
+               MAT_ExcluirLinha( Matriz , 0 ) ;
             } /* while */
          } /* if */
 
@@ -202,26 +203,26 @@
          return MAT_CondRetMatrizNaoExiste ;
       } /* if */
 
-      tpMatriz * pMatriz = ( tpMatriz * ) Matriz;
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
 
       if ( Lista == NULL )
       {
          return MAT_CondRetPonteiroRetornoNulo ;
       } /* if */
 
-      if (( Coluna >= pMatriz->QuantidadeColunas ) ||
-          ( Linha >= pMatriz->QuantidadeLinhas ))
+      if ( ( Coluna >= pMatriz->QuantidadeColunas )
+        || ( Linha >= pMatriz->QuantidadeLinhas ))
       {
-         return MAT_CondRetNaoPossuiCelula;
+         return MAT_CondRetNaoPossuiCelula ;
       } /* if */
 
       tpCelulaMatriz * pCel = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
       if ( pCel == NULL )
       {
-         return MAT_CondRetErroEstrutura;
+         return MAT_CondRetErroEstrutura ;
       } /* if */
 
-      *Lista = pCel->Lista;
+      *Lista = pCel->Lista ;
       return MAT_CondRetOK ;
 
    } /* Fim função: MAT Ler célula */
@@ -279,6 +280,33 @@
 
    static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha )
    {
+   }
+
+
+/***********************************************************************
+*
+*  $FC Função: MAT Validar célula
+*
+*  $ED Descrição da função
+*     Essa função retorna um ponteiro para a célula da matriz nas coordenadas
+*     (Coluna, Linha). Essa função tem o efeito colateral de atualizar o
+*     ponteiro para a célula atual na estrutura da matriz.
+*
+*  $EP Parâmetros
+*     $P Matriz - matriz que contém a célula desejada
+*     $P Coluna - coluna da célula desejada
+*                 a coluna mais à esquerda tem índice 0
+*     $P Linha  - linha da célula desejada
+*                 a linha mais à esquerda tem índice 0
+
+*  $EAE Assertivas de entradas esperadas
+*     Matriz != NULL
+*
+***********************************************************************/
+
+   static MAT_tpCondRet ValidarCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha )
+   {
+
    }
 
 /********** Fim do módulo de implementação: Módulo mariz **********/
