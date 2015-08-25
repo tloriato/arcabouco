@@ -198,28 +198,16 @@
    MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista * Lista )
    {
 
-      if ( Matriz == NULL )
-      {
-         return MAT_CondRetMatrizNaoExiste ;
-      } /* if */
-
-      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
-
       if ( Lista == NULL )
       {
          return MAT_CondRetPonteiroRetornoNulo ;
       } /* if */
 
-      if ( ( Coluna >= pMatriz->QuantidadeColunas )
-        || ( Linha >= pMatriz->QuantidadeLinhas ))
+      tpCelulaMatriz * pCel;
+      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
+      if ( ret != MAT_CondRetOK )
       {
-         return MAT_CondRetNaoPossuiCelula ;
-      } /* if */
-
-      tpCelulaMatriz * pCel = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
-      if ( pCel == NULL )
-      {
-         return MAT_CondRetErroEstrutura ;
+         return ret;
       } /* if */
 
       *Lista = pCel->Lista ;
@@ -272,14 +260,36 @@
 *                 a coluna mais à esquerda tem índice 0
 *     $P Linha  - linha da célula desejada
 *                 a linha mais à esquerda tem índice 0
-
+*     $P Celula - parâmetro para retorno do ponteiro para a célula desejada
+*                 este parâmetro é passado por referência
+*
 *  $EAE Assertivas de entradas esperadas
 *     Matriz != NULL
 *
+*  $FV Valor retornado
+*     MAT_CondRetOK    - obteve a célula sem problemas
+*     MAT_CondRetMatrizNaoExiste - o parâmetro Matriz é NULO
+*     MAT_CondRetNaoPossuiCelula - coordenadas da célula estão fora da matriz
+*     MAT_CondRetErroEstrutura - estrutura da matriz está corrompida
+*
 ***********************************************************************/
 
-   static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha )
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha , tpCelulaMatriz ** Celula )
    {
+
+      if ( Matriz == NULL )
+      {
+         return MAT_CondRetMatrizNaoExiste ;
+      } /* if */
+
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
+
+      if ( ( Coluna >= pMatriz->QuantidadeColunas )
+        || ( Linha >= pMatriz->QuantidadeLinhas ))
+      {
+         return MAT_CondRetNaoPossuiCelula ;
+      } /* if */
+
    }
 
 
