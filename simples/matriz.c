@@ -381,6 +381,57 @@
 
    MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , int Coluna )
    {
+
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
+      tpCelulaMatriz * cel ,
+                     * proximaCel ;
+      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz, Coluna, 0, &cel ) ;
+      if ( ret != MAT_CondRetOK )
+      {
+         return ret ;
+      } /* if */
+
+      while ( cel != NULL )
+      {
+         free( cel->Lista ) ;
+
+         if ( cel->pCelDir[ MAT_DirOeste ] )
+         {
+            cel->pCelDir[ MAT_DirOeste ]->pCelDir[ MAT_DirLeste ] = cel->pCelDir[ MAT_DirLeste ] ;
+         }
+
+         if ( cel->pCelDir[ MAT_DirLeste ] )
+         {
+            cel->pCelDir[ MAT_DirLeste ]->pCelDir[ MAT_DirOeste ] = cel->pCelDir[ MAT_DirOeste ] ;
+         }
+
+         if ( cel->pCelDir[ MAT_DirNordeste ] )
+         {
+            cel->pCelDir[ MAT_DirNordeste ]->pCelDir[ MAT_DirSudoeste ] = cel->pCelDir[ MAT_DirSudoeste ] ;
+         }
+
+         if ( cel->pCelDir[ MAT_DirNoroeste ] )
+         {
+            cel->pCelDir[ MAT_DirNoroeste ]->pCelDir[ MAT_DirSudeste ] = cel->pCelDir[ MAT_DirSudeste ] ;
+         }
+
+         if ( cel->pCelDir[ MAT_DirSudeste ] )
+         {
+            cel->pCelDir[ MAT_DirSudeste ]->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirNoroeste ] ;
+         }
+
+         if ( cel->pCelDir[ MAT_DirSudoeste ] )
+         {
+            cel->pCelDir[ MAT_DirSudoeste ]->pCelDir[ MAT_DirNordeste ] = cel->pCelDir[ MAT_DirNordeste ] ;
+         }
+
+         proximaCel = cel->pCelDir[ MAT_DirSul ] ;
+         free( cel ) ;
+         cel = proximaCel ;
+      } /* while */
+
+      return MAT_CondRetOK;
+
    } /* Fim função: MAT Excluir coluna */
 
 /***************************************************************************
