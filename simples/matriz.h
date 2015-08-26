@@ -198,7 +198,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista * Lista ) ;
+   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista * Lista ) ;
 
 
 /***********************************************************************
@@ -224,7 +224,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista Lista ) ;
+   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista Lista ) ;
 
 
 /***********************************************************************
@@ -248,7 +248,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , unsigned int Coluna ) ;
+   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , int Coluna ) ;
 
 
 /***********************************************************************
@@ -272,7 +272,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , unsigned int Linha ) ;
+   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , int Linha ) ;
 
 
 /********** Fim do módulo de definição: Módulo mariz **********/

@@ -19,6 +19,40 @@
 
 /***********************************************************************
 *
+*  $TC Tipo de dados: MAT Direções das células adjacetes
+*
+*
+***********************************************************************/
+
+   typedef enum {
+      MAT_DirNorte = 0 ,
+            /* Direção norte */
+
+      MAT_DirSul = 1 ,
+            /* Direção sul */
+
+      MAT_DirLeste = 2 ,
+            /* Direção leste */
+
+      MAT_DirOeste = 3 ,
+            /* Direção oeste */
+
+      MAT_DirNordeste = 4 ,
+            /* Direção nordeste */
+
+      MAT_DirNoroeste = 5 ,
+            /* Direção noroeste */
+
+      MAT_DirSudeste = 6 ,
+            /* Direção sudeste */
+
+      MAT_DirSudoeste = 7 ,
+            /* Direção sudoeste */
+
+   } MAT_tgDir ;
+
+/***********************************************************************
+*
 *  $TC Tipo de dados: MAT Descritor da célula da mariz
 *
 *
@@ -29,47 +63,19 @@
 
    typedef struct tgCelulaMatriz {
 
-         struct tgCelulaMatriz * pCelNorte ;
-               /* Ponteiro para a célula acima
-               *
-               *$EED Assertivas estruturais
-               *   É NULL só se a célula estiver na primeira linha
-               *   Se não for NULL, pCelSul de pCelNorte aponta para esta célula */
-
-         struct tgCelulaMatriz * pCelNordeste ;
-               /* Ponteiro para a célula acima à direita
+         struct tgCelulaMatriz * pCelDir[ 8 ] ;
+               /* Vetor com ponteiros para as 8 células adjacentes
                 *
                 *$EED Assertivas estruturais
-                *   É NULL só se a célula estiver na primeira linha ou na última coluna
-                *   Se não for NULL, pCelSudoeste de pCelNordeste aponta para esta célula */
-
-         struct tgCelulaMatriz * pCelNoroeste ;
-               /* Ponteiro para a célula acima à esquerda
-                *
-                *$EED Assertivas estruturais
-                *   É NULL só se a célula estiver na primeira linha ou na primeira coluna
-                *   Se não for NULL, pCelSudeste de pCelNoroeste aponta para esta célula */
-
-         struct tgCelulaMatriz * pCelSul ;
-               /* Ponteiro para a célula abaixo
-                *
-                *$EED Assertivas estruturais
-                *   É NULL só se a célula estiver na última linha
-                *   Se não for NULL, pCelNorte de pCelSul aponta para esta célula */
-
-         struct tgCelulaMatriz * pCelSudeste ;
-               /* Ponteiro para a célula abaixo à direita
-                *
-                *$EED Assertivas estruturais
-                *   É NULL só se a célula estiver na última linha ou na última coluna
-                *   Se não for NULL, pCelNoroeste de pCelSudeste aponta para esta célula */
-
-         struct tgCelulaMatriz * pCelSudoeste ;
-               /* Ponteiro para a célula abaixo à esquerda
-                *
-                *$EED Assertivas estruturais
-                *   É NULL só se a célula estiver na última linha ou na primeira coluna
-                *   Se não for NULL, pCelNordeste de pCelSudoeste aponta para esta célula */
+                *   Cada ponteiro só é NULL se não existir uma célula
+                *   na direção correspondente
+                *   Se não for NULL, a célula apontada tem um ponteiro na
+                *   direção oposta apontando para esta célula
+                *   Norte <-> Sul
+                *   Leste <-> Oeste
+                *   Nordeste <-> Sudoeste
+                *   Noroeste <-> Sudeste
+                */
 
          LIS_tppLista Lista ;
                /* Estrutura de lista contida na célula */
@@ -103,16 +109,16 @@
          tpCelualaMatriz * pCelCorr ;
                /* Ponteiro para o nó corrente da mariz */
 
-         unsigned int LinhaCorr ;
+         int LinhaCorr ;
                /* Índice da linha de pCelCorr */
 
-         unsigned int ColCorr ;
+         int ColCorr ;
                /* Índice da coluna de pCelCorr */
 
-         unsigned int QuantidadeLinhas ;
+         int QuantidadeLinhas ;
                /* Número de linhas da matriz */
 
-         unsigned int QuantidadeColunas ;
+         int QuantidadeColunas ;
                /* Número de colunas da matriz */
 
    } tpMatriz ;
@@ -120,8 +126,7 @@
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha );
-   static MAT_tpCondRet ValidarCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha ) ;
+   static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -179,6 +184,72 @@
 
    MAT_tpCondRet MAT_InserirColuna( MAT_tpMatriz Matriz )
    {
+      int linha ;
+      tpCelulaMatriz * cel ,
+                     * ultimaCriada ,
+                     * novaCelula ;
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
+      MAT_tpCondRet ret ;
+
+      if ( pMatriz == NULL )
+      {
+         return MAT_CondRetMatrizNaoExiste ;
+      } /* if */
+
+      if ( ( pMatriz->QuantidadeColunas == 0 ) && ( pMatriz->QuantidadeLinhas == 0 ) )
+      {
+         pMatriz->QuantidadeLinhas = 1;
+         pMatriz->QuantidadeColunas = 1;
+         pMatriz->pCelRaiz = ( tpCelulaMatriz * ) calloc( sizeof( tpCelulaMatriz ) , 1 ) ;
+         pMatriz->pCelCorr = pMatriz->pCelRaiz ;
+
+         if ( pMatriz->pCelRaiz == NULL )
+         {
+            return MAT_CondRetFaltouMemoria ;
+         } /* if */
+
+         return MAT_CondRetOK ;
+      } /* if */
+
+      ret = ObterCelulaNasCoordenadas( Matriz , pMatriz->QuantidadeColunas - 1 , 0, &cel );
+
+      if ( ret != MAT_CondRetOK )
+      {
+         return ret ;
+      } /* if */
+
+      ultimaCriada = NULL;
+
+      for ( linha = 0 ; linha < pMatriz->QuantidadeLinhas ; linha ++ )
+      {
+         if ( cel == NULL )
+         {
+            return MAT_CondRetErroEstrutura ;
+         } /* if */
+
+         novaCelula = ( tpCelulaMatriz * ) calloc( sizeof( tpCelulaMatriz ) , 1 ) ;
+
+         if ( novaCelula == NULL )
+         {
+            return MAT_CondRetFaltouMemoria ;
+         } /* if */
+
+         novaCelula->pCelDir[ MAT_DirOeste ] = cel ;
+         novaCelula->pCelDir[ MAT_DirNorte ] = ultimaCriada ;
+         novaCelula->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirNorte ] ;
+         novaCelula->pCelDir[ MAT_DirSudoeste ] = cel->pCelDir[ MAT_DirSul ] ;
+
+         ultimaCriada->pCelDir[ MAT_DirSul ] = novaCelula ;
+         ultimaCriada = novaCelula ;
+
+         cel->pCelDir[ MAT_DirLeste ] = novaCelula ;
+         cel = cel->pCelDir[ MAT_DirSul ] ;
+      } /* for */
+
+      pMatriz->QuantidadeColunas ++ ;
+
+      return MAT_CondRetOK ;
+
    } /* Fim função: MAT Inserir coluna */
 
 /***************************************************************************
@@ -188,6 +259,72 @@
 
    MAT_tpCondRet MAT_InserirLinha( MAT_tpMatriz Matriz )
    {
+      int coluna ;
+      tpCelulaMatriz * cel ,
+                     * ultimaCriada ,
+                     * novaCelula ;
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
+      MAT_tpCondRet ret ;
+
+      if ( pMatriz == NULL )
+      {
+         return MAT_CondRetMatrizNaoExiste ;
+      } /* if */
+
+      if ( ( pMatriz->QuantidadeColunas == 0 ) && ( pMatriz->QuantidadeLinhas == 0 ) )
+      {
+         pMatriz->QuantidadeLinhas = 1;
+         pMatriz->QuantidadeColunas = 1;
+         pMatriz->pCelRaiz = ( tpCelulaMatriz * ) calloc( sizeof( tpCelulaMatriz ) , 1 ) ;
+         pMatriz->pCelCorr = pMatriz->pCelRaiz ;
+
+         if ( pMatriz->pCelRaiz == NULL )
+         {
+            return MAT_CondRetFaltouMemoria ;
+         } /* if */
+
+         return MAT_CondRetOK ;
+      } /* if */
+
+      ret = ObterCelulaNasCoordenadas( Matriz , 0, pMatriz->QuantidadeLinhas - 1 , &cel );
+
+      if ( ret != MAT_CondRetOK )
+      {
+         return ret ;
+      } /* if */
+
+      ultimaCriada = NULL;
+
+      for ( coluna = 0 ; coluna < pMatriz->QuantidadeColunas ; coluna ++ )
+      {
+         if ( cel == NULL )
+         {
+            return MAT_CondRetErroEstrutura ;
+         } /* if */
+
+         novaCelula = ( tpCelulaMatriz * ) calloc( sizeof( tpCelulaMatriz ) , 1 ) ;
+
+         if ( novaCelula == NULL )
+         {
+            return MAT_CondRetFaltouMemoria ;
+         } /* if */
+
+         novaCelula->pCelDir[ MAT_DirNorte ] = cel ;
+         novaCelula->pCelDir[ MAT_DirOeste ] = ultimaCriada ;
+         novaCelula->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirLeste ] ;
+         novaCelula->pCelDir[ MAT_DirNordeste ] = cel->pCelDir[ MAT_DirOeste ] ;
+
+         ultimaCriada->pCelDir[ MAT_DirLeste ] = novaCelula ;
+         ultimaCriada = novaCelula ;
+
+         cel->pCelDir[ MAT_DirSul ] = novaCelula ;
+         cel = cel->pCelDir[ MAT_DirLeste ] ;
+      } /* for */
+
+      pMatriz->QuantidadeLinhas ++ ;
+
+      return MAT_CondRetOK ;
+
    } /* Fim função: MAT Inserir linha */
 
 /***************************************************************************
@@ -195,7 +332,7 @@
 *  Função: MAT Ler célula
 *  ****/
 
-   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista * Lista )
+   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista * Lista )
    {
 
       if ( Lista == NULL )
@@ -203,11 +340,11 @@
          return MAT_CondRetPonteiroRetornoNulo ;
       } /* if */
 
-      tpCelulaMatriz * pCel;
+      tpCelulaMatriz * pCel ;
       MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
       if ( ret != MAT_CondRetOK )
       {
-         return ret;
+         return ret ;
       } /* if */
 
       *Lista = pCel->Lista ;
@@ -220,8 +357,19 @@
 *  Função: MAT Escrever célula
 *  ****/
 
-   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned int Linha , LIS_tppLista Lista )
+   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista Lista )
    {
+
+      tpCelulaMatriz * pCel ;
+      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
+      if ( ret != MAT_CondRetOK )
+      {
+         return ret ;
+      } /* if */
+
+      pCel->Lista = Lista ;
+      return MAT_CondRetOK ;
+
    } /* Fim função: MAT Escrever célula */
 
 /***************************************************************************
@@ -229,7 +377,7 @@
 *  Função: MAT Excluir coluna
 *  ****/
 
-   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , unsigned int Coluna )
+   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , int Coluna )
    {
    } /* Fim função: MAT Excluir coluna */
 
@@ -238,7 +386,7 @@
 *  Função: MAT Excluir linha
 *  ****/
 
-   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , unsigned int Linha )
+   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , int Linha )
    {
    } /* Fim função: MAT Excluir linha */
 
@@ -274,8 +422,16 @@
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha , tpCelulaMatriz ** Celula )
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha , tpCelulaMatriz ** Celula )
    {
+
+      int distDiagonal ,    /* Quantidade de passos na diagonal */
+          distCol ,         /* Distância em colunas da célula atual para a desejada */
+          distLin ,         /* Distância em linhas da célula atual para a desejada */
+          distNaoDiagonal ; /* Quantidade de passos sem ser na diagonal */
+
+      MAT_tgDir dirDiagonal , /* Em qual das diagonais andar */
+                dirNaoDiagonal ; /* Direção na qual andar após ter andado na diagonal */
 
       if ( Matriz == NULL )
       {
@@ -290,34 +446,97 @@
          return MAT_CondRetNaoPossuiCelula ;
       } /* if */
 
+      if ( pMatriz->pCelCorr == NULL )
+      {
+         return MAT_CondRetErroEstrutura;
+      } /* if */
+
+      distCol = abs( pMatriz->ColCorr - Coluna ) ;
+      distLin = abs( pMatriz->LinhaCorr - Linha ) ;
+
+      /* Anda a maior distância possível na diagonal, sem ultrapassar a linha
+       * nem a coluna desejadas */
+      distDiagonal = distCol < distLin ? distCol : distLini ;
+
+      /* Calcula a distância restante após andar na diagonal */
+      distCol -= distDiagonal ;
+      distLin -= distDiagonal ;
+
+      if ( distCol != 0 )
+      {
+         /* Sobraram colunas para andar */
+         distNaoDiagonal = distCol ;
+
+         if ( pMatriz->ColCorr > Coluna )
+         {
+            dirNaoDiagonal = MAT_DirOeste ;
+         } else
+         {
+            dirNaoDiagonal = MAT_DirLeste ;
+         } /* if */
+      } else
+      {
+         /* Sobraram linhas para andar */
+         if ( pMatriz->LinhaCorr > Linha )
+         {
+            dirNaoDiagonal = MAT_DirNorte ;
+         } else
+         {
+            dirNaoDiagonal = MAT_DirSul ;
+         } /* if */
+      }
+
+      /* Determina a direção do movimento diagonal */
+      if ( pMatriz->ColCorr > Coluna )
+      {
+         /* Sudoeste / Noroeste */
+         if ( Matriz->LinhaCorr > Linha )
+         {
+            dirDiagonal = MAT_DirNoroeste ;
+         } else
+         {
+            dirDiagonal = MAT_DirSudoeste ;
+         } /* if */
+      } else
+      {
+         /* Sudeste / Nordeste */
+         if ( pMatriz->LinhaCorr > Linha )
+         {
+            dirDiagonal = MAT_DirNordeste ;
+         } else
+         {
+            dirDiagonal = MAT_DirSudeste ;
+         } /* if */
+      } /* if */
+
+      /* Anda na diagonal */
+      while ( distDiagonal > 0 )
+      {
+         if ( pMatriz->pCelCorr->pCelDir[ dirDiagonal ] == NULL )
+         {
+            return MAT_CondRetErroEstrutura ;
+         } /* if */
+
+         pMatriz->pCelCorr = pMatriz->pCelCorr->pCelDir[ dirDiagonal ] ;
+         distDiagonal -- ;
+      } /* while */
+
+      /* Anda nas células restantes */
+      while ( distNaoDiagonal > 0 )
+      {
+         if ( pMatriz->pCelCorr->pCelDir[ dirNaoDiagonal ] == NULL )
+         {
+            return MAT_CondRetErroEstrutura ;
+         } /* if */
+
+         pMatriz->pCelCorr = pMatriz->pCelCorr->pCelDir[ dirNaoDiagonal ] ;
+         distNaoDiagonal -- ;
+      }
+
+      /* Atualiza as coodenadas da nova célula corrente */
+      pMatriz->ColCorr = Coluna ;
+      pMatriz->LinhaCorr = Linha ;
+
+      return MAT_CondRetOK ;
    }
-
-
-/***********************************************************************
-*
-*  $FC Função: MAT Validar célula
-*
-*  $ED Descrição da função
-*     Essa função retorna um ponteiro para a célula da matriz nas coordenadas
-*     (Coluna, Linha). Essa função tem o efeito colateral de atualizar o
-*     ponteiro para a célula atual na estrutura da matriz.
-*
-*  $EP Parâmetros
-*     $P Matriz - matriz que contém a célula desejada
-*     $P Coluna - coluna da célula desejada
-*                 a coluna mais à esquerda tem índice 0
-*     $P Linha  - linha da célula desejada
-*                 a linha mais à esquerda tem índice 0
-
-*  $EAE Assertivas de entradas esperadas
-*     Matriz != NULL
-*
-***********************************************************************/
-
-   static MAT_tpCondRet ValidarCelula( MAT_tpMatriz Matriz , unsigned int Coluna , unsigned Linha )
-   {
-
-   }
-
-/********** Fim do módulo de implementação: Módulo mariz **********/
 
