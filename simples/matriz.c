@@ -163,10 +163,10 @@
       {
          if ( pMatriz->pCelRaiz != NULL )
          {
-            pCel = pMatriz->pCelRaiz;
+            pCel = pMatriz->pCelRaiz ;
             while ( pCel != NULL )
             {
-               pCel = pCel->pCelSul;
+               pCel = pCel->pCelSul ;
                MAT_ExcluirLinha( Matriz , 0 ) ;
             } /* while */
          } /* if */
@@ -196,10 +196,11 @@
          return MAT_CondRetMatrizNaoExiste ;
       } /* if */
 
+      /* Se a matriz estiver vazia, cria uma única célula */
       if ( ( pMatriz->QuantidadeColunas == 0 ) && ( pMatriz->QuantidadeLinhas == 0 ) )
       {
-         pMatriz->QuantidadeLinhas = 1;
-         pMatriz->QuantidadeColunas = 1;
+         pMatriz->QuantidadeLinhas = 1 ;
+         pMatriz->QuantidadeColunas = 1 ;
          pMatriz->pCelRaiz = ( tpCelulaMatriz * ) calloc( sizeof( tpCelulaMatriz ) , 1 ) ;
          pMatriz->pCelCorr = pMatriz->pCelRaiz ;
 
@@ -271,10 +272,11 @@
          return MAT_CondRetMatrizNaoExiste ;
       } /* if */
 
+      /* Se a matriz estiver vazia, cria uma única célula */
       if ( ( pMatriz->QuantidadeColunas == 0 ) && ( pMatriz->QuantidadeLinhas == 0 ) )
       {
-         pMatriz->QuantidadeLinhas = 1;
-         pMatriz->QuantidadeColunas = 1;
+         pMatriz->QuantidadeLinhas = 1 ;
+         pMatriz->QuantidadeColunas = 1 ;
          pMatriz->pCelRaiz = ( tpCelulaMatriz * ) calloc( sizeof( tpCelulaMatriz ) , 1 ) ;
          pMatriz->pCelCorr = pMatriz->pCelRaiz ;
 
