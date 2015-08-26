@@ -126,7 +126,8 @@
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static tpCelulaMatriz * ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha ) ;
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha ,
+                                                   tpCelulaMatriz ** Celula ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -391,6 +392,21 @@
          return ret ;
       } /* if */
 
+      /* cel é obrigatoriamente válido a partir desse ponto */
+
+      if ( Coluna == 0 )
+      {
+         pMatriz->pCelRaiz = cel->pCelDir[ MAT_DirLeste ];
+
+         /* Troca a célula corrente para a raiz caso ela seja excluida */
+         if ( pMatriz->ColCorr == Coluna )
+         {
+            pMatriz->pCelCorr = pMatriz->pCelRaiz ;
+            pMatriz->LinhaCorr = 0 ;
+            pMatriz->ColCorr = 0 ;
+         } /* if */
+      } /* if */
+
       while ( cel != NULL )
       {
          free( cel->Lista ) ;
@@ -429,6 +445,8 @@
          free( cel ) ;
          cel = proximaCel ;
       } /* while */
+
+      pMatriz->QuantidadeColunas -- ;
 
       return MAT_CondRetOK;
 
@@ -475,7 +493,8 @@
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha , tpCelulaMatriz ** Celula )
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha ,
+                                                   tpCelulaMatriz ** Celula )
    {
 
       int distDiagonal ,    /* Quantidade de passos na diagonal */
