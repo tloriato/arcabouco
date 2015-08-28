@@ -20,14 +20,13 @@
 *     Este módulo implementa um conjunto simples de funções para criar e
 *     manipular matrizes.
 *
-*     TODO: Trocar descrição !
-*     A mariz possui uma cabeça que contém uma referência para a raíz da
-*     mariz e outra para um nó corrente da mariz.
-*     A cada momento o módulo admite no máximo uma única mariz.
-*     Ao iniciar a execução do programa não existe mariz.
-*     A mariz poderá estar vazia. Neste caso a raiz e o nó corrente
-*     serão nulos, embora a cabeça esteja definida.
-*     O nó corrente será nulo se e somente se a mariz estiver vazia.
+*     A matriz é referenciada pelo usuário utilizando um ponteiro para
+*     uma estrutura alocada pela função MAT_CriarMatriz.
+*     Ao ser criada uma matriz não possui linhas nem colunas. Estas
+*     devem ser adicionadas utilizando as funções MAT_InserirLinha e
+*     MAT_InserirColuna. A primeira chamada de qualquer dessas funções
+*     cria um única célula vazia.
+*     Cada célula da matriz pode conter uma lista do tipo LIS_tppLista.
 *
 ***************************************************************************/
 
