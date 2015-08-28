@@ -4,7 +4,7 @@
 *  Arquivo gerado:              matriz.c
 *  Letras identificadoras:      MAT
 *
-*  Projeto: Disciplinas INF 1628 / 1301
+*  Projeto: Disciplina INF 1301
 *  Autores: tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
@@ -154,7 +154,7 @@
 *  Função: MAT Destruir mariz
 *  ****/
 
-   void MAT_DestruirMatriz( MAT_tpMatriz Matriz )
+   MAT_tpCondRet MAT_DestruirMatriz( MAT_tpMatriz Matriz )
    {
 
       tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
@@ -175,6 +175,8 @@
          free( pMatriz ) ;
          pMatriz = NULL ;
       } /* if */
+
+      return MAT_CondRetOK;
 
    } /* Fim função: MAT Destruir mariz */
 
@@ -213,6 +215,7 @@
          return MAT_CondRetOK ;
       } /* if */
 
+      /* Obtém a célula na primeira linha, última coluna */
       ret = ObterCelulaNasCoordenadas( Matriz , pMatriz->QuantidadeColunas - 1 , 0, &cel );
 
       if ( ret != MAT_CondRetOK )
@@ -289,6 +292,7 @@
          return MAT_CondRetOK ;
       } /* if */
 
+      /* Obtém a célula na primeira coluna, última linha */
       ret = ObterCelulaNasCoordenadas( Matriz , 0, pMatriz->QuantidadeLinhas - 1 , &cel );
 
       if ( ret != MAT_CondRetOK )

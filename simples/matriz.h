@@ -10,7 +10,7 @@
 *  Nome da base de software:    Exemplo de teste automatizado
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
 *
-*  Projeto: Disciplinas INF 1628 / 1301
+*  Projeto: Disciplina INF 1301
 *  Autores: tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
@@ -128,9 +128,12 @@ typedef void * MAT_tpMatriz;
 *  $EP Parâmetros
 *     $P Matriz - matriz a ser destruída
 *
+*  $FV Valor retornado
+*     MAT_CondRetOK
+*
 ***********************************************************************/
 
-   void MAT_DestruirMatriz( MAT_tpMatriz Matriz ) ;
+   MAT_tpCondRet MAT_DestruirMatriz( MAT_tpMatriz Matriz ) ;
 
 
 /***********************************************************************
