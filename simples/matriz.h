@@ -7,11 +7,10 @@
 *  Arquivo gerado:              matriz.h
 *  Letras identificadoras:      MAT
 *
-*  Nome da base de software:    Exemplo de teste automatizado
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
-*
 *  Projeto: Disciplina INF 1301
-*  Autores: tdn - Thiago Duarte Naves
+*  Autores: gbo - Gabriel Barbosa de Oliveira
+*           gapm - Guilherme de Azevedo Peraira Marques
+*           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações

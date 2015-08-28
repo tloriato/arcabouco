@@ -5,7 +5,9 @@
 *  Letras identificadoras:      MAT
 *
 *  Projeto: Disciplina INF 1301
-*  Autores: tdn - Thiago Duarte Naves
+*  Autores: gbo - Gabriel Barbosa de Oliveira
+*           gapm - Guilherme de Azevedo Peraira Marques
+*           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
@@ -24,6 +26,7 @@
 *
 ***********************************************************************/
 
+   /* Ao alterar esse enum, atualizar os vetores Direcoes e DirOposta[] */
    typedef enum {
       MAT_DirNorte = 0 ,
             /* Direção norte */
@@ -49,7 +52,16 @@
       MAT_DirSudoeste = 7 ,
             /* Direção sudoeste */
 
-   } MAT_tgDir ;
+   } MAT_tpDir ;
+
+/***********************************************************************
+*
+*  Definição: MAT Quantidade de direções de cada célula
+*
+***********************************************************************/
+
+#define QUANTIDADE_DIR 8
+
 
 /***********************************************************************
 *
@@ -63,8 +75,8 @@
 
    typedef struct tgCelulaMatriz {
 
-         struct tgCelulaMatriz * pCelDir[ 8 ] ;
-               /* Vetor com ponteiros para as 8 células adjacentes
+         struct tgCelulaMatriz * pCelDir[ QUANTIDADE_DIR ] ;
+               /* Vetor com ponteiros para as células adjacentes
                 *
                 *$EED Assertivas estruturais
                 *   Cada ponteiro só é NULL se não existir uma célula
@@ -106,7 +118,7 @@
                /* Ponteiro para a raiz da mariz: Célula superior esquerda,
                 * Coluna 0, Linha 0 */
 
-         tpCelualaMatriz * pCelCorr ;
+         tpCelulaMatriz * pCelCorr ;
                /* Ponteiro para o nó corrente da mariz */
 
          int LinhaCorr ;
@@ -124,10 +136,36 @@
    } tpMatriz ;
 
 
+/***** Variáveis globais ao  módulo *****/
+
+/***************************************************************************
+*
+*  Vetor: Direções
+*  Descrição: Lista de direções existentes
+*
+*  ****/
+
+   static const MAT_tpDir Direcoes[] = { MAT_DirNorte , MAT_DirSul , MAT_DirLeste ,
+                                         MAT_DirOeste , MAT_DirNordeste , MAT_DirNoroeste ,
+                                         MAT_DirSudeste , MAT_DirSudoeste } ;
+
+/***************************************************************************
+*
+*  Vetor: Direção Oposta
+*  Descrição: Lista de direções opostas às direções do vetor Direcoes de mesmo índice
+*
+*  ****/
+
+   static const MAT_tpDir DirOposta[] = { MAT_DirSul , MAT_DirNorte , MAT_DirOeste ,
+                                          MAT_DirLeste , MAT_DirSudoeste , MAT_DirSudeste ,
+                                          MAT_DirNoroeste , MAT_DirNordeste } ;
+
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha ,
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , int Linha ,
                                                    tpCelulaMatriz ** Celula ) ;
+
+   void ExcluirCelula( tpCelulaMatriz * cel ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -167,7 +205,7 @@
             pCel = pMatriz->pCelRaiz ;
             while ( pCel != NULL )
             {
-               pCel = pCel->pCelSul ;
+               pCel = pCel->pCelDir[ MAT_DirSul ] ;
                MAT_ExcluirLinha( Matriz , 0 ) ;
             } /* while */
          } /* if */
@@ -348,7 +386,7 @@
       } /* if */
 
       tpCelulaMatriz * pCel ;
-      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
+      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha , &pCel ) ;
       if ( ret != MAT_CondRetOK )
       {
          return ret ;
@@ -368,7 +406,7 @@
    {
 
       tpCelulaMatriz * pCel ;
-      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha ) ;
+      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , Linha , &pCel ) ;
       if ( ret != MAT_CondRetOK )
       {
          return ret ;
@@ -388,9 +426,9 @@
    {
 
       tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
-      tpCelulaMatriz * cel ,
-                     * proximaCel ;
-      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz, Coluna, 0, &cel ) ;
+      tpCelulaMatriz * pCel ,
+                     * pProximaCel ;
+      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , Coluna , 0 , &pCel ) ;
       if ( ret != MAT_CondRetOK )
       {
          return ret ;
@@ -400,54 +438,22 @@
 
       if ( Coluna == 0 )
       {
-         pMatriz->pCelRaiz = cel->pCelDir[ MAT_DirLeste ];
-
-         /* Troca a célula corrente para a raiz caso ela seja excluida */
-         if ( pMatriz->ColCorr == Coluna )
-         {
-            pMatriz->pCelCorr = pMatriz->pCelRaiz ;
-            pMatriz->LinhaCorr = 0 ;
-            pMatriz->ColCorr = 0 ;
-         } /* if */
+         pMatriz->pCelRaiz = pCel->pCelDir[ MAT_DirLeste ] ;
       } /* if */
 
-      while ( cel != NULL )
+      /* Troca a célula corrente para a raiz caso ela seja excluida */
+      if ( pMatriz->ColCorr == Coluna )
       {
-         free( cel->Lista ) ;
+         pMatriz->pCelCorr = pMatriz->pCelRaiz ;
+         pMatriz->LinhaCorr = 0 ;
+         pMatriz->ColCorr = 0 ;
+      } /* if */
 
-         if ( cel->pCelDir[ MAT_DirOeste ] )
-         {
-            cel->pCelDir[ MAT_DirOeste ]->pCelDir[ MAT_DirLeste ] = cel->pCelDir[ MAT_DirLeste ] ;
-         }
-
-         if ( cel->pCelDir[ MAT_DirLeste ] )
-         {
-            cel->pCelDir[ MAT_DirLeste ]->pCelDir[ MAT_DirOeste ] = cel->pCelDir[ MAT_DirOeste ] ;
-         }
-
-         if ( cel->pCelDir[ MAT_DirNordeste ] )
-         {
-            cel->pCelDir[ MAT_DirNordeste ]->pCelDir[ MAT_DirSudoeste ] = cel->pCelDir[ MAT_DirSudoeste ] ;
-         }
-
-         if ( cel->pCelDir[ MAT_DirNoroeste ] )
-         {
-            cel->pCelDir[ MAT_DirNoroeste ]->pCelDir[ MAT_DirSudeste ] = cel->pCelDir[ MAT_DirSudeste ] ;
-         }
-
-         if ( cel->pCelDir[ MAT_DirSudeste ] )
-         {
-            cel->pCelDir[ MAT_DirSudeste ]->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirNoroeste ] ;
-         }
-
-         if ( cel->pCelDir[ MAT_DirSudoeste ] )
-         {
-            cel->pCelDir[ MAT_DirSudoeste ]->pCelDir[ MAT_DirNordeste ] = cel->pCelDir[ MAT_DirNordeste ] ;
-         }
-
-         proximaCel = cel->pCelDir[ MAT_DirSul ] ;
-         free( cel ) ;
-         cel = proximaCel ;
+      while ( pCel != NULL )
+      {
+         pProximaCel = pCel->pCelDir[ MAT_DirSul ] ;
+         ExcluirCelula( pCel ) ;
+         pCel = pProximaCel ;
       } /* while */
 
       pMatriz->QuantidadeColunas -- ;
@@ -463,6 +469,42 @@
 
    MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , int Linha )
    {
+
+      tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
+      tpCelulaMatriz * cel ,
+                     * proximaCel ;
+      MAT_tpCondRet ret = ObterCelulaNasCoordenadas( Matriz , 0 , Linha , &cel ) ;
+      if ( ret != MAT_CondRetOK )
+      {
+         return ret ;
+      } /* if */
+
+      /* cel é obrigatoriamente válido a partir desse ponto */
+
+      if ( Linha == 0 )
+      {
+         pMatriz->pCelRaiz = cel->pCelDir[ MAT_DirSul ] ;
+      } /* if */
+
+      /* Troca a célula corrente para a raiz caso ela seja excluida */
+      if ( pMatriz->LinhaCorr == Linha )
+      {
+         pMatriz->pCelCorr = pMatriz->pCelRaiz ;
+         pMatriz->LinhaCorr = 0 ;
+         pMatriz->ColCorr = 0 ;
+      } /* if */
+
+      while ( cel != NULL )
+      {
+         proximaCel = cel->pCelDir[ MAT_DirLeste ] ;
+         ExcluirCelula( cel ) ;
+         cel = proximaCel ;
+      } /* while */
+
+      pMatriz->QuantidadeColunas -- ;
+
+      return MAT_CondRetOK;
+
    } /* Fim função: MAT Excluir linha */
 
 
@@ -497,7 +539,7 @@
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , Linha ,
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , int Linha ,
                                                    tpCelulaMatriz ** Celula )
    {
 
@@ -506,7 +548,7 @@
           distLin ,         /* Distância em linhas da célula atual para a desejada */
           distNaoDiagonal ; /* Quantidade de passos sem ser na diagonal */
 
-      MAT_tgDir dirDiagonal , /* Em qual das diagonais andar */
+      MAT_tpDir dirDiagonal , /* Em qual das diagonais andar */
                 dirNaoDiagonal ; /* Direção na qual andar após ter andado na diagonal */
 
       if ( Matriz == NULL )
@@ -532,7 +574,7 @@
 
       /* Anda a maior distância possível na diagonal, sem ultrapassar a linha
        * nem a coluna desejadas */
-      distDiagonal = distCol < distLin ? distCol : distLini ;
+      distDiagonal = distCol < distLin ? distCol : distLin ;
 
       /* Calcula a distância restante após andar na diagonal */
       distCol -= distDiagonal ;
@@ -566,7 +608,7 @@
       if ( pMatriz->ColCorr > Coluna )
       {
          /* Sudoeste / Noroeste */
-         if ( Matriz->LinhaCorr > Linha )
+         if ( pMatriz->LinhaCorr > Linha )
          {
             dirDiagonal = MAT_DirNoroeste ;
          } else
@@ -607,12 +649,52 @@
 
          pMatriz->pCelCorr = pMatriz->pCelCorr->pCelDir[ dirNaoDiagonal ] ;
          distNaoDiagonal -- ;
-      }
+      } /* while */
 
       /* Atualiza as coodenadas da nova célula corrente */
       pMatriz->ColCorr = Coluna ;
       pMatriz->LinhaCorr = Linha ;
 
       return MAT_CondRetOK ;
-   }
+   } /* Fim função: Obter Celula nas Coordenadas */
 
+
+/***********************************************************************
+*
+*  $FC Função: Excluir Célula
+*
+*  $ED Descrição da função
+*     Essa função exclui a célula passada por parâmetro e troca os ponteiros
+*     das células vizinhas de acordo.
+*     Essa função Exclui a lista armazenada na célula
+*
+*  $EP Parâmetros
+*     $P cel - Célula a excluir
+*              este parâmetro é passado por referência
+*
+*  $EAE Assertivas de entradas esperadas
+*     cel != NULL
+*
+***********************************************************************/
+
+   void ExcluirCelula( tpCelulaMatriz * cel )
+   {
+
+      int dir;
+
+      if ( cel->Lista != NULL )
+      {
+         LIS_DestruirLista( cel->Lista ) ;
+      } /* if */
+
+      for ( dir = 0 ; dir < QUANTIDADE_DIR ; dir ++ )
+      {
+         if ( cel->pCelDir[ Direcoes[ dir ]] )
+         {
+            cel->pCelDir[ Direcoes[ dir ]]->pCelDir[ DirOposta[ dir]] = cel->pCelDir[ DirOposta[ dir ]] ;
+         } /* if */
+      } /* for */
+
+      free( cel ) ;
+
+   } /* Fim função: Excluir Celula */
