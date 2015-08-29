@@ -249,7 +249,7 @@ static tpComandoTeste Comandos[] = {
                return TST_CondRetParm ;
             } /* if */
 
-            return TST_CompararInt( CondRetEsperada , Comandos[ cmd ].Func() ,
+            return TST_CompararInt( CondRetEsperada , Comandos[ cmd ].Funcao() ,
                                     Comandos[ cmd ].MsgErro ) ;
          } /* if */
       } /* for */
@@ -259,21 +259,69 @@ static tpComandoTeste Comandos[] = {
    } /* Fim função: TMAT Efetuar operações de teste específicas para matriz */
 
 
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Criar
+*
+*  $ED Descrição da função
+*     Testa criação da matriz
+*
+***********************************************************************/
+
    static MAT_tpCondRet TMAT_CmdCriar( void )
    {
-   }
+
+      return MAT_CriarMatriz( &Matrizes[ Parametros[ 0 ]] ) ;
+
+   } /* Fim função: TMAT Comando Criar */
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Destruir
+*
+*  $ED Descrição da função
+*     Testa desalocação da matriz
+*
+***********************************************************************/
 
    static MAT_tpCondRet TMAT_CmdDestruir( void )
    {
-   }
+
+      return MAT_DestruirMatriz( Matrizes[ Parametros[ 0 ]] ) ;
+
+   } /* Fim função: TMAT Comando Destruir */
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Inserir Coluna
+*
+*  $ED Descrição da função
+*     Testa a inserção de uma coluna na matriz
+*
+***********************************************************************/
 
    static MAT_tpCondRet TMAT_CmdInsCol( void )
    {
-   }
+
+      return MAT_InserirColuna( Matrizes[ Parametros[ 0 ]] ) ;
+
+   } /* Fim função: TMAT Comando Inserir Coluna */
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Inserir Linha
+*
+*  $ED Descrição da função
+*     Testa a inserção de uma linha na matriz
+*
+***********************************************************************/
 
    static MAT_tpCondRet TMAT_CmdInsLin( void )
    {
-   }
+
+      return MAT_InserirLinha( Matrizes[ Parametros[ 0 ]] ) ;
+
+   } /* Fim função: TMAT Comando Inserir Linha */
 
 
 /***********************************************************************
@@ -301,11 +349,14 @@ static tpComandoTeste Comandos[] = {
          return ret ;
       } /* if */
 
-      TST_NotificarFalha( "Lista lida diferente do esperado." ) ;
+      if ( ( void ** ) lis != &Lista )
+      {
+         TST_NotificarFalha( "Lista lida diferente do esperado." ) ;
+      } /* if */
 
       return MAT_CondRetOK;
 
-   }
+   } /* Fim função: TMAT Comando Ler Célula */
 
 
 /***********************************************************************
@@ -325,7 +376,7 @@ static tpComandoTeste Comandos[] = {
                                  Parametros[ 2 ],
                                  ( LIS_tppLista ) &Lista ) ;
 
-   }
+   } /* Fim função: TMAT Comando Escrever Célula */
 
 
 /***********************************************************************
@@ -343,7 +394,7 @@ static tpComandoTeste Comandos[] = {
       return MAT_ExcluirColuna( Matrizes[ Parametros[ 0 ]],
                                 Parametros[ 1 ] ) ;
 
-   }
+   } /* Fim função: TMAT Comando Excluir Coluna */
 
 
 /***********************************************************************
@@ -361,6 +412,6 @@ static tpComandoTeste Comandos[] = {
       return MAT_ExcluirLinha( Matrizes[ Parametros[ 0 ]],
                                Parametros[ 1 ] ) ;
 
-   }
+   } /* Fim função: TMAT Comando Excluir Linha */
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/
