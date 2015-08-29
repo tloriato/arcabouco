@@ -282,7 +282,21 @@
          novaCelula->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirNorte ] ;
          novaCelula->pCelDir[ MAT_DirSudoeste ] = cel->pCelDir[ MAT_DirSul ] ;
 
-         ultimaCriada->pCelDir[ MAT_DirSul ] = novaCelula ;
+         if ( ultimaCriada != NULL )
+         {
+            ultimaCriada->pCelDir[ MAT_DirSul ] = novaCelula ;
+         } /* if */
+
+         if ( cel->pCelDir[ MAT_DirNorte ] )
+         {
+            cel->pCelDir[ MAT_DirNorte ]->pCelDir[ MAT_DirSudeste ] = novaCelula ;
+         } /* if */
+
+         if ( cel->pCelDir[ MAT_DirSul ] )
+         {
+            cel->pCelDir[ MAT_DirSul ]->pCelDir[ MAT_DirNordeste ] = novaCelula ;
+         } /* if */
+
          ultimaCriada = novaCelula ;
 
          cel->pCelDir[ MAT_DirLeste ] = novaCelula ;
@@ -356,10 +370,24 @@
 
          novaCelula->pCelDir[ MAT_DirNorte ] = cel ;
          novaCelula->pCelDir[ MAT_DirOeste ] = ultimaCriada ;
-         novaCelula->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirLeste ] ;
-         novaCelula->pCelDir[ MAT_DirNordeste ] = cel->pCelDir[ MAT_DirOeste ] ;
+         novaCelula->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirOeste ] ;
+         novaCelula->pCelDir[ MAT_DirNordeste ] = cel->pCelDir[ MAT_DirLeste ] ;
 
-         ultimaCriada->pCelDir[ MAT_DirLeste ] = novaCelula ;
+         if ( ultimaCriada != NULL )
+         {
+            ultimaCriada->pCelDir[ MAT_DirLeste ] = novaCelula ;
+         } /* if */
+
+         if ( cel->pCelDir[ MAT_DirOeste ] )
+         {
+            cel->pCelDir[ MAT_DirOeste ]->pCelDir[ MAT_DirSudeste ] = novaCelula ;
+         } /* if */
+
+         if ( cel->pCelDir[ MAT_DirLeste ] )
+         {
+            cel->pCelDir[ MAT_DirLeste ]->pCelDir[ MAT_DirSudoeste ] = novaCelula ;
+         } /* if */
+
          ultimaCriada = novaCelula ;
 
          cel->pCelDir[ MAT_DirSul ] = novaCelula ;
@@ -579,6 +607,7 @@
       /* Calcula a distância restante após andar na diagonal */
       distCol -= distDiagonal ;
       distLin -= distDiagonal ;
+      distNaoDiagonal = 0 ;
 
       if ( distCol != 0 )
       {
@@ -595,6 +624,8 @@
       } else
       {
          /* Sobraram linhas para andar */
+         distNaoDiagonal = distLin ;
+
          if ( pMatriz->LinhaCorr > Linha )
          {
             dirNaoDiagonal = MAT_DirNorte ;
@@ -655,6 +686,9 @@
       pMatriz->ColCorr = Coluna ;
       pMatriz->LinhaCorr = Linha ;
 
+      /* Retorna a célula obtida */
+      *Celula = pMatriz->pCelCorr;
+
       return MAT_CondRetOK ;
    } /* Fim função: Obter Celula nas Coordenadas */
 
@@ -684,7 +718,8 @@
 
       if ( cel->Lista != NULL )
       {
-         LIS_DestruirLista( cel->Lista ) ;
+         // TODO FIX
+         //LIS_DestruirLista( cel->Lista ) ;
       } /* if */
 
       for ( dir = 0 ; dir < QUANTIDADE_DIR ; dir ++ )
