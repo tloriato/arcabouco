@@ -136,7 +136,7 @@
    } tpMatriz ;
 
 
-/***** Variáveis globais ao  módulo *****/
+/***** Variáveis globais ao módulo *****/
 
 /***************************************************************************
 *
@@ -165,7 +165,7 @@
    static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , int Linha ,
                                                    tpCelulaMatriz ** Celula ) ;
 
-   void ExcluirCelula( tpCelulaMatriz * cel ) ;
+   static void ExcluirCelula( tpCelulaMatriz * cel ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -677,7 +677,7 @@
 *
 ***********************************************************************/
 
-   void ExcluirCelula( tpCelulaMatriz * cel )
+   static void ExcluirCelula( tpCelulaMatriz * cel )
    {
 
       int dir;
