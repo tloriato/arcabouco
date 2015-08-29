@@ -1,15 +1,16 @@
-SRC := arvore.c \
-	testarv.c
+SRC := matriz.c
 
 APP := testarv
 APP_WIN := testarv.exe
 LIB := ../arcabouc/Produto/ArcaboucoTeste.a
 LIB_WIN := ../arcabouc/Produto/ArcaboucoTeste.lib
-HEADERS := ../arcabouc/Fontes
+HEADERS := ../arcabouc/Fontes \
+           ../Lista
 OBJ_PATH := Build
 OBJ_PATH_WIN := Build-win
 
-CFLAGS := -g -Wall -I"$(HEADERS)" -std=c99 -Wno-comment
+HEADERS := $(addprefix -I ,$(HEADERS))
+CFLAGS := -g -Wall $(HEADERS) -std=c99 -Wno-comment
 LDFLAGS := -g -Wall
 
 CC_WIN := i686-w64-mingw32-gcc
