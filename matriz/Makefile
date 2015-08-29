@@ -1,7 +1,8 @@
-SRC := matriz.c
+SRC := matriz.c \
+       testmat.c
 
-APP := testarv
-APP_WIN := testarv.exe
+APP := testmat
+APP_WIN := testmat.exe
 LIB := ../arcabouc/Produto/ArcaboucoTeste.a
 LIB_WIN := ../arcabouc/Produto/ArcaboucoTeste.lib
 HEADERS := ../arcabouc/Fontes \
