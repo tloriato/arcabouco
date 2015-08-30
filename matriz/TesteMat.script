@@ -1,0 +1,39 @@
+// Script:    TesteMat.script
+// Autores:   Gabriel Barbosa de Oliveira
+//            Guilherme de Azevedo Peraira Marques
+//            Thiago Duarte Naves
+// Data:      29/ago/2015
+// Propósito: Testar o módulo matriz
+//
+// TODO: testar casos de erro
+
+== Teste de recuperar
+=destruir  1    1
+=recuperar
+
+== Criar a matriz 0
+=criar     0    0
+
+== Inserir uma linha na matriz 0
+=inslin    0    0
+
+== Inserir uma coluna na matriz 0
+=inscol    0    0
+
+== Escrever na célula (0,0) da matriz 0
+=esccel    0    0    0    0
+
+== Ler a célula (0,0) da matriz 0
+=lercel    0    0    0    1    0
+
+== Inserir 2 linhas, escrever e ler na célula (1,2) da matriz 0
+=inslin    0    0
+=inslin    0    0
+=esccel    0    1    2    0
+=lercel    0    1    2    1    0
+
+== Verificar se a célula (1,0) da matriz 0 está vazia
+=lercel    0    1    0    0    0
+
+== Destruir a matriz
+=destruir  0    0

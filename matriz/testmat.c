@@ -39,11 +39,15 @@
 *                    <int> é o valor do parâmetro que se encontra
 *                    no comando de teste.
 *
-*     =lercel <int, int, int>
+*     =lercel <int, int, int, int>
 *                    - chama a função MAT_LerCelula( mat, linha, coluna )
 *                    Obs. mat é a matriz identificada pelo primeiro
 *                    parâmetro do comando de teste. linha e coluna são
 *                    os dois parâmetros seguintes.
+*                    O quarto parâmetro indica se devemos comparar a
+*                    lista lida com 0 ou com a variável Lista.
+*                    == 0 -> Compara com NULL
+*                    != 0 -> Compara com Lista
 *
 *     =esccel <int, int, int>
 *                    - chama a função MAT_EscreverCelula( mat, linha, coluna )
@@ -67,6 +71,7 @@
 
 #include    <string.h>
 #include    <stdio.h>
+#include    <assert.h>
 
 #include    "tst_espc.h"
 
@@ -90,8 +95,9 @@
 /* Quantidade máxima de matrizes que podem ser testadas simultaneamente */
 #define QTD_MATRIZES 10
 
-/* Quantidade máxima de parâmetros permitidos em um comando de teste */
-#define MAX_PARAMS 3
+/* Quantidade máxima de parâmetros permitidos em um comando de teste,
+ * mais 1 para o retorno esperado */
+#define MAX_PARAMS 5
 
 /***** Tipos de dados utilizados neste módulo de teste *****/
 
@@ -165,7 +171,7 @@ static MAT_tpMatriz Matrizes[ QTD_MATRIZES ] ;
 *
 *  Vetor: Parametros
 *  Descrição: Vetor que armazena os parâmetros lidos de um comando no script
-*  de teste.
+*  de teste, juntamente com o retorno esperado.
 *
 *  ****/
 
@@ -188,19 +194,20 @@ static void * Lista = NULL ;
 *
 *  Vetor: Comandos
 *  Descrição: Vetor que associa os comandos de teste às funções de tratamento
+*  Obs.: Incluir um 'i' no final dos parâmetros para o retorno esperado
 *
 *  ****/
 
 static tpComandoTeste Comandos[] = {
 /*   Comando           Parâmetros  Função             Mensagem de erro */
-   { CMD_CRIAR ,           "i" ,   TMAT_CmdCriar ,    "Retorno errado ao criar a matriz."    } ,
-   { CMD_DESTRUIR ,        "i" ,   TMAT_CmdDestruir , "Retorno errado ao destruir a matriz." } ,
-   { CMD_INSERIR_COLUNA ,  "i" ,   TMAT_CmdInsCol ,   "Retorno errado ao inserir a coluna."  } ,
-   { CMD_INSERIR_LINHA ,   "i" ,   TMAT_CmdInsLin ,   "Retorno errado ao inserir a linha."   } ,
-   { CMD_LER_CELULA ,      "iii" , TMAT_CmdLerCel ,   "Retorno errado ao ler a célula."      } ,
-   { CMD_ESCREVER_CELULA , "iii" , TMAT_CmdEscCel ,   "Retorno errado ao escrever a célula." } ,
-   { CMD_EXCLUIR_COLUNA ,  "ii" ,  TMAT_CmdExcCol ,   "Retorno errado ao excluir a coluna."  } ,
-   { CMD_EXCLUIR_LINHA ,   "ii" ,  TMAT_CmdExcLin ,   "Retorno errado ao excluir a linha."   }
+   { CMD_CRIAR ,           "ii" ,    TMAT_CmdCriar ,    "Retorno errado ao criar a matriz."    } ,
+   { CMD_DESTRUIR ,        "ii" ,    TMAT_CmdDestruir , "Retorno errado ao destruir a matriz." } ,
+   { CMD_INSERIR_COLUNA ,  "ii" ,    TMAT_CmdInsCol ,   "Retorno errado ao inserir a coluna."  } ,
+   { CMD_INSERIR_LINHA ,   "ii" ,    TMAT_CmdInsLin ,   "Retorno errado ao inserir a linha."   } ,
+   { CMD_LER_CELULA ,      "iiiii" , TMAT_CmdLerCel ,   "Retorno errado ao ler a célula."      } ,
+   { CMD_ESCREVER_CELULA , "iiii" ,  TMAT_CmdEscCel ,   "Retorno errado ao escrever a célula." } ,
+   { CMD_EXCLUIR_COLUNA ,  "iii" ,   TMAT_CmdExcCol ,   "Retorno errado ao excluir a coluna."  } ,
+   { CMD_EXCLUIR_LINHA ,   "iii" ,   TMAT_CmdExcLin ,   "Retorno errado ao excluir a linha."   }
 } ;
 
 
@@ -228,28 +235,32 @@ static tpComandoTeste Comandos[] = {
 
       /* Obtém o número de elementos do vetor Comandos */
       static const int qtdComandos = sizeof( Comandos ) / sizeof( Comandos[0] ) ;
-      int cmd;
-      int qtdParams;
-
-      MAT_tpCondRet CondRetEsperada;
+      int cmd ;
+      int qtdParamsLidos ,
+          qtdParamsEsperados ;
 
       /* Encontra a função de tratamento do comando de teste */
       for ( cmd = 0 ; cmd < qtdComandos ; cmd ++ )
       {
          if ( strcmp( Comandos[ cmd ].Comando , ComandoTeste ) == 0 )
          {
-            qtdParams = LER_LerParametros( Comandos[ cmd ].Params ,
-                                           &Parametros[ 0 ] ,
-                                           &Parametros[ 1 ] ,
-                                           &Parametros[ 2 ] ,
-                                           &CondRetEsperada ) ;
+            qtdParamsEsperados = strlen( Comandos[ cmd ].Params ) ;
+            assert( qtdParamsEsperados <= MAX_PARAMS ) ;
 
-            if ( qtdParams != strlen( Comandos[ cmd ].Params ) )
+            qtdParamsLidos = LER_LerParametros( Comandos[ cmd ].Params ,
+                                                &Parametros[ 0 ] ,
+                                                &Parametros[ 1 ] ,
+                                                &Parametros[ 2 ] ,
+                                                &Parametros[ 3 ] ,
+                                                &Parametros[ 4 ] ) ;
+
+            if ( qtdParamsLidos != qtdParamsEsperados  )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            return TST_CompararInt( CondRetEsperada , Comandos[ cmd ].Funcao() ,
+            /* O Retorno esperado é lido como o último parâmetro */
+            return TST_CompararInt( Parametros[ qtdParamsLidos - 1 ] , Comandos[ cmd ].Funcao() ,
                                     Comandos[ cmd ].MsgErro ) ;
          } /* if */
       } /* for */
@@ -336,12 +347,14 @@ static tpComandoTeste Comandos[] = {
    static MAT_tpCondRet TMAT_CmdLerCel( void )
    {
 
-      MAT_tpCondRet ret;
-      LIS_tppLista lis;
+      MAT_tpCondRet ret ;
+      LIS_tppLista lis ;
+      char lido ,      /* == 1 se o conteúdo da célula == &Lista */
+           esperado ;  /* == 1 o último parâmetro != 0 */
 
-      ret = MAT_LerCelula( Matrizes[ Parametros[ 0 ]],
-                           Parametros[ 1 ],
-                           Parametros[ 2 ],
+      ret = MAT_LerCelula( Matrizes[ Parametros[ 0 ]] ,
+                           Parametros[ 1 ] ,
+                           Parametros[ 2 ] ,
                            &lis ) ;
 
       if ( ret != MAT_CondRetOK )
@@ -349,7 +362,10 @@ static tpComandoTeste Comandos[] = {
          return ret ;
       } /* if */
 
-      if ( ( void ** ) lis != &Lista )
+      lido = ( ( void ** ) lis ) == &Lista ;
+      esperado = Parametros[ 3 ] != 0 ;
+
+      if ( lido != esperado )
       {
          TST_NotificarFalha( "Lista lida diferente do esperado." ) ;
       } /* if */
