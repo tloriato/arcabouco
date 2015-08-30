@@ -9,7 +9,7 @@ HEADERS := ../arcabouc/Fontes
 OBJ_PATH := Build
 OBJ_PATH_WIN := Build-win
 
-CFLAGS := -g -Wall -I"$(HEADERS)" -std=c99 -Wno-comment
+CFLAGS := -x c -g -Wall -I"$(HEADERS)" -std=c99 -Wno-comment
 LDFLAGS := -g -Wall
 
 CC_WIN := i686-w64-mingw32-gcc

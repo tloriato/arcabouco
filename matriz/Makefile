@@ -11,7 +11,7 @@ OBJ_PATH := Build
 OBJ_PATH_WIN := Build-win
 
 HEADERS := $(addprefix -I ,$(HEADERS))
-CFLAGS := -g -Wall $(HEADERS) -std=c99 -Wno-comment
+CFLAGS := -x c -g -Wall $(HEADERS) -std=c99 -Wno-comment
 LDFLAGS := -g -Wall
 
 CC_WIN := i686-w64-mingw32-gcc

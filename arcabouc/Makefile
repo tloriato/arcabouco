@@ -17,7 +17,7 @@ APP_PATH := Produto
 OBJ_PATH_WIN := Objetos-win
 APP_PATH_WIN := Produto
 
-CFLAGS := -g -I$(SRC_PATH) -Wall -std=c99 -Wno-comment
+CFLAGS := -x c -g -I$(SRC_PATH) -Wall -std=c99 -Wno-comment
 
 CC_WIN := i686-w64-mingw32-gcc
 AR_WIN := i686-w64-mingw32-ar
