@@ -4,7 +4,7 @@
 *  Arquivo gerado:              testmat.c
 *  Letras identificadoras:      TMAT
 *
-*  Projeto: Disciplinas INF 1301
+*  Projeto: Disciplina INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
 *           gapm - Guilherme de Azevedo Peraira Marques
 *           tdn - Thiago Duarte Naves
