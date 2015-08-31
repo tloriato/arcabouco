@@ -48,6 +48,8 @@
 *                    lista lida com 0 ou com a variável Lista.
 *                    == 0 -> Compara com NULL
 *                    != 0 -> Compara com Lista
+*                    Caso especial: Se linha ou coluna < 0, é passado
+*                    NULL no ponteiro de retorno da lista.
 *
 *     =esccel <int, int, int>
 *                    - chama a função MAT_EscreverCelula( mat, linha, coluna )
@@ -395,10 +397,22 @@ static tpComandoTeste Comandos[] = {
       char lido ,      /* == 1 se o conteúdo da célula == &Lista */
            esperado ;  /* == 1 o último parâmetro != 0 */
 
-      ret = MAT_LerCelula( Matrizes[ Parametros[ 0 ]] ,
-                           Parametros[ 1 ] ,
-                           Parametros[ 2 ] ,
-                           &lis ) ;
+
+      /* Caso especial: param de retorno nulo */
+      if ( ( Parametros[ 1 ] < 0 )
+        || ( Parametros[ 2 ] < 0 ))
+      {
+         ret = MAT_LerCelula( Matrizes[ Parametros[ 0 ]] ,
+                              Parametros[ 1 ] ,
+                              Parametros[ 2 ] ,
+                              NULL ) ;
+      } else
+      {
+         ret = MAT_LerCelula( Matrizes[ Parametros[ 0 ]] ,
+                              Parametros[ 1 ] ,
+                              Parametros[ 2 ] ,
+                              &lis ) ;
+      } /* if */
 
       if ( ret != MAT_CondRetOK )
       {

@@ -71,16 +71,10 @@ typedef void * MAT_tppMatriz;
          MAT_CondRetNaoPossuiCelula = 3 ,
                /* Matriz não possui a célula desejada */
 
-         MAT_CondRetNaoPossuiColuna = 4 ,
-               /* Matriz não possui a coluna desejada */
-
-         MAT_CondRetNaoPossuiLinha = 5 ,
-               /* Matriz não possui a linha desejada */
-
-         MAT_CondRetFaltouMemoria = 6 ,
+         MAT_CondRetFaltouMemoria = 5 ,
                /* Faltou memória ao alocar dados */
 
-         MAT_CondRetPonteiroRetornoNulo = 7
+         MAT_CondRetPonteiroRetornoNulo = 6
                /* Ponteiro passado por parâmetro para retorno é NULL */
 
    } MAT_tpCondRet ;
@@ -188,6 +182,7 @@ typedef void * MAT_tppMatriz;
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
+*     MAT_CondRetErroEstrutura
 *     MAT_CondRetMatrizNaoExiste
 *     MAT_CondRetNaoPossuiCelula
 *     MAT_CondRetPonteiroRetornoNulo
@@ -214,6 +209,7 @@ typedef void * MAT_tppMatriz;
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
+*     MAT_CondRetErroEstrutura
 *     MAT_CondRetMatrizNaoExiste
 *     MAT_CondRetNaoPossuiCelula
 *
@@ -237,8 +233,9 @@ typedef void * MAT_tppMatriz;
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
+*     MAT_CondRetErroEstrutura
 *     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetNaoPossuiColuna
+*     MAT_CondRetNaoPossuiCelula
 *
 ***********************************************************************/
 
@@ -260,8 +257,9 @@ typedef void * MAT_tppMatriz;
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
+*     MAT_CondRetErroEstrutura
 *     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetNaoPossuiLinha
+*     MAT_CondRetNaoPossuiCelula
 *
 ***********************************************************************/
 

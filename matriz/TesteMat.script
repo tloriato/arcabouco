@@ -75,7 +75,7 @@
 =criar     10   0
 
 == Criar matriz passando NULL
-=criar     11   7
+=criar     11   6
 
 == Inserir coluna em uma matriz nula
 =inscol    11   2
@@ -97,6 +97,36 @@
 
 == Ler célula (0,0) de uma matriz corrompida
 =lercel    10   0    0    0    1
+
+== Ler célula (0,0) da matriz 0 com ponteiro de retorno nulo
+=lercel    0    -1   -1   0    6
+
+== Escrever célula (0,0) de uma matriz corrompida
+=esccel   10    0    0    1
+
+== Escrever célula (0,0) de uma matriz nula
+=esccel   11    0    0    2
+
+== Escrever célula que não existe na matriz 0
+=esccel    0    9    9    3
+
+== Excluir coluna de uma matriz corrompida
+=exccol   10    0    1
+
+== Excluir coluna de uma matriz nula
+=exccol   11    0    2
+
+== Excluir coluna que não existe na matriz 0
+=exccol    0    9    3
+
+== Excluir linha de uma matriz corrompida
+=exclin   10    0    1
+
+== Excluir linha de uma matriz nula
+=exclin   11    0    2
+
+== Excluir linha que não existe na matriz 0
+=exclin    0    9    3
 
 == Destruir a matriz 0
 =destruir  0    0
