@@ -66,9 +66,6 @@
          int numElem ;
                /* Número de elementos da lista */
 
-         void ( * ExcluirValor ) ( void * pValor ) ;
-               /* Ponteiro para a função de destruição do valor contido em um elemento */
-
    } LIS_tpLista ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -88,24 +85,22 @@
 *  Função: LIS  &Criar lista
 *  ****/
 
-   LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista
-										, void   ( * ExcluirValor ) ( void * pDado ) )
+   LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista )
    {	
 
-		if (pLista == NULL)
+		/*if (pLista == NULL)
 		{
 			return LIS_CondRetPonteiroRetornoNulo;
 		}/* if */
 
-		* pLista = ( LIS_tpLista * ) malloc( sizeof( LIS_tpLista )) ;
-		if ( *pLista == NULL )
+		*pLista = ( LIS_tppLista ) malloc( sizeof( LIS_tpLista )) ;
+		if ( pLista == NULL )
 		{
 			return LIS_CondRetFaltouMemoria ;
 		} /* if */
 
 		LimparCabeca( *pLista ) ;
 
-		*pLista->ExcluirValor = ExcluirValor ;
 
 		return LIS_CondRetOK;
 
@@ -319,7 +314,7 @@
 
       #ifdef _DEBUG
          assert( pLista != NULL ) ;
-      #endif
+      #endif 
 
       if ( pLista->pElemCorr == NULL )
       {
@@ -337,7 +332,7 @@
 *  Função: LIS  &Ir para o elemento inicial
 *  ****/
 
-   LIS_tpCondRet IrInicioLista( LIS_tppLista * pLista )
+   LIS_tpCondRet IrInicioLista( LIS_tppLista pLista )
    {
 
       #ifdef _DEBUG
@@ -355,7 +350,7 @@
 *  Função: LIS  &Ir para o elemento final
 *  ****/
 
-   LIS_tpCondRet IrFinalLista( LIS_tppLista * pLista )
+   LIS_tpCondRet IrFinalLista( LIS_tppLista pLista )
    {
 
       #ifdef _DEBUG
@@ -373,7 +368,7 @@
 *  Função: LIS  &Avançar elemento
 *  ****/
 
-   LIS_tpCondRet LIS_AvancarElementoCorrente( LIS_tppLista * pLista ,
+   LIS_tpCondRet LIS_AvancarElementoCorrente( LIS_tppLista  pLista ,
                                               int numElem )
    {
 
@@ -458,7 +453,7 @@
 *  ****/
 
    LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
-                                    char * pValor        )
+                                    char pValor        )
    {
 
       tpElemLista * pElem ;
@@ -476,7 +471,7 @@
             pElem != NULL ;
             pElem  = pElem->pProx )
       {
-         if ( pElem->pValor == *pValor )
+         if ( pElem->pValor == pValor )
          {
             pLista->pElemCorr = pElem ;
             return LIS_CondRetOK ;
@@ -505,12 +500,6 @@
                          tpElemLista  * pElem   )
    {
 
-      if ( ( pLista->ExcluirValor != NULL )
-        && ( pElem->pValor != NULL        ))
-      {
-         pLista->ExcluirValor( pElem->pValor ) ;
-      } /* if */
-
       free( pElem ) ;
 
       pLista->numElem-- ;
@@ -525,7 +514,7 @@
 ***********************************************************************/
 
    tpElemLista * CriarElemento( LIS_tppLista pLista ,
-                                char pValor, tpElemLista *pElem )
+                                char pValor )
    {
 
       tpElemLista * pElem ;

@@ -1,16 +1,17 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TLIS Teste lista de caracteres
+*  $MCI Módulo de implementação: TLIS Teste lista de símbolos
 *
 *  Arquivo gerado:              TestLIS.c
 *  Letras identificadoras:      TLIS
 *
-*  Projeto: Disciplina INF 1301
+*  Projeto: INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
-*           gapm - Guilherme de Azevedo Peraira Marques
-*           tdn - Thiago Duarte Naves
+*			gapm - Guilherme de Azevedo Pereira Marques
+*			tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*       1.00   gbo, gapm, tdn   30/08/2015 Início do desenvolvimento
+*     Versão        Autor             Data               Observações
+*     1.00		gbo, gapm, tdn     28/08/2015     Início do desenvolvimento.
 *
 ***************************************************************************/
 
@@ -52,7 +53,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static void DestruirValor( void * pValor ) ;
+   static void DestruirValor( char pValor ) ;
 
    static int ValidarInxLista( int inxLista , int Modo ) ;
 
@@ -91,13 +92,14 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
           CondRetEsp = -1  ;
 
       TST_tpCondRet CondRet ;
+	  LIS_tpCondRet Ret ;
 
       char   StringDado[  DIM_VALOR ] ;
       char * pDado ;
 
       int ValEsp = -1 ;
 
-      int i ;
+      int i, j ;
 
       int numElem = -1 ;
 
@@ -131,8 +133,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            vtListas[ inxLista ] =
-                 LIS_CriarLista( DestruirValor ) ;
+            Ret = LIS_CriarLista( &vtListas[ inxLista ] ) ;
 
             return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] ,
                "Erro em ponteiro de nova lista."  ) ;
@@ -203,7 +204,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             strcpy( pDado , StringDado ) ;
 
 
-            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , pDado ) ;
+            CondRet = ( TST_tpCondRet ) LIS_InserirElementoAntes( vtListas[ inxLista ] , *pDado ) ;
 
             if ( CondRet != LIS_CondRetOK )
             {
@@ -211,7 +212,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir antes."                   ) ;
+                     "Condicao de retorno errada ao inserir antes." ) ;
 
          } /* fim ativa: Testar inserir elemento antes */
 
@@ -229,6 +230,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
+
             pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
             if ( pDado == NULL )
             {
@@ -237,8 +239,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             strcpy( pDado , StringDado ) ;
 
-
-            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , pDado ) ;
+			
+            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , *pDado ) ;
 
             if ( CondRet != LIS_CondRetOK )
             {
@@ -246,7 +248,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
             } /* if */
 
             return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir apos."                   ) ;
+                     "Condicao de retorno errada ao inserir apos." ) ;
 
          } /* fim ativa: Testar inserir elemento apos */
 
@@ -284,7 +286,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                return TST_CondRetParm ;
             } /* if */
 
-            pDado = ( char * ) LIS_ObterValor( vtListas[ inxLista ] ) ;
+            Ret = LIS_ObterValor( vtListas[ inxLista ], pDado ) ;
 
             if ( ValEsp == 0 )
             {
@@ -367,20 +369,6 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
-
-
-/***********************************************************************
-*
-*  $FC Função: TLIS -Destruir valor
-*
-***********************************************************************/
-
-   void DestruirValor( void * pValor )
-   {
-
-      free( pValor ) ;
-
-   } /* Fim função: TLIS -Destruir valor */
 
 
 /***********************************************************************

@@ -71,22 +71,22 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    typedef enum {
 
-         LIS_CondRetOK ,
+         LIS_CondRetOK = 0,
                /* Concluiu corretamente */
 
-         LIS_CondRetListaVazia ,
+         LIS_CondRetListaVazia = 1 ,
                /* A lista não contém elementos */
 
-         LIS_CondRetFimLista ,
+         LIS_CondRetFimLista =2,
                /* Foi atingido o fim de lista */
 
-         LIS_CondRetNaoAchou ,
+         LIS_CondRetNaoAchou = 3,
                /* Não encontrou o valor procurado */
 
-         LIS_CondRetFaltouMemoria ,
+         LIS_CondRetFaltouMemoria = 4 ,
                /* Faltou memória ao tentar criar um elemento de lista */
 
-		LIS_CondRetPonteiroRetornoNulo
+		LIS_CondRetPonteiroRetornoNulo = 5
                /*Ponteiro de retorno nulo*/
 
    } LIS_tpCondRet ;
@@ -118,8 +118,8 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista, 
-             void   ( * ExcluirValor ) ( void * pDado ) ) ;
+   LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista);
+										
 
 
 /***********************************************************************
@@ -340,7 +340,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
    LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
-                                    char * pValor        ) ;
+                                    char pValor        ) ;
 
 #undef LISTA_EXT
 
