@@ -1,6 +1,6 @@
 // Script:    TesteMat.script
 // Autores:   Gabriel Barbosa de Oliveira
-//            Guilherme de Azevedo Peraira Marques
+//            Guilherme de Azevedo Pereira Marques
 //            Thiago Duarte Naves
 // Data:      29/ago/2015
 // Propósito: Testar o módulo matriz
@@ -34,6 +34,17 @@
 
 == Verificar se a célula (1,0) da matriz 0 está vazia
 =lercel    0    1    0    0    0
+
+== Excluir linha 1 e verificar se a célua (1,1) da matriz 0 está preenchida
+=exclin    0    1    0
+=lercel    0    1    1    1    0
+
+== Verificar que a célula (0,1) da matriz 0 está vazia
+=lercel    0    0    1    0    0
+
+== Excluir coluna 0 da matriz 0 e verificar se a célula (0,1) está preenchida
+=exccol    0    0    0
+=lercel    0    0    1    1    0
 
 == Destruir a matriz
 =destruir  0    0
