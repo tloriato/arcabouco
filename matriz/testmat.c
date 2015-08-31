@@ -6,7 +6,7 @@
 *
 *  Projeto: Disciplina INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
-*           gapm - Guilherme de Azevedo Peraira Marques
+*           gapm - Guilherme de Azevedo Pereira Marques
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
