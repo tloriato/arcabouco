@@ -47,7 +47,7 @@
 *
 ***********************************************************************/
 
-typedef void * MAT_tpMatriz;
+typedef void * MAT_tppMatriz;
 
 
 /***********************************************************************
@@ -62,31 +62,25 @@ typedef void * MAT_tpMatriz;
          MAT_CondRetOK = 0 ,
                /* Executou correto */
 
-         MAT_CondRetNaoCriouMatriz = 1 ,
-               /* Não criou o handle */
-
-         MAT_CondRetErroEstrutura = 2 ,
+         MAT_CondRetErroEstrutura = 1 ,
                /* Estrutura da mariz está errada */
 
-         MAT_CondRetMatrizNaoExiste = 3 ,
+         MAT_CondRetMatrizNaoExiste = 2 ,
                /* Mariz não existe */
 
-         MAT_CondRetMatrizVazia = 4 ,
-               /* Mariz está vazia */
-
-         MAT_CondRetNaoPossuiCelula = 5 ,
+         MAT_CondRetNaoPossuiCelula = 3 ,
                /* Matriz não possui a célula desejada */
 
-         MAT_CondRetNaoPossuiColuna = 6 ,
+         MAT_CondRetNaoPossuiColuna = 4 ,
                /* Matriz não possui a coluna desejada */
 
-         MAT_CondRetNaoPossuiLinha = 7 ,
+         MAT_CondRetNaoPossuiLinha = 5 ,
                /* Matriz não possui a linha desejada */
 
-         MAT_CondRetFaltouMemoria = 8 ,
+         MAT_CondRetFaltouMemoria = 6 ,
                /* Faltou memória ao alocar dados */
 
-         MAT_CondRetPonteiroRetornoNulo = 9
+         MAT_CondRetPonteiroRetornoNulo = 7
                /* Ponteiro passado por parâmetro para retorno é NULL */
 
    } MAT_tpCondRet ;
@@ -106,12 +100,12 @@ typedef void * MAT_tpMatriz;
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
-*     MAT_CondRetNaoCriouMatriz
 *     MAT_CondRetFaltouMemoria
+*     MAT_CondRetPonteiroRetornoNulo
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_CriarMatriz( MAT_tpMatriz * pMatriz ) ;
+   MAT_tpCondRet MAT_CriarMatriz( MAT_tppMatriz * pMatriz ) ;
 
 
 /***********************************************************************
@@ -131,7 +125,7 @@ typedef void * MAT_tpMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_DestruirMatriz( MAT_tpMatriz Matriz ) ;
+   MAT_tpCondRet MAT_DestruirMatriz( MAT_tppMatriz Matriz ) ;
 
 
 /***********************************************************************
@@ -148,10 +142,11 @@ typedef void * MAT_tpMatriz;
 *     MAT_CondRetOK
 *     MAT_CondRetErroEstrutura
 *     MAT_CondRetFaltouMemoria
+*     MAT_CondRetMatrizNaoExiste
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_InserirColuna( MAT_tpMatriz Matriz ) ;
+   MAT_tpCondRet MAT_InserirColuna( MAT_tppMatriz Matriz ) ;
 
 
 /***********************************************************************
@@ -168,10 +163,11 @@ typedef void * MAT_tpMatriz;
 *     MAT_CondRetOK
 *     MAT_CondRetErroEstrutura
 *     MAT_CondRetFaltouMemoria
+*     MAT_CondRetMatrizNaoExiste
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_InserirLinha( MAT_tpMatriz Matriz ) ;
+   MAT_tpCondRet MAT_InserirLinha( MAT_tppMatriz Matriz ) ;
 
 
 /***********************************************************************
@@ -193,13 +189,12 @@ typedef void * MAT_tpMatriz;
 *  $FV Valor retornado
 *     MAT_CondRetOK
 *     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetMatrizVazia
 *     MAT_CondRetNaoPossuiCelula
 *     MAT_CondRetPonteiroRetornoNulo
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista * Lista ) ;
+   MAT_tpCondRet MAT_LerCelula( MAT_tppMatriz Matriz , int Coluna , int Linha , LIS_tppLista * Lista ) ;
 
 
 /***********************************************************************
@@ -220,12 +215,11 @@ typedef void * MAT_tpMatriz;
 *  $FV Valor retornado
 *     MAT_CondRetOK
 *     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetMatrizVazia
 *     MAT_CondRetNaoPossuiCelula
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista Lista ) ;
+   MAT_tpCondRet MAT_EscreverCelula( MAT_tppMatriz Matriz , int Coluna , int Linha , LIS_tppLista Lista ) ;
 
 
 /***********************************************************************
@@ -244,12 +238,11 @@ typedef void * MAT_tpMatriz;
 *  $FV Valor retornado
 *     MAT_CondRetOK
 *     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetMatrizVazia
 *     MAT_CondRetNaoPossuiColuna
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , int Coluna ) ;
+   MAT_tpCondRet MAT_ExcluirColuna( MAT_tppMatriz Matriz , int Coluna ) ;
 
 
 /***********************************************************************
@@ -268,12 +261,11 @@ typedef void * MAT_tpMatriz;
 *  $FV Valor retornado
 *     MAT_CondRetOK
 *     MAT_CondRetMatrizNaoExiste
-*     MAT_CondRetMatrizVazia
 *     MAT_CondRetNaoPossuiLinha
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , int Linha ) ;
+   MAT_tpCondRet MAT_ExcluirLinha( MAT_tppMatriz Matriz , int Linha ) ;
 
 
 /********** Fim do módulo de definição: Módulo mariz **********/

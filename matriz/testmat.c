@@ -72,6 +72,7 @@
 #include    <string.h>
 #include    <stdio.h>
 #include    <assert.h>
+#include    <stdlib.h>
 
 #include    "tst_espc.h"
 
@@ -93,7 +94,7 @@
 
 
 /* Quantidade máxima de matrizes que podem ser testadas simultaneamente */
-#define QTD_MATRIZES 10
+#define QTD_MATRIZES 11
 
 /* Quantidade máxima de parâmetros permitidos em um comando de teste,
  * mais 1 para o retorno esperado */
@@ -164,7 +165,7 @@ static MAT_tpCondRet TMAT_CmdExcLin( void ) ;
 *
 *  ****/
 
-static MAT_tpMatriz Matrizes[ QTD_MATRIZES ] ;
+static MAT_tppMatriz Matrizes[ QTD_MATRIZES ] = { NULL } ;
 
 
 /***************************************************************************
@@ -254,7 +255,8 @@ static tpComandoTeste Comandos[] = {
                                                 &Parametros[ 3 ] ,
                                                 &Parametros[ 4 ] ) ;
 
-            if ( qtdParamsLidos != qtdParamsEsperados  )
+            if ( ( qtdParamsLidos != qtdParamsEsperados  )
+              || ( Parametros[ 0 ] > QTD_MATRIZES ))
             {
                return TST_CondRetParm ;
             } /* if */
@@ -281,6 +283,40 @@ static tpComandoTeste Comandos[] = {
 
    static MAT_tpCondRet TMAT_CmdCriar( void )
    {
+      struct mat
+      {
+         void * a;
+         void * b;
+         int c ,
+             d ,
+             e ,
+             f ;
+      } ;
+
+      if ( Parametros[ 0 ] == QTD_MATRIZES )
+      {
+         return MAT_CriarMatriz( NULL ) ;
+      } /* if */
+
+      /* Caso especial: cria uma matriz corrompida */
+      if ( Parametros[ 0 ] == QTD_MATRIZES - 1 )
+      {
+         Matrizes[ Parametros[ 0 ]] = ( MAT_tppMatriz ) calloc( 100 , 1 ) ;
+         if ( Matrizes[ Parametros[ 0 ]] == NULL )
+         {
+            return MAT_CondRetFaltouMemoria ;
+         } /* if */
+
+         struct mat tmp ;
+         memset( &tmp , 0 , sizeof( tmp ) ) ;
+         tmp.c = 10 ;
+         tmp.d = 10 ;
+         tmp.e = 10 ;
+         tmp.f = 10 ;
+
+         memcpy( Matrizes[ Parametros[ 0 ]] , &tmp , sizeof( tmp )) ;
+         return MAT_CondRetOK ;
+      } /* if */
 
       return MAT_CriarMatriz( &Matrizes[ Parametros[ 0 ]] ) ;
 
@@ -297,6 +333,13 @@ static tpComandoTeste Comandos[] = {
 
    static MAT_tpCondRet TMAT_CmdDestruir( void )
    {
+
+      /* Caso especial: destruir a matriz corrompida */
+      if ( Parametros[ 0 ] == QTD_MATRIZES - 1 )
+      {
+         free( Matrizes[ Parametros[ 0 ]] ) ;
+         return MAT_CondRetOK ;
+      } /* if */
 
       return MAT_DestruirMatriz( Matrizes[ Parametros[ 0 ]] ) ;
 

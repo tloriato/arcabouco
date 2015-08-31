@@ -5,7 +5,9 @@
 // Data:      29/ago/2015
 // Propósito: Testar o módulo matriz
 //
-// TODO: testar casos de erro
+// Matriz 10 é criada (com =criar) como uma estrutura corrompida
+// Matriz 11 é sempre null
+// Este teste é completo
 
 == Teste de recuperar
 =destruir  1    1
@@ -51,5 +53,50 @@
 =exccol    0    0    0
 =lercel    0    0    1    1    0
 
-== Destruir a matriz
+== Escrever e ler na célula (3,3) excluir a coluna 2 e verificar se a célula (2,3) está preenchida na matriz 0
+=esccel    0    3    3    0
+=lercel    0    3    3    1    0
+=exccol    0    2    0
+=lercel    0    2    3    1    0
+
+== Excluir coluna 2 da matriz 0
+=exccol    0    2    0
+
+== Excluir linha 3 da matriz 0
+=exclin    0    3    0
+
+== Excluir linha 0 da matriz 0
+=exclin    0    0    0
+
+== Verificar que a célula (0,0) da matriz 0 esá preenchida
+=lercel    0    0    0    1    0
+
+== Criar uma matriz corrompida
+=criar     10   0
+
+== Criar matriz passando NULL
+=criar     11   7
+
+== Inserir coluna em uma matriz nula
+=inscol    11   2
+
+== Inserir coluna em uma matriz corrompida
+=inscol    10   1
+
+== Inserir linha em uma matriz nula
+=inslin    11   2
+
+== Inserir linha em uma matriz corrompida
+=inslin    10   1
+
+== Ler célula que não existe na matriz 0
+=lercel    0    9    9    0    3
+
+== Ler célula (0,0) de uma matriz nula
+=lercel    11   0    0    0    2
+
+== Ler célula (0,0) de uma matriz corrompida
+=lercel    10   0    0    0    1
+
+== Destruir a matriz 0
 =destruir  0    0

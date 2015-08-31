@@ -162,7 +162,7 @@
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , int Linha ,
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tppMatriz Matriz , int Coluna , int Linha ,
                                                    tpCelulaMatriz ** Celula ) ;
 
    static void ExcluirCelula( tpCelulaMatriz * cel ) ;
@@ -175,8 +175,13 @@
 *  Função: MAT Criar mariz
 *  ****/
 
-   MAT_tpCondRet MAT_CriarMatriz( MAT_tpMatriz * pMatriz )
+   MAT_tpCondRet MAT_CriarMatriz( MAT_tppMatriz * pMatriz )
    {
+
+      if ( pMatriz == NULL )
+      {
+         return MAT_CondRetPonteiroRetornoNulo ;
+      } /* if */
 
       *pMatriz = calloc( sizeof( tpMatriz ) , 1 ) ;
       if ( *pMatriz == NULL )
@@ -193,7 +198,7 @@
 *  Função: MAT Destruir mariz
 *  ****/
 
-   MAT_tpCondRet MAT_DestruirMatriz( MAT_tpMatriz Matriz )
+   MAT_tpCondRet MAT_DestruirMatriz( MAT_tppMatriz Matriz )
    {
 
       tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
@@ -224,7 +229,7 @@
 *  Função: MAT Inserir coluna
 *  ****/
 
-   MAT_tpCondRet MAT_InserirColuna( MAT_tpMatriz Matriz )
+   MAT_tpCondRet MAT_InserirColuna( MAT_tppMatriz Matriz )
    {
       int linha ;
       tpCelulaMatriz * cel ,
@@ -315,7 +320,7 @@
 *  Função: MAT Inserir linha
 *  ****/
 
-   MAT_tpCondRet MAT_InserirLinha( MAT_tpMatriz Matriz )
+   MAT_tpCondRet MAT_InserirLinha( MAT_tppMatriz Matriz )
    {
       int coluna ;
       tpCelulaMatriz * cel ,
@@ -406,7 +411,7 @@
 *  Função: MAT Ler célula
 *  ****/
 
-   MAT_tpCondRet MAT_LerCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista * Lista )
+   MAT_tpCondRet MAT_LerCelula( MAT_tppMatriz Matriz , int Coluna , int Linha , LIS_tppLista * Lista )
    {
 
       if ( Lista == NULL )
@@ -431,7 +436,7 @@
 *  Função: MAT Escrever célula
 *  ****/
 
-   MAT_tpCondRet MAT_EscreverCelula( MAT_tpMatriz Matriz , int Coluna , int Linha , LIS_tppLista Lista )
+   MAT_tpCondRet MAT_EscreverCelula( MAT_tppMatriz Matriz , int Coluna , int Linha , LIS_tppLista Lista )
    {
 
       tpCelulaMatriz * pCel ;
@@ -451,7 +456,7 @@
 *  Função: MAT Excluir coluna
 *  ****/
 
-   MAT_tpCondRet MAT_ExcluirColuna( MAT_tpMatriz Matriz , int Coluna )
+   MAT_tpCondRet MAT_ExcluirColuna( MAT_tppMatriz Matriz , int Coluna )
    {
 
       tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
@@ -502,7 +507,7 @@
 *  Função: MAT Excluir linha
 *  ****/
 
-   MAT_tpCondRet MAT_ExcluirLinha( MAT_tpMatriz Matriz , int Linha )
+   MAT_tpCondRet MAT_ExcluirLinha( MAT_tppMatriz Matriz , int Linha )
    {
 
       tpMatriz * pMatriz = ( tpMatriz * ) Matriz ;
@@ -580,7 +585,7 @@
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tpMatriz Matriz , int Coluna , int Linha ,
+   static MAT_tpCondRet ObterCelulaNasCoordenadas( MAT_tppMatriz Matriz , int Coluna , int Linha ,
                                                    tpCelulaMatriz ** Celula )
    {
 
