@@ -44,18 +44,17 @@
 *                    Obs. mat é a matriz identificada pelo primeiro
 *                    parâmetro do comando de teste. linha e coluna são
 *                    os dois parâmetros seguintes.
-*                    O quarto parâmetro indica se devemos comparar a
-*                    lista lida com 0 ou com a variável Lista.
-*                    == 0 -> Compara com NULL
-*                    != 0 -> Compara com Lista
+*                    O quarto parâmetro indica com qual lista devemos
+*                    comparar o ponteiro lido.
 *                    Caso especial: Se linha ou coluna < 0, é passado
 *                    NULL no ponteiro de retorno da lista.
 *
-*     =esccel <int, int, int>
+*     =esccel <int, int, int, int>
 *                    - chama a função MAT_EscreverCelula( mat, linha, coluna )
 *                    Obs. mat é a matriz identificada pelo primeiro
 *                    parâmetro do comando de teste. linha e coluna são
-*                    os dois parâmetros seguintes.
+*                    os dois parâmetros seguintes. O quarto parâmetro
+*                    indica qual lista devemos colocar na célula.
 *
 *     =exccol <int, int>
 *                    - chama a função MAT_ExcluirColuna( mat, coluna )
@@ -68,6 +67,22 @@
 *                    Obs. mat é a matriz identificada pelo primeiro
 *                    parâmetro do comando de teste. linha é o segundo
 *                    parâmetro.
+*
+*     ------------------ Funções de manipulação de listas ----------------
+*
+*     =criarlis <int>
+*                    - cria uma lista com <int> como identificador.
+*
+*     =destruirlis <int>
+*                    - destroi a lista identificada por <int>
+*
+*     =esvaziarlis <int>
+*                    - remove todos os elementos da lista identificada
+*                    por <int>.
+*
+*     =inserirlis <int, char>
+*                    - insere um elemento contendo <char> após o elemento
+*                    atual na lista identificada por <int>.
 *
 ***************************************************************************/
 
@@ -82,25 +97,38 @@
 #include    "lerparm.h"
 
 #include    "matriz.h"
+#include    "lista.h"
 
 /* Tabela dos nomes dos comandos de teste específicos */
 
-#define CMD_CRIAR           "=criar"
-#define CMD_DESTRUIR        "=destruir"
-#define CMD_INSERIR_COLUNA  "=inscol"
-#define CMD_INSERIR_LINHA   "=inslin"
-#define CMD_LER_CELULA      "=lercel"
-#define CMD_ESCREVER_CELULA "=esccel"
-#define CMD_EXCLUIR_COLUNA  "=exccol"
-#define CMD_EXCLUIR_LINHA   "=exclin"
+const char CMD_CRIAR           [] = "=criar" ;
+const char CMD_DESTRUIR        [] = "=destruir" ;
+const char CMD_INSERIR_COLUNA  [] = "=inscol" ;
+const char CMD_INSERIR_LINHA   [] = "=inslin" ;
+const char CMD_LER_CELULA      [] = "=lercel" ;
+const char CMD_ESCREVER_CELULA [] = "=esccel" ;
+const char CMD_EXCLUIR_COLUNA  [] = "=exccol" ;
+const char CMD_EXCLUIR_LINHA   [] = "=exclin" ;
+const char CMD_CRIAR_LIS       [] = "=criarlis" ;
+const char CMD_DESTRUIR_LIS    [] = "=destruirlis" ;
+const char CMD_ESVAZIAR_LIS    [] = "=esvaziarlis" ;
+const char CMD_INSERIR_LIS     [] = "=inserirlis" ;
 
 
 /* Quantidade máxima de matrizes que podem ser testadas simultaneamente */
 #define QTD_MATRIZES 11
 
+/* Quantidade máxima de listas que podem ser usadas simultaneamente */
+#define QTD_LISTAS 10
+
 /* Quantidade máxima de parâmetros permitidos em um comando de teste,
  * mais 1 para o retorno esperado */
 #define MAX_PARAMS 5
+
+/* Essa macro converte um parâmetro de int para char (evita possíveis
+ * problemas de endianness.
+ * p é o índice do vetor Parametros*/
+#define PARAM_CHAR( p ) ( *( char * ) &Parametros[ ( p ) ] )
 
 /***** Tipos de dados utilizados neste módulo de teste *****/
 
@@ -115,7 +143,23 @@
 *
 ***********************************************************************/
 
-typedef MAT_tpCondRet ( * cmdFunc ) ( void ) ;
+typedef int ( * cmdFunc ) ( void ) ;
+
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: valFunc
+*
+*  $ED Descrição do tipo
+*     Ponteiro para uma função de validação de parâmetros.
+*     Retorna 1 se os parâmetros forem válidos, 0 caso contrário.
+*
+*  #EP Parâmetros
+*     cmd - String do comando de teste a ser validado.
+*
+***********************************************************************/
+
+typedef int ( * valFunc ) ( const char * cmd ) ;
 
 
 /***********************************************************************
@@ -130,7 +174,7 @@ typedef MAT_tpCondRet ( * cmdFunc ) ( void ) ;
 
 typedef struct
 {
-   char * Comando;
+   const char * Comando;
       /* comando de teste lido do script */
 
    char * Params;
@@ -140,6 +184,9 @@ typedef struct
    cmdFunc Funcao;
       /* função a ser executada para tratar o comando */
 
+   valFunc Validar;
+      /* Função para validar os parâmetros recebidos */
+
    char * MsgErro;
       /* mensagem de erro que será mostrada em caso de falha */
 
@@ -148,14 +195,20 @@ typedef struct
 
 /*****  Protóripos das funções *****/
 
-static MAT_tpCondRet TMAT_CmdCriar( void ) ;
-static MAT_tpCondRet TMAT_CmdDestruir( void ) ;
-static MAT_tpCondRet TMAT_CmdInsCol( void ) ;
-static MAT_tpCondRet TMAT_CmdInsLin( void ) ;
-static MAT_tpCondRet TMAT_CmdLerCel( void ) ;
-static MAT_tpCondRet TMAT_CmdEscCel( void ) ;
-static MAT_tpCondRet TMAT_CmdExcCol( void ) ;
-static MAT_tpCondRet TMAT_CmdExcLin( void ) ;
+static int TMAT_CmdCriar( void ) ;
+static int TMAT_CmdDestruir( void ) ;
+static int TMAT_CmdInsCol( void ) ;
+static int TMAT_CmdInsLin( void ) ;
+static int TMAT_CmdLerCel( void ) ;
+static int TMAT_CmdEscCel( void ) ;
+static int TMAT_CmdExcCol( void ) ;
+static int TMAT_CmdExcLin( void ) ;
+static int TMAT_CmdCriarLis( void ) ;
+static int TMAT_CmdDestruirLis( void ) ;
+static int TMAT_CmdEsvaziarLis( void ) ;
+static int TMAT_CmdInserirLis( void ) ;
+static int TMAT_ValMat( const char * cmd ) ;
+static int TMAT_ValLis( const char * cmd ) ;
 
 
 /*****  Variáveis globais à este módulo  *****/
@@ -183,14 +236,12 @@ static int Parametros[ MAX_PARAMS ] ;
 
 /***************************************************************************
 *
-*  Variável: Lista
-*  Descrição: Simula a existência de uma lista do tipo LIS_tppLista
-*             ( apenas provê um ponteiro válido: o endereço dessa variável ).
-*             O conteúdo dessa variável não é usado.
+*  Vetor: Listas
+*  Descrição: Vetor que armazena as listas criadas no script de testes.
 *
 *  ****/
 
-static void * Lista = NULL ;
+static LIS_tppLista Listas[ QTD_LISTAS ] ;
 
 
 /***************************************************************************
@@ -202,15 +253,19 @@ static void * Lista = NULL ;
 *  ****/
 
 static tpComandoTeste Comandos[] = {
-/*   Comando           Parâmetros  Função             Mensagem de erro */
-   { CMD_CRIAR ,           "ii" ,    TMAT_CmdCriar ,    "Retorno errado ao criar a matriz."    } ,
-   { CMD_DESTRUIR ,        "ii" ,    TMAT_CmdDestruir , "Retorno errado ao destruir a matriz." } ,
-   { CMD_INSERIR_COLUNA ,  "ii" ,    TMAT_CmdInsCol ,   "Retorno errado ao inserir a coluna."  } ,
-   { CMD_INSERIR_LINHA ,   "ii" ,    TMAT_CmdInsLin ,   "Retorno errado ao inserir a linha."   } ,
-   { CMD_LER_CELULA ,      "iiiii" , TMAT_CmdLerCel ,   "Retorno errado ao ler a célula."      } ,
-   { CMD_ESCREVER_CELULA , "iiii" ,  TMAT_CmdEscCel ,   "Retorno errado ao escrever a célula." } ,
-   { CMD_EXCLUIR_COLUNA ,  "iii" ,   TMAT_CmdExcCol ,   "Retorno errado ao excluir a coluna."  } ,
-   { CMD_EXCLUIR_LINHA ,   "iii" ,   TMAT_CmdExcLin ,   "Retorno errado ao excluir a linha."   }
+/*   Comando             Parâmetros  Função               Validar params Mensagem de erro */
+   { CMD_CRIAR ,           "ii" ,    TMAT_CmdCriar ,       TMAT_ValMat , "Retorno errado ao criar a matriz."    } ,
+   { CMD_DESTRUIR ,        "ii" ,    TMAT_CmdDestruir ,    TMAT_ValMat , "Retorno errado ao destruir a matriz." } ,
+   { CMD_INSERIR_COLUNA ,  "ii" ,    TMAT_CmdInsCol ,      TMAT_ValMat , "Retorno errado ao inserir a coluna."  } ,
+   { CMD_INSERIR_LINHA ,   "ii" ,    TMAT_CmdInsLin ,      TMAT_ValMat , "Retorno errado ao inserir a linha."   } ,
+   { CMD_LER_CELULA ,      "iiiii" , TMAT_CmdLerCel ,      TMAT_ValMat , "Retorno errado ao ler a célula."      } ,
+   { CMD_ESCREVER_CELULA , "iiiii" , TMAT_CmdEscCel ,      TMAT_ValMat , "Retorno errado ao escrever a célula." } ,
+   { CMD_EXCLUIR_COLUNA ,  "iii" ,   TMAT_CmdExcCol ,      TMAT_ValMat , "Retorno errado ao excluir a coluna."  } ,
+   { CMD_EXCLUIR_LINHA ,   "iii" ,   TMAT_CmdExcLin ,      TMAT_ValMat , "Retorno errado ao excluir a linha."   } ,
+   { CMD_CRIAR_LIS ,       "ii" ,    TMAT_CmdCriarLis ,    TMAT_ValLis , "Retorno errado ao criar a lista."     } ,
+   { CMD_DESTRUIR_LIS ,    "ii" ,    TMAT_CmdDestruirLis , TMAT_ValLis , "Retorno errado ao destruir a lista."  } ,
+   { CMD_ESVAZIAR_LIS ,    "ii" ,    TMAT_CmdEsvaziarLis , TMAT_ValLis , "Retorno errado ao esvaziar a lista."  } ,
+   { CMD_INSERIR_LIS ,     "ici" ,   TMAT_CmdInserirLis ,  TMAT_ValLis , "Retorno errado ao inserir na lista."  }
 } ;
 
 
@@ -257,8 +312,8 @@ static tpComandoTeste Comandos[] = {
                                                 &Parametros[ 3 ] ,
                                                 &Parametros[ 4 ] ) ;
 
-            if ( ( qtdParamsLidos != qtdParamsEsperados  )
-              || ( Parametros[ 0 ] > QTD_MATRIZES ))
+            if ( ( qtdParamsLidos != qtdParamsEsperados )
+              || ( Comandos[ cmd ].Validar( ComandoTeste ) == 0 ))
             {
                return TST_CondRetParm ;
             } /* if */
@@ -274,6 +329,59 @@ static tpComandoTeste Comandos[] = {
    } /* Fim função: TMAT Efetuar operações de teste específicas para matriz */
 
 
+/*****  Código das funções internas ao módulo  *****/
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Validar Matriz
+*
+*  $ED Descrição da função
+*     Valida os parâmetros recebidos em comandos de matriz
+*
+*  #EP Parâmetros
+*     cmd - String do comando de teste a ser validado.
+*
+***********************************************************************/
+
+   static int TMAT_ValMat( const char * cmd )
+   {
+
+      if ( ( strcmp( cmd , CMD_ESCREVER_CELULA ) == 0 )
+        || ( strcmp( cmd , CMD_LER_CELULA ) == 0 ))
+      {
+         /* Valida índice da lista: Quarto parâmetro de ambas as funções */
+         if ( ( Parametros[ 3 ] >= QTD_LISTAS )
+           || ( Parametros[ 3 ] < 0 ))
+         {
+            return 0 ;
+         } /* if */
+      }  /* if */
+
+      return ( Parametros[ 0 ] >= 0 ) && ( Parametros[ 0 ] <= QTD_MATRIZES ) ;
+
+   } /* Fim função: TMAT Validar Matriz */
+
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Validar Lista
+*
+*  $ED Descrição da função
+*     Valida os parâmetros recebidos em comandos de lista
+*
+*  #EP Parâmetros
+*     cmd - String do comando de teste a ser validado.
+*
+***********************************************************************/
+
+   static int TMAT_ValLis( const char * cmd )
+   {
+
+      return ( Parametros[ 0 ] >= 0 ) && ( Parametros[ 0 ] < QTD_LISTAS ) ;
+
+   } /* Fim função TMAT Validar Lista */
+
+
 /***********************************************************************
 *
 *  $FC Função: TMAT Comando Criar
@@ -283,7 +391,7 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdCriar( void )
+   static int TMAT_CmdCriar( void )
    {
       struct mat
       {
@@ -333,7 +441,7 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdDestruir( void )
+   static int TMAT_CmdDestruir( void )
    {
 
       /* Caso especial: destruir a matriz corrompida */
@@ -356,7 +464,7 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdInsCol( void )
+   static int TMAT_CmdInsCol( void )
    {
 
       return MAT_InserirColuna( Matrizes[ Parametros[ 0 ]] ) ;
@@ -372,7 +480,7 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdInsLin( void )
+   static int TMAT_CmdInsLin( void )
    {
 
       return MAT_InserirLinha( Matrizes[ Parametros[ 0 ]] ) ;
@@ -389,14 +497,11 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdLerCel( void )
+   static int TMAT_CmdLerCel( void )
    {
 
       MAT_tpCondRet ret ;
       LIS_tppLista lis ;
-      char lido ,      /* == 1 se o conteúdo da célula == &Lista */
-           esperado ;  /* == 1 o último parâmetro != 0 */
-
 
       /* Caso especial: param de retorno nulo */
       if ( ( Parametros[ 1 ] < 0 )
@@ -419,10 +524,7 @@ static tpComandoTeste Comandos[] = {
          return ret ;
       } /* if */
 
-      lido = ( ( void ** ) lis ) == &Lista ;
-      esperado = Parametros[ 3 ] != 0 ;
-
-      if ( lido != esperado )
+      if ( lis != Listas[ Parametros[ 3 ]] )
       {
          TST_NotificarFalha( "Lista lida diferente do esperado." ) ;
       } /* if */
@@ -441,13 +543,13 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdEscCel( void )
+   static int TMAT_CmdEscCel( void )
    {
 
       return MAT_EscreverCelula( Matrizes[ Parametros[ 0 ]],
                                  Parametros[ 1 ],
                                  Parametros[ 2 ],
-                                 ( LIS_tppLista ) &Lista ) ;
+                                 Listas[ Parametros[ 3 ]] ) ;
 
    } /* Fim função: TMAT Comando Escrever Célula */
 
@@ -461,7 +563,7 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdExcCol( void )
+   static int TMAT_CmdExcCol( void )
    {
 
       return MAT_ExcluirColuna( Matrizes[ Parametros[ 0 ]],
@@ -479,12 +581,82 @@ static tpComandoTeste Comandos[] = {
 *
 ***********************************************************************/
 
-   static MAT_tpCondRet TMAT_CmdExcLin( void )
+   static int TMAT_CmdExcLin( void )
    {
 
       return MAT_ExcluirLinha( Matrizes[ Parametros[ 0 ]],
                                Parametros[ 1 ] ) ;
 
    } /* Fim função: TMAT Comando Excluir Linha */
+
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Criar lista
+*
+*  $ED Descrição da função
+*     Cria uma lista no índice passado como o primeiro parâmetro de
+*     teste
+*
+***********************************************************************/
+
+   static int TMAT_CmdCriarLis( void )
+   {
+
+      return LIS_CriarLista( &Listas[ Parametros[ 0 ]] ) ;
+
+   } /* Fim função: Comando Criar lista */
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Destruir lista
+*
+*  $ED Descrição da função
+*     Destroi a lista no índice passado como o primeiro parâmetro de
+*     teste
+*
+***********************************************************************/
+
+   static int TMAT_CmdDestruirLis( void )
+   {
+
+      return LIS_DestruirLista( Listas[ Parametros[ 0 ]] ) ;
+      Listas[ Parametros[ 0 ]] = NULL ;
+
+   } /* Fim função: Comando Destruir lista */
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Esvaziar lista
+*
+*  $ED Descrição da função
+*     Remove todos os elementos da lista no índice passado como o
+*     primeiro parâmetro de teste
+*
+***********************************************************************/
+
+   static int TMAT_CmdEsvaziarLis( void )
+   {
+
+      return LIS_EsvaziarLista( Listas[ Parametros[ 0 ]] ) ;
+
+   } /* Fim função: Comando Esvaziar lista */
+
+/***********************************************************************
+*
+*  $FC Função: TMAT Comando Inserir na lista
+*
+*  $ED Descrição da função
+*     Insere o caracter passado como o segundo parâmetro no comando de
+*     teste na lista no índice passado como o primeiro parâmetro
+*
+***********************************************************************/
+
+   static int TMAT_CmdInserirLis( void )
+   {
+
+      return LIS_InserirElementoApos( Listas[ Parametros[ 0 ]] , PARAM_CHAR( 1 )) ;
+
+   } /* Fim função: Comando Inserir na lista */
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/

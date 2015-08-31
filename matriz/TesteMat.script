@@ -8,10 +8,17 @@
 // Matriz 10 é criada (com =criar) como uma estrutura corrompida
 // Matriz 11 é sempre null
 // Este teste é completo
+//
 
 == Teste de recuperar
 =destruir  1    1
 =recuperar
+
+== Criar a lista 0
+=criarlis  0    0
+
+== Criar a lista 1
+=criarlis  1    0
 
 == Criar a matriz 0
 =criar     0    0
@@ -23,10 +30,10 @@
 =inscol    0    0
 
 == Escrever na célula (0,0) da matriz 0
-=esccel    0    0    0    0
+=esccel    0    0    0    0    0
 
 == Ler a célula (0,0) da matriz 0
-=lercel    0    0    0    1    0
+=lercel    0    0    0    0    0
 
 == Inserir 4 linhas, 3 colunas, escrever e ler na célula (1,2) da matriz 0
 =inslin    0    0
@@ -36,28 +43,28 @@
 =inscol    0    0
 =inscol    0    0
 =inscol    0    0
-=esccel    0    1    2    0
+=esccel    0    1    2    1    0
 =lercel    0    1    2    1    0
 
 == Verificar se a célula (1,0) da matriz 0 está vazia
-=lercel    0    1    0    0    0
+=lercel    0    1    0    3    0
 
 == Excluir linha 1 e verificar se a célua (1,1) da matriz 0 está preenchida
 =exclin    0    1    0
 =lercel    0    1    1    1    0
 
 == Verificar que a célula (0,1) da matriz 0 está vazia
-=lercel    0    0    1    0    0
+=lercel    0    0    1    3    0
 
 == Excluir coluna 0 da matriz 0 e verificar se a célula (0,1) está preenchida
 =exccol    0    0    0
 =lercel    0    0    1    1    0
 
 == Escrever e ler na célula (3,3) excluir a coluna 2 e verificar se a célula (2,3) está preenchida na matriz 0
-=esccel    0    3    3    0
-=lercel    0    3    3    1    0
+=esccel    0    3    3    0    0
+=lercel    0    3    3    0    0
 =exccol    0    2    0
-=lercel    0    2    3    1    0
+=lercel    0    2    3    0    0
 
 == Excluir coluna 2 da matriz 0
 =exccol    0    2    0
@@ -68,7 +75,7 @@
 == Excluir linha 0 da matriz 0
 =exclin    0    0    0
 
-== Verificar que a célula (0,0) da matriz 0 esá preenchida
+== Verificar que a célula (0,0) da matriz 0 está preenchida
 =lercel    0    0    0    1    0
 
 == Criar uma matriz corrompida
@@ -102,13 +109,13 @@
 =lercel    0    -1   -1   0    6
 
 == Escrever célula (0,0) de uma matriz corrompida
-=esccel   10    0    0    1
+=esccel   10    0    0    0    1
 
 == Escrever célula (0,0) de uma matriz nula
-=esccel   11    0    0    2
+=esccel   11    0    0    0    2
 
 == Escrever célula que não existe na matriz 0
-=esccel    0    9    9    3
+=esccel    0    9    9    0    3
 
 == Excluir coluna de uma matriz corrompida
 =exccol   10    0    1
@@ -130,3 +137,4 @@
 
 == Destruir a matriz 0
 =destruir  0    0
+

@@ -1,12 +1,12 @@
 SRC := matriz.c \
-       testmat.c
+       testmat.c \
+       lista.c
 
 APP := testmat
 APP_WIN := testmat.exe
 LIB := ../arcabouc/Produto/ArcaboucoTeste.a
 LIB_WIN := ../arcabouc/Produto/ArcaboucoTeste.lib
-HEADERS := ../arcabouc/Fontes \
-           ../Lista
+HEADERS := ../arcabouc/Fontes
 OBJ_PATH := Build
 OBJ_PATH_WIN := Build-win
 
