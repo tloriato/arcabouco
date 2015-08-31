@@ -478,6 +478,12 @@
          pMatriz->ColCorr = 0 ;
       } /* if */
 
+      /* Conserta ColCorr */
+      if ( pMatriz->ColCorr > Coluna )
+      {
+         pMatriz->ColCorr -- ;
+      } /* if */
+
       while ( pCel != NULL )
       {
          pProximaCel = pCel->pCelDir[ MAT_DirSul ] ;
@@ -516,12 +522,18 @@
       } /* if */
 
       /* Troca a célula corrente para a raiz caso ela seja excluida */
-//      if ( pMatriz->LinhaCorr == Linha )
-//      {
+      if ( pMatriz->LinhaCorr == Linha )
+      {
          pMatriz->pCelCorr = pMatriz->pCelRaiz ;
          pMatriz->LinhaCorr = 0 ;
          pMatriz->ColCorr = 0 ;
-//      } /* if */
+      } /* if */
+
+      /* Conserta LinhaCorr */
+      if ( pMatriz->LinhaCorr > Linha )
+      {
+         pMatriz->LinhaCorr -- ;
+      } /* if */
 
       while ( cel != NULL )
       {
