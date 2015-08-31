@@ -6,7 +6,7 @@
 *
 *  Projeto: Disciplina INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
-*           gapm - Guilherme de Azevedo Peraira Marques
+*           gapm - Guilherme de Azevedo Pereira Marques
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
@@ -166,6 +166,7 @@
                                                    tpCelulaMatriz ** Celula ) ;
 
    static void ExcluirCelula( tpCelulaMatriz * cel ) ;
+
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -515,12 +516,12 @@
       } /* if */
 
       /* Troca a célula corrente para a raiz caso ela seja excluida */
-      if ( pMatriz->LinhaCorr == Linha )
-      {
+//      if ( pMatriz->LinhaCorr == Linha )
+//      {
          pMatriz->pCelCorr = pMatriz->pCelRaiz ;
          pMatriz->LinhaCorr = 0 ;
          pMatriz->ColCorr = 0 ;
-      } /* if */
+//      } /* if */
 
       while ( cel != NULL )
       {
@@ -529,7 +530,7 @@
          cel = proximaCel ;
       } /* while */
 
-      pMatriz->QuantidadeColunas -- ;
+      pMatriz->QuantidadeLinhas -- ;
 
       return MAT_CondRetOK;
 
@@ -714,7 +715,8 @@
    static void ExcluirCelula( tpCelulaMatriz * cel )
    {
 
-      int dir;
+      int dir ;
+      tpCelulaMatriz * diag ;
 
       if ( cel->Lista != NULL )
       {
@@ -724,11 +726,85 @@
 
       for ( dir = 0 ; dir < QUANTIDADE_DIR ; dir ++ )
       {
-         if ( cel->pCelDir[ Direcoes[ dir ]] )
+         if ( cel->pCelDir[ Direcoes[ dir ]] != NULL )
          {
-            cel->pCelDir[ Direcoes[ dir ]]->pCelDir[ DirOposta[ dir]] = cel->pCelDir[ DirOposta[ dir ]] ;
+            cel->pCelDir[ Direcoes[ dir ]]->pCelDir[ DirOposta[ dir ]] = cel->pCelDir[ DirOposta[ dir ]] ;
          } /* if */
       } /* for */
+
+      /* Conserta as diagonais no caso de cel estar na boarda */
+
+      if ( ( cel->pCelDir[ MAT_DirNoroeste ] == NULL )
+        && ( cel->pCelDir[ MAT_DirSudeste ] != NULL ))
+      {
+         /* Substituto do noroeste é o norte ou oeste ( o que não for NULL, se houver ) */
+         diag = cel->pCelDir[ MAT_DirNorte ] ;
+         if ( diag ==  NULL )
+         {
+            diag = cel->pCelDir[ MAT_DirOeste ] ;
+         } /* if */
+
+         cel->pCelDir[ MAT_DirSudeste ]->pCelDir[ MAT_DirNoroeste ] = diag ;
+
+         if ( diag != NULL )
+         {
+            diag->pCelDir[ MAT_DirSudeste ] = cel->pCelDir[ MAT_DirSudeste ] ;
+         } /* if */
+      } /* if */
+
+      if ( ( cel->pCelDir[ MAT_DirSudeste ] == NULL )
+        && ( cel->pCelDir[ MAT_DirNoroeste ] != NULL ))
+      {
+         /* Substituto do sudeste é o sul ou leste ( o que não for NULL, se houver ) */
+         diag = cel->pCelDir[ MAT_DirSul ] ;
+         if ( diag ==  NULL )
+         {
+            diag = cel->pCelDir[ MAT_DirLeste ] ;
+         } /* if */
+
+         cel->pCelDir[ MAT_DirNoroeste ]->pCelDir[ MAT_DirSudeste ] = diag ;
+
+         if ( diag != NULL )
+         {
+            diag->pCelDir[ MAT_DirNoroeste ] = cel->pCelDir[ MAT_DirNoroeste ] ;
+         } /* if */
+      } /* if */
+
+      if ( ( cel->pCelDir[ MAT_DirSudoeste ] == NULL )
+        && ( cel->pCelDir[ MAT_DirNordeste ] != NULL ))
+      {
+         /* Substituto do sudoeste é o sul ou oeste ( o que não for NULL, se houver ) */
+         diag = cel->pCelDir[ MAT_DirSul ] ;
+         if ( diag ==  NULL )
+         {
+            diag = cel->pCelDir[ MAT_DirOeste ] ;
+         } /* if */
+
+         cel->pCelDir[ MAT_DirNordeste ]->pCelDir[ MAT_DirSudoeste ] = diag ;
+
+         if ( diag != NULL )
+         {
+            diag->pCelDir[ MAT_DirNordeste ] = cel->pCelDir[ MAT_DirNordeste ] ;
+         } /* if */
+      } /* if */
+
+      if ( ( cel->pCelDir[ MAT_DirNordeste ] == NULL )
+        && ( cel->pCelDir[ MAT_DirSudoeste ] != NULL ))
+      {
+         /* Substituto do nordeste é o norte ou leste ( o que não for NULL, se houver ) */
+         diag = cel->pCelDir[ MAT_DirNorte ] ;
+         if ( diag ==  NULL )
+         {
+            diag = cel->pCelDir[ MAT_DirLeste ] ;
+         } /* if */
+
+         cel->pCelDir[ MAT_DirSudoeste ]->pCelDir[ MAT_DirNordeste ] = diag ;
+
+         if ( diag != NULL )
+         {
+            diag->pCelDir[ MAT_DirSudoeste ] = cel->pCelDir[ MAT_DirSudoeste ] ;
+         } /* if */
+      } /* if */
 
       free( cel ) ;
 
