@@ -26,9 +26,14 @@
 == Ler a célula (0,0) da matriz 0
 =lercel    0    0    0    1    0
 
-== Inserir 2 linhas, escrever e ler na célula (1,2) da matriz 0
+== Inserir 4 linhas, 3 colunas, escrever e ler na célula (1,2) da matriz 0
 =inslin    0    0
 =inslin    0    0
+=inslin    0    0
+=inslin    0    0
+=inscol    0    0
+=inscol    0    0
+=inscol    0    0
 =esccel    0    1    2    0
 =lercel    0    1    2    1    0
 

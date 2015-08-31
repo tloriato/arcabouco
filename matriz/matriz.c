@@ -736,7 +736,7 @@
          //LIS_DestruirLista( cel->Lista ) ;
       } /* if */
 
-      for ( dir = 0 ; dir < QUANTIDADE_DIR ; dir ++ )
+      for ( dir = 0 ; dir < 4 ; dir ++ )
       {
          if ( cel->pCelDir[ Direcoes[ dir ]] != NULL )
          {
@@ -744,10 +744,9 @@
          } /* if */
       } /* for */
 
-      /* Conserta as diagonais no caso de cel estar na boarda */
+      /* Conserta as diagonais */
 
-      if ( ( cel->pCelDir[ MAT_DirNoroeste ] == NULL )
-        && ( cel->pCelDir[ MAT_DirSudeste ] != NULL ))
+      if ( cel->pCelDir[ MAT_DirSudeste ] != NULL )
       {
          /* Substituto do noroeste é o norte ou oeste ( o que não for NULL, se houver ) */
          diag = cel->pCelDir[ MAT_DirNorte ] ;
@@ -764,8 +763,7 @@
          } /* if */
       } /* if */
 
-      if ( ( cel->pCelDir[ MAT_DirSudeste ] == NULL )
-        && ( cel->pCelDir[ MAT_DirNoroeste ] != NULL ))
+      if ( cel->pCelDir[ MAT_DirNoroeste ] != NULL )
       {
          /* Substituto do sudeste é o sul ou leste ( o que não for NULL, se houver ) */
          diag = cel->pCelDir[ MAT_DirSul ] ;
@@ -782,8 +780,7 @@
          } /* if */
       } /* if */
 
-      if ( ( cel->pCelDir[ MAT_DirSudoeste ] == NULL )
-        && ( cel->pCelDir[ MAT_DirNordeste ] != NULL ))
+      if ( cel->pCelDir[ MAT_DirNordeste ] != NULL )
       {
          /* Substituto do sudoeste é o sul ou oeste ( o que não for NULL, se houver ) */
          diag = cel->pCelDir[ MAT_DirSul ] ;
@@ -800,8 +797,7 @@
          } /* if */
       } /* if */
 
-      if ( ( cel->pCelDir[ MAT_DirNordeste ] == NULL )
-        && ( cel->pCelDir[ MAT_DirSudoeste ] != NULL ))
+      if ( cel->pCelDir[ MAT_DirSudoeste ] != NULL )
       {
          /* Substituto do nordeste é o norte ou leste ( o que não for NULL, se houver ) */
          diag = cel->pCelDir[ MAT_DirNorte ] ;
