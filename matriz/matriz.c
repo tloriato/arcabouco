@@ -133,6 +133,8 @@
          int QuantidadeColunas ;
                /* Número de colunas da matriz */
 
+         void (* destruirLista) ( LIS_tppLista lista ) ;
+               /* Função para desalocar uma lista */
    } tpMatriz ;
 
 
@@ -175,8 +177,11 @@
 *  Função: MAT Criar mariz
 *  ****/
 
-   MAT_tpCondRet MAT_CriarMatriz( MAT_tppMatriz * pMatriz )
+   MAT_tpCondRet MAT_CriarMatriz( MAT_tppMatriz * pMatriz ,
+                  void (* destruirLista) ( LIS_tppLista lista ))
    {
+
+      tpMatriz * pMat ;
 
       if ( pMatriz == NULL )
       {
@@ -188,6 +193,9 @@
       {
          return MAT_CondRetFaltouMemoria ;
       } /* if */
+
+      pMat = ( tpMatriz *) *pMatriz ;
+      pMat->destruirLista = destruirLista ;
 
       return MAT_CondRetOK ;
 
@@ -492,6 +500,13 @@
       while ( pCel != NULL )
       {
          pProximaCel = pCel->pCelDir[ MAT_DirSul ] ;
+
+         if ( ( pCel->Lista != NULL )
+           && ( pMatriz->destruirLista != NULL ))
+         {
+            pMatriz->destruirLista( pCel->Lista ) ;
+         } /* if */
+
          ExcluirCelula( pCel ) ;
          pCel = pProximaCel ;
       } /* while */
@@ -543,6 +558,13 @@
       while ( cel != NULL )
       {
          proximaCel = cel->pCelDir[ MAT_DirLeste ] ;
+
+         if ( ( cel->Lista != NULL )
+           && ( pMatriz->destruirLista != NULL ))
+         {
+            pMatriz->destruirLista( cel->Lista ) ;
+         } /* if */
+
          ExcluirCelula( cel ) ;
          cel = proximaCel ;
       } /* while */
@@ -718,7 +740,7 @@
 *  $ED Descrição da função
 *     Essa função exclui a célula passada por parâmetro e troca os ponteiros
 *     das células vizinhas de acordo.
-*     Essa função Exclui a lista armazenada na célula
+*     Essa função não exclui a lista armazenada na célula
 *
 *  $EP Parâmetros
 *     $P cel - Célula a excluir
@@ -734,12 +756,6 @@
 
       int dir ;
       tpCelulaMatriz * diag ;
-
-      if ( cel->Lista != NULL )
-      {
-         // TODO FIX
-         //LIS_DestruirLista( cel->Lista ) ;
-      } /* if */
 
       for ( dir = 0 ; dir < 4 ; dir ++ )
       {

@@ -20,6 +20,9 @@
 == Criar a lista 1
 =criarlis  1    0
 
+== Criar a lista 2
+=criarlis  2    0
+
 == Criar a matriz 0
 =criar     0    0
 
@@ -61,10 +64,10 @@
 =lercel    0    0    1    1    0
 
 == Escrever e ler na célula (3,3) excluir a coluna 2 e verificar se a célula (2,3) está preenchida na matriz 0
-=esccel    0    3    3    0    0
-=lercel    0    3    3    0    0
+=esccel    0    3    3    2    0
+=lercel    0    3    3    2    0
 =exccol    0    2    0
-=lercel    0    2    3    0    0
+=lercel    0    2    3    2    0
 
 == Excluir coluna 2 da matriz 0
 =exccol    0    2    0

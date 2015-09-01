@@ -89,8 +89,10 @@ typedef void * MAT_tppMatriz;
 *     Se não for possível criar a matriz, Matriz será NULL
 *
 *  $EP Parâmetros
-*     $P Matriz - parâmetro para retorno do matriz
-*                 Este parâmetro é passado por referência
+*     $P Matriz        - parâmetro para retorno do matriz
+*                        Este parâmetro é passado por referência
+*     $P destruirLista - ponteiro de função para que será
+*                        chamada para desalocar uma lista.
 *
 *  $FV Valor retornado
 *     MAT_CondRetOK
@@ -99,7 +101,8 @@ typedef void * MAT_tppMatriz;
 *
 ***********************************************************************/
 
-   MAT_tpCondRet MAT_CriarMatriz( MAT_tppMatriz * pMatriz ) ;
+   MAT_tpCondRet MAT_CriarMatriz( MAT_tppMatriz * pMatriz ,
+                  void (* destruirLista) ( LIS_tppLista lista )) ;
 
 
 /***********************************************************************

@@ -209,6 +209,7 @@ static int TMAT_CmdEsvaziarLis( void ) ;
 static int TMAT_CmdInserirLis( void ) ;
 static int TMAT_ValMat( const char * cmd ) ;
 static int TMAT_ValLis( const char * cmd ) ;
+static void TMAT_MatDestruirLista( LIS_tppLista Lista ) ;
 
 
 /*****  Variáveis globais à este módulo  *****/
@@ -384,6 +385,20 @@ static tpComandoTeste Comandos[] = {
 
 /***********************************************************************
 *
+*  $FC Função: TMAT Mat Destruir Lista
+*
+*  $ED Descrição da função
+*     Função chamada pela matriz para desalocar uma lista
+*
+***********************************************************************/
+
+   static void TMAT_MatDestruirLista( LIS_tppLista Lista )
+   {
+      LIS_DestruirLista( Lista ) ;
+   }
+
+/***********************************************************************
+*
 *  $FC Função: TMAT Comando Criar
 *
 *  $ED Descrição da função
@@ -405,7 +420,7 @@ static tpComandoTeste Comandos[] = {
 
       if ( Parametros[ 0 ] == QTD_MATRIZES )
       {
-         return MAT_CriarMatriz( NULL ) ;
+         return MAT_CriarMatriz( NULL , NULL ) ;
       } /* if */
 
       /* Caso especial: cria uma matriz corrompida */
@@ -428,7 +443,7 @@ static tpComandoTeste Comandos[] = {
          return MAT_CondRetOK ;
       } /* if */
 
-      return MAT_CriarMatriz( &Matrizes[ Parametros[ 0 ]] ) ;
+      return MAT_CriarMatriz( &Matrizes[ Parametros[ 0 ]] , TMAT_MatDestruirLista ) ;
 
    } /* Fim função: TMAT Comando Criar */
 

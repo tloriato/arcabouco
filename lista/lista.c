@@ -6,12 +6,12 @@
 *
 *  Projeto: INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
-*			gapm - Guilherme de Azevedo Pereira Marques
-*			tdn - Thiago Duarte Naves
+*           gapm - Guilherme de Azevedo Pereira Marques
+*           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão        Autor             Data               Observações
-*     1.00		gbo, gapm, tdn     28/08/2015     Início do desenvolvimento.
+*     Versão        Autor              Data           Observações
+*     1.00          gbo, gapm, tdn     28/08/2015     Início do desenvolvimento.
 *
 ***************************************************************************/
 
@@ -22,7 +22,7 @@
 #include   <assert.h>
 
 #define LISTA_OWN
-#include "LISTA.h"
+#include "lista.h"
 #undef LISTA_OWN
 
 /***********************************************************************
@@ -88,13 +88,13 @@
    LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista )
    {	
 
-		/*if (pLista == NULL)
+		if (pLista == NULL)
 		{
 			return LIS_CondRetPonteiroRetornoNulo;
 		}/* if */
 
 		*pLista = ( LIS_tppLista ) malloc( sizeof( LIS_tpLista )) ;
-		if ( pLista == NULL )
+		if ( *pLista == NULL )
 		{
 			return LIS_CondRetFaltouMemoria ;
 		} /* if */
@@ -159,7 +159,7 @@
 *  Função: LIS  &Inserir elemento antes
 *  ****/
 
-   LIS_tpCondRet LIS_InserirElementoAntes( LIS_tppLista pLista ,
+   LIS_tpCondRet LIS_InserirElementoAntes( LIS_tpLista * pLista ,
 												char pValor )
    {
 

@@ -1,7 +1,7 @@
 SRC := testlis.c \
        lista.c
 
-APP := testmat
+APP := testlis
 APP_WIN := testmat.exe
 LIB := ../arcabouc/Produto/ArcaboucoTeste.a
 LIB_WIN := ../arcabouc/Produto/ArcaboucoTeste.lib

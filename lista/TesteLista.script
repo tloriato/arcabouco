@@ -1,112 +1,143 @@
 // Script:    TesteLista.script
-// Autor:     Arndt von Staa
-// Data:      02/abr/2008
-// PropÛsito: Testar superficialmente o mÛdulo lista genÈrica duplamente encadeada
+// Autores:   Gabriel Barbosa de Oliveira
+//            Guilherme de Azevedo Pereira Marques
+//            Thiago Duarte Naves
+// Data:      31/08/2015
+// Prop√≥sito: Testar o m√≥dulo lista de caracteres duplamente encadeada
+//
+// Este teste √© completo
 //
 
-== Inicializar valores
-=declararparm   lista0  int 0
-=declararparm   lista1  int 1
-=declararparm   lista2  int 2
-
-=declararparm   str0    string  "abcdefg"
-=declararparm   str1    string  "qwerty"
-=declararparm   str2    string  "xxx"
-=declararparm   str3    string  "xpto"
-
-=declararparm   OK             int  0
-=declararparm   ListaVazia     int  1
-=declararparm   FimLista       int  2
-=declararparm   NaoAchou       int  3
-=declararparm   FaltouMemoria  int  4
-
-=declararparm   pNULL          int  0
-=declararparm   pNaoNULL       int  1
-
 == Criar a lista 0
-=criarlista      lista0 
+=criarlista      0
 
 == Verificar ObterValor relativo a lista vazia
-=obtervalorelem  lista0   "???"     pNULL
+=obtervalorelem    0   'a'    0
 
 == Inserir elemento em lista vazia
-=inselemantes    lista0   str0   OK
-=obtervalorelem  lista0   str0   pNaoNULL
+=inselemantes      0   'a'    0
+=obtervalorelem    0   'a'    1
 
-== Inserir elemento apÛs primeiro
-=inselemapos     lista0   str1   OK
-=obtervalorelem  lista0   str1   pNaoNULL
+== Inserir elemento ap√≥s primeiro
+=inselemapos       0   'b'	 0
+=obtervalorelem    0   'b'       1
 
-== Inserir elemento antes do ˙ltimo
-=inselemantes    lista0   str2   OK
-=obtervalorelem  lista0   str2   pNaoNULL
+== Inserir elemento antes do √∫ltimo
+=inselemantes      0   'c'    0
+=obtervalorelem    0   'c'    1
 
 == Excluir elemento do meio
-=obtervalorelem  lista0   str2   pNaoNULL
-=excluirelem     lista0             OK
+=obtervalorelem    0   'c'       1
+=excluirelem       0             0
 
-== Excluir elemento do inÌcio
-=obtervalorelem  lista0   str0   pNaoNULL
-=excluirelem     lista0             OK
+== Excluir elemento do in√≠cio
+=obtervalorelem    0   'a'    1
+=excluirelem       0          0
 
-== Excluir elemento final, ˙nico 
-=obtervalorelem  lista0   str1   pNaoNULL
-=excluirelem     lista0             OK
+== Excluir elemento final, √∫nico 
+=obtervalorelem    0   'b'    1
+=excluirelem       0          0
 
 == Ver se a lista ficou vazia
-=obtervalorelem  lista0   "???"     pNULL
+=obtervalorelem    0   's'     0
 
 == Destruir a lista
-=destruirlista   lista0
+=destruirlista     0
 
 == Criar uma lista com dois elementos
-=criarlista      lista1 
-=inselemapos     lista1   str0   OK
-=inselemapos     lista1   str1   OK
+=criarlista        1 
+=inselemapos       1    'a'   0
+=inselemapos       1    'b'   0
 
 == Esvaziar a lista e ver se ficou vazia
-=esvaziarlista   lista1
-=obtervalorelem  lista1   "???"     pNULL
+=esvaziarlista     1
+=obtervalorelem    1   'l'     0
 
 == Destruir a lista
-=destruirlista   lista1
+=destruirlista     1
 
 == Criar uma lista com quatro elementos
-=criarlista      lista2 
-=inselemapos     lista2   str0   OK
-=inselemapos     lista2   str1   OK
-=inselemapos     lista2   str2   OK
-=inselemapos     lista2   str3   OK
+=criarlista      2 
+=inselemapos     2   'a'   0
+=inselemapos     2   'b'   0
+=inselemapos     2   'c'   0
+=inselemapos     2   'd'   0
 
-== Verificar a lista de tr·s para diante
-=obtervalorelem  lista2   str3   pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str2   pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str1   pNaoNULL
-=avancarelem     lista2   -1     OK
-=obtervalorelem  lista2   str0   pNaoNULL
-=avancarelem     lista2   -1     FimLista
+== Verificar a lista de tr√°s para diante
+=obtervalorelem       2   'd'    1
+=avancarelem          2   -1     0
+=obtervalorelem       2   'c'    1
+=avancarelem          2   -1     0
+=obtervalorelem       2   'b'    1
+=avancarelem          2   -1     0
+=obtervalorelem       2   'a'    1
+=avancarelem          2   -1     2
 
-== Verificar a lista de frente para tr·s
-=obtervalorelem  lista2   str0   pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str1   pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str2   pNaoNULL
-=avancarelem     lista2   1      OK
-=obtervalorelem  lista2   str3   pNaoNULL
-=avancarelem     lista2   1      FimLista
+== Verificar a lista de frente para tr√°s
+=obtervalorelem    2   'a'   1
+=avancarelem       2    1    0
+=obtervalorelem    2   'b'   1
+=avancarelem       2    1    0
+=obtervalorelem    2   'c'   1
+=avancarelem       2    1    0
+=obtervalorelem    2   'd'   1
+=avancarelem       2    1    2
 
-== Verificar a lista andando demais de tr·s para diante
-=avancarelem     lista2   -10     FimLista
-=obtervalorelem  lista2   str0   pNaoNULL
+== Verificar a lista andando demais de tr√°s para diante
+=avancarelem        2   -10    2
+=obtervalorelem     2   'a'    1
 
-== Verificar a lista andando demais de frente para tr·s
-=avancarelem     lista2   10     FimLista
-=obtervalorelem  lista2   str3   pNaoNULL
+== Verificar a lista andando demais de frente para tr√°s
+=avancarelem       2   10   2
+=obtervalorelem    2  'd'   1
 
 == Destruir a lista
-=destruirlista   lista2
+=destruirlista   2
+
+==Criar lista  com quatro elementos
+=criarlista     3
+=inselemapos    3   'a'   0 
+=inselemapos    3   'b'   0
+=inselemapos    3   'c'   0
+=inselemapos    3   'd'   0
+
+==Ir at√© o final da lista
+=irfinal         3
+=obtervalorelem  3   'd'  1
+
+==Ir para o in√≠cio da lista
+=irinicio        3
+=obtervalorelem  3   'a'  1
+
+==Testar a recupera√ß√£o de erro
+=obtervalorelem  3   'b'  1
+=recuperar
+
+==Destruir a lista
+=destruirlista   3
+
+==Criar lista com um elemento
+=criarlista      4
+=inselemapos	 4   'g'   0
+
+==Ir at√© o final
+=irfinal         4
+=obtervalorelem  4   'g'  1
+
+==Ir at√© o come√ßo
+=irinicio        4
+=obtervalorelem  4   'g'  1
+
+==Destruir a lista
+=destruirlista   4
+
+==Cria lista vazia
+=criarlista      5
+
+==Excluir elemento na lista vazia
+=excluirelem     5      1
+
+==Destruir lista
+=destruirlista   5
 
 // fim
