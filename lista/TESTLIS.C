@@ -92,7 +92,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       LIS_tpCondRet CondRet ;
       LIS_tpCondRet Ret ;
 
-      char StringDado[  DIM_VALOR ] ;
+      char StringDado[ DIM_VALOR ] ;
       char pDado = '\0' ;
       char teste = '\0' ;
 
@@ -123,15 +123,20 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       else if ( strcmp( ComandoTeste , CRIAR_LISTA_CMD ) == 0 )
       {
 
-         numLidos = LER_LerParametros( "i" , &inxLista ) ;
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
 
-         if ( ( numLidos != 1 )
+         if ( ( numLidos != 2 )
            || ( ! ValidarInxLista( inxLista , VAZIO )))
          {
             return TST_CondRetParm ;
          } /* if */
 
          Ret = LIS_CriarLista( &vtListas[ inxLista ] ) ;
+
+         if ( Ret != LIS_CondRetOK )
+         {
+            return TST_CompararInt( ValEsp , Ret , "Retorno diferente do esperado." ) ;
+         } /* if */
 
          return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] ,
                "Erro em ponteiro de nova lista."  ) ;
@@ -143,17 +148,16 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       else if ( strcmp( ComandoTeste , ESVAZIAR_LISTA_CMD ) == 0 )
       {
 
-         numLidos = LER_LerParametros( "i" , &inxLista ) ;
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
 
-         if ( ( numLidos != 1 )
+         if ( ( numLidos != 2 )
            || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
          {
             return TST_CondRetParm ;
          } /* if */
 
-         LIS_EsvaziarLista( vtListas[ inxLista ] ) ;
-
-         return TST_CondRetOK ;
+         return TST_CompararInt( ValEsp , LIS_EsvaziarLista( vtListas[ inxLista ] ) ,
+               "Retorno diferente do esperado." ) ;
 
       } /* fim ativa: Testar Esvaziar lista lista */
 
@@ -162,18 +166,18 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       else if ( strcmp( ComandoTeste , DESTRUIR_LISTA_CMD ) == 0 )
       {
 
-         numLidos = LER_LerParametros( "i" , &inxLista ) ;
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
 
-         if ( ( numLidos != 1 )
+         if ( ( numLidos != 2 )
            || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
          {
             return TST_CondRetParm ;
          } /* if */
 
-         LIS_DestruirLista( vtListas[ inxLista ] ) ;
+         Ret = LIS_DestruirLista( vtListas[ inxLista ] ) ;
          vtListas[ inxLista ] = NULL ;
 
-         return TST_CondRetOK ;
+         return TST_CompararInt( ValEsp , Ret , "Retorno diferente do esperado." ) ;
 
       } /* fim ativa: Testar Destruir lista */
 
@@ -255,6 +259,11 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
          Ret = LIS_ObterValor( vtListas[ inxLista ], &pDado ) ;
 
+         if ( Ret != LIS_CondRetOK )
+         {
+            return TST_CompararInt( ValEsp , Ret , "Retorno diferente do esperado." ) ;
+         } /* if */
+
          return TST_CompararChar( teste  , pDado ,
                "Valor do elemento errado." ) ;
 
@@ -265,17 +274,17 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       else if ( strcmp( ComandoTeste , IR_INICIO_CMD ) == 0 )
       {
 
-         numLidos = LER_LerParametros( "i" , &inxLista ) ;
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
 
-         if ( ( numLidos != 1 )
+         if ( ( numLidos != 2 )
            || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
          {
             return TST_CondRetParm ;
          } /* if */
 
-         IrInicioLista( vtListas[ inxLista ] ) ;
+         Ret = IrInicioLista( vtListas[ inxLista ] ) ;
 
-         return TST_CondRetOK ;
+         return TST_CompararInt( ValEsp , Ret , "Retorno diferente do esperado." ) ;
 
       } /* fim ativa: Testar ir para o elemento inicial */
 
@@ -284,17 +293,17 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       else if ( strcmp( ComandoTeste , IR_FIM_CMD ) == 0 )
       {
 
-         numLidos = LER_LerParametros( "i" , &inxLista ) ;
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
 
-         if ( ( numLidos != 1 )
+         if ( ( numLidos != 2 )
            || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
          {
             return TST_CondRetParm ;
          } /* if */
 
-         IrFinalLista( vtListas[ inxLista ] ) ;
+         Ret = IrFinalLista( vtListas[ inxLista ] ) ;
 
-         return TST_CondRetOK ;
+         return TST_CompararInt( ValEsp , Ret , "Retorno diferente do esperado." ) ;
 
       } /* fim ativa: LIS  &Ir para o elemento final */
 

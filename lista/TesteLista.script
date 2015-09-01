@@ -9,10 +9,10 @@
 //
 
 == Criar a lista 0
-=criarlista      0
+=criarlista        0   0
 
 == Verificar ObterValor relativo a lista vazia
-=obtervalorelem    0   'a'    0
+=obtervalorelem    0   'a'    3
 
 == Inserir elemento em lista vazia
 =inselemantes      0   'a'    0
@@ -39,25 +39,25 @@
 =excluirelem       0          0
 
 == Ver se a lista ficou vazia
-=obtervalorelem    0   's'     0
+=obtervalorelem    0   's'     3
 
 == Destruir a lista
-=destruirlista     0
+=destruirlista     0     0
 
 == Criar uma lista com dois elementos
-=criarlista        1 
+=criarlista        1     0
 =inselemapos       1    'a'   0
 =inselemapos       1    'b'   0
 
 == Esvaziar a lista e ver se ficou vazia
-=esvaziarlista     1
-=obtervalorelem    1   'l'     0
+=esvaziarlista     1    0
+=obtervalorelem    1   'l'     3
 
 == Destruir a lista
-=destruirlista     1
+=destruirlista   1    0 
 
 == Criar uma lista com quatro elementos
-=criarlista      2 
+=criarlista      2    0
 =inselemapos     2   'a'   0
 =inselemapos     2   'b'   0
 =inselemapos     2   'c'   0
@@ -92,21 +92,21 @@
 =obtervalorelem    2  'd'   1
 
 == Destruir a lista
-=destruirlista   2
+=destruirlista     2   0
 
 ==Criar lista  com quatro elementos
-=criarlista     3
+=criarlista     3    0
 =inselemapos    3   'a'   0 
 =inselemapos    3   'b'   0
 =inselemapos    3   'c'   0
 =inselemapos    3   'd'   0
 
 ==Ir até o final da lista
-=irfinal         3
+=irfinal         3    0
 =obtervalorelem  3   'd'  1
 
 ==Ir para o início da lista
-=irinicio        3
+=irinicio        3    0
 =obtervalorelem  3   'a'  1
 
 ==Testar a recuperação de erro
@@ -114,30 +114,30 @@
 =recuperar
 
 ==Destruir a lista
-=destruirlista   3
+=destruirlista   3    0
 
 ==Criar lista com um elemento
-=criarlista      4
+=criarlista     4    0
 =inselemapos	 4   'g'   0
 
 ==Ir até o final
-=irfinal         4
+=irfinal         4    0
 =obtervalorelem  4   'g'  1
 
 ==Ir até o começo
-=irinicio        4
+=irinicio        4    0
 =obtervalorelem  4   'g'  1
 
 ==Destruir a lista
-=destruirlista   4
+=destruirlista   4    0
 
 ==Cria lista vazia
-=criarlista      5
+=criarlista      5    0
 
 ==Excluir elemento na lista vazia
 =excluirelem     5      1
 
 ==Destruir lista
-=destruirlista   5
+=destruirlista   5    0
 
 // fim

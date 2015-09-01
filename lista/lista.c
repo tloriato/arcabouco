@@ -86,23 +86,22 @@
 *  ****/
 
    LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista )
-   {	
+   {
 
-		if (pLista == NULL)
-		{
-			return LIS_CondRetPonteiroRetornoNulo;
-		}/* if */
+      #ifdef _DEBUG
+         assert( pLista != NULL ) ;
+      #endif
 
-		*pLista = ( LIS_tppLista ) malloc( sizeof( LIS_tpLista )) ;
-		if ( *pLista == NULL )
-		{
-			return LIS_CondRetFaltouMemoria ;
-		} /* if */
+      *pLista = ( LIS_tppLista ) malloc( sizeof( LIS_tpLista )) ;
+      if ( *pLista == NULL )
+      {
+         return LIS_CondRetFaltouMemoria ;
+      } /* if */
 
-		LimparCabeca( *pLista ) ;
+      LimparCabeca( *pLista ) ;
 
 
-		return LIS_CondRetOK;
+      return LIS_CondRetOK;
 
    } /* Fim função: LIS  &Criar lista */
 
@@ -122,7 +121,7 @@
 
       free( pLista ) ;
 
-	  return LIS_CondRetOK;
+     return LIS_CondRetOK;
    } /* Fim função: LIS  &Destruir lista */
 
 /***************************************************************************
@@ -150,7 +149,7 @@
 
       LimparCabeca( pLista ) ;
 
-	  return LIS_CondRetOK;
+     return LIS_CondRetOK;
 
    } /* Fim função: LIS  &Esvaziar lista */
 
@@ -160,7 +159,7 @@
 *  ****/
 
    LIS_tpCondRet LIS_InserirElementoAntes( LIS_tpLista * pLista ,
-												char pValor )
+                                           char pValor )
    {
 
       tpElemLista * pElem ;
@@ -210,8 +209,7 @@
 *  ****/
 
    LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista pLista ,
-											char pValor )
-      
+                                          char pValor )
    {
 
       tpElemLista * pElem ;
@@ -249,9 +247,9 @@
             pLista->pElemCorr->pProx = pElem ;
 
          } /* if */
-                  
+
          pLista->pElemCorr = pElem ;
-                  
+
          return LIS_CondRetOK ;
 
    } /* Fim função: LIS  &Inserir elemento após */
@@ -314,14 +312,15 @@
 
       #ifdef _DEBUG
          assert( pLista != NULL ) ;
-      #endif 
+         assert( pValor != NULL ) ;
+      #endif
 
       if ( pLista->pElemCorr == NULL )
       {
-        return LIS_CondRetNaoAchou;
+         return LIS_CondRetNaoAchou;
       } /* if */
 
-	  *pValor = pLista->pElemCorr->pValor;
+      *pValor = pLista->pElemCorr->pValor;
 
       return LIS_CondRetOK;
 
@@ -341,7 +340,7 @@
 
       pLista->pElemCorr = pLista->pOrigemLista ;
 
-	  return LIS_CondRetOK;
+      return LIS_CondRetOK;
 
    } /* Fim função: LIS  &Ir para o elemento inicial */
 
@@ -359,7 +358,7 @@
 
       pLista->pElemCorr = pLista->pFimLista ;
 
-	  return LIS_CondRetOK;
+      return LIS_CondRetOK;
 
    } /* Fim função: LIS  &Ir para o elemento final */
 
@@ -497,7 +496,7 @@
 ***********************************************************************/
 
  void LiberarElemento( LIS_tppLista   pLista ,
-                         tpElemLista  * pElem   )
+                       tpElemLista  * pElem   )
    {
 
       free( pElem ) ;
@@ -531,7 +530,6 @@
 
       pLista->numElem ++ ;
 
-	  
       return pElem;
 
    } /* Fim função: LIS  -Criar o elemento */

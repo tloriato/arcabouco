@@ -86,9 +86,6 @@ typedef struct LIS_tagLista * LIS_tppLista ;
          LIS_CondRetFaltouMemoria = 4 ,
                /* Faltou memória ao tentar criar um elemento de lista */
 
-		LIS_CondRetPonteiroRetornoNulo = 5
-               /*Ponteiro de retorno nulo*/
-
    } LIS_tpCondRet ;
 
 
@@ -100,26 +97,20 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     Cria uma lista genérica duplamente encadeada
 *     e a retorna através do ponteiro passado como 
 *     parâmetro.
-*    
+*
 *
 *  $EP Parâmetros
-*	  
+*
 *     pLista    -   ponteiro para o retorno da lista
 *
-*     ExcluirValor  - ponteiro para a função que processa a
-*                     exclusão do valor referenciado pelo elemento
-*                     a ser excluído.
-*                     Ver descrição do módulo.
-*
 *  $FV Valor retornado
-*     LIS_CondRetOK - Criou sem problemas
-*	  LIS_CondRetFaltouMemoria  -  Ocorreu um erro por falta de memória
-*	  LIS_CondRetPonteiroRetornoNulo   -  O ponteiro de retorno é nulo.
+*    LIS_CondRetOK - Criou sem problemas
+*    LIS_CondRetFaltouMemoria  -  Ocorreu um erro por falta de memória
 *
 ***********************************************************************/
 
    LIS_tpCondRet LIS_CriarLista(LIS_tppLista * pLista);
-										
+
 
 
 /***********************************************************************
@@ -179,7 +170,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
    LIS_tpCondRet LIS_InserirElementoAntes( LIS_tppLista pLista ,
-											 char pValor ) ;
+                                           char pValor ) ;
 
 
 /***********************************************************************
@@ -194,7 +185,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     Parâmetros
 *        pLista - ponteiro para a lista onde deve ser inserido o elemento
 *        pValor - valor do novo elemento
-*           
+*
 *
 *  $FV Valor retornado
 *        LIS_CondRetOK  -  inseriu sem problemas
@@ -203,7 +194,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 ***********************************************************************/
 
    LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista pLista ,
-											char pValor ) ;
+                                          char pValor ) ;
 
 
 /***********************************************************************
