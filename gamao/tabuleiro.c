@@ -51,6 +51,12 @@ typedef struct
 } tpTabuleiro ;
 
 
+/*****  Prorótipos das funções internas ao módulo  *****/
+
+static void liberar_posicao( void * pValor ) ;
+static void liberar_peca( void * pValor ) ;
+
+
 /*****  Código das funções exportadas pelo módulo  *****/
 
 
@@ -59,14 +65,43 @@ typedef struct
 *  Função: TAB Criar
 *  ****/
 
-   TAB_tpCondRet Criar( TAB_tppTabuleiro * pTabuleiro )
+   TAB_tpCondRet TAB_Criar( TAB_tppTabuleiro * pTabuleiro )
    {
+
+      int i;
+      LIS_tppLista lis = NULL ;
 
       tpTabuleiro * tab = ( tpTabuleiro *) malloc( sizeof( tpTabuleiro )) ;
       if ( tab == NULL )
-         return TAB_CondRetFaltaMemoria ;
+         return TAB_CondRetMemoria ;
 
-      tab->posicoes = 
+      /* Cria a lista principal */
+      if ( LIS_CriarLista( &tab->posicoes, liberar_posicao ) != LIS_CondRetOK )
+      {
+         return TAB_CondRetMemoria ;
+      }
+
+      for ( i = 0 ; i < QUANTIDADE_POS ; i ++ )
+      {
+         if ( LIS_CriarLista( &lis, liberar_peca ) != LIS_CondRetOK )
+         {
+            /* Se tivemos problema com a lista, desfaz tudo
+             * (evita vazamento de memória) */
+            TAB_Destruir( *pTabuleiro ) ;
+            return TAB_CondRetMemoria ;
+         }
+
+         if ( LIS_InserirElementoApos( tab->posicoes, ( void * ) lis ) != LIS_CondRetOK )
+         {
+            /* Se tivemos problema com a lista, desfaz tudo
+             * (evita vazamento de memória) */
+            LIS_DestruirLista( lis ) ;
+            TAB_Destruir( *pTabuleiro ) ;
+            return TAB_CondRetMemoria ;
+         }
+      }
+
+      return TAB_CondRetOK ;
 
    } /* Fim função: TAB Criar */
 
@@ -76,8 +111,16 @@ typedef struct
 *  Função: TAB Destruir
 *  ****/
 
-   TAB_tpCondRet Destruir( TAB_tppTabuleiro tabuleiro )
+   TAB_tpCondRet TAB_Destruir( TAB_tppTabuleiro tabuleiro )
    {
+      if ( tabuleiro == NULL )
+      {
+         return TAB_CondRetOK ;
+      }
+
+      LIS_DestruirLista( tabuleiro->posicoes ) ;
+
+      return TAB_CondRetOK ;
 
    } /* Fim função: TAB Destruir */
 
@@ -87,8 +130,10 @@ typedef struct
 *  Função: TAB Incluir peça
 *  ****/
 
-   TAB_tpCondRet IncluirPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca pPeca )
+   TAB_tpCondRet TAB_IncluirPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca pPeca )
    {
+      LIS_tppLista pos ;
+      assert( tabuleiro != NULL ) ;
 
    } /* Fim função: TAB Incluir peça */
 
@@ -98,7 +143,7 @@ typedef struct
 *  Função: TAB Mover peça
 *  ****/
 
-   TAB_tpCondRet MoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int de , unsigned int para )
+   TAB_tpCondRet TAB_MoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int de , unsigned int para )
    {
 
    } /* Fim função: TAB Mover peça */
@@ -109,13 +154,51 @@ typedef struct
 *  Função: TAB Remover peça
 *  ****/
 
-   TAB_tpCondRet RemoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca * peca )
+   TAB_tpCondRet TAB_RemoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca * peca )
    {
 
    } /* Fim função: TAB Remover peça */
 
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
+
+
+/***********************************************************************
+*
+*  $FC Função: Liberar Posição
+*
+*  $ED Descrição da função
+*     Destroi a lista e as peças de uma posição do tabuleiro
+*
+*  $EP Parâmetros
+*     $P pValor - Lista a ser destruída
+*
+***********************************************************************/
+
+static void liberar_posicao( void * pValor )
+{
+   LIS_DestruirLista( ( LIS_tppLista ) pValor ) ;
+}
+
+
+/***********************************************************************
+*
+*  $FC Função: Liberar Peça
+*
+*  $ED Descrição da função
+*     Destroi a peça indicada
+*
+*  $EP Parâmetros
+*     $P pValor - Peça a ser destruída
+*
+***********************************************************************/
+
+static void liberar_peca( void * pValor )
+{
+
+   PEC_Destruir( ( PEC_tppPeca ) pValor ) ;
+
+}
 
 
 /********** Fim do módulo de implementação: Módulo tabuleiro **********/

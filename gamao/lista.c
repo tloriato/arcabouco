@@ -333,7 +333,7 @@
 *  Função: LIS &Ir para o elemento inicial
 *  ****/
 
-   LIS_tpCondRet IrInicioLista( LIS_tppLista pLista )
+   LIS_tpCondRet LIS_IrInicioLista( LIS_tppLista pLista )
    {
 
       #ifdef _DEBUG
@@ -351,7 +351,7 @@
 *  Função: LIS &Ir para o elemento final
 *  ****/
 
-   LIS_tpCondRet IrFinalLista( LIS_tppLista pLista )
+   LIS_tpCondRet LIS_IrFinalLista( LIS_tppLista pLista )
    {
 
       #ifdef _DEBUG

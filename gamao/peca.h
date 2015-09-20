@@ -54,7 +54,7 @@
 *
 ***********************************************************************/
 
-   PEC_tpCondRet Criar( PEC_tppPeca * pPeca , int cor ) ;
+   PEC_tpCondRet PEC_Criar( PEC_tppPeca * pPeca , int cor ) ;
 
 /***********************************************************************
 *
@@ -71,7 +71,7 @@
 *
 ***********************************************************************/
 
-   PEC_tpCondRet Destruir( PEC_tppPeca pPeca ) ;
+   PEC_tpCondRet PEC_Destruir( PEC_tppPeca pPeca ) ;
 
 /***********************************************************************
 *
@@ -90,7 +90,7 @@
 *
 ***********************************************************************/
 
-   PEC_tpCondRet ObterCor( PEC_tppPeca pPeca , int * pCor ) ;
+   PEC_tpCondRet PEC_ObterCor( PEC_tppPeca pPeca , int * pCor ) ;
 
 
 #undef PECA_

@@ -251,7 +251,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet IrInicioLista( LIS_tppLista pLista ) ;
+   LIS_tpCondRet LIS_IrInicioLista( LIS_tppLista pLista ) ;
 
 
 /***********************************************************************
@@ -270,7 +270,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 ***********************************************************************/
 
-   LIS_tpCondRet IrFinalLista( LIS_tppLista pLista ) ;
+   LIS_tpCondRet LIS_IrFinalLista( LIS_tppLista pLista ) ;
 
 
 /***********************************************************************
@@ -321,7 +321,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *                      e que contém o ponteiro procurado
 *
 *     LIS_CondRetNaoEncontrou - se o ponteiro não foi encontrado
-         *                      O elemento corrente continua o mesmo
+*                               O elemento corrente continua o mesmo
 *     LIS_CondRetListaVazia   - se a lista estiver vazia
 *
 ***********************************************************************/

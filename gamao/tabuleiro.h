@@ -40,7 +40,7 @@
       TAB_CondRetPosVazia = 2 ,
           /* Não é possível mover uma peça de uma posição vazia */
 
-      TAB_CondRetFaltaMemoria = 3
+      TAB_CondRetMemoria = 3
           /* Erro ao alocar memória */
 
    } TAB_tpCondRet ;
@@ -68,11 +68,11 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK
-*     TAB_CondRetFaltaMemoria
+*     TAB_CondRetMemoria
 *
 ***********************************************************************/
 
-   TAB_tpCondRet Criar( TAB_tppTabuleiro * pTabuleiro ) ;
+   TAB_tpCondRet TAB_Criar( TAB_tppTabuleiro * pTabuleiro ) ;
 
 /***********************************************************************
 *
@@ -89,7 +89,7 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *
 ***********************************************************************/
 
-   TAB_tpCondRet Destruir( TAB_tppTabuleiro tabuleiro ) ;
+   TAB_tpCondRet TAB_Destruir( TAB_tppTabuleiro tabuleiro ) ;
 
 /***********************************************************************
 *
@@ -109,7 +109,7 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *
 ***********************************************************************/
 
-   TAB_tpCondRet IncluirPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca pPeca ) ;
+   TAB_tpCondRet TAB_IncluirPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca pPeca ) ;
 
 /***********************************************************************
 *
@@ -130,7 +130,7 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *
 ***********************************************************************/
 
-   TAB_tpCondRet MoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int de , unsigned int para ) ;
+   TAB_tpCondRet TAB_MoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int de , unsigned int para ) ;
 
 /***********************************************************************
 *
@@ -153,7 +153,7 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *
 ***********************************************************************/
 
-   TAB_tpCondRet RemoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca * peca ) ;
+   TAB_tpCondRet TAB_RemoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca * peca ) ;
 
 
 #undef TABULEIRO_
