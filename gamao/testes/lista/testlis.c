@@ -38,6 +38,7 @@ static const char EXC_ELEM_CMD            [ ] = "=excluirelem"    ;
 static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
+static const char DEF_FUNC_EXCLUIR_CMD    [ ] = "=funcexcluir"    ;
 
 
 #define TRUE  1
@@ -144,6 +145,23 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
                "Erro em ponteiro de nova lista."  ) ;
 
       } /* fim ativa: Testar CriarLista */
+
+      /* Testar Definir Função Excluir */
+      else if ( strcmp( ComandoTeste, DEF_FUNC_EXCLUIR_CMD ) == 0 )
+      {
+
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
+
+         if ( ( numLidos != 2 )
+           || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
+         {
+            return TST_CondRetParm ;
+         } /* if */
+
+         return TST_CompararInt( ValEsp , LIS_DefinirFuncaoExcluir( vtListas[ inxLista ] , LiberarValor ) ,
+               "Retorno diferente do esperado." ) ;
+
+      } /* fim ativa: Testar Definir Função Excluir */
 
       /* Testar Esvaziar lista */
 

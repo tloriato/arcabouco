@@ -11,6 +11,9 @@
 == Criar a lista 0
 =criarlista        0   0
 
+== Definir função de liberação dos dados
+=funcexcluir       0   0
+
 == Verificar ObterValor relativo a lista vazia
 =obtervalorelem    0   'a'    3
 
