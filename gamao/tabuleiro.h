@@ -66,6 +66,9 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *     $P pTabuleiro - Parâmetro de retorno do tabuleiro criado.
 *                     Esse parâmetro é passado por referência
 *
+*  $EAE Assertivas de entradas esperadas
+*     pTabuleiro != NULL
+*
 *  $FV Valor retornado
 *     TAB_CondRetOK
 *     TAB_CondRetMemoria
@@ -84,6 +87,9 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *  $EP Parâmetros
 *     $P tabuleiro - Tabuleiro a ser destruído
 *
+*  $EAE Assertivas de entradas esperadas
+*     tabuleiro != NULL
+*
 *  $FV Valor retornado
 *     TAB_CondRetOK
 *
@@ -101,7 +107,7 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *  $EP Parâmetros
 *     $P tabuleiro - Tabuleiro a ser operado
 *     $P posicao   - Posição do tabuleiro aonde será incluída a peça
-*     $P pPeca     - Peça a ser incluída
+*     $P peca     - Peça a ser incluída
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK
@@ -109,7 +115,7 @@ typedef tpTabuleiro * TAB_tppTabuleiro ;
 *
 ***********************************************************************/
 
-   TAB_tpCondRet TAB_IncluirPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca pPeca ) ;
+   TAB_tpCondRet TAB_IncluirPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca peca ) ;
 
 /***********************************************************************
 *

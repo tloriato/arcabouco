@@ -17,7 +17,7 @@ pDestruir = {{"tabuleiro", "TAB_tppTabuleiro", "Tabuleiro a ser destruído", tru
 
 pIncPeca = {pTab,
             {"posicao", "unsigned int", "Posição do tabuleiro aonde será incluída a peça"},
-            {"pPeca", "PEC_tppPeca", "Peça a ser incluída"}
+            {"peca", "PEC_tppPeca", "Peça a ser incluída"}
            }
 
 pMoverPeca = {pTab,
