@@ -275,7 +275,7 @@ static tpComandoTeste Comandos[] = {
 
 /***********************************************************************
 *
-*  $FC Função: TARV Efetuar operações de teste específicas para matriz
+*  $FC Função: TMAT Efetuar operações de teste específicas para matriz
 *
 *  $ED Descrição da função
 *     Efetua os diversos comandos de teste específicos para o módulo
