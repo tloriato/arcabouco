@@ -17,7 +17,7 @@
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Descrição...
+*     Gera dois números aleatórios.
 *
 ***********************************************************************/
 
@@ -53,9 +53,14 @@
 *  $FV Valor retornado
 *     DAD_CondRetOK
 *
+*  Assertivas de entrada:
+*     - Os ponteiros passados como parametro não apontem para NULL
+*  Assertivas de saída:
+*     - pDado1 e pDado2 tenham valores gerados aleatoriamente
+*
 ***********************************************************************/
 
-   DAD_tpCondRet JogarDados( int* pDado1 , int* pDado2 ) ;
+   DAD_tpCondRet DAD_JogarDados( int* pDado1 , int* pDado2 ) ;
 
 
 #undef DADO_

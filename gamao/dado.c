@@ -15,13 +15,15 @@
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Descrição...
+*     Gera dois números aleatórios.
 *
 ***********************************************************************/
 
 #include   <stdio.h>
 #include   <stdlib.h>
 #include   "dado.h"
+#include   <time.h>
+#include   <assert.h>
 
 
 /*****  Código das funções exportadas pelo módulo  *****/
@@ -32,8 +34,16 @@
 *  Função: DAD Jogar Dados
 *  ****/
 
-   DAD_tpCondRet JogarDados( int* pDado1 , int* pDado2 )
+   DAD_tpCondRet DAD_JogarDados( int* pDado1 , int* pDado2 )
    {
+	   assert ( pDado1 != NULL && pDado2 != NULL ) ;
+
+	   srand ( time ( NULL ) ) ;
+
+	   * pDado1 = ( rand ( ) % 6 ) +1 ;
+	   * pDado2 = ( rand ( ) % 6 ) +1 ;
+
+	   return DAD_CondRetOK ;
 
    } /* Fim função: DAD Jogar Dados */
 

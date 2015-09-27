@@ -48,3 +48,72 @@ const char CMD_DESTRUIR  [] = "=destruir" ;
 const char CMD_OBTER_COR [] = "=obtercor" ;
 
 
+/*****  Variáveis globais à este módulo  *****/
+
+/***************************************************************************
+*
+*  Ponteiro: Peca
+*  Descrição: Ponteiro para o struct tpPeca usado nos testes
+*
+*  ****/
+
+static PEC_tppPeca * peca  = { NULL } ;
+
+
+TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
+ {
+	 int numLidos   = -1 ,
+         paramLido  = -1 ,
+		 CondRetEsp = -1 ,
+		 cor		= -1 ;
+
+	 /* Testar a Criar Peça */
+	 if ( strcmp( ComandoTeste, CMD_CRIAR) == 0 ) 
+	 {
+		numLidos = LER_LerParametros ( "ii" , 
+								&paramLido, &CondRetEsp ) ;
+
+		if ( numLidos != 2 )
+		{
+			return TST_CondRetParm ;
+		} /* if */
+
+		return TST_CompararInt ( CondRetEsp , Criar ( peca, ( int ) paramLido ) , 
+					"Retorno diferente do esperado." ) ;
+	 } /* Fim da ativa: Criar Peça */
+
+	 /* Testar Destruir Peça */
+	 else if ( strcmp( ComandoTeste, CMD_DESTRUIR ) == 0 )
+	 {
+		numLidos = LER_LerParametros ( "ii" ,
+							&paramLido , &CondRetEsp ) ;
+		
+		if ( numLidos != 2 ) 
+		{
+			return TST_CondRetParm ;
+		} /* if */
+
+		return TST_CompararInt ( CondRetEsp , Destruir ( ( PEC_tppPeca ) paramLido ) ,
+					"Retorno diferente do esperado." ) ;
+	 } /* Fim da ativa: Destruir Peça */
+
+	 /* Testar Obter cor */
+	 else if ( strcmp( ComandoTeste, CMD_OBTER_COR ) == 0 )
+	 {
+		numLidos = LER_LerParametros ( "ii" ,
+							&paramLido, &CondRetEsp ) ;
+
+		if ( numLidos != 2 )
+		{
+			return TST_CondRetParm ;
+		} /* if */
+
+		return TST_CompararInt ( CondRetEsp , ObterCor (  ( PEC_tppPeca ) paramLido, &cor ) ,
+					"Retorno diferente do esperado." ) ;
+	 } /* Fim da ativa: Obter pontos */
+
+	 return TST_CondRetNaoConhec ;
+
+ }
+
+ /********** Fim do módulo de implementação: TDPO Teste Dados Pontos **********/

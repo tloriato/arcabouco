@@ -17,7 +17,8 @@
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Descrição...
+*     Módulo que representa uma peça em para ser usada em um tabuleiro.
+*     Cada peça tem uma cor imutável definida em sua criação.
 *
 ***********************************************************************/
 
@@ -31,11 +32,24 @@
 
    typedef enum {
 
-      PEC_CondRetOK = 0
+      PEC_CondRetOK = 0,
           /* Rodou sem erros */
+
+	  PEC_CondRetPonteiroRetornoNulo = 1,
+		  /* Ponteiro passado por parâmetro para retorno é NULL */
+
+	  PEC_CondRetFaltouMemoria = 2
+	      /* Faltou memória ao alocar dados */
 
    } PEC_tpCondRet ;
 
+/***********************************************************************
+*
+*  $TC Tipo de dados: Tipo abstrato de dados peça
+*
+***********************************************************************/
+   
+typedef void * PEC_tppPeca;
 
 /***********************************************************************
 *
@@ -54,7 +68,7 @@
 *
 ***********************************************************************/
 
-   PEC_tpCondRet PEC_Criar( PEC_tppPeca * pPeca , int cor ) ;
+   PEC_tpCondRet Criar( PEC_tppPeca * pPeca , int cor ) ;
 
 /***********************************************************************
 *
@@ -71,7 +85,7 @@
 *
 ***********************************************************************/
 
-   PEC_tpCondRet PEC_Destruir( PEC_tppPeca pPeca ) ;
+   PEC_tpCondRet Destruir( PEC_tppPeca pPeca ) ;
 
 /***********************************************************************
 *
@@ -90,7 +104,7 @@
 *
 ***********************************************************************/
 
-   PEC_tpCondRet PEC_ObterCor( PEC_tppPeca pPeca , int * pCor ) ;
+   PEC_tpCondRet ObterCor( PEC_tppPeca pPeca , int * pCor ) ;
 
 
 #undef PECA_
