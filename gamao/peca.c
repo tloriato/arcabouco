@@ -22,11 +22,12 @@
 
 #include   <stdio.h>
 #include   <stdlib.h>
+#include   <assert.h>
 #include   "peca.h"
 
 typedef struct peca
 {
-   static int cor ; /* Cor da peça */
+   int cor ; /* Cor da peça */
 } tpPeca ;
 
 
@@ -41,24 +42,21 @@ typedef struct peca
    PEC_tpCondRet PEC_Criar( PEC_tppPeca * pPeca , int cor )
    {
       tpPeca * peca;
-   
-      if ( pPeca == NULL )
-      {
-         return PEC_CondRetPonteiroRetornoNulo ;
-      } /* if */
-   
+
+      assert( pPeca != NULL ) ;
+
       *pPeca = ( tpPeca * ) malloc( sizeof( tpPeca ) ) ;
-   
+
       if ( *pPeca == NULL )
       {
          return PEC_CondRetFaltouMemoria ;
       } /* if */
-   
+
       peca = ( tpPeca *) *pPeca ;
       peca->cor = cor;
-   
+
       return PEC_CondRetOK ;
-   
+
    } /* Fim função: PEC Criar */
 
 
@@ -85,17 +83,15 @@ typedef struct peca
 
    PEC_tpCondRet PEC_ObterCor( PEC_tppPeca pPeca , int * pCor )
    {
+
+      assert( pPeca != NULL ) ;
+      assert( pCor != NULL ) ;
+
       tpPeca * peca = ( tpPeca * ) pPeca ;
-   
-      if ( pCor == NULL )
-      {
-         return PEC_CondRetPonteiroRetornoNulo ;
-      } /* if */
-   
       *pCor = peca->cor ;
-   
+
       return PEC_CondRetOK ;
-   
+
    } /* Fim função: PEC Obter cor */
 
 

@@ -35,10 +35,7 @@
       PEC_CondRetOK = 0,
          /* Rodou sem erros */
 
-      PEC_CondRetPonteiroRetornoNulo = 1,
-         /* Ponteiro passado por parâmetro para retorno é NULL */
-
-      PEC_CondRetFaltouMemoria = 2
+      PEC_CondRetFaltouMemoria = 1
          /* Faltou memória ao alocar dados */
 
    } PEC_tpCondRet ;
@@ -48,7 +45,7 @@
 *  $TC Tipo de dados: Tipo abstrato de dados Peça
 *
 ***********************************************************************/
-   
+
 typedef void * PEC_tppPeca;
 
 /***********************************************************************
@@ -95,7 +92,7 @@ typedef void * PEC_tppPeca;
 *
 *   Assertiva de saída:
 *      - O espaço ocupado pelo parâmetro passado esteja livre.
-*        
+*
 *
 ***********************************************************************/
 
@@ -121,7 +118,7 @@ typedef void * PEC_tppPeca;
 *
 *   Assertiva de saída:
 *      - Pcor guarde a cor guardada por pPeca.
-*        
+*
 *
 ***********************************************************************/
 

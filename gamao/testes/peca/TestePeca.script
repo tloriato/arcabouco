@@ -5,23 +5,26 @@
 // Data:      27/09/2015
 // Propósito: Testar o módulo peça
 //
+// Esse teste é completo
 //
-//
 
-== Criar uma peca
-=criar	0 0
+== Criar uma peça
+=criar 0 0 0
 
-==Criar uma peca com ponteiro de retorno da peca nulo
-=criar	1 0
+== Criar outra peça de outra cor
+=criar 1 1 0
 
-== Destruir uma peca
-=destruir  0
+== Obter cor da peça 0
+=obtercor  0 0 0
 
-== Obter cor de uma peca
-=obtercor  0 0
+== Destruir a peça 0
+=destruir 0 0
 
-== Obter cor de uma peca com ponteiro de retorno da cor nulo
-=obtercor  0 1
+== Obter cor da peça 1
+=obtercor 1 1 0
+
+== Destruir a peça 1
+=destruir 1 0
 
 //fim
 

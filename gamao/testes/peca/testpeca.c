@@ -38,7 +38,7 @@
 #include <assert.h>
 #include "tst_espc.h"
 #include "generico.h"
-#include "lerparam.h"
+#include "lerparm.h"
 #include "peca.h"
 
 /* Tabela os nomes dos comandos de teste específicos */
@@ -47,6 +47,7 @@ const char CMD_CRIAR     [] = "=criar" ;
 const char CMD_DESTRUIR  [] = "=destruir" ;
 const char CMD_OBTER_COR [] = "=obtercor" ;
 
+#define VAL_PEC( id ) do { if ( ( ( id ) > 1 ) || ( ( id ) < 0 ) ) { return TST_CondRetParm ; } } while ( 0 )
 
 /*****  Variáveis globais à este módulo  *****/
 
@@ -57,28 +58,32 @@ const char CMD_OBTER_COR [] = "=obtercor" ;
 *
 *  ****/
 
-static PEC_tppPeca * peca  = { NULL } ;
+static PEC_tppPeca pecas[2]  = { NULL } ;
 
 
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
    int numLidos   = -1 ,
-       paramLido  = -1 ,
+       idPec      = -1 ,
        CondRetEsp = -1 ,
-       cor        = -1 ;
+       cor        = -1 ,
+       corPec     = -1 ;
+
+   PEC_tpCondRet ret ;
 
    /* Testar a Criar Peça */
-   if ( strcmp( ComandoTeste, CMD_CRIAR) == 0 ) 
+   if ( strcmp( ComandoTeste, CMD_CRIAR) == 0 )
    {
-      numLidos = LER_LerParametros ( "ii" , 
-                        &paramLido, &CondRetEsp ) ;
+      numLidos = LER_LerParametros ( "iii" ,
+                        &idPec, &cor, &CondRetEsp ) ;
 
-      if ( numLidos != 2 )
+      if ( numLidos != 3 )
       {
          return TST_CondRetParm ;
       } /* if */
 
-      return TST_CompararInt ( CondRetEsp , Criar ( peca, ( int ) paramLido ) , 
+      VAL_PEC( idPec ) ;
+      return TST_CompararInt ( CondRetEsp , PEC_Criar( &pecas[ idPec ], cor ) ,
                "Retorno diferente do esperado." ) ;
     } /* Fim da ativa: Criar Peça */
 
@@ -86,30 +91,38 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    else if ( strcmp( ComandoTeste, CMD_DESTRUIR ) == 0 )
    {
       numLidos = LER_LerParametros ( "ii" ,
-                     &paramLido , &CondRetEsp ) ;
-      
-      if ( numLidos != 2 ) 
-      {
-         return TST_CondRetParm ;
-      } /* if */
-
-      return TST_CompararInt ( CondRetEsp , Destruir ( ( PEC_tppPeca ) paramLido ) ,
-            "Retorno diferente do esperado." ) ;
-   } /* Fim da ativa: Destruir Peça */
-
-   /* Testar Obter cor */
-   else if ( strcmp( ComandoTeste, CMD_OBTER_COR ) == 0 )
-   {
-      numLidos = LER_LerParametros ( "ii" ,
-                     &paramLido, &CondRetEsp ) ;
+                     &idPec , &CondRetEsp ) ;
 
       if ( numLidos != 2 )
       {
          return TST_CondRetParm ;
       } /* if */
 
-      return TST_CompararInt ( CondRetEsp , ObterCor (  ( PEC_tppPeca ) paramLido, &cor ) ,
-               "Retorno diferente do esperado." ) ;
+      VAL_PEC( idPec ) ;
+      return TST_CompararInt ( CondRetEsp , PEC_Destruir( pecas[ idPec ] ) ,
+            "Retorno diferente do esperado." ) ;
+   } /* Fim da ativa: Destruir Peça */
+
+   /* Testar Obter cor */
+   else if ( strcmp( ComandoTeste, CMD_OBTER_COR ) == 0 )
+   {
+      numLidos = LER_LerParametros ( "iii" ,
+                     &idPec, &cor, &CondRetEsp ) ;
+
+      if ( numLidos != 3 )
+      {
+         return TST_CondRetParm ;
+      } /* if */
+
+      VAL_PEC( idPec ) ;
+      ret = PEC_ObterCor( pecas[ idPec ], &corPec ) ;
+
+      if ( ret == PEC_CondRetOK )
+      {
+         return TST_CompararInt( cor , corPec , "Cor da peça diferente da esperada." ) ;
+      }
+
+      return TST_CompararInt ( CondRetEsp , ret , "Retorno diferente do esperado." ) ;
    } /* Fim da ativa: Obter pontos */
 
    return TST_CondRetNaoConhec ;
