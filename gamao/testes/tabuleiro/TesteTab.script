@@ -1,0 +1,54 @@
+// Script:    TesteTab.script
+// Autores:   Gabriel Barbosa de Oliveira
+//            Guilherme de Azevedo Pereira Marques
+//            Thiago Duarte Naves
+// Data:      28/09/2015
+// Propósito: Testar o módulo tabuleiro
+//
+// Esse teste é completo
+//
+
+== Cria o tabuleiro
+=criar     0   0
+
+== Remove uma peça de uma posição inexistente
+=remover   0   24  0   1
+
+== Remove uma peça inexistente
+=remover   0   0   0   2
+
+== Mover uma peça de uma posição inexistente
+=mover     0   24  0   1
+
+== Mover uma peça para uma posição inexistente
+=mover     0   0   24  1
+
+== Mover uma peça inexistente
+=mover     0   0   1   2
+
+== Incluir uma peça nas posição 0
+=incluir   0   0   0   0   0
+
+== Incluir duas peças na posição 1
+=incluir   0   1   1   0   0
+=incluir   0   1   2   0   0
+
+== Incluir uma peça de outra cor na posição 2
+=incluir   0   2   3   1   0
+
+== Mover a peça da posição 0 para a posição 1
+=mover     0   0   1   0
+
+== Mover a peça da posição 2 para a posição 0
+=mover     0   2   0   0
+
+== Remover as 3 peças da posição 1
+=remover   0   1   0   0
+=remover   0   1   0   0
+=remover   0   1   0   0
+
+== Remover a peça da posição 0
+=remover   0   0   1   0
+
+== Destruir o tabuleiro
+=destruir  0   0

@@ -10,7 +10,7 @@
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor               Data     Observações
+*     Versão  Autor             Data       Observações
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -39,29 +39,29 @@ const char CMD_JOGAR_DADOS [] = "=jogar" ;
 
 TST_tpCondRet TST_EfetuarComando ( char * ComandoTeste )
 {
-	int numLidos   = -1 ,
-		CondRetEsp = -1 ,
-		pDado1     = -1 ,
-		pDado2     = -1 ;
+   int numLidos   = -1 ,
+       CondRetEsp = -1 ,
+       pDado1     = -1 ,
+       pDado2     = -1 ;
 
-	/* Testar Jogar Dados */
+   /* Testar Jogar Dados */
 
-	if ( strcmp ( ComandoTeste , CMD_JOGAR_DADOS ) == 0 )
-	{
-		numLidos = LER_LerParametros ( "i" , 
-								&CondRetEsp ) ;
+   if ( strcmp ( ComandoTeste , CMD_JOGAR_DADOS ) == 0 )
+   {
+      numLidos = LER_LerParametros ( "i" , 
+                        &CondRetEsp ) ;
 
-		if ( numLidos != 1 )
-		{
-			return TST_CondRetParm ;
-		} /* if */
+      if ( numLidos != 1 )
+      {
+         return TST_CondRetParm ;
+      } /* if */
 
-		return TST_CompararInt ( CondRetEsp , DAD_JogarDados ( &pDado1 , &pDado2 ) , 
-					"Retorno diferente do esperado." ) ;
-	} /* Fim da ativa: Jogar Dados */
-	
-	return TST_CondRetNaoConhec ;
+      return TST_CompararInt ( CondRetEsp , DAD_JogarDados ( &pDado1 , &pDado2 ) , 
+               "Retorno diferente do esperado." ) ;
+   } /* Fim da ativa: Jogar Dados */
 
-}
+   return TST_CondRetNaoConhec ;
+
+} /* Fim função: TST Efetuar Comando */
 
  /********** Fim do módulo de implementação: TDAD Teste Dados **********/

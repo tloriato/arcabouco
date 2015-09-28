@@ -6,16 +6,16 @@
 *  Letras identificadoras:      TAB
 *
 *  Projeto: Disciplina INF 1301
-*  Autores: gbdo - Gabriel Barbosa de Oliveira
-*           gdapm - Guilherme de Azevedo Pereira Marques
+*  Autores: gbo - Gabriel Barbosa de Oliveira
+*           gapm - Guilherme de Azevedo Pereira Marques
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor              Data       Observações
-*       1.00  gbdo, gdapm, tdn   19/09/2015 Início do desenvolvimento
+*     Versão  Autor            Data       Observações
+*       1.00  gbo, gapm, tdn   19/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Descrição...
+*     Módulo para movimentação de peças em um tabuleiro de jogo
 *
 ***********************************************************************/
 
@@ -106,6 +106,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
          } /* if */
       } /* for */
 
+      *pTabuleiro = tab ;
       return TAB_CondRetOK ;
 
    } /* Fim função: TAB Criar */
@@ -222,6 +223,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       assert( peca != NULL ) ;
 
       LIS_tppLista pos = NULL ;
+      void * tmp ;
 
       if ( posicao >= QUANTIDADE_POS )
       {
@@ -229,8 +231,9 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       } /* if */
 
       pos = ObterListaPosicao( tabuleiro, posicao ) ;
+      LIS_IrInicioLista( pos ) ;
 
-      if ( LIS_IrInicioLista( pos ) != LIS_CondRetOK )
+      if ( LIS_ObterValor( pos , &tmp ) != LIS_CondRetOK )
       {
          return TAB_CondRetPosVazia ;
       } /* if */

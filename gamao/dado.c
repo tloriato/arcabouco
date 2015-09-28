@@ -11,7 +11,7 @@
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor               Data     Observações
+*     Versão  Autor             Data       Observações
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo

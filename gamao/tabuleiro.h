@@ -8,13 +8,13 @@
 *  Letras identificadoras:      TAB
 *
 *  Projeto: Disciplina INF 1301
-*  Autores: gbdo - Gabriel Barbosa de Oliveira
-*           gdapm - Guilherme de Azevedo Pereira Marques
+*  Autores: gbo - Gabriel Barbosa de Oliveira
+*           gapm - Guilherme de Azevedo Pereira Marques
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor              Data       Observações
-*       1.00  gbdo, gdapm, tdn   19/09/2015 Início do desenvolvimento
+*     Versão  Autor            Data       Observações
+*       1.00  gbo, gapm, tdn   19/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Descrição...

@@ -13,8 +13,9 @@
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão   Autor   Data           Observações
-*       1.00   gbo     30/08/2015     Início do desenvolvimento.
+*     Versão   Autor           Data           Observações
+*       2.00   gbo, gapm, tdn  20/09/2015     Lista de ponteiros de void.
+*       1.00   gbo, gapm, tdn  30/08/2015     Início do desenvolvimento.
 *
 *  $ED Descrição do módulo
 *     Implementa listas genéricas duplamente encadeadas.

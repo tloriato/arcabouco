@@ -5,13 +5,13 @@
 *  Letras identificadoras:      TTAB
 *
 *  Projeto: Disciplina INF 1301
-*  Autores: gbdo - Gabriel Barbosa de Oliveira
-*           gdapm - Guilherme de Azevedo Pereira Marques
+*  Autores: gbo - Gabriel Barbosa de Oliveira
+*           gapm - Guilherme de Azevedo Pereira Marques
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor              Data       Observações
-*       1.00  gbdo, gdapm, tdn   19/09/2015 Início do desenvolvimento
+*     Versão  Autor            Data       Observações
+*       1.00  gbo, gapm, tdn   19/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Este módulo contém as funções específicas para o teste do
@@ -28,11 +28,13 @@
 *         Parâmetros:
 *         1 - tabuleiro
 *
-*     =incluir <int, int, int> - chama a função TAB_IncluirPeca( )
+*     =incluir <int, int, int, int> - cria uma peça da cor especificada e
+*                                     chama a função TAB_IncluirPeca( )
 *         Parâmetros:
 *         1 - tabuleiro
 *         2 - posicao: Posição do tabuleiro aonde será incluída a peça
-*         3 - peca: Peça a ser incluída
+*         3 - peca: ID da peça a ser incluída
+*         4 - cor da peça
 *
 *     =mover <int, int, int> - chama a função TAB_MoverPeca( )
 *         Parâmetros:
@@ -44,7 +46,7 @@
 *         Parâmetros:
 *         1 - tabuleiro
 *         2 - posicao: Posição da peça
-*         3 - peca: Parâmetro para retorno da peça removida
+*         3 - cor da peca: Cor esperada da peça removida
 *
 ***************************************************************************/
 
@@ -75,7 +77,7 @@ const char CMD_REMOVER_PECA [] = "=remover" ;
 
 /* Quantidade máxima de parâmetros permitidos em um comando de teste,
  * mais 1 para o retorno esperado */
-#define MAX_PARAMS 4
+#define MAX_PARAMS 5
 
 /* Quantidade máxima de peças que podem ser utilizadas simultaneamente
  * no teste do tabuleiro */
@@ -153,7 +155,7 @@ static TAB_tppTabuleiro Instancias[ QTD_INSTANCIAS ] = { NULL } ;
 *
 *  ****/
 
-static TAB_tppTabuleiro Pecas[ MAX_PECAS ] = { NULL } ;
+static PEC_tppPeca Pecas[ MAX_PECAS ] = { NULL } ;
 
 
 /***************************************************************************
@@ -179,7 +181,7 @@ static tpComandoTeste Comandos[] = {
 /*   Comando            Parâmetros  Função                Mensagem de erro */
    { CMD_CRIAR ,        "ii" ,      TTAB_CmdCriar ,       "Retorno errado ao criar o tabuleiro" } ,
    { CMD_DESTRUIR ,     "ii" ,      TTAB_CmdDestruir ,    "Retorno errado ao destruir o tabuleiro" } ,
-   { CMD_INCLUIR_PECA , "iiii" ,    TTAB_CmdIncluirPeca , "Retorno errado ao incluir a peça" } ,
+   { CMD_INCLUIR_PECA , "iiiii" ,   TTAB_CmdIncluirPeca , "Retorno errado ao incluir a peça" } ,
    { CMD_MOVER_PECA ,   "iiii" ,    TTAB_CmdMoverPeca ,   "Retorno errado ao mover a peça" } ,
    { CMD_REMOVER_PECA , "iiii" ,    TTAB_CmdRemoverPeca , "Retorno errado ao remover a peça" }
 } ;
@@ -225,7 +227,8 @@ static tpComandoTeste Comandos[] = {
                                                 &Parametros[ 0 ] ,
                                                 &Parametros[ 1 ] ,
                                                 &Parametros[ 2 ] ,
-                                                &Parametros[ 3 ] ) ;
+                                                &Parametros[ 3 ] ,
+                                                &Parametros[ 4 ] ) ;
 
             /* Parametros[ 0 ] é o número da instância do módulo */
             if ( ( qtdParamsLidos != qtdParamsEsperados )
@@ -304,6 +307,7 @@ static tpComandoTeste Comandos[] = {
          return TAB_CondRetOK ;
       } /* if */
 
+      PEC_Criar( &Pecas[ Parametros[ 2 ] ] , Parametros[ 3 ] ) ;
       return TAB_IncluirPeca( Instancias[ Parametros[ 0 ] ] , Parametros[ 1 ] , Pecas[ Parametros[ 2 ] ] ) ;
 
    } /* Fim função: TTAB Comando Incluir peça */
@@ -339,14 +343,7 @@ static tpComandoTeste Comandos[] = {
    {
 
       PEC_tppPeca peca ;
-      int ret , corObtida , corEsperada ;
-
-      if ( ( Parametros[ 2 ] < 0 )
-        || ( Parametros[ 2 ] >= MAX_PECAS ) )
-      {
-         TST_NotificarFalha( "Índice de peça inválido" ) ;
-         return TAB_CondRetOK ;
-      } /* if */
+      int ret , corObtida ;
 
       ret = TAB_RemoverPeca( Instancias[ Parametros[ 0 ] ] , Parametros[ 1 ] , &peca ) ;
 
@@ -358,16 +355,12 @@ static tpComandoTeste Comandos[] = {
             return TAB_CondRetOK ;
          } /* if */
 
-         if ( PEC_ObterCor( Pecas[ Parametros[ 2 ] ], &corEsperada ) != PEC_CondRetOK )
-         {
-            TST_NotificarFalha( "Erro ao obter a cor da peça" ) ;
-            return TAB_CondRetOK ;
-         } /* if */
-
-         if ( corObtida != corEsperada )
+         if ( corObtida != Parametros[ 2 ] )
          {
             TST_NotificarFalha( "Cor da peça diferente da esperada" ) ;
          } /* if */
+
+         PEC_Destruir( peca ) ;
       }
 
       return ret ;

@@ -127,6 +127,6 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 
    return TST_CondRetNaoConhec ;
 
-}
+} /* Fim função: TST Efetuar Comando */
 
 /********** Fim do módulo de implementação: TDPO Teste Dados Pontos **********/

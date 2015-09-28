@@ -13,7 +13,7 @@
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor               Data     Observações
+*     Versão  Autor             Data       Observações
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -34,12 +34,12 @@
       DPO_CondRetOK = 0 ,
           /* Rodou sem erros */
 
-      DPO_CondRetMaxPontos = 1 , 
+      DPO_CondRetMaxPontos = 1 ,
           /* Valor da partida já atingiu o máximo */
-	  
-	  DPO_JogadorNaoPodeDobrar = 2
-		  /* Não é permitido que o jogador passado 
-		     por parâmetro dobre a  partida	*/
+
+     DPO_JogadorNaoPodeDobrar = 2
+        /* Não é permitido que o jogador passado 
+           por parâmetro dobre a  partida	*/
 
    } DPO_tpCondRet ;
 
@@ -51,13 +51,13 @@
 *
 ***********************************************************************/
 
-  typedef enum {
+typedef enum {
 
-	DPO_Jogador1 = 1 ,
-		/* Jogador 1 */
+   DPO_Jogador1 = 1 ,
+      /* Jogador 1 */
 
-	DPO_Jogador2 = 2
-		/* Jogador 2 */
+   DPO_Jogador2 = 2
+      /* Jogador 2 */
 
 } DPO_tpJogador ;
 
@@ -76,11 +76,11 @@
 *     DPO_CondRetMaxPontos
 *
 *  Assertivas de Entrada:
-*	  - Jogador exista (1 ou 2).
+*    - Jogador exista (1 ou 2).
 *
 *  Assertivas de Saída:
-*	  - Valor da partida tenha sido atualizado no estrutura
-*	    encapsulada no módulo.
+*    - Valor da partida tenha sido atualizado no estrutura
+*      encapsulada no módulo.
 *
 ***********************************************************************/
 
@@ -106,7 +106,7 @@
 *     - res não aponte para NULL
 *
 *  Assertivas de Saída:
-*	  - *res = 1 se o jogador pode dobrar e 0 caso contrário. 
+*    - *res = 1 se o jogador pode dobrar e 0 caso contrário. 
 *
 ***********************************************************************/
 
@@ -127,7 +127,7 @@
 *     DPO_CondRetOK
 *
 *  Assertivas de Entrada:
-*	    - pontos não aponte para NULL.
+*      - pontos não aponte para NULL.
 *
 *  Assertivas de Saída:
 *     - *pontos seja igual a um número inteiro maior que 1 e menor que 64.

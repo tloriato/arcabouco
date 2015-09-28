@@ -11,6 +11,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão        Autor              Data           Observações
+*     2.00          gbo, gapm, tdn     20/09/2015     Lista de ponteiros de void.
 *     1.00          gbo, gapm, tdn     28/08/2015     Início do desenvolvimento.
 *
 ***************************************************************************/
