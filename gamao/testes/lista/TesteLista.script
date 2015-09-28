@@ -2,7 +2,7 @@
 // Autores:   Gabriel Barbosa de Oliveira
 //            Guilherme de Azevedo Pereira Marques
 //            Thiago Duarte Naves
-// Data:      31/08/2015
+// Data:      20/09/2015
 // Propósito: Testar o módulo lista de caracteres duplamente encadeada
 //
 // Este teste é completo
@@ -22,7 +22,7 @@
 =obtervalorelem    0   'a'    1
 
 == Inserir elemento após primeiro
-=inselemapos       0   'b'	 0
+=inselemapos       0   'b'       0
 =obtervalorelem    0   'b'       1
 
 == Inserir elemento antes do último
@@ -37,7 +37,7 @@
 =obtervalorelem    0   'a'    1
 =excluirelem       0          0
 
-== Excluir elemento final, único 
+== Excluir elemento final, único
 =obtervalorelem    0   'b'    1
 =excluirelem       0          0
 
