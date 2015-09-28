@@ -13,7 +13,7 @@
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor                Data     Observações
+*     Versão  Autor              Data       Observações
 *       1.00  gbdo, gdapm, tdn   19/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -21,6 +21,7 @@
 *
 ***********************************************************************/
 
+#include "peca.h"
 
 /***********************************************************************
 *
@@ -53,7 +54,7 @@
 *
 ***********************************************************************/
 
-typedef tpTabuleiro * TAB_tppTabuleiro ;
+typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 
 /***********************************************************************
 *

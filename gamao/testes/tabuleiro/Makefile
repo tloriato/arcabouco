@@ -1,6 +1,7 @@
 SRC := tabuleiro.c \
        testtabuleiro.c \
-       lista.c
+       lista.c \
+			 peca.c
 
 APP := testtab
 APP_WIN := testtab.exe

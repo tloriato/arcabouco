@@ -48,5 +48,5 @@ funcs = {fCriar, fDestruir, fIncPeca, fMoverPeca, fRemoverPeca}
 autores = {"Gabriel Barbosa de Oliveira", "Guilherme de Azevedo Pereira Marques", "Thiago Duarte Naves"}
 
 --criar_modulo(nome,        id,    testes, mult_instâncias, cond_ret, funcoes, autores, arq_code,        arq_head,        arq_test,          arq_script)
-m.criar_modulo("tabuleiro", "TAB", true,   false,           ret,      funcs,   autores, "tabuleiro.c",   "tabuleiro.h",   "testtabuleiro.c", "TesteTabuleiro.script")
+m.criar_modulo("tabuleiro", "TAB", true,   true,            ret,      funcs,   autores, "tabuleiro.c",   "tabuleiro.h",   "testtabuleiro.c", "TesteTabuleiro.script")
 

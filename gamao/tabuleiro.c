@@ -11,7 +11,7 @@
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor                Data     Observações
+*     Versão  Autor              Data       Observações
 *       1.00  gbdo, gdapm, tdn   19/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -22,6 +22,7 @@
 #include   <stdio.h>
 #include   <stdlib.h>
 #include   <stdbool.h>
+#include   <assert.h>
 #include   "tabuleiro.h"
 #include   "lista.h"
 
@@ -42,21 +43,22 @@
 *
 ***********************************************************************/
 
-typedef struct
+struct tpTabuleiro
 {
    LIS_tppLista posicoes ;
       /* Lista de posições do tabuleiro.
        * Cada posição dessa lista contém uma lista com as peças
        * presentes da respectiva posição
        */
-} tpTabuleiro ;
+} ;
 
 
 /*****  Prorótipos das funções internas ao módulo  *****/
 
 static void LiberarPosicao( void * pValor ) ;
 static void LiberarPeca( void * pValor ) ;
-
+static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
+                                       unsigned int posicao ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -72,7 +74,7 @@ static void LiberarPeca( void * pValor ) ;
       int i;
       LIS_tppLista lis = NULL ;
 
-      tpTabuleiro * tab = ( tpTabuleiro *) malloc( sizeof( tpTabuleiro )) ;
+      struct tpTabuleiro * tab = ( struct tpTabuleiro *) malloc( sizeof( struct tpTabuleiro )) ;
       if ( tab == NULL )
          return TAB_CondRetMemoria ;
 
@@ -222,7 +224,7 @@ static void LiberarPeca( void * pValor ) ;
          return TAB_CondRetPosInvalida ;
       }
 
-      pos = ObterListaPosicao( posicao ) ;
+      pos = ObterListaPosicao( tabuleiro, posicao ) ;
 
       if ( LIS_IrInicioLista( pos ) != LIS_CondRetOK )
       {
