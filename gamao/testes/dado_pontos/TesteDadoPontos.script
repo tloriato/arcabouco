@@ -1,0 +1,40 @@
+// Script:    TesteLista.script
+// Autores:   Gabriel Barbosa de Oliveira
+//            Guilherme de Azevedo Pereira Marques
+//            Thiago Duarte Naves
+// Data:      20/09/2015
+// Propósito: Testar o módulo DadoPontos
+//
+// Este teste é completo
+//
+
+==Inicializar valores
+=declararparm	OK  	       int 0
+=declararparm	MaxPontos      int 1
+=declararparm   NaoPodeDobrar  int 2
+
+=declararparm	jogador1     int 1
+=declararparm	jogador2     int 2	
+
+== Dobrar o valor da partida
+=dobrar 	jogador1     OK
+
+== Testar se o jogador 1 pode dobrar o valor da partida
+=podedobrar	jogador1     NaoPodeDobrar
+
+== Obter o valor atual da partida
+=obterpontos 	OK
+
+== Dobrar o valor da partida até que o valor máximo seja atingido
+=dobrar 	jogador2     OK
+=dobrar 	jogador1     OK
+=dobrar 	jogador2     OK
+=dobrar 	jogador1     OK
+=dobrar 	jogador2     OK
+=dobrar 	jogador1     MaxPontos
+
+== Testar a recuperação de erro
+=obterpontos	MaxPontos
+=recuperar
+
+// fim
