@@ -3,9 +3,9 @@
 //            Guilherme de Azevedo Pereira Marques
 //            Thiago Duarte Naves
 // Data:      20/09/2015
-// PropÛsito: Testar o mÛdulo DadoPontos
+// Prop√≥sito: Testar o m√≥dulo DadoPontos
 //
-// Este teste È completo
+// Este teste √© completo
 //
 
 ==Inicializar valores
@@ -25,7 +25,7 @@
 == Obter o valor atual da partida
 =obterpontos 	OK
 
-== Dobrar o valor da partida atÈ que o valor m·ximo seja atingido
+== Dobrar o valor da partida at√© que o valor m√°ximo seja atingido
 =dobrar 	jogador2     OK
 =dobrar 	jogador1     OK
 =dobrar 	jogador2     OK
@@ -33,7 +33,7 @@
 =dobrar 	jogador2     OK
 =dobrar 	jogador1     MaxPontos
 
-== Testar a recuperaÁ„o de erro
+== Testar a recupera√ß√£o de erro
 =obterpontos	MaxPontos
 =recuperar
 
