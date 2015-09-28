@@ -76,13 +76,15 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
 
       struct tpTabuleiro * tab = ( struct tpTabuleiro *) malloc( sizeof( struct tpTabuleiro )) ;
       if ( tab == NULL )
+      {
          return TAB_CondRetMemoria ;
+      } /* if */
 
       /* Cria a lista principal */
       if ( LIS_CriarLista( &tab->posicoes, LiberarPosicao ) != LIS_CondRetOK )
       {
          return TAB_CondRetMemoria ;
-      }
+      } /* if */
 
       for ( i = 0 ; i < QUANTIDADE_POS ; i ++ )
       {
@@ -92,7 +94,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
              * (evita vazamento de memória) */
             TAB_Destruir( *pTabuleiro ) ;
             return TAB_CondRetMemoria ;
-         }
+         } /* if */
 
          if ( LIS_InserirElementoApos( tab->posicoes, ( void * ) lis ) != LIS_CondRetOK )
          {
@@ -101,8 +103,8 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
             LIS_DestruirLista( lis ) ;
             TAB_Destruir( *pTabuleiro ) ;
             return TAB_CondRetMemoria ;
-         }
-      }
+         } /* if */
+      } /* for */
 
       return TAB_CondRetOK ;
 
@@ -120,7 +122,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       if ( tabuleiro == NULL )
       {
          return TAB_CondRetOK ;
-      }
+      } /* if */
 
       LIS_DestruirLista( tabuleiro->posicoes ) ;
 
@@ -143,7 +145,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       if ( posicao >= QUANTIDADE_POS )
       {
          return TAB_CondRetPosInvalida ;
-      }
+      } /* if */
 
       pos = ObterListaPosicao( tabuleiro , posicao ) ;
       assert( pos != NULL ) ;
@@ -151,7 +153,9 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       if ( LIS_InserirElementoApos( pos, ( void * ) peca ) != LIS_CondRetOK )
       {
          return TAB_CondRetMemoria ;
-      }
+      } /* if */
+
+      return TAB_CondRetOK ;
 
    } /* Fim função: TAB Incluir peça */
 
@@ -172,12 +176,12 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       if (( de >= QUANTIDADE_POS ) || ( para >= QUANTIDADE_POS ))
       {
          return TAB_CondRetPosInvalida ;
-      }
+      } /* if */
 
       if ( de == para )
       {
          return TAB_CondRetOK ;
-      }
+      } /* if */
 
       lDe = ObterListaPosicao( tabuleiro , de ) ;
       lPara = ObterListaPosicao( tabuleiro , para ) ;
@@ -188,12 +192,12 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       if ( LIS_ObterValor( lDe , ( void ** ) &pec ) != LIS_CondRetOK )
       {
          return TAB_CondRetPosVazia ;
-      }
+      } /* if */
 
       if ( LIS_InserirElementoAntes( lPara, ( void * ) pec ) != LIS_CondRetOK )
       {
          return TAB_CondRetMemoria ;
-      }
+      } /* if */
 
       /* Impede que a peça seja desalocada */
       LIS_DefinirFuncaoExcluir( lDe, NULL ) ;
@@ -222,14 +226,14 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       if ( posicao >= QUANTIDADE_POS )
       {
          return TAB_CondRetPosInvalida ;
-      }
+      } /* if */
 
       pos = ObterListaPosicao( tabuleiro, posicao ) ;
 
       if ( LIS_IrInicioLista( pos ) != LIS_CondRetOK )
       {
          return TAB_CondRetPosVazia ;
-      }
+      } /* if */
 
       /* Já sabemos que a peça existe. Não é preciso testar a condição
        * de retorno novamente */
@@ -265,7 +269,7 @@ static void LiberarPosicao( void * pValor )
    LIS_DefinirFuncaoExcluir( lis , LiberarPeca ) ;
    LIS_DestruirLista( lis ) ;
 
-}
+} /* Fim função: Liberar Posição */
 
 
 /***********************************************************************
@@ -285,7 +289,7 @@ static void LiberarPeca( void * pValor )
 
    PEC_Destruir( ( PEC_tppPeca ) pValor ) ;
 
-}
+} /* Fim função Liberar peça */
 
 
 /***********************************************************************
@@ -321,21 +325,21 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
    if ( LIS_IrInicioLista( tabuleiro->posicoes ) != LIS_CondRetOK )
    {
       return NULL ;
-   }
+   } /* if */
 
    if ( LIS_AvancarElementoCorrente( tabuleiro->posicoes , posicao ) != LIS_CondRetOK )
    {
       return NULL ;
-   }
+   } /* if */
 
    if ( LIS_ObterValor( tabuleiro->posicoes , ( void ** ) &ret ) != LIS_CondRetOK )
    {
       return NULL ;
-   }
+   } /* if */
 
    return ret ;
 
-} /* Fim função Obter Lista Posição */
+} /* Fim função: Obter Lista Posição */
 
 
 /********** Fim do módulo de implementação: Módulo tabuleiro **********/

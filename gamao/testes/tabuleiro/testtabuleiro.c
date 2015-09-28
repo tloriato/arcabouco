@@ -280,7 +280,7 @@ static tpComandoTeste Comandos[] = {
 
       int ret = TAB_Destruir( Instancias[ Parametros[ 0 ] ] ) ;
       Instancias[ Parametros[ 0 ] ] = NULL ;
-      return ret ; 
+      return ret ;
 
    } /* Fim função: TTAB Comando Destruir */
 
@@ -302,7 +302,7 @@ static tpComandoTeste Comandos[] = {
       {
          TST_NotificarFalha( "Índice de peça inválido" ) ;
          return TAB_CondRetOK ;
-      }
+      } /* if */
 
       return TAB_IncluirPeca( Instancias[ Parametros[ 0 ] ] , Parametros[ 1 ] , Pecas[ Parametros[ 2 ] ] ) ;
 
@@ -337,16 +337,16 @@ static tpComandoTeste Comandos[] = {
 
    static int TTAB_CmdRemoverPeca( void )
    {
-       
+
       PEC_tppPeca peca ;
       int ret , corObtida , corEsperada ;
-      
+
       if ( ( Parametros[ 2 ] < 0 )
         || ( Parametros[ 2 ] >= MAX_PECAS ) )
       {
          TST_NotificarFalha( "Índice de peça inválido" ) ;
          return TAB_CondRetOK ;
-      }
+      } /* if */
 
       ret = TAB_RemoverPeca( Instancias[ Parametros[ 0 ] ] , Parametros[ 1 ] , &peca ) ;
 
@@ -356,18 +356,18 @@ static tpComandoTeste Comandos[] = {
          {
             TST_NotificarFalha( "Erro ao obter a cor da peça" ) ;
             return TAB_CondRetOK ;
-         }
+         } /* if */
 
          if ( PEC_ObterCor( Pecas[ Parametros[ 2 ] ], &corEsperada ) != PEC_CondRetOK )
          {
             TST_NotificarFalha( "Erro ao obter a cor da peça" ) ;
             return TAB_CondRetOK ;
-         }
+         } /* if */
 
          if ( corObtida != corEsperada )
          {
             TST_NotificarFalha( "Cor da peça diferente da esperada" ) ;
-         }
+         } /* if */
       }
 
       return ret ;
