@@ -53,7 +53,7 @@
 *
 *  Assertivas de entrada:
 *     - Os ponteiros passados como parametro não apontem para NULL
-*     
+*
 *  Assertivas de saída:
 *     - pDado1 e pDado2 tenham valores gerados aleatoriamente
 *

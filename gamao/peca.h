@@ -117,7 +117,7 @@ typedef void * PEC_tppPeca;
 *      - O ponteiro passado não aponte para NULL
 *
 *   Assertiva de saída:
-*      - Pcor guarde a cor guardada por pPeca.
+*      - pCor guarde a cor guardada por pPeca.
 *
 *
 ***********************************************************************/

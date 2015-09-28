@@ -17,8 +17,8 @@
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Encapsula uma estrutura DadoPontos, armazena qual jogador pode 
-*     dobrar o valor da partida e informa o valor atual da partida. 
+*     Encapsula uma estrutura DadoPontos, armazena qual jogador pode
+*     dobrar o valor da partida e informa o valor atual da partida.
 *
 ***********************************************************************/
 
@@ -38,8 +38,8 @@
           /* Valor da partida já atingiu o máximo */
 
      DPO_JogadorNaoPodeDobrar = 2
-        /* Não é permitido que o jogador passado 
-           por parâmetro dobre a  partida	*/
+        /* Não é permitido que o jogador passado
+           por parâmetro dobre a  partida */
 
    } DPO_tpCondRet ;
 
@@ -106,7 +106,7 @@ typedef enum {
 *     - res não aponte para NULL
 *
 *  Assertivas de Saída:
-*    - *res = 1 se o jogador pode dobrar e 0 caso contrário. 
+*    - *res = 1 se o jogador pode dobrar e 0 caso contrário.
 *
 ***********************************************************************/
 
