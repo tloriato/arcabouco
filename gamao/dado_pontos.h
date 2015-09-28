@@ -134,8 +134,6 @@
    DPO_tpCondRet DPO_ObterPontos( int * pontos ) ;
 
 
-#undef DADO_PONTOS_
-
 /********** Fim do módulo de definição: Módulo dado pontos **********/
 
 #else

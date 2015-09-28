@@ -63,8 +63,6 @@
    DAD_tpCondRet DAD_JogarDados( int* pDado1 , int* pDado2 ) ;
 
 
-#undef DADO_
-
 /********** Fim do módulo de definição: Módulo dado **********/
 
 #else
