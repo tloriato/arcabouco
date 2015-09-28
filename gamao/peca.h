@@ -17,8 +17,8 @@
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Módulo que representa uma peça em para ser usada em um tabuleiro.
-*     Cada peça tem uma cor imutável definida em sua criação.
+*     Esse módulo é uma peça que pode ser usada em um tabuleiro.
+*     Cada peça tem apenas uma cor imutável e definida na sua criação.
 *
 ***********************************************************************/
 
@@ -33,19 +33,19 @@
    typedef enum {
 
       PEC_CondRetOK = 0,
-          /* Rodou sem erros */
+         /* Rodou sem erros */
 
-	  PEC_CondRetPonteiroRetornoNulo = 1,
-		  /* Ponteiro passado por parâmetro para retorno é NULL */
+      PEC_CondRetPonteiroRetornoNulo = 1,
+         /* Ponteiro passado por parâmetro para retorno é NULL */
 
-	  PEC_CondRetFaltouMemoria = 2
-	      /* Faltou memória ao alocar dados */
+      PEC_CondRetFaltouMemoria = 2
+         /* Faltou memória ao alocar dados */
 
    } PEC_tpCondRet ;
 
 /***********************************************************************
 *
-*  $TC Tipo de dados: Tipo abstrato de dados peça
+*  $TC Tipo de dados: Tipo abstrato de dados Peça
 *
 ***********************************************************************/
    
@@ -66,9 +66,15 @@ typedef void * PEC_tppPeca;
 *  $FV Valor retornado
 *     PEC_CondRetOK
 *
+*   Assertiva de Entrada:
+*      - O ponteiro passado como parâmetro não aponte para NULL
+*   Assertiva de saída:
+*      - pPeca ocupe o espaço do tipo definido para peça no .c e
+*        tenha a cor passada como parâmetro.
+*
 ***********************************************************************/
 
-   PEC_tpCondRet Criar( PEC_tppPeca * pPeca , int cor ) ;
+   PEC_tpCondRet PEC_Criar( PEC_tppPeca * pPeca , int cor ) ;
 
 /***********************************************************************
 *
@@ -83,9 +89,15 @@ typedef void * PEC_tppPeca;
 *  $FV Valor retornado
 *     PEC_CondRetOK
 *
+*   Assertiva de Entrada:
+*      - Não há necessidade de assertivas de entrada.
+*   Assertiva de saída:
+*      - O espaço ocupado pelo parâmetro passado esteja livre.
+*        
+*
 ***********************************************************************/
 
-   PEC_tpCondRet Destruir( PEC_tppPeca pPeca ) ;
+   PEC_tpCondRet PEC_Destruir( PEC_tppPeca pPeca ) ;
 
 /***********************************************************************
 *
@@ -102,12 +114,16 @@ typedef void * PEC_tppPeca;
 *  $FV Valor retornado
 *     PEC_CondRetOK
 *
+*   Assertiva de Entrada:
+*      - O ponteiro passado não aponte para NULL
+*   Assertiva de saída:
+*      - Pcor guarde a cor guardada por pPeca.
+*        
+*
 ***********************************************************************/
 
-   PEC_tpCondRet ObterCor( PEC_tppPeca pPeca , int * pCor ) ;
+   PEC_tpCondRet PEC_ObterCor( PEC_tppPeca pPeca , int * pCor ) ;
 
-
-#undef PECA_
 
 /********** Fim do módulo de definição: Módulo Peça **********/
 

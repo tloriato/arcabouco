@@ -1,0 +1,27 @@
+// Script:    testepeca.script
+// Autores:   Gabriel Barbosa de Oliveira
+//            Guilherme de Azevedo Pereira Marques
+//            Thiago Duarte Naves
+// Data:      27/09/2015
+// Propósito: Testar o módulo peça
+//
+//
+//
+
+== Criar uma peca
+=criar	0 0
+
+==Criar uma peca com ponteiro de retorno da peca nulo
+=criar	1 0
+
+== Destruir uma peca
+=destruir  0
+
+== Obter cor de uma peca
+=obtercor  0 0
+
+== Obter cor de uma peca com ponteiro de retorno da cor nulo
+=obtercor  0 1
+
+//fim
+

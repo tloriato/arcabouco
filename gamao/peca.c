@@ -13,9 +13,10 @@
 *  $HA Histórico de evolução:
 *     Versão  Autor               Data     Observações
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
-
+*
 *  $ED Descrição do módulo
-*     Descrição...
+*     Esse módulo é uma peça que pode ser usada em um tabuleiro.
+*     Cada peça tem apenas uma cor imutável e definida na sua criação.
 *
 ***********************************************************************/
 
@@ -23,12 +24,11 @@
 #include   <stdlib.h>
 #include   "peca.h"
 
-typedef struct peca {
+typedef struct peca
+{
+   static int cor ; /* Cor da peça */
+} tpPeca ;
 
-int cor;
-/*cor da peca*/
-
-}tpPeca;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -38,27 +38,27 @@ int cor;
 *  Função: PEC Criar
 *  ****/
 
-   PEC_tpCondRet Criar( PEC_tppPeca * pPeca , int cor )
+   PEC_tpCondRet PEC_Criar( PEC_tppPeca * pPeca , int cor )
    {
-	   tpPeca * peca;
-
-	   if(pPeca == NULL)
-	   {
-		   return PEC_CondRetPonteiroRetornoNulo;
-	   }/*if*/
-
-	   *pPeca = (tpPeca*) malloc(sizeof(tpPeca)) ;
-
-	  if ( *pPeca == NULL )
+      tpPeca * peca;
+   
+      if ( pPeca == NULL )
+      {
+         return PEC_CondRetPonteiroRetornoNulo ;
+      } /* if */
+   
+      *pPeca = ( tpPeca * ) malloc( sizeof( tpPeca ) ) ;
+   
+      if ( *pPeca == NULL )
       {
          return PEC_CondRetFaltouMemoria ;
       } /* if */
-
-	  peca = ( tpPeca *) *pPeca ;
+   
+      peca = ( tpPeca *) *pPeca ;
       peca->cor = cor;
-
-	  return PEC_CondRetOK;
-
+   
+      return PEC_CondRetOK ;
+   
    } /* Fim função: PEC Criar */
 
 
@@ -67,18 +67,13 @@ int cor;
 *  Função: PEC Destruir
 *  ****/
 
-   PEC_tpCondRet Destruir( PEC_tppPeca pPeca )
+   PEC_tpCondRet PEC_Destruir( PEC_tppPeca pPeca )
    {
-	   tpPeca * peca = ( tpPeca * ) pPeca ;
+      tpPeca * peca = ( tpPeca * ) pPeca ;
 
-	   if(pPeca == NULL)
-	   {
-		   return PEC_CondRetPonteiroRetornoNulo;
-	   }/*if*/
+      free( peca );
 
-	   free(peca);
-
-	   return PEC_CondRetOK;
+      return PEC_CondRetOK ;
 
    } /* Fim função: PEC Destruir */
 
@@ -88,20 +83,19 @@ int cor;
 *  Função: PEC Obter cor
 *  ****/
 
-   PEC_tpCondRet ObterCor( PEC_tppPeca pPeca , int * pCor )
+   PEC_tpCondRet PEC_ObterCor( PEC_tppPeca pPeca , int * pCor )
    {
-	   tpPeca * peca = ( tpPeca * ) pPeca ;
-	   
-	   if(pPeca == NULL)
-	   {
-		   return PEC_CondRetPonteiroRetornoNulo;
-	   }/*if*/
-
-	   *pCor = peca->cor ;
-
-	   return PEC_CondRetOK;
-
-
+      tpPeca * peca = ( tpPeca * ) pPeca ;
+   
+      if ( pCor == NULL )
+      {
+         return PEC_CondRetPonteiroRetornoNulo ;
+      } /* if */
+   
+      *pCor = peca->cor ;
+   
+      return PEC_CondRetOK ;
+   
    } /* Fim função: PEC Obter cor */
 
 
