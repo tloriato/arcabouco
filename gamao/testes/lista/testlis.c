@@ -20,10 +20,10 @@
 #include    <stdio.h>
 #include    <malloc.h>
 
-#include    "TST_Espc.h"
+#include    "tst_espc.h"
 
-#include    "Generico.h"
-#include    "LerParm.h"
+#include    "generico.h"
+#include    "lerparm.h"
 
 #include    "lista.h"
 
