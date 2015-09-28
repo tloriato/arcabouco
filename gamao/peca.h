@@ -68,6 +68,7 @@ typedef void * PEC_tppPeca;
 *
 *   Assertiva de Entrada:
 *      - O ponteiro passado como parâmetro não aponte para NULL
+*
 *   Assertiva de saída:
 *      - pPeca ocupe o espaço do tipo definido para peça no .c e
 *        tenha a cor passada como parâmetro.
@@ -91,6 +92,7 @@ typedef void * PEC_tppPeca;
 *
 *   Assertiva de Entrada:
 *      - Não há necessidade de assertivas de entrada.
+*
 *   Assertiva de saída:
 *      - O espaço ocupado pelo parâmetro passado esteja livre.
 *        
@@ -116,6 +118,7 @@ typedef void * PEC_tppPeca;
 *
 *   Assertiva de Entrada:
 *      - O ponteiro passado não aponte para NULL
+*
 *   Assertiva de saída:
 *      - Pcor guarde a cor guardada por pPeca.
 *        

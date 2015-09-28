@@ -77,6 +77,7 @@
 *
 *  Assertivas de Entrada:
 *	  - Jogador exista (1 ou 2).
+*
 *  Assertivas de Saída:
 *	  - Valor da partida tenha sido atualizado no estrutura
 *	    encapsulada no módulo.
@@ -103,6 +104,7 @@
 *  Assertivas de Entrada:
 *     - Jogador exista (1 ou 2).
 *     - res não aponte para NULL
+*
 *  Assertivas de Saída:
 *	  - *res = 1 se o jogador pode dobrar e 0 caso contrário. 
 *
@@ -125,7 +127,8 @@
 *     DPO_CondRetOK
 *
 *  Assertivas de Entrada:
-*	  - pontos não aponte para NULL.
+*	    - pontos não aponte para NULL.
+*
 *  Assertivas de Saída:
 *     - *pontos seja igual a um número inteiro maior que 1 e menor que 64.
 *

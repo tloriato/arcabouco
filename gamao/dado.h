@@ -13,7 +13,7 @@
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor               Data     Observações
+*     Versão  Autor             Data       Observações
 *       1.00  gbo, gapm, tdn    18/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
@@ -46,21 +46,20 @@
 *
 *  $EP Parâmetros
 *     $P pDado1 - Resultado do dado 1.
-*                 Este parâmetro é passado por referência.
 *     $P pDado2 - Resultado do dado 2.
-*                 Este parâmetro é passado por referência.
 *
 *  $FV Valor retornado
 *     DAD_CondRetOK
 *
 *  Assertivas de entrada:
 *     - Os ponteiros passados como parametro não apontem para NULL
+*     
 *  Assertivas de saída:
 *     - pDado1 e pDado2 tenham valores gerados aleatoriamente
 *
 ***********************************************************************/
 
-   DAD_tpCondRet DAD_JogarDados( int* pDado1 , int* pDado2 ) ;
+   DAD_tpCondRet DAD_JogarDados( int * pDado1 , int * pDado2 ) ;
 
 
 /********** Fim do módulo de definição: Módulo dado **********/
