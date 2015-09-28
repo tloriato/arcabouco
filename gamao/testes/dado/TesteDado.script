@@ -1,0 +1,21 @@
+// Script:    TesteLista.script
+// Autores:   Gabriel Barbosa de Oliveira
+//            Guilherme de Azevedo Pereira Marques
+//            Thiago Duarte Naves
+// Data:      27/09/2015
+// Propósito: Testar o módulo Dado
+//
+// Este teste é completo
+//
+
+== Inicializar valores
+=declararparm   OK     int 0
+
+== Jogar dados
+=jogar      OK
+
+== Testar a recuperação de erro
+=jogar      2
+=recuperar
+
+// fim
