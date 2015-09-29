@@ -52,7 +52,7 @@
 *     DAD_CondRetOK
 *
 *  Assertivas de entrada:
-*     - Os ponteiros passados como parametro não apontem para NULL
+*     - Os ponteiros passados como parametro devem ser válidos
 *
 *  Assertivas de saída:
 *     - pDado1 e pDado2 tenham valores gerados aleatoriamente

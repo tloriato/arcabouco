@@ -17,7 +17,7 @@
 *       1.00  gbo, gapm, tdn   19/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Descrição...
+*     Módulo para movimentação de peças em um tabuleiro de jogo
 *
 ***********************************************************************/
 
@@ -67,8 +67,11 @@ typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 *     $P pTabuleiro - Parâmetro de retorno do tabuleiro criado.
 *                     Esse parâmetro é passado por referência
 *
-*  $EAE Assertivas de entradas esperadas
-*     pTabuleiro != NULL
+*  Assertivas de entrada:
+*     - O ponteiro passado como parametro deve ser válido.
+*
+*  Assertivas de saída:
+*     - *pTabuleiro deve conter a instância de tabuleiro criada.
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK
@@ -88,8 +91,12 @@ typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 *  $EP Parâmetros
 *     $P tabuleiro - Tabuleiro a ser destruído
 *
-*  $EAE Assertivas de entradas esperadas
-*     tabuleiro != NULL
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro.
+*
+*  Assertivas de saída:
+*     - A memória ocupada pelo tabuleiro passado por parâmetro deve
+*       ser desalocada.
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK
@@ -108,7 +115,16 @@ typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 *  $EP Parâmetros
 *     $P tabuleiro - Tabuleiro a ser operado
 *     $P posicao   - Posição do tabuleiro aonde será incluída a peça
-*     $P peca     - Peça a ser incluída
+*     $P peca      - Peça a ser incluída
+*
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro.
+*     - posicao deve ser um inteiro entre 0 e 23, inclusive.
+*     - peca deve ser uma instância válida de peça.
+*
+*  Assertivas de saída:
+*     - A peça passada no parâmetro peca será incluída na posição indicada
+*       do tabuleiro passado.
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK
@@ -129,6 +145,18 @@ typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 *     $P tabuleiro - Tabuleiro a ser operado
 *     $P de        - Posição de origem da peça
 *     $P para      - Posição de destino da peça
+*
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro.
+*     - de deve ser um inteiro entre 0 e 23, inclusive.
+*     - para deve ser um inteiro entre 0 e 23, inclusive.
+*     - a posição 'de' deve conter ao menos uma peça.
+*
+*  Assertivas de saída:
+*     - Uma das peças do tabuleiro contidas na posição 'de' será movida
+*       para a posição 'para'. Assume-se que todas as peças em uma mesma
+*       posição do tabuleiro são equivalentes e qualquer uma pode ser
+*       movida com o mesmo efeito.
 *
 *  $FV Valor retornado
 *     TAB_CondRetOK
@@ -153,6 +181,19 @@ typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 *     $P peca      - Parâmetro para retorno da peça removida
 *                    Esse parâmetro é passado por referência
 *
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro.
+*     - posicao deve ser um inteiro entre 0 e 23, inclusive.
+*     - peca deve ser um ponteiro válido.
+*     - A posição 'posicao' deve conter ao menos uma peça.
+*
+*  Assertivas de saída:
+*     - Uma das peças do tabuleiro contidas na posição 'posicao' será
+*       removida. Assume-se que todas as peças em uma mesma posição do
+*       tabuleiro são equivalentes e qualquer uma pode ser removida
+*       com o mesmo efeito.
+*     - A peça removida será retornada através do parâmetro peca.
+*
 *  $FV Valor retornado
 *     TAB_CondRetOK
 *     TAB_CondRetPosInvalida
@@ -162,8 +203,6 @@ typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 
    TAB_tpCondRet TAB_RemoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca * peca ) ;
 
-
-#undef TABULEIRO_
 
 /********** Fim do módulo de definição: Módulo tabuleiro **********/
 

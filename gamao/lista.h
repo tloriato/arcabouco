@@ -99,6 +99,14 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     pExcluir  -   ponteiro para uma função chamada ao desalocar um
 *                   elemento
 *
+*  Assertivas de entrada:
+*     - pLista deve ser um ponteiro válido.
+*     - pExcluir deve ser um ponteiro de função válido ou NULL.
+*
+*  Assertivas de saída:
+*     - *pLista deve conter uma instância válida de lista com a função
+*       de desalocação igual a pExcluir.
+*
 *  $FV Valor retornado
 *    LIS_CondRetOK - Criou sem problemas
 *    LIS_CondRetFaltouMemoria  -  Ocorreu um erro por falta de memória
@@ -123,6 +131,14 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     pExcluir  -   ponteiro para uma função chamada ao desalocar um
 *                   elemento
 *
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*     - pExcluir deve ser um ponteiro de função válido ou NULL.
+*
+*  Assertivas de saída:
+*     - A função de desalocação de dados da lista passada passa a ser
+*       a função apontada por pExcluir ou NULL.
+*
 *  $FV Valor retornado
 *     LIS_CondRetOK    - definiu sem problemas
 *
@@ -146,6 +162,12 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *  $EP Parâmetros
 *     lista  -  Lista a ser destruída
 *
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*
+*  Assertivas de saída:
+*     - A memória ocupada pela lista passada deve ser liberada.
+*
 *  $FV Valor retornado
 *     LIS_CondRetOK    - destruiu sem problemas
 *
@@ -164,6 +186,13 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     lista - ponteiro para a lista a ser esvaziada
+*
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*
+*  Assertivas de saída:
+*     - Todos os elementos contidos na lista devem ser removidos e a
+*       memória ocupada por eles liberada.
 *
 *  $FV Valor retornado
 *     LIS_CondRetOK  -  Esvaziou sem problemas
@@ -184,6 +213,14 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *  $EP Parâmetros
 *     lista - ponteiro para a lista onde deve ser inserido o elemento
 *     pValor - valor do novo elemento
+*
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*
+*  Assertivas de saída:
+*     - Um novo elemento deve ser alocado e este deve conter o dado
+*       pValor. Este elemento será inserido na posição anterior ao
+*       elemente corrente na lista passada.
 *
 *  $FV Valor retornado
 *     LIS_CondRetOK  -  inseriu sem problemas
@@ -207,6 +244,13 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     lista - ponteiro para a lista onde deve ser inserido o elemento
 *     pValor - valor do novo elemento
 *
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*
+*  Assertivas de saída:
+*     - Um novo elemento deve ser alocado e este deve conter o dado
+*       pValor. Este elemento será inserido na posição seguinte ao
+*       elemente corrente na lista passada.
 *
 *  $FV Valor retornado
 *     LIS_CondRetOK  -  inseriu sem problemas
@@ -225,14 +269,23 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *  $ED Descrição da função
 *     Exclui o elemento corrente da lista dada.
 *     Se existir o elemento a esquerda do corrente será o novo corrente.
-*     Se não existir e existir o elemento à direita, este se tornará corrente.
+*     Se não existir e existir o elemento à direita, este se tornará
+*     corrente.
 *     Se este também não existir a lista tornou-se vazia.
 *
 *  $EP Parâmetros
 *     lista    - lista na qual deve excluir.
 *
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*     - A lista deve conter ao menos 1 elemento.
+*
+*  Assertivas de saída:
+*     - O elemento corrente da lista deve ser excluído e a memória
+*       utilizada pelo elemento deve ser liberada.
+*
 *  $FV Valor retornado
-*     LIS_CondRetOK  -  exclui sem problemas
+*     LIS_CondRetOK  -  excluído sem problemas
 *     LIS_CondRetListaVazia  -  a lista está vazia
 *
 ***********************************************************************/
@@ -245,11 +298,21 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *  $FC Função: LIS  &Obter referência para o valor contido no elemento
 *
 *  $ED Descrição da função
-*     Obtem a referência para o valor contido no elemento corrente da lista
+*     Obtem a referência para o valor contido no elemento corrente da
+*     lista
 *
 *  $EP Parâmetros
 *     lista - lista de onde se quer o valor
-	   ppValor - ponteiro para retorno do elemento
+*     ppValor - ponteiro para retorno do elemento
+*
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*     - A lista deve conter ao menos 1 elemento.
+*     - ppValor deve ser um ponteiro válido.
+*
+*  Assertivas de saída:
+*     - *ppValor irá conter o valor armazenado no elemento corrente da
+*       lista.
 *
 *  $FV Valor retornado
 *     LIS_CondRetOk -  se o elemento corrente existe
@@ -271,6 +334,13 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *  $EP Parâmetros
 *     lista - ponteiro para a lista a manipular
 *
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*
+*  Assertivas de saída:
+*     - O elemento corrente da lista passa a ser o primeiro elemento
+*       da lista ou NULL, caso a lista esteja vazia.
+*
 *  $FV Valor retornado
 *     LIS_CondRetOk - função executou sem problemas
 *
@@ -289,6 +359,13 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *
 *  $EP Parâmetros
 *     lista - ponteiro para a lista a manipular
+*
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*
+*  Assertivas de saída:
+*     - O elemento corrente da lista passa a ser o último elemento
+*       da lista ou NULL, caso a lista esteja vazia.
 *
 *  $FV Valor retornado
 *     LIS_CondRetOk - função executou sem problemas
@@ -314,6 +391,16 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     lista  - ponteiro para a lista a ser manipulada
 *     numElem - o número de elementos a andar
 *
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*     - lista deve conter ao menos 'numElem' elementos na direção
+*       desejada contados a partir do elemento corrente.
+*
+*  Assertivas de saída:
+*     - O elemento corrente da lista passa a ser o elemento distante
+*       'numElem' posições do elemento corrente atual na direção
+*       indicada pelo sinal de 'numElem'.
+*
 *  $FV Valor retornado
 *     CondRetOK         - se numElem elementos tiverem sido andados
 *     CondRetFimLista   - se encontrou o fim da lista antes de andar numElem
@@ -338,6 +425,15 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 *     lista  - ponteiro para a lista onde procura
 *     pValor  - ponteiro para o valor procurado
 *               Pode ser NULL
+*
+*  Assertivas de entrada:
+*     - lista deve ser uma instância válida de lista.
+*     - lista deve conter ao menos um elemento com o dado igual a
+*       pValor.
+*
+*  Assertivas de saída:
+*     - O elemento corrente da lista passa a ser o elemento cujo
+*       valor é igual a 'pValor'.
 *
 *  $FV Valor retornado
 *     LIS_CondRetOK  - se encontrou.

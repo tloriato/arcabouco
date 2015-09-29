@@ -76,7 +76,7 @@ typedef enum {
 *     DPO_CondRetMaxPontos
 *
 *  Assertivas de Entrada:
-*    - Jogador exista (1 ou 2).
+*    - Jogador exista (DPO_Jogador1 ou DPO_Jogador2).
 *
 *  Assertivas de Saída:
 *    - Valor da partida tenha sido atualizado no estrutura
@@ -102,8 +102,8 @@ typedef enum {
 *     DPO_CondRetOK
 *
 *  Assertivas de Entrada:
-*     - Jogador exista (1 ou 2).
-*     - res não aponte para NULL
+*    - Jogador exista (DPO_Jogador1 ou DPO_Jogador2).
+*    - res seja um ponteiro válido.
 *
 *  Assertivas de Saída:
 *    - *res = 1 se o jogador pode dobrar e 0 caso contrário.
@@ -127,10 +127,10 @@ typedef enum {
 *     DPO_CondRetOK
 *
 *  Assertivas de Entrada:
-*      - pontos não aponte para NULL.
+*      - pontos seja um ponteiro válido.
 *
 *  Assertivas de Saída:
-*     - *pontos seja igual a um número inteiro maior que 1 e menor que 64.
+*     - *pontos seja igual a um número inteiro entre 1 e 64, inclusive.
 *
 ***********************************************************************/
 
