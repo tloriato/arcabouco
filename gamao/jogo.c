@@ -16,12 +16,37 @@
 *       1.00  gbdo, gdapm, pa, tdn   22/10/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
-*     Descrição...
+*     Este módulo é responsável por interagir com o usuário e garantir
+*     que as regras do gamão sejam seguidas.
 *
 ***********************************************************************/
 
 #include   <stdio.h>
 #include   <stdlib.h>
+#include   <assert.h>
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: JOG Opção de menu
+*
+*
+***********************************************************************/
+
+   typedef struct {
+
+         char * texto ;
+            /* Texto correspondente a esta opção que será impresso */
+
+         void ( * funcao )( void ) ;
+            /* Função que será chamada se o usuário escolher essa
+             * opção */
+
+         char tecla ;
+            /* Tecla que será usada pelo usuário para selecionar
+             * essa opção */
+
+   } tpOpcaoMenu ;
+
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -37,9 +62,7 @@
 
    static void MoverPeca( void ) ;
 
-   static void Menu( void ) ;
-
-   static void Main( void ) ;
+   static int Menu( tpOpcaoMenu * pOpcoes ) ;
 
 
 /*****  Código das funções exportadas pelo módulo  *****/
@@ -54,8 +77,6 @@
 *
 *  $ED Descrição da função
 *     Imprime o estado atual do tabuleiro em ASCII na tela.
-*
-*  $FV Valor retornado
 *
 ***********************************************************************/
 
@@ -72,8 +93,6 @@
 *  $ED Descrição da função
 *     Inicia uma nova partida de jogo.
 *
-*  $FV Valor retornado
-*
 ***********************************************************************/
 
    static void NovaPartida( void )
@@ -88,8 +107,6 @@
 *
 *  $ED Descrição da função
 *     Salva a partida atual em um arquivo.
-*
-*  $FV Valor retornado
 *
 ***********************************************************************/
 
@@ -106,8 +123,6 @@
 *  $ED Descrição da função
 *     Carrega a partida salva de um arquivo.
 *
-*  $FV Valor retornado
-*
 ***********************************************************************/
 
    static void CarregarPartida( void )
@@ -123,8 +138,6 @@
 *  $ED Descrição da função
 *     Joga os dados para determinar o número de movimentos do jogador
 *
-*  $FV Valor retornado
-*
 ***********************************************************************/
 
    static void JogarDados( void )
@@ -139,8 +152,6 @@
 *
 *  $ED Descrição da função
 *     Move uma peça do jogador atual.
-*
-*  $FV Valor retornado
 *
 ***********************************************************************/
 
@@ -158,31 +169,80 @@
 *     Imprime o menu, aguarda a escolha da opção e chama a função
 *     correspondente
 *
+*  $EP Parâmetros
+*     pOpcoes - Vetor de opções do menu.
+*
+*  Assertivas de entrada:
+*     - Vetor pOpcoes deve existir.
+*     - A última posição do vetor deve conter NULL no campo texto.
+*
+*  Assertivas de saída:
+*     - Menu impresso e função correspondente à opção escolhida pelo
+*       usuário chamada (se existir).
+*     - Índice da opção escolhida retornado..
+*
 *  $FV Valor retornado
+*     Índice da opção escolhida.
 *
 ***********************************************************************/
 
-   static void Menu( void )
+   static int Menu( tpOpcaoMenu * pOpcoes )
    {
+
+      assert( pOpcoes != NULL ) ;
+
+      tpOpcaoMenu * pOp = pOpcoes ;
+      while ( pOp->texto != NULL )
+      {
+         printf( "%c - %s\n" , pOp->tecla , pOp->texto ) ;
+         pOp ++ ;
+      } /* while */
+
+      /* Garante que o usuário escolha uma opção válida */
+      while ( 1 )
+      {
+         char t = 0 ;
+         int indice = 0 ;
+         scanf( "%c" , &t ) ;
+
+         pOp = pOpcoes ;
+         while ( pOp->texto != NULL )
+         {
+            if ( pOp->tecla == t )
+            {
+               if ( pOp->funcao )
+               {
+                  pOp->funcao( ) ;
+               } /* if */
+
+               return indice ;
+            } /* if */
+
+            indice ++ ;
+            pOp ++ ;
+         } /* while */
+
+         printf( "Opção inválida: %c\n" , t ) ;
+      } /* while */
 
    } /* Fim função: JOG Menu */
 
 
 /***********************************************************************
 *
-*  $FC Função: JOG Main
+*  $FC Função: Main
 *
 *  $ED Descrição da função
 *     Ponto de entrada do programa.
 *
-*  $FV Valor retornado
-*
 ***********************************************************************/
 
-   static void Main( void )
+   int main( void )
    {
 
-   } /* Fim função: JOG Main */
+      return 0 ;
+
+   } /* Fim função: Main */
 
 
 /********** Fim do módulo de implementação: Módulo jogo **********/
