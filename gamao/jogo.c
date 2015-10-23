@@ -203,6 +203,8 @@
       {
          char t = 0 ;
          int indice = 0 ;
+
+         printf( "Escolha uma opção: " ) ;
          scanf( "%c" , &t ) ;
 
          pOp = pOpcoes ;
