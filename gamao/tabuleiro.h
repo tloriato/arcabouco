@@ -203,6 +203,44 @@ typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 
    TAB_tpCondRet TAB_RemoverPeca( TAB_tppTabuleiro tabuleiro , unsigned int posicao , PEC_tppPeca * peca ) ;
 
+/***********************************************************************
+*
+*  $FC Função: TAB Contar Peças
+*
+*  $ED Descrição da função
+*     Conta quantas peças há na posição passada por parâmetro e
+*     retorna a cor das mesmas.
+*     Assume-se que todas as peças em uma mesma posição do
+*     tabuleiro são equivalentes e de mesma cor.
+*
+*  $EP Parâmetros
+*     $P tabuleiro  - Tabuleiro a ser operado
+*     $P posicao    - Posição da peça
+*     $P pQuanidade - Parâmetro para retorno da quantidade de peças
+*                     Esse parâmetro é passado por referência
+*     $P pCor       - Parâmetro para retorno da cor das peças
+*
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro.
+*     - posicao deve ser um inteiro entre 0 e 23, inclusive.
+*     - pQuantidade deve ser um ponteiro válido.
+*     - pCor deve ser um ponteiro válido.
+*
+*  Assertivas de saída:
+*     - A quantidade de peças presentes na posição indicada
+*       será retornada através do parâmetro pQuantidade e a cor
+*       dessas peças será retornada através do parâmetro pCor.
+*     - As variáveis apontadas por pQuantidade e pCor não serão
+*       alteradas em caso de falha.
+*
+*  $FV Valor retornado
+*     TAB_CondRetOK
+*     TAB_CondRetPosInvalida
+*
+***********************************************************************/
+
+   TAB_tpCondRet TAB_ContarPecas( TAB_tppTabuleiro tabuleiro , unsigned int posicao , unsigned int * pQuantidade , int * pCor ) ;
+
 
 /********** Fim do módulo de definição: Módulo tabuleiro **********/
 

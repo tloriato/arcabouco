@@ -48,6 +48,13 @@
 *         2 - posicao: Posição da peça
 *         3 - cor da peca: Cor esperada da peça removida
 *
+*     =contar <int, int, int, int> - chama a função TAB_ContarPecas( )
+*        Parâmetros:
+*        1 - tabuleiro
+*        2 - posição
+*        3 - quantidade esperada
+*        4 - cor esperada
+*
 ***************************************************************************/
 
 #include <stdio.h>
@@ -66,6 +73,7 @@ const char CMD_DESTRUIR     [] = "=destruir" ;
 const char CMD_INCLUIR_PECA [] = "=incluir" ;
 const char CMD_MOVER_PECA   [] = "=mover" ;
 const char CMD_REMOVER_PECA [] = "=remover" ;
+const char CMD_CONTAR       [] = "=contar" ;
 
 
 /***** Definições utilizados neste módulo de teste *****/
@@ -134,6 +142,7 @@ static int TTAB_CmdDestruir( void ) ;
 static int TTAB_CmdIncluirPeca( void ) ;
 static int TTAB_CmdMoverPeca( void ) ;
 static int TTAB_CmdRemoverPeca( void ) ;
+static int TTAB_CmdContar( void ) ;
 
 
 /*****  Variáveis globais à este módulo  *****/
@@ -183,7 +192,8 @@ static tpComandoTeste Comandos[] = {
    { CMD_DESTRUIR ,     "ii" ,      TTAB_CmdDestruir ,    "Retorno errado ao destruir o tabuleiro" } ,
    { CMD_INCLUIR_PECA , "iiiii" ,   TTAB_CmdIncluirPeca , "Retorno errado ao incluir a peça" } ,
    { CMD_MOVER_PECA ,   "iiii" ,    TTAB_CmdMoverPeca ,   "Retorno errado ao mover a peça" } ,
-   { CMD_REMOVER_PECA , "iiii" ,    TTAB_CmdRemoverPeca , "Retorno errado ao remover a peça" }
+   { CMD_REMOVER_PECA , "iiii" ,    TTAB_CmdRemoverPeca , "Retorno errado ao remover a peça" } ,
+   { CMD_CONTAR,        "iiiii" ,   TTAB_CmdContar ,      "Retorno errado ao contar as peças" }
 } ;
 
 
@@ -343,7 +353,8 @@ static tpComandoTeste Comandos[] = {
    {
 
       PEC_tppPeca peca ;
-      int ret , corObtida ;
+      TAB_tpCondRet ret ;
+      int  corObtida ;
 
       ret = TAB_RemoverPeca( Instancias[ Parametros[ 0 ] ] , Parametros[ 1 ] , &peca ) ;
 
@@ -366,6 +377,43 @@ static tpComandoTeste Comandos[] = {
       return ret ;
 
    } /* Fim função: TTAB Comando Remover peça */
+
+
+/***********************************************************************
+*
+*  $FC Função: TTAB Comando Contar
+*
+*  $ED Descrição da função
+*     Testa a contagem de peças em uma posição do tabuleiro
+*
+***********************************************************************/
+
+   static int TTAB_CmdContar( void )
+   {
+
+      unsigned int quantidade ;
+      int cor ;
+      TAB_tpCondRet ret ;
+
+      ret = TAB_ContarPecas( Instancias[ Parametros [ 0 ] ] , Parametros[ 1 ] , &quantidade , &cor ) ;
+      if ( ret == TAB_CondRetOK )
+      {
+         if ( ( int )quantidade != Parametros[ 2 ] )
+         {
+            TST_NotificarFalha( "Quantidade diferente da esperada." ) ;
+            return ret ;
+         } /* if */
+
+         if ( ( cor != Parametros[ 3 ] ) && ( quantidade > 0 ) )
+         {
+            TST_NotificarFalha( "Cor diferente da esperada." ) ;
+            return ret ;
+         } /* if */
+      } /* if */
+
+      return ret ;
+
+   } /* Fim função: TTAB Comando Contar */
 
 
 /********** Fim do módulo de implementação: Módulo de teste específico **********/

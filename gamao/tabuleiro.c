@@ -249,6 +249,52 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
    } /* Fim função: TAB Remover peça */
 
 
+/***************************************************************************
+*
+*  Função: TAB Contar Peças
+*  ****/
+
+   TAB_tpCondRet TAB_ContarPecas( TAB_tppTabuleiro tabuleiro , unsigned int posicao , unsigned int * pQuantidade , int * pCor )
+   {
+
+      LIS_tppLista pos = NULL ;
+      PEC_tppPeca peca = NULL ;
+
+      assert( tabuleiro != NULL ) ;
+      assert( pQuantidade != NULL ) ;
+      assert( pCor != NULL ) ;
+
+      if ( posicao >= QUANTIDADE_POS )
+      {
+         return TAB_CondRetPosInvalida ;
+      } /* if */
+
+      pos = ObterListaPosicao( tabuleiro, posicao ) ;
+      assert( pos != NULL ) ;
+
+      /* Já sabemos que pos existe e pQuantidade é válido.
+       * Não é preciso testar o retorno. */
+      LIS_IrInicioLista( pos ) ;
+
+      /* Verifica se a lista está vazia */
+      if ( LIS_ObterValor( pos , ( void ** ) &peca ) != LIS_CondRetOK )
+      {
+         *pQuantidade = 0 ;
+         return TAB_CondRetOK ;
+      } /* if */
+
+      PEC_ObterCor( peca , pCor ) ;
+      *pQuantidade = 1 ;
+      while ( LIS_AvancarElementoCorrente( pos , 1 ) != LIS_CondRetFimLista )
+      {
+         ( *pQuantidade ) ++ ;
+      } /* while */
+
+      return TAB_CondRetOK ;
+
+   } /* Fim função: TAB Contar Peças */
+
+
 /*****  Código das funções encapsuladas pelo módulo  *****/
 
 

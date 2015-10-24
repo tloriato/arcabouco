@@ -2,7 +2,7 @@
 // Autores:   Gabriel Barbosa de Oliveira
 //            Guilherme de Azevedo Pereira Marques
 //            Thiago Duarte Naves
-// Data:      28/09/2015
+// Data:      24/10/2015
 // Propósito: Testar o módulo tabuleiro
 //
 // Esse teste é completo
@@ -23,8 +23,15 @@
 == Mover uma peça para uma posição inexistente
 =mover     0   0   24  1
 
+== Contar peças em uma posição inexistente
+=contar    0   24   0  0  1
+
 == Mover uma peça inexistente
 =mover     0   0   1   2
+
+== Contar peças nas posições 0 e 1
+=contar    0   0   0   0   0
+=contar    0   1   0   0   0
 
 == Incluir uma peça nas posição 0
 =incluir   0   0   0   0   0
@@ -32,6 +39,10 @@
 == Incluir duas peças na posição 1
 =incluir   0   1   1   0   0
 =incluir   0   1   2   0   0
+
+== Contar peças nas posições 0 e 1
+=contar    0   0   1   0   0
+=contar    0   1   2   0   0
 
 == Incluir uma peça de outra cor na posição 2
 =incluir   0   2   3   1   0
@@ -49,6 +60,10 @@
 
 == Remover a peça da posição 0
 =remover   0   0   1   0
+
+== Contar peças nas posições 0 e 1
+=contar    0   0   0   0   0
+=contar    0   1   0   0   0
 
 == Destruir o tabuleiro
 =destruir  0   0
