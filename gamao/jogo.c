@@ -163,6 +163,8 @@
       /* Grava de qual jogador é a vez */
       fprintf( f , "%d\n" , vez == DPO_Jogador1 ) ;
 
+      fclose( f ) ;
+
    } /* Fim função: JOG Salvar partida */
 
 
