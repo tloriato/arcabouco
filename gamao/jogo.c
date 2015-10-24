@@ -24,6 +24,10 @@
 #include   <stdio.h>
 #include   <stdlib.h>
 #include   <assert.h>
+#include   "tabuleiro.h"
+#include   "dado_pontos.h"
+#include   "dado.h"
+#include   "peca.h"
 
 /***********************************************************************
 *
@@ -65,7 +69,11 @@
    static int Menu( tpOpcaoMenu * pOpcoes ) ;
 
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  Variáveis globais ao módulo  *****/
+
+   static TAB_tppTabuleiro tabuleiro = NULL ; /* Tabuleiro do jogo */
+   static DPO_tpJogador vez = DPO_Jogador1 ; /* Indica de qual jogador é
+                                              * a vez de jogar */
 
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
@@ -108,10 +116,52 @@
 *  $ED Descrição da função
 *     Salva a partida atual em um arquivo.
 *
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro.
+*     - essa função só pode ser chamada entre as jogadas de um jogador
+*       e outro, nunca durante uma jogada.
+*
+*  Assertivas de saída:
+*     - estado atual do jogo salvo no arquivo.
+*
 ***********************************************************************/
 
    static void SalvarPartida( void )
    {
+
+      int i ;
+      int pontos ;
+      int podeDobrar ; /* Jogador 1 pode dobrar se 64 > pontos > 1 */
+
+      FILE * f = fopen( "partida.txt" , "w" ) ;
+      if ( f == NULL )
+      {
+         printf( "Não foi possível criar o arquivo!\n" ) ;
+         return;
+      } /* if */
+
+      /* Grava tabuleiro */
+      for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
+      {
+         unsigned int quantidade ;
+         int cor ;
+         TAB_ContarPecas( tabuleiro, i , &quantidade , &cor ) ;
+         fprintf( f , "%d %X\n" , cor , quantidade ) ;
+      } /* for */
+
+      /* TODO Grava a quantidade de peças finalizadas de cada jogador */
+      fprintf( f , "0 0\n" ) ; /* dummy */
+
+      /* TODO Grava a quantidade de peças na barra de cada jogador */
+      fprintf( f , "0 0\n" ) ; /* dummy */
+
+      /* Grava valor da partida (dado pontos) */
+      DPO_ObterPontos( &pontos ) ;
+      DPO_PodeDobrar( DPO_Jogador1 , &podeDobrar ) ;
+      fprintf( f, "%d %d\n" , pontos , podeDobrar ) ;
+
+      /* Grava de qual jogador é a vez */
+      fprintf( f , "%d\n" , vez == DPO_Jogador1 ) ;
 
    } /* Fim função: JOG Salvar partida */
 
