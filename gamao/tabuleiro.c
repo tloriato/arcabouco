@@ -29,15 +29,6 @@
 
 /***********************************************************************
 *
-*  Definição: MAT Quantidade de posições no tabuleiro
-*
-***********************************************************************/
-
-#define QUANTIDADE_POS 24
-
-
-/***********************************************************************
-*
 *  $TC Tipo de dados: TAB Estrutura tabuleiro
 *
 *
@@ -86,7 +77,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
          return TAB_CondRetMemoria ;
       } /* if */
 
-      for ( i = 0 ; i < QUANTIDADE_POS ; i ++ )
+      for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
       {
          if ( LIS_CriarLista( &lis, LiberarPeca ) != LIS_CondRetOK )
          {
@@ -143,7 +134,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       LIS_tppLista pos ;
       assert( tabuleiro != NULL ) ;
 
-      if ( posicao >= QUANTIDADE_POS )
+      if ( posicao >= TAB_QUANTIDADE_POS )
       {
          return TAB_CondRetPosInvalida ;
       } /* if */
@@ -174,7 +165,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       LIS_tppLista lDe , lPara ;
       PEC_tppPeca pec ;
 
-      if (( de >= QUANTIDADE_POS ) || ( para >= QUANTIDADE_POS ))
+      if (( de >= TAB_QUANTIDADE_POS ) || ( para >= TAB_QUANTIDADE_POS ))
       {
          return TAB_CondRetPosInvalida ;
       } /* if */
@@ -225,7 +216,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       LIS_tppLista pos = NULL ;
       void * tmp ;
 
-      if ( posicao >= QUANTIDADE_POS )
+      if ( posicao >= TAB_QUANTIDADE_POS )
       {
          return TAB_CondRetPosInvalida ;
       } /* if */
@@ -264,7 +255,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       assert( pQuantidade != NULL ) ;
       assert( pCor != NULL ) ;
 
-      if ( posicao >= QUANTIDADE_POS )
+      if ( posicao >= TAB_QUANTIDADE_POS )
       {
          return TAB_CondRetPosInvalida ;
       } /* if */
@@ -354,7 +345,7 @@ static void LiberarPeca( void * pValor )
 *
 *  $EAE Assertivas de entradas esperadas
 *     tabuleiro != NULL
-*     posicao < QUANTIDADE_POS
+*     posicao < TAB_QUANTIDADE_POS
 *
 *  $FV Valor retornado
 *     Lista correspondente a linha desejada
@@ -367,7 +358,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
 {
 
    assert( tabuleiro != NULL ) ;
-   assert( posicao < QUANTIDADE_POS ) ;
+   assert( posicao < TAB_QUANTIDADE_POS ) ;
 
    LIS_tppLista ret = NULL ;
 

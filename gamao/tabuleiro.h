@@ -56,6 +56,16 @@
 
 typedef struct tpTabuleiro * TAB_tppTabuleiro ;
 
+
+/***********************************************************************
+*
+*  Definição: MAT Quantidade de posições no tabuleiro
+*
+***********************************************************************/
+
+#define TAB_QUANTIDADE_POS 24
+
+
 /***********************************************************************
 *
 *  $FC Função: TAB Criar
