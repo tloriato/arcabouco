@@ -53,6 +53,9 @@
 == Mover a peça da posição 2 para a posição 0
 =mover     0   2   0   0
 
+== Contar peças na posição 0
+=contar    0   0   1   1   0
+
 == Remover as 3 peças da posição 1
 =remover   0   1   0   0
 =remover   0   1   0   0
