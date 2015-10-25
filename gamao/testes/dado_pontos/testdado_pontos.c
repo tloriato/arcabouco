@@ -7,6 +7,7 @@
 *  Projeto: Disciplina INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
 *           gapm - Guilherme de Azevedo Pereira Marques
+*           pa - Pedro Alvarez
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
@@ -28,12 +29,15 @@
 *        Parâmetros:
 *        1 - jogador: Jogador
 *        2 - res: Resposta: 1 se o jogador pode dobrar. 0 caso contrário
-*                 Esse parâmetro é passado por referência
 *
 *     =obterpontos < int > - chama a função DPO_ObterPontos( )
 *        Parâmetros:
-*        1 - pontos: Retorno do valor da partida
-*                    Esse parâmetro é passado por referência
+*        1 - pontos: Valor da partida esperado
+*
+*     =definirpontosvez < int , int > - chama a função DPO_DefinirPontosVez( )
+*        Parâmetros:
+*        1 - pontos: Novo valor da partida
+*        2 - jogador: Jogador de quem será a próxima vez de dobrar os pontos
 *
 ***************************************************************************/
 
@@ -48,17 +52,21 @@
 
 /* Tabela os nomes dos comandos de teste específicos */
 
-const char CMD_DOBRAR_PONTOS [] = "=dobrar" ;
-const char CMD_PODE_DOBRAR   [] = "=podedobrar" ;
-const char CMD_OBTER_PONTOS  [] = "=obterpontos" ;
+const char CMD_DOBRAR_PONTOS      [] = "=dobrar" ;
+const char CMD_PODE_DOBRAR        [] = "=podedobrar" ;
+const char CMD_OBTER_PONTOS       [] = "=obterpontos" ;
+const char CMD_DEFINIR_PONTOS_VEZ [] = "=definirpontosvez" ;
 
 
 TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
 {
    int numLidos   = -1 ,
        paramLido  = -1 ,
+       paramLido2 = -1 ,
        CondRetEsp = -1 ,
-       Res       = -1 ;
+       Res        = -1 ;
+
+   DPO_tpCondRet Ret = DPO_CondRetOK ;
 
    /* Testar Dobrar pontos */
    if ( strcmp( ComandoTeste, CMD_DOBRAR_PONTOS) == 0 ) 
@@ -93,17 +101,39 @@ TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
    /* Testar Obter pontos */
    else if ( strcmp( ComandoTeste, CMD_OBTER_PONTOS ) == 0 )
    {
-      numLidos = LER_LerParametros ( "i" ,
+      numLidos = LER_LerParametros ( "ii" , &paramLido ,
                         &CondRetEsp ) ;
 
-      if ( numLidos != 1 )
+      if ( numLidos != 2 )
       {
          return TST_CondRetParm ;
       } /* if */
 
-      return TST_CompararInt ( CondRetEsp , DPO_ObterPontos ( &Res ) ,
+      Ret = DPO_ObterPontos ( &Res ) ;
+
+      if ( ( Ret == DPO_CondRetOK ) && ( Res != paramLido ) )
+      {
+         TST_NotificarFalha( "Pontos obtidos diferentes do esperado." ) ;
+      }
+
+      return TST_CompararInt ( CondRetEsp , Ret  ,
                "Retorno diferente do esperado." ) ;
    } /* Fim da ativa: Obter pontos */
+
+   /* Testar Definir Pontos e Vez */
+   else if ( strcmp( ComandoTeste , CMD_DEFINIR_PONTOS_VEZ ) == 0 )
+   {
+      numLidos = LER_LerParametros ( "iii" , &paramLido , &paramLido2 , &CondRetEsp ) ;
+
+      if ( numLidos != 3 ) 
+      {
+         return TST_CondRetParm ;
+      } /* if */
+
+      return TST_CompararInt ( CondRetEsp , DPO_DefinirPontosVez ( paramLido , ( DPO_tpJogador ) paramLido2 ) ,
+               "Retorno diferente do esperado." ) ;
+   } /* Fim da ativa: Pode dobrar */
+
 
    return TST_CondRetNaoConhec ;
 

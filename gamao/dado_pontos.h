@@ -10,6 +10,7 @@
 *  Projeto: Disciplina INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
 *           gapm - Guilherme de Azevedo Pereira Marques
+*           pa - Pedro Alvarez
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
@@ -37,9 +38,9 @@
       DPO_CondRetMaxPontos = 1 ,
           /* Valor da partida já atingiu o máximo */
 
-     DPO_JogadorNaoPodeDobrar = 2
-        /* Não é permitido que o jogador passado
-           por parâmetro dobre a  partida */
+      DPO_JogadorNaoPodeDobrar = 2
+         /* Não é permitido que o jogador passado
+            por parâmetro dobre a partida */
 
    } DPO_tpCondRet ;
 
@@ -130,11 +131,41 @@ typedef enum {
 *      - pontos seja um ponteiro válido.
 *
 *  Assertivas de Saída:
-*     - *pontos seja igual a um número inteiro entre 1 e 64, inclusive.
+*     - *pontos seja igual a uma potência de 2 entre 1 e 64, inclusive.
 *
 ***********************************************************************/
 
    DPO_tpCondRet DPO_ObterPontos( int * pontos ) ;
+
+
+/***********************************************************************
+*
+*  $FC Função: DPO Definir Pontos e Vez
+*
+*  $ED Descrição da função
+*     Define o valor da partida e o próximo jogador a dobrar.
+*     Caso o valor da partida seja 1, ambos os jogadores podem dobrar.
+*     Caso o valor da partida seja 64, nenhum jogador pode dobrar.
+*
+*  $EP Parâmetros
+*     $P pontos  - Novo valor da partida.
+*     $P jogador - Jogador que pode dobrar o valor da partida.
+*
+*  $FV Valor retornado
+*     DPO_CondRetOK
+*
+*  Assertivas de Entrada:
+*      - Jogador exista (DPO_Jogador1 ou DPO_Jogador2).
+*      - pontos deve ser uma potência de 2 entre 1 e 64, inclusive.
+*
+*  Assertivas de Saída:
+*      - valor da partida passa a ser o definido pelo parâmetro pontos.
+*      - vez de dobrar passa a ser do jogador passado por parâmetro.
+*
+***********************************************************************/
+
+   DPO_tpCondRet DPO_DefinirPontosVez( int pontos , DPO_tpJogador jogador ) ;
+
 
 
 /********** Fim do módulo de definição: Módulo dado pontos **********/

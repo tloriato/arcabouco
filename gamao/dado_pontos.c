@@ -8,6 +8,7 @@
 *  Projeto: Disciplina INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
 *           gapm - Guilherme de Azevedo Pereira Marques
+*           pa - Pedro Alvarez
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
@@ -30,20 +31,20 @@
 
 
 typedef struct dadopontos {
-	int ValorPartida;
-		/* Valor da partida no momento */
 
-	DPO_tpJogador JogadorPodeDobrar;
-		/* Qual jogador que pode dobrar o valor da partida */
+   int ValorPartida;
+      /* Valor da partida no momento */
 
-	int PontosJogador1;
-		/* Pontuação do jogador 1 */
+   DPO_tpJogador JogadorPodeDobrar;
+      /* Qual jogador que pode dobrar o valor da partida */
 
-	int PontosJogador2;
-		/* Pontuação do jogador 2 */
 } DadoPontos ;
 
- static DadoPontos Pontos = {1 , ( DPO_tpJogador ) 0 , 0 , 0 } ;
+
+/*****  Variáveis globais ao módulo  *****/
+
+   static DadoPontos Pontos = { 1 , DPO_Jogador1 } ;
+
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -55,24 +56,23 @@ typedef struct dadopontos {
 
    DPO_tpCondRet DPO_DobrarPontos( DPO_tpJogador jogador )
    {
-	   if ( Pontos.ValorPartida == 64 )
-	   {
-		   return DPO_CondRetMaxPontos;
-	   } /* if */
 
-	   Pontos.ValorPartida *= 2;
+      if ( Pontos.ValorPartida == 64 )
+      {
+         return DPO_CondRetMaxPontos;
+      } /* if */
 
-	   if ( jogador == DPO_Jogador1 )
-	   {
-		   Pontos.JogadorPodeDobrar = DPO_Jogador2 ;
-	   } /* if */
+      Pontos.ValorPartida *= 2;
 
-	   else
-	   {
-		   Pontos.JogadorPodeDobrar = DPO_Jogador1 ;
-	   }
+      if ( jogador == DPO_Jogador1 )
+      {
+         Pontos.JogadorPodeDobrar = DPO_Jogador2 ;
+      } else
+      {
+         Pontos.JogadorPodeDobrar = DPO_Jogador1 ;
+      } /* if */
 
-	   return DPO_CondRetOK ;
+      return DPO_CondRetOK ;
 
    } /* Fim função: DPO Dobrar pontos */
 
@@ -85,25 +85,24 @@ typedef struct dadopontos {
    DPO_tpCondRet DPO_PodeDobrar( DPO_tpJogador jogador , int * res )
    {
 
-	   assert ( res != NULL ) ;
+      assert ( res != NULL ) ;
 
-	   if ( Pontos.JogadorPodeDobrar == 0 )
-	   {
-		   *res = PODE ;
-	   } /* if */
+      if ( Pontos.ValorPartida == 1 )
+      {
+         *res = PODE ;
+      } else
+      {
+         if ( jogador == Pontos.JogadorPodeDobrar )
+         {
+            *res = PODE ;
+         } else
+         {
+            *res = NAO_PODE ;
+            return DPO_JogadorNaoPodeDobrar ;
+         } /* if */
+      } /* if */
 
-	   else if ( jogador == Pontos.JogadorPodeDobrar )
-	   {
-		   *res = PODE ;
-	   } /* if */
-
-	   else
-	   {
-		   *res = NAO_PODE ;
-		   return DPO_JogadorNaoPodeDobrar ;
-	   }
-
-	   return DPO_CondRetOK ;
+      return DPO_CondRetOK ;
 
    } /* Fim função: DPO Pode dobrar */
 
@@ -116,16 +115,33 @@ typedef struct dadopontos {
    DPO_tpCondRet DPO_ObterPontos( int * pontos )
    {
 
-	   assert ( pontos != NULL ) ;
+      assert ( pontos != NULL ) ;
 
-	   *pontos = Pontos.ValorPartida;
+      *pontos = Pontos.ValorPartida;
 
-	   return DPO_CondRetOK ;
+      return DPO_CondRetOK ;
 
    } /* Fim função: DPO Obter pontos */
 
 
-/*****  Código das funções encapsuladas pelo módulo  *****/
+/***************************************************************************
+*
+*  Função: DPO Obter pontos
+*  ****/
+
+   DPO_tpCondRet DPO_DefinirPontosVez( int pontos , DPO_tpJogador jogador )
+   {
+
+      assert( ( pontos == 1 ) || ( pontos == 2 )  || ( pontos == 4 )  ||
+              ( pontos == 8 ) || ( pontos == 16 ) || ( pontos == 32 ) || 
+              ( pontos == 64 ) ) ;
+
+      Pontos.ValorPartida = pontos ;
+      Pontos.JogadorPodeDobrar = jogador ;
+
+      return DPO_CondRetOK ;
+
+   } /* Fim função: DPO Definir Pontos e Vez
 
 
 /********** Fim do módulo de implementação: Módulo dado pontos **********/
