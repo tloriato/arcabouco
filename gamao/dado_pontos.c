@@ -30,15 +30,15 @@
 #define NAO_PODE 0
 
 
-typedef struct dadopontos {
+   typedef struct dadopontos {
 
-   int ValorPartida;
-      /* Valor da partida no momento */
+      int ValorPartida;
+         /* Valor da partida no momento */
 
-   DPO_tpJogador JogadorPodeDobrar;
-      /* Qual jogador que pode dobrar o valor da partida */
+      DPO_tpJogador JogadorPodeDobrar;
+         /* Qual jogador que pode dobrar o valor da partida */
 
-} DadoPontos ;
+   } DadoPontos ;
 
 
 /*****  Variáveis globais ao módulo  *****/

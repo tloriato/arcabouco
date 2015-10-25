@@ -52,15 +52,19 @@
 *
 ***********************************************************************/
 
-typedef enum {
+   typedef enum {
 
-   DPO_Jogador1 = 1 ,
-      /* Jogador 1 */
+      DPO_Jogador1 = 1 ,
+         /* Jogador 1 */
 
-   DPO_Jogador2 = 2
-      /* Jogador 2 */
+      DPO_Jogador2 = 2
+         /* Jogador 2 */
 
-} DPO_tpJogador ;
+   } DPO_tpJogador ;
+
+
+/*****  Funções exportadas pelo módulo  *****/
+
 
 /***********************************************************************
 *
