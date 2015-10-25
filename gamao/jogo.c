@@ -132,12 +132,12 @@
       int i ;
       int pontos ;
       int podeDobrar ; /* Jogador 1 pode dobrar se 64 > pontos > 1 */
-
       FILE * f = fopen( "partida.txt" , "w" ) ;
+
       if ( f == NULL )
       {
          printf( "Não foi possível criar o arquivo!\n" ) ;
-         return;
+         return ;
       } /* if */
 
       /* Grava tabuleiro */
@@ -179,6 +179,59 @@
 
    static void CarregarPartida( void )
    {
+
+      int i ;
+      int pontos , idVez ;
+      int podeDobrar ; /* Jogador 1 pode dobrar se 64 > pontos > 1 */
+      unsigned int qtd[ TAB_QUANTIDADE_POS ] ;
+      int cor[ TAB_QUANTIDADE_POS ] ;
+      unsigned int bar1 , bar2, fin1 , fin2 ;
+      FILE * f = fopen( "partida.txt" , "r" ) ;
+
+      if ( f == NULL )
+      {
+         printf( "Não foi possível abrir o arquivo!\n" ) ;
+         return ;
+      } /* if */
+
+      /* Lê a quantidade de peças e a cor de cada posição do tabuleiro */
+      for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
+      {
+         if ( fscanf( f , "%u %x\n" , &cor[ i ] , &qtd[ i ] ) != 2 )
+         {
+            printf( "Erro ao ler o arquivo\n" ) ;
+            fclose( f ) ;
+            return ;
+         } /* if */
+      } /* for */
+
+      if ( fscanf( f , "%u %u\n" , &fin1 , &fin2 ) != 2 )
+      {
+         printf( "Erro ao ler o arquivo\n" ) ;
+         fclose( f ) ;
+         return ;
+      } /* if */
+
+      if ( fscanf( f , "%u %u\n" , &bar1 , &bar2 ) != 2 )
+      {
+         printf( "Erro ao ler o arquivo\n" ) ;
+         fclose( f ) ;
+         return ;
+      } /* if */
+
+      if ( fscanf( f , "%d %d\n" , &pontos , &podeDobrar ) != 2 )
+      {
+         printf( "Erro ao ler o arquivo\n" ) ;
+         fclose( f ) ;
+         return ;
+      } /* if */
+
+      if ( fscanf( f , "%d\n" , &idVez ) != 1 )
+      {
+         printf( "Erro ao ler o arquivo\n" ) ;
+         fclose( f ) ;
+         return ;
+      } /* if */
 
    } /* Fim função: JOG Carregar partida */
 
