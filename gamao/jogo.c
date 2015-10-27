@@ -29,6 +29,7 @@
 #include   "dado_pontos.h"
 #include   "dado.h"
 #include   "peca.h"
+#include   "cores.h"
 
 /***********************************************************************
 *
@@ -113,10 +114,12 @@
    {
 
       #define LARGURA 18  /* 15 peças + 3 traços '-' */
-      int pos , cor ;
+      int pos , cor , fundo ;
       unsigned int qtd ;
       char linha[ LARGURA + 1 ] ;
+      char * cor_fundo[ 2 ] = { COR_BG1 , COR_BG2 } ;
 
+      fundo = 0 ;
       for ( pos = 0 ; pos < TAB_QUANTIDADE_POS / 2 ; pos ++ )
       {
          if ( pos == TAB_QUANTIDADE_POS / 4 )
@@ -133,7 +136,9 @@
          /* Exemplo: @@@@@@------------> */
          memset( linha , CharPeca[ cor ] , qtd ) ;
          linha[ qtd ] = '\0' ;
-         printf( "%s%s>     " , linha , &StrFundo[ qtd ] ) ;
+
+         printf( cor_fundo[ fundo ] ) ;
+         printf( "%s%s>" COR_PADRAO "     " , linha , &StrFundo[ qtd ] ) ;
 
          if ( TAB_ContarPecas( tabuleiro , TAB_QUANTIDADE_POS - pos - 1 , &qtd , &cor ) != TAB_CondRetOK )
          {
@@ -144,7 +149,10 @@
          /* Exemplo: <--------------OOOO */
          memset( linha , CharPeca[ cor ] , qtd ) ;
          linha[ qtd ] = '\0' ;
-         printf( "<%s%s\n" , &StrFundo[ qtd ] , linha ) ;
+
+         fundo = ! fundo ;
+         printf( cor_fundo[ fundo ] ) ;
+         printf( "<%s%s" COR_PADRAO "\n" , &StrFundo[ qtd ] , linha ) ;
       } /* for */
 
    } /* Fim função: JOG Imprimir tabuleiro */
