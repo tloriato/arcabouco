@@ -23,6 +23,7 @@
 
 #include   <stdio.h>
 #include   <stdlib.h>
+#include   <string.h>
 #include   <assert.h>
 #include   "tabuleiro.h"
 #include   "dado_pontos.h"
@@ -68,12 +69,32 @@
 
    static int Menu( tpOpcaoMenu * pOpcoes ) ;
 
+   static int InserirPecas( unsigned int qtd , unsigned int pos , int cor ) ;
+
 
 /*****  Variáveis globais ao módulo  *****/
 
    static TAB_tppTabuleiro tabuleiro = NULL ; /* Tabuleiro do jogo */
    static DPO_tpJogador vez = DPO_Jogador1 ; /* Indica de qual jogador é
                                               * a vez de jogar */
+
+/*****  Constantes globais ao módulo  *****/
+
+   /* Caracteres que representam as peças de cada jogador */
+   static const char CharPeca[ 2 ]  = { 'O' , '@' } ;
+
+   /* Fundo de uma posição do tabuleiro */
+   static const char StrFundo[] = "------------------" ;
+
+   /* Arrumação das peças no início de uma partida */
+   static const struct
+   {
+      unsigned int pos;
+      unsigned int qtd;
+      int cor;
+   } ArrumacaoInicial[] = { { 0  , 2 , 0 } , { 5  , 5 , 1 } , { 7  , 3 , 1 } ,
+                            { 11 , 5 , 0 } , { 12 , 5 , 1 } , { 16 , 3 , 0 } ,
+                            { 18 , 5 , 0 } , { 23 , 2 , 1 } } ;
 
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
@@ -91,6 +112,41 @@
    static void ImprimirTabuleiro( void )
    {
 
+      #define LARGURA 18  /* 15 peças + 3 traços '-' */
+      int pos , cor ;
+      unsigned int qtd ;
+      char linha[ LARGURA + 1 ] ;
+
+      for ( pos = 0 ; pos < TAB_QUANTIDADE_POS / 2 ; pos ++ )
+      {
+         if ( pos == TAB_QUANTIDADE_POS / 4 )
+         {
+            printf( "\n" ) ;
+         } /* if */
+
+         if ( TAB_ContarPecas( tabuleiro , pos , &qtd , &cor ) != TAB_CondRetOK )
+         {
+            printf( "\nPosição inválida ao imprimir o tabuleiro\n" ) ;
+            return ;
+         } /* if */
+
+         /* Exemplo: @@@@@@------------> */
+         memset( linha , CharPeca[ cor ] , qtd ) ;
+         linha[ qtd ] = '\0' ;
+         printf( "%s%s>     " , linha , &StrFundo[ qtd ] ) ;
+
+         if ( TAB_ContarPecas( tabuleiro , TAB_QUANTIDADE_POS - pos - 1 , &qtd , &cor ) != TAB_CondRetOK )
+         {
+            printf( "\nPosição inválida ao imprimir o tabuleiro\n" ) ;
+            return ;
+         } /* if */
+
+         /* Exemplo: <--------------OOOO */
+         memset( linha , CharPeca[ cor ] , qtd ) ;
+         linha[ qtd ] = '\0' ;
+         printf( "<%s%s\n" , &StrFundo[ qtd ] , linha ) ;
+      } /* for */
+
    } /* Fim função: JOG Imprimir tabuleiro */
 
 
@@ -105,6 +161,36 @@
 
    static void NovaPartida( void )
    {
+
+      int i , qtd ;
+
+      /* Arrumação inicial do tabuleiro */
+      if ( tabuleiro != NULL )
+      {
+         TAB_Destruir( tabuleiro ) ;
+      } /* if */
+
+      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
+      {
+         printf( "Erro ao criar o tabuleiro\n" ) ;
+         exit( 1 ) ;
+      } /* if */
+
+      qtd = sizeof( ArrumacaoInicial ) / sizeof( ArrumacaoInicial[0] ) ;
+
+      for ( i = 0 ; i < qtd ; i ++ )
+      {
+         if ( ! InserirPecas( ArrumacaoInicial[ i ].qtd , 
+                              ArrumacaoInicial[ i ].pos ,
+                              ArrumacaoInicial[ i ].cor ) )
+         {
+            printf( "Erro ao inserir as peças no tabuleiro\n" ) ;
+            TAB_Destruir( tabuleiro ) ;
+            exit( 1 ) ;
+         } /* if */
+      } /* for */
+
+      ImprimirTabuleiro( ) ;
 
    } /* Fim função: JOG Nova partida */
 
@@ -180,7 +266,7 @@
    static void CarregarPartida( void )
    {
 
-      int i ;
+      int i , p ;
       int pontos , idVez ;
       int podeDobrar ; /* Jogador 1 pode dobrar se 64 > pontos > 1 */
       unsigned int qtd[ TAB_QUANTIDADE_POS ] ;
@@ -232,6 +318,48 @@
          fclose( f ) ;
          return ;
       } /* if */
+
+      /* Todos os dados foram lidos sem erro, altera os parâmetros do
+       * jogo */
+
+      /* Cria um novo tabuleiro */
+      if ( tabuleiro != NULL )
+      {
+         TAB_Destruir( tabuleiro ) ;
+      } /* if */
+
+      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
+      {
+         printf( "Erro ao criar o tabuleiro\n" ) ;
+         exit( 1 ) ;
+      } /* if */
+
+      /* Adiciona as peças */
+      for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
+      {
+         if ( ! InserirPecas( qtd[ i ] , i , cor[ i ] ) )
+         {
+            printf( "Erro ao criar a peça\n" ) ;
+            TAB_Destruir( tabuleiro ) ;
+            exit( 1 ) ;
+         } /* if */
+      } /* for */
+
+      /* TODO Preencher peças finalizadas e na barra */
+
+      DPO_DefinirPontosVez( pontos , podeDobrar ) ;
+
+      if ( ( idVez != (int) DPO_Jogador1 )
+        && ( idVez != (int) DPO_Jogador2 ) )
+      {
+         printf( "Jogador inválido no arquivo.\n" ) ;
+         TAB_Destruir( tabuleiro ) ;
+         exit( 1 ) ;
+      } /* if */
+
+      vez = idVez ;
+
+      ImprimirTabuleiro( ) ;
 
    } /* Fim função: JOG Carregar partida */
 
@@ -337,6 +465,56 @@
 
 /***********************************************************************
 *
+*  $FC Função: JOG Inserir Peças
+*
+*  $ED Descrição da função
+*     Cria qtd peças na posição pos do tabuleiro
+*
+*  $EP Parâmetros
+*     qtd - Quantidade de peças a adicionar
+*     pos - Posição na qual adicionar as peças
+*     cor - Cor das peças a adicionar
+*
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro
+*     - pos dever ser uma posição válida de tabuleiro
+*
+*  Assertivas de saída:
+*     - qtd peças inseridas na posição pos do tabuleiro e retorno 1 ou
+*       retorno 0 em caso de falha.
+*
+*  $FV Valor retornado
+*     1 se as peças foram inseridas corretamente, 0 caso contrário.
+*
+***********************************************************************/
+
+   static int InserirPecas( unsigned int qtd , unsigned int pos , int cor )
+   {
+
+      unsigned int i ;
+      PEC_tppPeca peca ;
+
+      for ( i = 0 ; i < qtd ; i ++ )
+      {
+         if ( PEC_Criar( &peca , cor ) != PEC_CondRetOK )
+         {
+            return 0 ;
+         } /* if */
+
+         if ( TAB_IncluirPeca( tabuleiro , pos , peca ) != TAB_CondRetOK )
+         {
+            PEC_Destruir( peca ) ;
+            return 0 ;
+         } /* if */
+      } /* for */
+
+      return 1 ;
+
+   } /* Fim função: JOG Inserir Peças */
+
+
+/***********************************************************************
+*
 *  $FC Função: Main
 *
 *  $ED Descrição da função
@@ -346,6 +524,16 @@
 
    int main( void )
    {
+
+//      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
+//      {
+//         printf( "Erro ao criar o tabuleiro\n" ) ;
+//         return 1 ;
+//      } /* if */
+
+      NovaPartida( ) ;
+//      SalvarPartida( ) ;
+//      CarregarPartida( ) ;
 
       return 0 ;
 
