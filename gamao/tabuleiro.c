@@ -8,11 +8,12 @@
 *  Projeto: Disciplina INF 1301
 *  Autores: gbo - Gabriel Barbosa de Oliveira
 *           gapm - Guilherme de Azevedo Pereira Marques
+*           pa - Pedro Alvarez
 *           tdn - Thiago Duarte Naves
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor            Data       Observações
-*       1.00  gbo, gapm, tdn   19/09/2015 Início do desenvolvimento
+*     Versão  Autor               Data       Observações
+*       1.00  gbo, gapm, pa, tdn  19/09/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Módulo para movimentação de peças em um tabuleiro de jogo
