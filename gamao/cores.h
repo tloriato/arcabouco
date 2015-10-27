@@ -15,7 +15,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor               Data       Observações
-*       1.00  gbo, gapm, pa, tdn  19/09/2015 Início do desenvolvimento
+*       1.00  gbo, gapm, pa, tdn  26/10/2015 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
 *       Módulo de definição das sequências de caracteres ANSI para trocar
@@ -50,10 +50,12 @@
 #ifdef USAR_CORES
    #define COR_BG1 ESC( BG_PRETO )
    #define COR_BG2 ESC( BG_VERMELHO )
-   #define COR_PADRAO ESC( BG_PRETO )
+   #define COR_LETRA_POS ESC( FG_VERDE )
+   #define COR_PADRAO ESC( BG_PRETO ) ESC( FG_BRANCO )
 #else
    #define COR_BG1 ""
    #define COR_BG2 ""
+   #define COR_LETRA_POS ""
    #define COR_PADRAO ""
 #endif
 

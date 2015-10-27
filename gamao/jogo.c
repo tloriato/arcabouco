@@ -72,12 +72,18 @@
 
    static int InserirPecas( unsigned int qtd , unsigned int pos , int cor ) ;
 
+   static void Sair( void ) ;
+
+   static void MenuNovaPartida( void ) ;
+
 
 /*****  Variáveis globais ao módulo  *****/
 
    static TAB_tppTabuleiro tabuleiro = NULL ; /* Tabuleiro do jogo */
-   static DPO_tpJogador vez = DPO_Jogador1 ; /* Indica de qual jogador é
-                                              * a vez de jogar */
+   static DPO_tpJogador vez = DPO_Jogador1 ;  /* Indica de qual jogador é
+                                               * a vez de jogar */
+   static int Dado1 , Dado2 ;                 /* Resultado da última jogada
+                                                 de dados */
 
 /*****  Constantes globais ao módulo  *****/
 
@@ -122,6 +128,7 @@
       fundo = 0 ;
       for ( pos = 0 ; pos < TAB_QUANTIDADE_POS / 2 ; pos ++ )
       {
+         /* Insere uma linha em branco dividindo o tabuleiro ao meio */
          if ( pos == TAB_QUANTIDADE_POS / 4 )
          {
             printf( "\n" ) ;
@@ -133,10 +140,11 @@
             return ;
          } /* if */
 
-         /* Exemplo: @@@@@@------------> */
+         /* Exemplo: A  @@@@@@------------> */
          memset( linha , CharPeca[ cor ] , qtd ) ;
          linha[ qtd ] = '\0' ;
 
+         printf( COR_LETRA_POS "%c  " COR_PADRAO , 'A' + pos ) ;
          printf( cor_fundo[ fundo ] ) ;
          printf( "%s%s>" COR_PADRAO "     " , linha , &StrFundo[ qtd ] ) ;
 
@@ -146,13 +154,14 @@
             return ;
          } /* if */
 
-         /* Exemplo: <--------------OOOO */
+         /* Exemplo: <--------------OOOO  X */
          memset( linha , CharPeca[ cor ] , qtd ) ;
          linha[ qtd ] = '\0' ;
 
          fundo = ! fundo ;
          printf( cor_fundo[ fundo ] ) ;
-         printf( "<%s%s" COR_PADRAO "\n" , &StrFundo[ qtd ] , linha ) ;
+         printf( "<%s%s" COR_PADRAO , &StrFundo[ qtd ] , linha ) ;
+         printf( "  " COR_LETRA_POS "%c" COR_PADRAO "\n" , 'X' - pos ) ;
       } /* for */
 
    } /* Fim função: JOG Imprimir tabuleiro */
@@ -181,20 +190,20 @@
       if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
       {
          printf( "Erro ao criar o tabuleiro\n" ) ;
-         exit( 1 ) ;
+         Sair( ) ;
       } /* if */
 
       qtd = sizeof( ArrumacaoInicial ) / sizeof( ArrumacaoInicial[0] ) ;
 
       for ( i = 0 ; i < qtd ; i ++ )
       {
-         if ( ! InserirPecas( ArrumacaoInicial[ i ].qtd , 
+         if ( ! InserirPecas( ArrumacaoInicial[ i ].qtd ,
                               ArrumacaoInicial[ i ].pos ,
                               ArrumacaoInicial[ i ].cor ) )
          {
             printf( "Erro ao inserir as peças no tabuleiro\n" ) ;
             TAB_Destruir( tabuleiro ) ;
-            exit( 1 ) ;
+            Sair( ) ;
          } /* if */
       } /* for */
 
@@ -339,7 +348,7 @@
       if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
       {
          printf( "Erro ao criar o tabuleiro\n" ) ;
-         exit( 1 ) ;
+         Sair( ) ;
       } /* if */
 
       /* Adiciona as peças */
@@ -348,8 +357,7 @@
          if ( ! InserirPecas( qtd[ i ] , i , cor[ i ] ) )
          {
             printf( "Erro ao criar a peça\n" ) ;
-            TAB_Destruir( tabuleiro ) ;
-            exit( 1 ) ;
+            Sair( ) ;
          } /* if */
       } /* for */
 
@@ -361,8 +369,7 @@
         && ( idVez != (int) DPO_Jogador2 ) )
       {
          printf( "Jogador inválido no arquivo.\n" ) ;
-         TAB_Destruir( tabuleiro ) ;
-         exit( 1 ) ;
+         Sair( ) ;
       } /* if */
 
       vez = idVez ;
@@ -377,12 +384,17 @@
 *  $FC Função: JOG Jogar dados
 *
 *  $ED Descrição da função
-*     Joga os dados para determinar o número de movimentos do jogador
+*     Joga os dados para determinar o número de movimentos do jogador e
+*     inicia a próxima jogada.
 *
 ***********************************************************************/
 
    static void JogarDados( void )
    {
+
+      DAD_JogarDados( &Dado1 , &Dado2 ) ;
+      // TODO tratar BAR
+      MoverPeca( ) ;
 
    } /* Fim função: JOG Jogar dados */
 
@@ -398,6 +410,11 @@
 
    static void MoverPeca( void )
    {
+
+      /* No máximo haverá peças em 23 posições do tabuleiro */
+      tpOpcaoMenu opcoes[ 24 ] ;
+      char txtOps[4][23] ;
+
 
    } /* Fim função: JOG Mover peça */
 
@@ -420,7 +437,7 @@
 *  Assertivas de saída:
 *     - Menu impresso e função correspondente à opção escolhida pelo
 *       usuário chamada (se existir).
-*     - Índice da opção escolhida retornado..
+*     - Índice da opção escolhida retornado.
 *
 *  $FV Valor retornado
 *     Índice da opção escolhida.
@@ -519,6 +536,64 @@
       return 1 ;
 
    } /* Fim função: JOG Inserir Peças */
+
+
+/***********************************************************************
+*
+*  $FC Função: JOG Menu Nova Partida
+*
+*  $ED Descrição da função
+*     Mostra o menu no início de uma nova partida
+*
+*  Assertivas de saída:
+*     - Dados jogados ou partida salva carregada ou jogo finalizado,
+*       de acordo com a opção escolhida pelo usuário.
+*
+***********************************************************************/
+
+   static void MenuNovaPartida( void )
+   {
+      static const tpOpcaoMenu opcoes[] = {
+                  { "Jogar dados"      , JogarDados      , 'j' } ,
+                  { "Carregar partida" , CarregarPartida , 'c' } ,
+                  { "Sair"             , Sair            , 's' } ,
+                  { NULL               , NULL            , 0   } } ;
+
+      Menu( opcoes ) ;
+
+   } /* Fim função: JOG Menu Nova Partida */
+
+
+/***********************************************************************
+*
+*  $FC Função: JOG Sair
+*
+*  $ED Descrição da função
+*     Libera a memória alocada pelos módulos do programa e termina
+*     imediatamente a execução.
+*
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro
+*     - Bar1 e Bar2 devem ser instâncias válidas de PeçasCapturadas
+*     - Final1 e Final2 devem ser instâncias válidas de PeçasFinalizadas
+*
+*  Assertivas de saída:
+*     Memória alocada dinâmicamente pela aplicação liberada e execução
+*     finalizada.
+*
+***********************************************************************/
+
+   static void Sair( void )
+   {
+
+      TAB_Destruir( tabuleiro ) ;
+      // BAR_Destruir( Bar1 ) ;
+      // BAR_Destruir( Bar2 ) ;
+      // FIN_Destruir( Final1 ) ;
+      // FIN_Destruir( Final2 ) ;
+      exit( 0 ) ;
+
+   } /* Fim Função: JOG Sair */
 
 
 /***********************************************************************
