@@ -76,6 +76,8 @@
 
    static void MenuNovaPartida( void ) ;
 
+   static void JogadorInicial( void ) ;
+
 
 /*****  Variáveis globais ao módulo  *****/
 
@@ -109,6 +111,46 @@
 
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
+
+
+/***********************************************************************
+*
+*  $FC Função: JOG Jogador Inicial
+*
+*  $ED Descrição da função
+*     Decide o jogador que irá fazer a primeira jogada.
+*
+***********************************************************************/
+
+   static void JogadorInicial( void )
+   {
+      int dado1 , dado2 , entrada ;
+      char jogInic ;
+      printf( "Jogadores , para rolarem dois dados para decidirem o jogador inicial digitem 1.\n" ) ;
+      scanf( "%d" , &entrada ) ;
+      if ( entrada == 1 )
+      {
+         DAD_JogarDados( &dado1 , &dado2 ) ;
+         printf( "O dado rolado pelo jogador 1 deu: %d\n" , dado1 ) ;
+         printf( "O dado rolado pelo jogador 2 deu: %d\n" , dado2 ) ;
+
+         if ( dado1 == dado2 )
+         {
+            printf( "Rerrolagem de dados é necessária já que os valores foram iguais" ) ;
+            JogadorInicial( ) ;
+         } /* if */
+         else
+         {
+            vez = dado1 > dado2 ? DPO_Jogador1 : DPO_Jogador2 ;
+            jogInic = dado1 > dado2 ? 1 : 2 ;
+            printf( "O jogador inicial é %d\n" , jogInic ) ;
+         }
+      } /* if */
+      else
+      {
+         JogadorInicial( ) ;
+      }
+   }
 
 
 /***********************************************************************
