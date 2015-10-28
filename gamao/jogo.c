@@ -103,6 +103,10 @@
                             { 11 , 5 , 0 } , { 12 , 5 , 1 } , { 16 , 3 , 0 } ,
                             { 18 , 5 , 0 } , { 23 , 2 , 1 } } ;
 
+   /* Indicam se os dados já foram usados em movimento de peças */
+   int d1Usado = 0 ;
+   int d2Usado = 0 ;
+
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
 
@@ -393,7 +397,8 @@
    {
 
       DAD_JogarDados( &Dado1 , &Dado2 ) ;
-      // TODO tratar BAR
+      d1Usado = 0 ;
+      d2Usado = 0 ;
       MoverPeca( ) ;
 
    } /* Fim função: JOG Jogar dados */
@@ -410,6 +415,8 @@
 
    static void MoverPeca( void )
    {
+
+      // TODO tratar BAR
 
       /* No máximo haverá peças em 23 posições do tabuleiro */
       tpOpcaoMenu opcoes[ 24 ] ;
