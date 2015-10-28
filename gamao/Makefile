@@ -1,7 +1,8 @@
 SRC := tabuleiro.c \
        lista.c \
        peca.c \
-			 dado_pontos.c \
+       dado_pontos.c \
+       dado.c \
        jogo.c
 
 APP := gamao

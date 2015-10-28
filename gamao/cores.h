@@ -51,11 +51,13 @@
    #define COR_BG1 ESC( BG_PRETO )
    #define COR_BG2 ESC( BG_VERMELHO )
    #define COR_LETRA_POS ESC( FG_VERDE )
+   #define COR_MENSAGEM ESC( FG_VERDE )
    #define COR_PADRAO ESC( BG_PRETO ) ESC( FG_BRANCO )
 #else
    #define COR_BG1 ""
    #define COR_BG2 ""
    #define COR_LETRA_POS ""
+   #define COR_MENSAGEM ""
    #define COR_PADRAO ""
 #endif
 

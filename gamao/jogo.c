@@ -82,6 +82,8 @@
 
    static void JogadorInicial( void ) ;
 
+   static void CombinacoesDados( int * movimentos ) ;
+
 
 /*****  Variáveis globais ao módulo  *****/
 
@@ -90,6 +92,8 @@
                                                * a vez de jogar */
    static int Dado1 , Dado2 ;                 /* Resultado da última jogada
                                                  de dados */
+   static int FimPartida ;                    /* Se 1, indica que a partida
+                                                 terminou */
 
 /*****  Constantes globais ao módulo  *****/
 
@@ -105,14 +109,22 @@
       unsigned int pos;
       unsigned int qtd;
       int cor;
-   } ArrumacaoInicial[] = { { 0  , 2 , 0 } , { 5  , 5 , 1 } , { 7  , 3 , 1 } ,
-                            { 11 , 5 , 0 } , { 12 , 5 , 1 } , { 16 , 3 , 0 } ,
-                            { 18 , 5 , 0 } , { 23 , 2 , 1 } } ;
+   } ArrumacaoInicial[] = {
+        { 0  , 2 , DPO_Jogador1 } , { 5  , 5 , DPO_Jogador2 } ,
+        { 11 , 5 , DPO_Jogador1 } , { 12 , 5 , DPO_Jogador2 } ,
+        { 18 , 5 , DPO_Jogador1 } , { 23 , 2 , DPO_Jogador2 } ,
+        { 16 , 3 , DPO_Jogador1 } , { 7  , 3 , DPO_Jogador2 } } ;
 
-   /* Indicam se os dados já foram usados em movimento de peças */
-   int d1Usado = 0 ;
-   int d2Usado = 0 ;
+   /* Indicam se quantas vezes ainda podemos usar cada dado.
+    * No caso de dados iguais cada um pode ser usado duas vezes */
+   static int d1Disponivel = 0 ;
+   static int d2Disponivel = 0 ;
 
+   /* Peças finalizadas dos jogadores */
+   // static PFN_tppFinalizadas Final[ 2 ] ;
+
+   /* Peças na barra dos jogadores */
+   // static BAR_tppBarra Bar[ 2 ] ;
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
 
@@ -148,7 +160,7 @@
          {
             vez = dado1 > dado2 ? DPO_Jogador1 : DPO_Jogador2 ;
             jogInic = dado1 > dado2 ? 1 : 2 ;
-            printf( "O jogador inicial é %d\n" , jogInic ) ;
+            printf( "\n" COR_MENSAGEM "O jogador inicial é %d" COR_PADRAO "\n" , jogInic ) ;
          } /* if */
       }
       else
@@ -233,14 +245,15 @@
 
       int i , qtd ;
 
-      /* Arrumação inicial do tabuleiro */
       if ( tabuleiro != NULL )
       {
          DestruirEstruturas( ) ;
       } /* if */
 
       CriarEstruturas( ) ;
+      FimPartida = 0 ;
 
+      /* Arrumação inicial do tabuleiro */
       qtd = sizeof( ArrumacaoInicial ) / sizeof( ArrumacaoInicial[0] ) ;
 
       for ( i = 0 ; i < qtd ; i ++ )
@@ -250,12 +263,17 @@
                               ArrumacaoInicial[ i ].cor ) )
          {
             printf( "Erro ao inserir as peças no tabuleiro\n" ) ;
-            TAB_Destruir( tabuleiro ) ;
             Sair( ) ;
          } /* if */
       } /* for */
 
       ImprimirTabuleiro( ) ;
+      JogadorInicial ( ) ;
+
+      while ( ! FimPartida )
+      {
+         MenuNovaPartida( ) ;
+      } /* while */
 
    } /* Fim função: JOG Nova partida */
 
@@ -433,11 +451,75 @@
    {
 
       DAD_JogarDados( &Dado1 , &Dado2 ) ;
-      d1Usado = 0 ;
-      d2Usado = 0 ;
+      if ( Dado1 == Dado2 )
+      {
+         d1Disponivel = 2 ;
+         d2Disponivel = 2 ;
+      }
+      else
+      {
+         d1Disponivel = 1 ;
+         d2Disponivel = 1 ;
+      } /* if */
+
       MoverPeca( ) ;
 
    } /* Fim função: JOG Jogar dados */
+
+
+/***********************************************************************
+*
+*  $FC Função: JOG Combinações de Dados
+*
+*  $ED Descrição da função
+*     Calcula as possíveis combinações de dados
+*
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro.
+*     - movimentos deve ser um vetor válido com pelo menos 5 posições
+*
+*  Assertivas de saída:
+*     - Combinações dos dados escritas no vetor.
+*     - Último elemento do vetor igual a 0.
+*
+***********************************************************************/
+
+   static void CombinacoesDados( int * movimentos )
+   {
+
+      int i ;
+      if ( Dado1 != Dado2 )
+      {
+         i = 0 ;
+         if ( d1Disponivel != 0 )
+         {
+            movimentos[ i ] = Dado1 ;
+            i ++ ;
+         } /* if */
+
+         if ( d2Disponivel != 0 )
+         {
+            movimentos[ i ] = Dado2 ;
+            i ++ ;
+         } /* if */
+
+         if ( ( d1Disponivel != 0 ) && ( d2Disponivel != 0 ) )
+         {
+            movimentos[ i ] = Dado1 + Dado2 ;
+            i ++ ;
+         } /* if */
+      }
+      else
+      {
+         for ( i = 0 ; i < ( d1Disponivel + d2Disponivel ) ; i ++ )
+         {
+            movimentos[ i ] = ( i + 1 ) * Dado1 ;
+         } /* for */
+      } /* if */
+
+      movimentos[ i ] = 0 ;
+
+   } /* Fim função: JOG Combinações de Dados */
 
 
 /***********************************************************************
@@ -452,12 +534,114 @@
    static void MoverPeca( void )
    {
 
+      /* Jogador 1 se move de A -> X ( 0 -> 23 )
+       * Jogador 2 se move de X -> A ( 23 -> 0 ) */
+
       // TODO tratar BAR
 
-      /* No máximo haverá peças em 23 posições do tabuleiro */
-      tpOpcaoMenu opcoes[ 24 ] ;
-      char txtOps[4][23] ;
+      int temBar = 0 ; /* Inidica que o jogador tem peças na barra */
+      int podeFinalizar = 1 ; /* Indica que todas as peças estão no
+                                 campo do jogador e o jogador pode mover
+                                 peças para a área de peças finalizadas. */
 
+      /* No máximo haverá peças de um jogador em 23 posições do tabuleiro */
+      tpOpcaoMenu opcoes[ 24 ] ;
+      char txtOps[ 2 ][ 23 ] ;
+
+      /* Determina podeFinalizar */
+      int i , cor ;
+      unsigned int qtd ;
+
+      /* Guarda as combinações possíveis de movimento baseado nos dados.
+       * Existem, no máximo, 4 movimentos possíveis */
+      int movimentos[ 5 ] ;
+
+      /* Indica quais posições têm peças que podem ser movidas */
+      char podeMover[ TAB_QUANTIDADE_POS ] ;
+
+
+      if ( vez == DPO_Jogador1 )
+      {
+         /* Testa as 18 posições que não são as últimas 6 */
+         for ( i = 0 ; i < TAB_QUANTIDADE_POS - 6 ; i ++ )
+         {
+            /* Sabemos que a posição é válida, não é preciso testar
+             * o retorno */
+            TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
+            if ( ( qtd > 0 ) && ( cor == DPO_Jogador1 ) )
+            {
+               podeFinalizar = 0 ;
+               break ;
+            } /* if */
+         } /* for */
+      }
+      else
+      {
+         /* Testa as 18 posições que não são as primeiras 6 */
+         for ( i = 6 ; i < TAB_QUANTIDADE_POS ; i ++ )
+         {
+            /* Sabemos que a posição é válida, não é preciso testar
+             * o retorno */
+            TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
+            if ( ( qtd > 0 ) && ( cor == DPO_Jogador2 ) )
+            {
+               podeFinalizar = 0 ;
+               break ;
+            } /* if */
+         } /* for */
+      } /* if */
+
+      while ( d1Disponivel || d2Disponivel )
+      {
+         CombinacoesDados( movimentos ) ;
+
+         /* Determina quais posições têm peças que podem ser movidas com
+          * o resultado dos dados */
+         int opcao = 0 ; /* índice da próxima opção do menu */
+         int cor_dest ; /* Cor das peças na potencial posição de destino */
+         int qtd_dest ; /* Quantidade de peças na potencial posição de destino */
+         memset( podeMover , 0 , TAB_QUANTIDADE_POS ) ;
+         for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
+         {
+            /* Sabemos que a posição é válida, não é preciso testar
+             * o retorno */
+            TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
+            if ( ( qtd > 0 ) && ( cor == vez ) ) /* posição tem peças desse jogador? */
+            {
+               if ( ( d1Disponivel != 0 )
+                 && ( i + Dado1 < TAB_QUANTIDADE_POS ) ) /* Garante que a posição é válida */
+               {
+                  TAB_ContarPecas( tabuleiro , i + Dado1 , &qtd_dest , &cor_dest ) ;
+                  if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
+                  {
+                     podeMover[ i ] = 1 ;
+                  } /* if */
+               } /* if */
+
+               if ( ( d2Disponivel != 0 )
+                 && ( i + Dado2 < TAB_QUANTIDADE_POS ) /* Garante que a posição é válida */
+                 && ( podeMover[ i ] == 0 ) ) /* e não sabemos se pode ser movida */
+               {
+                  TAB_ContarPecas( tabuleiro , i + Dado2 , &qtd_dest , &cor_dest ) ;
+                  if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
+                  {
+                     podeMover[ i ] = 1 ;
+                  } /* if */
+               } /* if */
+
+               if ( ( d1Disponivel != 0 ) && ( d2Disponivel != 0 )
+                 && ( i + Dado1 + Dado2 < TAB_QUANTIDADE_POS ) /* Garante que a posição é válida */
+                 && ( podeMover[ i ] == 0 ) ) /* e não sabemos se pode ser movida */
+               {
+                  TAB_ContarPecas( tabuleiro , i + Dado1 + Dado2 , &qtd_dest , &cor_dest ) ;
+                  if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
+                  {
+                     podeMover[ i ] = 1 ;
+                  } /* if */
+               } /* if */
+            }
+         }
+      }
 
    } /* Fim função: JOG Mover peça */
 
@@ -492,6 +676,7 @@
 
       assert( pOpcoes != NULL ) ;
 
+      printf( "\n" ) ;
       tpOpcaoMenu * pOp = pOpcoes ;
       while ( pOp->texto != NULL )
       {
@@ -602,7 +787,7 @@
                   { "Sair"             , Sair            , 's' } ,
                   { NULL               , NULL            , 0   } } ;
 
-      Menu( opcoes ) ;
+      Menu( (tpOpcaoMenu *)opcoes ) ;
 
    } /* Fim função: JOG Menu Nova Partida */
 
@@ -613,11 +798,13 @@
 *
 *  $ED Descrição da função
 *     Aloca as instâncias das estruturas de dados utilizadas:
-*     tabuleiro, Bar1, Bar2, Final1 e Final2.
+*     tabuleiro, Bar[ DPO_Jogador1 ], Bar[ DPO_Jogador2 ],
+*     Final[ DPO_Jogador1 ] e Final[ DPO_Jogador2 ].
 *
 *  Assertivas de entrada:
-*     - tabuleiro, Bar1, Bar2, Final1 e Final2 não devem apontar para
-*       memória ainda alocada.
+*     - tabuleiro, Bar[ DPO_Jogador1 ], Bar[ DPO_Jogador2 ],
+*       Final[ DPO_Jogador1 ] e Final[ DPO_Jogador2 ] não devem apontar
+*       para memória ainda alocada.
 *
 *  Assertivas de saída:
 *     Estruturas citadas acima criadas
@@ -635,31 +822,31 @@
       } /* if */
 
 #if 0
-      if ( BAR_Criar( &Bar1 ) != BAR_CondRetOK )
+      if ( BAR_Criar( &Bar[ DPO_Jogador1 ] ) != BAR_CondRetOK )
       {
          printf( "Erro ao criar a barra\n" ) ;
-         Bar1 = NULL ;
+         Bar[ DPO_Jogador1 ] = NULL ;
          Sair( ) ;
       } /* if */
 
-      if ( BAR_Criar( &Bar2 ) != BAR_CondRetOK )
+      if ( BAR_Criar( &Bar[ DPO_Jogador2 ] ) != BAR_CondRetOK )
       {
          printf( "Erro ao criar a barra\n" ) ;
-         Bar2 = NULL ;
+         Bar[ DPO_Jogador2 ] = NULL ;
          Sair( ) ;
       } /* if */
 
-      if ( PFN_Criar( &Final1 ) != PFN_CondRetOK )
+      if ( PFN_Criar( &Final[ DPO_Jogador1 ] ) != PFN_CondRetOK )
       {
          printf( "Erro ao criar peças finalizadas\n" ) ;
-         Final1 = NULL ;
+         Final[ DPO_Jogador1 ] = NULL ;
          Sair( ) ;
       } /* if */
 
-      if ( PFN_Criar( &Final2 ) != PFN_CondRetOK )
+      if ( PFN_Criar( &Final[ DPO_Jogador2 ] ) != PFN_CondRetOK )
       {
          printf( "Erro ao criar peças finalizadas\n" ) ;
-         Final2 = NULL ;
+         Final[ DPO_Jogador2 ] = NULL ;
          Sair( ) ;
       } /* if */
 #endif
@@ -677,10 +864,10 @@
 *  Assertivas de entrada:
 *     - tabuleiro deve ser uma instância válida de tabuleiro
 *       ou NULL
-*     - Bar1 e Bar2 devem ser instâncias válidas de PecasCapturadas
-*       ou NULL
-*     - Final1 e Final2 devem ser instâncias válidas de PecasFinalizadas
-*       ou NULL
+*     - Bar[ DPO_Jogador1 ] e Bar[ DPO_Jogador2 ] devem ser instâncias
+*       válidas de PecasCapturadas ou NULL
+*     - Final[ DPO_Jogador1 ] e Final[ DPO_Jogador2 ] devem ser
+*       instâncias válidas de PecasFinalizadas ou NULL
 *
 *  Assertivas de saída:
 *     - Memória alocada dinâmicamente pelas estruturas de dados liberada
@@ -698,28 +885,28 @@
       } /* if */
 
 #if 0
-      if ( Bar1 != NULL )
+      if ( Bar[ DPO_Jogador1 ] != NULL )
       {
-          BAR_Destruir( Bar1 ) ;
-          Bar1 = NULL ;
+          BAR_Destruir( Bar[ DPO_Jogador1 ] ) ;
+          Bar[ DPO_Jogador1 ] = NULL ;
       } /* if */
 
-      if ( Bar2 != NULL )
+      if ( Bar[ DPO_Jogador2 ] != NULL )
       {
-          BAR_Destruir( Bar2 ) ;
-          Bar2 = NULL ;
+          BAR_Destruir( Bar[ DPO_Jogador2 ] ) ;
+          Bar[ DPO_Jogador2 ] = NULL ;
       } /* if */
 
-      if ( Final1 != NULL )
+      if ( Final[ DPO_Jogador1 ] != NULL )
       {
-          PFN_Destruir( Final1 ) ;
-          Final1 = NULL ;
+          PFN_Destruir( Final[ DPO_Jogador1 ] ) ;
+          Final[ DPO_Jogador1 ] = NULL ;
       } /* if */
 
-      if ( Final2 != NULL )
+      if ( Final[ DPO_Jogador2 ] != NULL )
       {
-          PFN_Destruir( Final2 ) ;
-          Final2 = NULL ;
+          PFN_Destruir( Final[ DPO_Jogador2 ] ) ;
+          Final[ DPO_Jogador2 ] = NULL ;
       } /* if */
 #endif
 
@@ -736,8 +923,10 @@
 *
 *  Assertivas de entrada:
 *     - tabuleiro deve ser uma instância válida de tabuleiro
-*     - Bar1 e Bar2 devem ser instâncias válidas de PeçasCapturadas
-*     - Final1 e Final2 devem ser instâncias válidas de PeçasFinalizadas
+*     - Bar[ DPO_Jogador1 ] e Bar[ DPO_Jogador2 ] devem ser instâncias
+*       válidas de PeçasCapturadas
+*     - Final[ DPO_Jogador1 ] e Final[ DPO_Jogador2 ] devem ser 
+*       instâncias válidas de PeçasFinalizadas
 *
 *  Assertivas de saída:
 *     Memória alocada dinâmicamente pela aplicação liberada e execução
