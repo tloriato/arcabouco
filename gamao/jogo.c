@@ -72,6 +72,10 @@
 
    static int InserirPecas( unsigned int qtd , unsigned int pos , int cor ) ;
 
+   static void CriarEstruturas( void ) ;
+
+   static void DestruirEstruturas( void ) ;
+
    static void Sair( void ) ;
 
    static void MenuNovaPartida( void ) ;
@@ -124,6 +128,7 @@
 
    static void JogadorInicial( void )
    {
+
       int dado1 , dado2 , entrada ;
       char jogInic ;
       printf( "Jogadores , para rolarem dois dados para decidirem o jogador inicial digitem 1.\n" ) ;
@@ -138,19 +143,20 @@
          {
             printf( "Rerrolagem de dados é necessária já que os valores foram iguais" ) ;
             JogadorInicial( ) ;
-         } /* if */
+         }
          else
          {
             vez = dado1 > dado2 ? DPO_Jogador1 : DPO_Jogador2 ;
             jogInic = dado1 > dado2 ? 1 : 2 ;
             printf( "O jogador inicial é %d\n" , jogInic ) ;
-         }
-      } /* if */
+         } /* if */
+      }
       else
       {
          JogadorInicial( ) ;
-      }
-   }
+      } /* if */
+
+   } /* Fim função: JOG Jogador Inicial */
 
 
 /***********************************************************************
@@ -230,14 +236,10 @@
       /* Arrumação inicial do tabuleiro */
       if ( tabuleiro != NULL )
       {
-         TAB_Destruir( tabuleiro ) ;
+         DestruirEstruturas( ) ;
       } /* if */
 
-      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
-      {
-         printf( "Erro ao criar o tabuleiro\n" ) ;
-         Sair( ) ;
-      } /* if */
+      CriarEstruturas( ) ;
 
       qtd = sizeof( ArrumacaoInicial ) / sizeof( ArrumacaoInicial[0] ) ;
 
@@ -385,17 +387,9 @@
       /* Todos os dados foram lidos sem erro, altera os parâmetros do
        * jogo */
 
-      /* Cria um novo tabuleiro */
-      if ( tabuleiro != NULL )
-      {
-         TAB_Destruir( tabuleiro ) ;
-      } /* if */
-
-      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
-      {
-         printf( "Erro ao criar o tabuleiro\n" ) ;
-         Sair( ) ;
-      } /* if */
+      /* Cria um novo jogo */
+      DestruirEstruturas( ) ;
+      CriarEstruturas( ) ; /* Aborta o programa em caso de falha */
 
       /* Adiciona as peças */
       for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
@@ -615,6 +609,125 @@
 
 /***********************************************************************
 *
+*  $FC Função: JOG Criar Estruturas
+*
+*  $ED Descrição da função
+*     Aloca as instâncias das estruturas de dados utilizadas:
+*     tabuleiro, Bar1, Bar2, Final1 e Final2.
+*
+*  Assertivas de entrada:
+*     - tabuleiro, Bar1, Bar2, Final1 e Final2 não devem apontar para
+*       memória ainda alocada.
+*
+*  Assertivas de saída:
+*     Estruturas citadas acima criadas
+*
+***********************************************************************/
+
+   static void CriarEstruturas( void )
+   {
+
+      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
+      {
+         printf( "Erro ao criar o tabuleiro\n" ) ;
+         tabuleiro = NULL ;
+         Sair( ) ;
+      } /* if */
+
+#if 0
+      if ( BAR_Criar( &Bar1 ) != BAR_CondRetOK )
+      {
+         printf( "Erro ao criar a barra\n" ) ;
+         Bar1 = NULL ;
+         Sair( ) ;
+      } /* if */
+
+      if ( BAR_Criar( &Bar2 ) != BAR_CondRetOK )
+      {
+         printf( "Erro ao criar a barra\n" ) ;
+         Bar2 = NULL ;
+         Sair( ) ;
+      } /* if */
+
+      if ( PFN_Criar( &Final1 ) != PFN_CondRetOK )
+      {
+         printf( "Erro ao criar peças finalizadas\n" ) ;
+         Final1 = NULL ;
+         Sair( ) ;
+      } /* if */
+
+      if ( PFN_Criar( &Final2 ) != PFN_CondRetOK )
+      {
+         printf( "Erro ao criar peças finalizadas\n" ) ;
+         Final2 = NULL ;
+         Sair( ) ;
+      } /* if */
+#endif
+
+   } /* Fim Função: JOG Criar Estruturas */
+
+
+/***********************************************************************
+*
+*  $FC Função: JOG Destruir Estruturas
+*
+*  $ED Descrição da função
+*     Libera a memória alocada pelas estruturas de dados utilizadas
+*
+*  Assertivas de entrada:
+*     - tabuleiro deve ser uma instância válida de tabuleiro
+*       ou NULL
+*     - Bar1 e Bar2 devem ser instâncias válidas de PecasCapturadas
+*       ou NULL
+*     - Final1 e Final2 devem ser instâncias válidas de PecasFinalizadas
+*       ou NULL
+*
+*  Assertivas de saída:
+*     - Memória alocada dinâmicamente pelas estruturas de dados liberada
+*     - Ponteiros para as estruturas apontam para NULL
+*
+***********************************************************************/
+
+   static void DestruirEstruturas( void )
+   {
+
+      if ( tabuleiro != NULL )
+      {
+         TAB_Destruir( tabuleiro ) ;
+         tabuleiro = NULL ;
+      } /* if */
+
+#if 0
+      if ( Bar1 != NULL )
+      {
+          BAR_Destruir( Bar1 ) ;
+          Bar1 = NULL ;
+      } /* if */
+
+      if ( Bar2 != NULL )
+      {
+          BAR_Destruir( Bar2 ) ;
+          Bar2 = NULL ;
+      } /* if */
+
+      if ( Final1 != NULL )
+      {
+          PFN_Destruir( Final1 ) ;
+          Final1 = NULL ;
+      } /* if */
+
+      if ( Final2 != NULL )
+      {
+          PFN_Destruir( Final2 ) ;
+          Final2 = NULL ;
+      } /* if */
+#endif
+
+   } /* Fim Função: JOG Destruir Estruturas */
+
+
+/***********************************************************************
+*
 *  $FC Função: JOG Sair
 *
 *  $ED Descrição da função
@@ -635,11 +748,7 @@
    static void Sair( void )
    {
 
-      TAB_Destruir( tabuleiro ) ;
-      // BAR_Destruir( Bar1 ) ;
-      // BAR_Destruir( Bar2 ) ;
-      // FIN_Destruir( Final1 ) ;
-      // FIN_Destruir( Final2 ) ;
+      DestruirEstruturas( ) ;
       exit( 0 ) ;
 
    } /* Fim Função: JOG Sair */
