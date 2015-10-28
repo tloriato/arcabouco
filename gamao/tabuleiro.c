@@ -75,6 +75,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
       /* Cria a lista principal */
       if ( LIS_CriarLista( &tab->posicoes, LiberarPosicao ) != LIS_CondRetOK )
       {
+         free( tab ) ;
          return TAB_CondRetMemoria ;
       } /* if */
 
@@ -84,7 +85,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
          {
             /* Se tivemos problema com a lista, desfaz tudo
              * (evita vazamento de memória) */
-            TAB_Destruir( *pTabuleiro ) ;
+            TAB_Destruir( tab ) ;
             return TAB_CondRetMemoria ;
          } /* if */
 
@@ -93,7 +94,7 @@ static LIS_tppLista ObterListaPosicao( TAB_tppTabuleiro tabuleiro,
             /* Se tivemos problema com a lista, desfaz tudo
              * (evita vazamento de memória) */
             LIS_DestruirLista( lis ) ;
-            TAB_Destruir( *pTabuleiro ) ;
+            TAB_Destruir( tab ) ;
             return TAB_CondRetMemoria ;
          } /* if */
       } /* for */
