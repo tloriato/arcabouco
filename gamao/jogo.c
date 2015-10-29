@@ -146,7 +146,7 @@
 
       int dado1 , dado2 , entrada ;
       char jogInic ;
-      printf( "Jogadores , para rolarem dois dados para decidirem o jogador inicial digitem 1.\n" ) ;
+      printf( COR_MENSAGEM "Jogadores , para rolarem dois dados para decidirem o jogador inicial digitem 1." COR_PADRAO "\n" ) ;
       scanf( "%d" , &entrada ) ;
       if ( entrada == 1 )
       {
@@ -230,6 +230,8 @@
          printf( "<%s%s" COR_PADRAO , &StrFundo[ qtd ] , linha ) ;
          printf( "  " COR_LETRA_POS "%c" COR_PADRAO "\n" , 'X' - pos ) ;
       } /* for */
+
+      printf( "\n" ) ;
 
    } /* Fim função: JOG Imprimir tabuleiro */
 
@@ -465,7 +467,7 @@
          d2Disponivel = 1 ;
       } /* if */
 
-      printf( COR_MENSAGEM "Dados: %d  %d" COR_PADRAO "\n" , Dado1 , Dado2 ) ;
+      printf( "\n" COR_MENSAGEM "Dados: %d  %d" COR_PADRAO "\n\n" , Dado1 , Dado2 ) ;
 
       MoverPeca( ) ;
 
@@ -541,7 +543,7 @@
 
       /* Jogador 1 se move de A -> X ( 0 -> 23 ) => direcao = 1
        * Jogador 2 se move de X -> A ( 23 -> 0 ) => direcao = -1 */
-      int direcao = 1 ;
+      int direcao = vez == DPO_Jogador1 ? 1 : -1 ;
 
       // TODO tratar BAR
 
@@ -766,7 +768,21 @@
 
             } /* if */
          } /* if */
+      } /* while */
+
+      // TODO ver se o jogador ganhou a partida
+
+      /* Fim da vez. Muda para o próximo jogador */
+      if ( vez == DPO_Jogador1 )
+      {
+         vez = DPO_Jogador2 ;
       }
+      else
+      {
+         vez = DPO_Jogador1 ;
+      } /* if */
+
+         printf( COR_MENSAGEM "Vez do Jogador %d" COR_PADRAO "\n" , vez + 1 ) ;
 
    } /* Fim função: JOG Mover peça */
 
@@ -803,7 +819,6 @@
 
       assert( pOpcoes != NULL ) ;
 
-      printf( "\n" ) ;
       tpOpcaoMenu * pOp = pOpcoes ;
       if ( ! ocultarTexto )
       {
@@ -826,7 +841,8 @@
          pOp = pOpcoes ;
          while ( pOp->texto != NULL )
          {
-            if ( pOp->tecla == t )
+            /* Não diferenciar entre maiúsculas e minúsculas */
+            if ( ( pOp->tecla | ( 1 << 5 ) ) == ( t | ( 1<< 5 ) ) )
             {
                if ( pOp->funcao )
                {
