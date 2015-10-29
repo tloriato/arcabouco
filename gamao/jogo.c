@@ -30,6 +30,9 @@
 #include   "dado.h"
 #include   "peca.h"
 #include   "cores.h"
+#include   "PecasCapturadas.h"
+#include   "PecasFinalizadas.h"
+
 
 /***********************************************************************
 *
@@ -121,10 +124,10 @@
    static int d2Disponivel = 0 ;
 
    /* Peças finalizadas dos jogadores */
-   // static PFN_tppFinalizadas Final[ 2 ] ;
+   static PFN_tppFinalizadas Final[ 2 ] ;
 
    /* Peças na barra dos jogadores */
-   // static BAR_tppBarra Bar[ 2 ] ;
+   static PCA_tppCapturadas Bar[ 2 ] ;
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
 
@@ -544,9 +547,10 @@
                                  campo do jogador e o jogador pode mover
                                  peças para a área de peças finalizadas. */
 
-      /* No máximo haverá peças de um jogador em 23 posições do tabuleiro */
-      tpOpcaoMenu opcoes[ 24 ] ;
-      char txtOps[ 2 ][ 23 ] ;
+      /* No máximo haverá peças de um jogador em todas menos uma posições
+       * do tabuleiro */
+      tpOpcaoMenu opcoes[ TAB_QUANTIDADE_POS ] ;
+      char txtOps[ 2 ][ TAB_QUANTIDADE_POS ] ;
 
       /* Determina podeFinalizar */
       int i , cor ;
@@ -559,7 +563,15 @@
       /* Indica quais posições têm peças que podem ser movidas */
       char podeMover[ TAB_QUANTIDADE_POS ] ;
 
+      /* Preenche txtOps com as letras que representam as posições do
+       * tabuleiro */
+      for ( i = 0 ; i < 23 ; i ++ )
+      {
+         txtOps[ i ][ 0 ] = 'A' + (char) i ;
+         txtOps[ i ][ 1 ] = '\0' ;
+      } /* for */
 
+      /* Determina se o jogador já pode finalizar peças */
       if ( vez == DPO_Jogador1 )
       {
          /* Testa as 18 posições que não são as últimas 6 */
@@ -591,15 +603,16 @@
          } /* for */
       } /* if */
 
+      /* Deixa o jogador continuar jogando enquanto houver pontos nos dados */
       while ( d1Disponivel || d2Disponivel )
       {
          CombinacoesDados( movimentos ) ;
 
          /* Determina quais posições têm peças que podem ser movidas com
           * o resultado dos dados */
-         int opcao = 0 ; /* índice da próxima opção do menu */
-         int cor_dest ; /* Cor das peças na potencial posição de destino */
-         int qtd_dest ; /* Quantidade de peças na potencial posição de destino */
+         int d ;         /* Combinação de dados */
+         int cor_dest ;  /* Cor das peças na potencial posição de destino */
+         int qtd_dest ;  /* Quantidade de peças na potencial posição de destino */
          memset( podeMover , 0 , TAB_QUANTIDADE_POS ) ;
          for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
          {
@@ -608,39 +621,49 @@
             TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
             if ( ( qtd > 0 ) && ( cor == vez ) ) /* posição tem peças desse jogador? */
             {
-               if ( ( d1Disponivel != 0 )
-                 && ( i + Dado1 < TAB_QUANTIDADE_POS ) ) /* Garante que a posição é válida */
+               /* Itera nos possíveis movimentos das peças nessa posição */
+               for ( d = 0 ; ( d < 4 ) && ( movimentos[ d ] != 0 ) ; d ++ )
                {
-                  TAB_ContarPecas( tabuleiro , i + Dado1 , &qtd_dest , &cor_dest ) ;
-                  if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
+                  // FIXME considerar a direção do movimento !
+                  if ( ( TAB_ContarPecas( tabuleiro , i + movimentos[ d ] , &qtd_dest ,
+                                          &cor_dest ) == TAB_CondRetOK )
+                    && ( ( qtd_dest == 0 ) || ( cor_dest == vez ) ) )
                   {
                      podeMover[ i ] = 1 ;
+                     break ;
+                  }
+                  else
+                  {
+                     /* Se a posição de destino >= TAB_QUANTIDADE_POS, o
+                      * jogador estaria finalizando a peça */
+                     if ( podeFinalizar && ( i + movimentos[ d ] >= TAB_QUANTIDADE_POS ) )
+                     {
+                        podeMover[ i ] = 1 ;
+                        break ;
+                     } /* if */
                   } /* if */
-               } /* if */
+               } /* for */
+            } /* if */
+         } /* for */
 
-               if ( ( d2Disponivel != 0 )
-                 && ( i + Dado2 < TAB_QUANTIDADE_POS ) /* Garante que a posição é válida */
-                 && ( podeMover[ i ] == 0 ) ) /* e não sabemos se pode ser movida */
-               {
-                  TAB_ContarPecas( tabuleiro , i + Dado2 , &qtd_dest , &cor_dest ) ;
-                  if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
-                  {
-                     podeMover[ i ] = 1 ;
-                  } /* if */
-               } /* if */
+         /* Adiciona as opções ao menu */
+         int opcao = 0 ; /* índice da próxima opção do menu */
+         for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
+         {
+            if ( podeMover[ i ] )
+            {
+               opcoes[ opcao ].texto = &txtOps[ i ] ;
+               opcoes[ opcao ].tecla = 'A' + (char) i ;
+               opcoes[ opcao ].funcao = NULL ;
+               opcao ++ ;
+            } /* if */
+         } /* for */
 
-               if ( ( d1Disponivel != 0 ) && ( d2Disponivel != 0 )
-                 && ( i + Dado1 + Dado2 < TAB_QUANTIDADE_POS ) /* Garante que a posição é válida */
-                 && ( podeMover[ i ] == 0 ) ) /* e não sabemos se pode ser movida */
-               {
-                  TAB_ContarPecas( tabuleiro , i + Dado1 + Dado2 , &qtd_dest , &cor_dest ) ;
-                  if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
-                  {
-                     podeMover[ i ] = 1 ;
-                  } /* if */
-               } /* if */
-            }
-         }
+         opcoes[ opcao ].texto  = NULL ;
+         opcoes[ opcao ].tecla  = '\0' ;
+         opcoes[ opcao ].funcao = NULL ;
+
+         // Mostra menu
       }
 
    } /* Fim função: JOG Mover peça */
