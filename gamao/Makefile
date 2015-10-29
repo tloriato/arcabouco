@@ -3,6 +3,8 @@ SRC := tabuleiro.c \
        peca.c \
        dado_pontos.c \
        dado.c \
+       PecasCapturadas.c \
+       PecasFinalizadas.c \
        jogo.c
 
 APP := gamao

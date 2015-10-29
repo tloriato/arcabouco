@@ -71,7 +71,7 @@
 
    static void MoverPeca( void ) ;
 
-   static int Menu( tpOpcaoMenu * pOpcoes ) ;
+   static int Menu( tpOpcaoMenu * pOpcoes , int ocultarTexto ) ;
 
    static int InserirPecas( unsigned int qtd , unsigned int pos , int cor ) ;
 
@@ -156,7 +156,7 @@
 
          if ( dado1 == dado2 )
          {
-            printf( "Rerrolagem de dados é necessária já que os valores foram iguais" ) ;
+            printf( "Rerrolagem de dados é necessária já que os valores foram iguais\n" ) ;
             JogadorInicial( ) ;
          }
          else
@@ -352,7 +352,7 @@
    static void CarregarPartida( void )
    {
 
-      int i , p ;
+      int i ;
       int pontos , idVez ;
       int podeDobrar ; /* Jogador 1 pode dobrar se 64 > pontos > 1 */
       unsigned int qtd[ TAB_QUANTIDADE_POS ] ;
@@ -465,6 +465,8 @@
          d2Disponivel = 1 ;
       } /* if */
 
+      printf( COR_MENSAGEM "Dados: %d  %d" COR_PADRAO "\n" , Dado1 , Dado2 ) ;
+
       MoverPeca( ) ;
 
    } /* Fim função: JOG Jogar dados */
@@ -537,8 +539,9 @@
    static void MoverPeca( void )
    {
 
-      /* Jogador 1 se move de A -> X ( 0 -> 23 )
-       * Jogador 2 se move de X -> A ( 23 -> 0 ) */
+      /* Jogador 1 se move de A -> X ( 0 -> 23 ) => direcao = 1
+       * Jogador 2 se move de X -> A ( 23 -> 0 ) => direcao = -1 */
+      int direcao = 1 ;
 
       // TODO tratar BAR
 
@@ -550,7 +553,6 @@
       /* No máximo haverá peças de um jogador em todas menos uma posições
        * do tabuleiro */
       tpOpcaoMenu opcoes[ TAB_QUANTIDADE_POS ] ;
-      char txtOps[ 2 ][ TAB_QUANTIDADE_POS ] ;
 
       /* Determina podeFinalizar */
       int i , cor ;
@@ -560,16 +562,11 @@
        * Existem, no máximo, 4 movimentos possíveis */
       int movimentos[ 5 ] ;
 
-      /* Indica quais posições têm peças que podem ser movidas */
+      /* Indica quais posições têm peças que podem ser movidas.
+       * O valor de podeMover[ pos ] é uma máscara de bits que indica
+       * quais elementos do vetor movimentos são movimentos válidos para
+       * essa peça. */
       char podeMover[ TAB_QUANTIDADE_POS ] ;
-
-      /* Preenche txtOps com as letras que representam as posições do
-       * tabuleiro */
-      for ( i = 0 ; i < 23 ; i ++ )
-      {
-         txtOps[ i ][ 0 ] = 'A' + (char) i ;
-         txtOps[ i ][ 1 ] = '\0' ;
-      } /* for */
 
       /* Determina se o jogador já pode finalizar peças */
       if ( vez == DPO_Jogador1 )
@@ -612,7 +609,7 @@
           * o resultado dos dados */
          int d ;         /* Combinação de dados */
          int cor_dest ;  /* Cor das peças na potencial posição de destino */
-         int qtd_dest ;  /* Quantidade de peças na potencial posição de destino */
+         unsigned int qtd_dest ;  /* Quantidade de peças na potencial posição de destino */
          memset( podeMover , 0 , TAB_QUANTIDADE_POS ) ;
          for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
          {
@@ -624,22 +621,24 @@
                /* Itera nos possíveis movimentos das peças nessa posição */
                for ( d = 0 ; ( d < 4 ) && ( movimentos[ d ] != 0 ) ; d ++ )
                {
-                  // FIXME considerar a direção do movimento !
-                  if ( ( TAB_ContarPecas( tabuleiro , i + movimentos[ d ] , &qtd_dest ,
-                                          &cor_dest ) == TAB_CondRetOK )
-                    && ( ( qtd_dest == 0 ) || ( cor_dest == vez ) ) )
+                  /* Como o parâmetro posicao é unsigned, se i + direcao * movimentos[ d ]
+                   * for negativo, TAB_ContarPecas verá um valor gigante (underflow) e portanto
+                   * a lógica funciona igual ao caso de posicao >= TAB_QUANTIDADE_POS */
+                  if ( TAB_ContarPecas( tabuleiro , i + direcao * movimentos[ d ] ,
+                                        &qtd_dest , &cor_dest ) == TAB_CondRetOK )
                   {
-                     podeMover[ i ] = 1 ;
-                     break ;
+                     if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
+                     {
+                        podeMover[ i ] |= ( 1 << d ) ;
+                     } /* if */
                   }
                   else
                   {
-                     /* Se a posição de destino >= TAB_QUANTIDADE_POS, o
+                     /* Se a posição de destino >= TAB_QUANTIDADE_POS ( ou < 0 ), o
                       * jogador estaria finalizando a peça */
-                     if ( podeFinalizar && ( i + movimentos[ d ] >= TAB_QUANTIDADE_POS ) )
+                     if ( podeFinalizar )
                      {
-                        podeMover[ i ] = 1 ;
-                        break ;
+                        podeMover[ i ] |= ( 1 << d ) ;
                      } /* if */
                   } /* if */
                } /* for */
@@ -652,18 +651,121 @@
          {
             if ( podeMover[ i ] )
             {
-               opcoes[ opcao ].texto = &txtOps[ i ] ;
+               printf( "%c, " , 'A' + (char) i ) ;
+               opcoes[ opcao ].texto = "" ;
                opcoes[ opcao ].tecla = 'A' + (char) i ;
                opcoes[ opcao ].funcao = NULL ;
                opcao ++ ;
             } /* if */
          } /* for */
 
+         printf( "\n" ) ;
          opcoes[ opcao ].texto  = NULL ;
          opcoes[ opcao ].tecla  = '\0' ;
          opcoes[ opcao ].funcao = NULL ;
 
-         // Mostra menu
+         /* Mostra menu */
+         int posDe , posPara ; /* Opções de origem e destino da peça
+                                  (posição) escolhidas pelo jogador */
+         int podeFinalizarPeca = 0 ; /* Se 1, mostra a opção de finalizar
+                                        a peça escolhida */
+         posDe = Menu( opcoes , 1 ) ;
+
+         /* Converte do índice do menu para uma posição no tabuleiro */
+         posDe = opcoes[ posDe ].tecla - 'A' ;
+
+         /* Monta um novo menu com as posições de destino válidas para a
+          * peça escolhida */
+         opcao = 0 ;
+         for ( d = 0 ; ( d < 4 ) && ( movimentos[ d ] != 0 ) ; d ++ )
+         {
+            if ( podeMover[ posDe ] & ( 1 << d ) )
+            {
+               if ( ( posDe + direcao * movimentos[ d ] >= TAB_QUANTIDADE_POS )
+                 || ( posDe + direcao * movimentos[ d ] < 0 ) )
+               {
+                  podeFinalizarPeca = 1 ;
+               }
+               else
+               {
+                  printf( "%c, " , 'A' + ( posDe + direcao * movimentos[ d ] ) ) ;
+                  opcoes[ opcao ].texto = "" ; /* Não será mostrado */
+                  opcoes[ opcao ].tecla = 'A' + ( posDe + direcao * movimentos[ d ] ) ;
+                  opcoes[ opcao ].funcao = NULL ;
+                  opcao ++ ;
+               } /* if */
+
+            } /* if */
+         } /* for */
+
+         printf( "\n" ) ;
+
+         if ( podeFinalizarPeca )
+         {
+            printf( "Z -> Finalizar peça\n" ) ;
+            opcoes[ opcao ].texto = "" ;
+            opcoes[ opcao ].tecla = 'Z' ;
+            opcoes[ opcao ].funcao = NULL ;
+            opcao ++ ;
+         } /* if */
+
+         opcoes[ opcao ].texto  = NULL ;
+         opcoes[ opcao ].tecla  = '\0' ;
+         opcoes[ opcao ].funcao = NULL ;
+
+         posPara = Menu( opcoes , 1 ) ;
+         if ( opcoes[ posPara ].tecla == 'Z' )
+         {
+            /* Finaliza peça */
+         }
+         else
+         {
+            /* Converte a opção lida para uma posição no tabuleiro */
+            posPara = opcoes[ posPara ].tecla - 'A' ;
+            if ( TAB_MoverPeca( tabuleiro , posDe , posPara ) != TAB_CondRetOK )
+            {
+               /* Nunca deveria chegar aqui */
+               printf( "Erro ao mover a peça\n" ) ;
+               continue ;
+            }
+            else
+            {
+               /* Determina qual combinação de dados foi usada e 
+                * disconta as posições andadas dos pontos disponíveis */
+               int dp = direcao * ( posPara - posDe ) ; /* Número de posições
+                                                           andadas */
+               if ( Dado1 == Dado2 )
+               {
+                  /* Dados iguais -> Considera como 4 jogadas do Dado1 */
+                  d1Disponivel = d1Disponivel + d2Disponivel ;
+                  d2Disponivel = 0 ;
+                  d1Disponivel -= dp / Dado1 ;
+               }
+               else
+               {
+                  if ( dp == Dado1 )
+                  {
+                     d1Disponivel = 0 ;
+                  }
+                  else
+                  {
+                     if ( dp == Dado2 )
+                     {
+                        d2Disponivel = 0 ;
+                     }
+                     else
+                     {
+                        /* dp = Dado1 + Dado2 */
+                        d1Disponivel = 0 ;
+                        d2Disponivel = 0 ;
+                     } /* if */
+                  } /* if */
+               } /* if */
+
+               ImprimirTabuleiro( ) ;
+
+            } /* if */
+         } /* if */
       }
 
    } /* Fim função: JOG Mover peça */
@@ -678,7 +780,9 @@
 *     correspondente
 *
 *  $EP Parâmetros
-*     pOpcoes - Vetor de opções do menu.
+*     pOpcoes      - Vetor de opções do menu.
+*     ocultarTexto - Se 1, apenas aguarda e valida as teclas, sem
+*                    escrever as opções.
 *
 *  Assertivas de entrada:
 *     - Vetor pOpcoes deve existir.
@@ -694,18 +798,21 @@
 *
 ***********************************************************************/
 
-   static int Menu( tpOpcaoMenu * pOpcoes )
+   static int Menu( tpOpcaoMenu * pOpcoes , int ocultarTexto )
    {
 
       assert( pOpcoes != NULL ) ;
 
       printf( "\n" ) ;
       tpOpcaoMenu * pOp = pOpcoes ;
-      while ( pOp->texto != NULL )
+      if ( ! ocultarTexto )
       {
-         printf( "%c - %s\n" , pOp->tecla , pOp->texto ) ;
-         pOp ++ ;
-      } /* while */
+         while ( pOp->texto != NULL )
+         {
+            printf( "%c - %s\n" , pOp->tecla , pOp->texto ) ;
+            pOp ++ ;
+         } /* while */
+      } /* if */
 
       /* Garante que o usuário escolha uma opção válida */
       while ( 1 )
@@ -714,7 +821,7 @@
          int indice = 0 ;
 
          printf( "Escolha uma opção: " ) ;
-         scanf( "%c" , &t ) ;
+         scanf( " %c" , &t ) ;
 
          pOp = pOpcoes ;
          while ( pOp->texto != NULL )
@@ -810,7 +917,7 @@
                   { "Sair"             , Sair            , 's' } ,
                   { NULL               , NULL            , 0   } } ;
 
-      Menu( (tpOpcaoMenu *)opcoes ) ;
+      Menu( (tpOpcaoMenu *)opcoes , 0 ) ;
 
    } /* Fim função: JOG Menu Nova Partida */
 

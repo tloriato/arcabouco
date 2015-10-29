@@ -1,5 +1,5 @@
-#if ! defined( TABULEIRO_ )
-#define TABULEIRO_
+#if ! defined( PECAS_FINALIZADAS_ )
+#define PECAS_FINALIZADAS_
 /**********************************************************************
 *
 *  $MCD Módulo de definição: Módulo peças finalizadas
