@@ -26,7 +26,7 @@
 #include <assert.h>
 #include "lista.h"
 #include "peca.h"
-#include "pecasfinalizadas.h"
+#include "PecasFinalizadas.h"
 
 
 /***********************************************************************

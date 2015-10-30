@@ -228,7 +228,10 @@
          } /* if */
 
          /* Exemplo: A  @@@@@@------------> */
-         memset( linha , CharPeca[ cor ] , qtd ) ;
+         if ( qtd )
+         {
+            memset( linha , CharPeca[ cor ] , qtd ) ;
+         } /* if */
          linha[ qtd ] = '\0' ;
 
          printf( COR_LETRA_POS "%c  " COR_PADRAO , 'A' + pos ) ;
@@ -242,7 +245,10 @@
          } /* if */
 
          /* Exemplo: <--------------OOOO  X */
-         memset( linha , CharPeca[ cor ] , qtd ) ;
+         if ( qtd )
+         {
+            memset( linha , CharPeca[ cor ] , qtd ) ;
+         } /* if */
          linha[ qtd ] = '\0' ;
 
          fundo = ! fundo ;
