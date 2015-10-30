@@ -145,30 +145,18 @@
    static void JogadorInicial( void )
    {
 
-      int dado1 , dado2 , entrada ;
-      printf( COR_MENSAGEM "Jogadores , para rolarem dois dados para decidirem o jogador inicial digitem 1." COR_PADRAO "\n" ) ;
-      scanf( "%d" , &entrada ) ;
-      if ( entrada == 1 )
+      int dado1 = 0 , dado2 = 0 ;
+
+      while ( dado1 == dado2 )
       {
          DAD_JogarDados( &dado1 , &dado2 ) ;
-         printf( "O dado rolado pelo jogador %c deu: %d\n" , CharPeca[ DPO_Jogador1 ] , dado1 ) ;
-         printf( "O dado rolado pelo jogador %c deu: %d\n" , CharPeca[ DPO_Jogador2 ] , dado2 ) ;
+      } /* while */
 
-         if ( dado1 == dado2 )
-         {
-            printf( "Rerrolagem de dados é necessária já que os valores foram iguais\n" ) ;
-            JogadorInicial( ) ;
-         }
-         else
-         {
-            vez = dado1 > dado2 ? DPO_Jogador1 : DPO_Jogador2 ;
-            printf( "\n" COR_MENSAGEM "O jogador inicial é %c" COR_PADRAO "\n" , CharPeca[ vez ] ) ;
-         } /* if */
-      }
-      else
-      {
-         JogadorInicial( ) ;
-      } /* if */
+      printf( "O dado rolado pelo jogador %c deu: %d\n" , CharPeca[ DPO_Jogador1 ] , dado1 ) ;
+      printf( "O dado rolado pelo jogador %c deu: %d\n" , CharPeca[ DPO_Jogador2 ] , dado2 ) ;
+
+      vez = dado1 > dado2 ? DPO_Jogador1 : DPO_Jogador2 ;
+      printf( "\n" COR_MENSAGEM "O jogador inicial é %c" COR_PADRAO "\n\n" , CharPeca[ vez ] ) ;
 
    } /* Fim função: JOG Jogador Inicial */
 
@@ -1053,10 +1041,10 @@
    static void MenuJogada( void )
    {
       static const tpOpcaoMenu opcoes[] = {
-                  { "Jogar dados"      , JogarDados      , 'j' } ,
-                  { "Salvar Partida"   , SalvarPartida   , 's' } ,
-                  { "Carregar partida" , CarregarPartida , 'c' } ,
-                  { "Sair"             , Sair            , 'x' } ,
+                  { "Jogar dados"      , JogarDados      , 'J' } ,
+                  { "Salvar Partida"   , SalvarPartida   , 'S' } ,
+                  { "Carregar partida" , CarregarPartida , 'C' } ,
+                  { "Sair"             , Sair            , 'X' } ,
                   { NULL               , NULL            , 0   } } ;
 
       Menu( (tpOpcaoMenu *)opcoes , 0 ) ;
