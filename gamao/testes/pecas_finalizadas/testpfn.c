@@ -11,8 +11,8 @@
 *           pa - Pedro Alvarez
 *
 *  $HA Histórico de evolução:
-*     Versão    Autor               Data        Observações
-*     1.00      gbo, gapm, tdn, pa  27/10/2015  Início do desenvolvimento.
+*     Versão    Autor					   Data        Observações
+*     1.00      gbo, gapm, tdn, pa       27/10/2015  Início do desenvolvimento.
 *
 ***************************************************************************/
 
@@ -50,7 +50,6 @@ PFN_tppFinalizadas   vtListas[ DIM_VT_LISTA ] ;
 /***** Protótipos das funções encapuladas no módulo *****/
 
    static int ValidarInxLista( int inxLista , int Modo ) ;
-   static void LiberarValor( void * pValor ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -79,7 +78,6 @@ PFN_tppFinalizadas   vtListas[ DIM_VT_LISTA ] ;
           CondRetEsp = -1 ,
 		  cor        = -1 ,
 		  ValEsp     = -1 ,
-		  numElem    = -1 ,
 		  qtd        = -1 ;
 
       PFN_tpCondRet CondRet ;
@@ -158,16 +156,15 @@ PFN_tppFinalizadas   vtListas[ DIM_VT_LISTA ] ;
       else if ( strcmp( ComandoTeste , CONTA_PECAS_CMD ) == 0 )
       {
 
-         numLidos = LER_LerParametros( "iii" , &inxLista , &cor ,
-               &ValEsp ) ;
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
 
-         if ( ( numLidos != 3 )
-           || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+         if ( ( numLidos != 2 )
+           || ( ! ValidarInxLista( inxLista , NAO_VAZIO ) ) )
          {
             return TST_CondRetParm ;
          } /* if */
 
-		 PFN_ContaPecas ( vtListas[ inxLista ] , &qtd , cor ) ;
+		 PFN_ContaPecas ( vtListas[ inxLista ] , &qtd ) ;
 
          return TST_CompararInt( ValEsp , qtd ,
                   "Condicao de retorno errada ao contar pecas" ) ;
@@ -184,7 +181,7 @@ PFN_tppFinalizadas   vtListas[ DIM_VT_LISTA ] ;
 
 /***********************************************************************
  *
- *  $FC Função: TLIS Validar indice de lista
+ *  $FC Função: TPFN Validar indice de lista
  *
  ***********************************************************************/
 
@@ -213,20 +210,7 @@ static int ValidarInxLista( int inxLista , int Modo )
 
    return TRUE ;
 
-} /* Fim função: TLIS Validar indice de lista */
+} /* Fim função: TPFN Validar indice de lista */
 
-/***********************************************************************
- *
- *  $FC Função: TLIS Validar indice de lista
- *
- ***********************************************************************/
-
-   static void LiberarValor( void * pValor )
-   {
-
-      free( pValor ) ;
-
-   } /* Fim função: TLIS Liberar Valor */
-
-/********** Fim do módulo de implementação: TLIS Teste lista de símbolos **********/
+/********** Fim do módulo de implementação: TPFN Teste lista de símbolos **********/
 

@@ -25,6 +25,7 @@
 #include   <stdlib.h>
 #include   <string.h>
 #include   <assert.h>
+#include   <time.h>
 #include   "tabuleiro.h"
 #include   "dado_pontos.h"
 #include   "dado.h"
@@ -81,7 +82,7 @@
 
    static void Sair( void ) ;
 
-   static void MenuNovaPartida( void ) ;
+   static void MenuJogada( void ) ;
 
    static void JogadorInicial( void ) ;
 
@@ -145,14 +146,13 @@
    {
 
       int dado1 , dado2 , entrada ;
-      char jogInic ;
       printf( COR_MENSAGEM "Jogadores , para rolarem dois dados para decidirem o jogador inicial digitem 1." COR_PADRAO "\n" ) ;
       scanf( "%d" , &entrada ) ;
       if ( entrada == 1 )
       {
          DAD_JogarDados( &dado1 , &dado2 ) ;
-         printf( "O dado rolado pelo jogador 1 deu: %d\n" , dado1 ) ;
-         printf( "O dado rolado pelo jogador 2 deu: %d\n" , dado2 ) ;
+         printf( "O dado rolado pelo jogador %c deu: %d\n" , CharPeca[ DPO_Jogador1 ] , dado1 ) ;
+         printf( "O dado rolado pelo jogador %c deu: %d\n" , CharPeca[ DPO_Jogador2 ] , dado2 ) ;
 
          if ( dado1 == dado2 )
          {
@@ -162,8 +162,7 @@
          else
          {
             vez = dado1 > dado2 ? DPO_Jogador1 : DPO_Jogador2 ;
-            jogInic = dado1 > dado2 ? 1 : 2 ;
-            printf( "\n" COR_MENSAGEM "O jogador inicial é %d" COR_PADRAO "\n" , jogInic ) ;
+            printf( "\n" COR_MENSAGEM "O jogador inicial é %c" COR_PADRAO "\n" , CharPeca[ vez ] ) ;
          } /* if */
       }
       else
@@ -187,11 +186,41 @@
    {
 
       #define LARGURA 18  /* 15 peças + 3 traços '-' */
-      int pos , cor , fundo ;
+      int pos , cor , fundo , qtd_bar , qtd_fin ;
       unsigned int qtd ;
       char linha[ LARGURA + 1 ] ;
       char * cor_fundo[ 2 ] = { COR_BG1 , COR_BG2 } ;
 
+      /* Imprime as peças na barra e finalizadas */
+      PCA_ContaPecas( Bar[ DPO_Jogador1 ] , &qtd_bar ) ;
+      PFN_ContaPecas( Final[ DPO_Jogador1 ] , &qtd_fin ) ;
+
+      printf( " Peças capturadas    |   Peças Finalizadas\n" ) ;
+
+      /* Barra 1 */
+      memset( linha , CharPeca[ DPO_Jogador1 ] , qtd_bar ) ;
+      linha[ qtd_bar ] = '\0' ;
+      printf( "%s%s   |   " , linha , &StrFundo[ qtd_bar ] ) ;
+
+      /* Finalizadas 1 */
+      memset( linha , CharPeca[ DPO_Jogador1 ] , qtd_fin ) ;
+      linha[ qtd_fin ] = '\0' ;
+      printf( "%s%s\n" , linha , &StrFundo[ qtd_fin ] ) ;
+
+      PCA_ContaPecas( Bar[ DPO_Jogador2 ] , &qtd_bar ) ;
+      PFN_ContaPecas( Final[ DPO_Jogador2 ] , &qtd_fin ) ;
+
+      /* Barra 2 */
+      memset( linha , CharPeca[ DPO_Jogador2 ] , qtd_bar ) ;
+      linha[ qtd_bar ] = '\0' ;
+      printf( "%s%s   |   " , linha , &StrFundo[ qtd_bar ] ) ;
+
+      /* Finalizadas 2 */
+      memset( linha , CharPeca[ DPO_Jogador2 ] , qtd_fin ) ;
+      linha[ qtd_fin ] = '\0' ;
+      printf( "%s%s\n\n" , linha , &StrFundo[ qtd_fin ] ) ;
+
+      /* Imprime o tabuleiro */
       fundo = 0 ;
       for ( pos = 0 ; pos < TAB_QUANTIDADE_POS / 2 ; pos ++ )
       {
@@ -273,11 +302,12 @@
       } /* for */
 
       ImprimirTabuleiro( ) ;
-      JogadorInicial ( ) ;
+      JogadorInicial( ) ;
+      MenuJogada( ) ;
 
       while ( ! FimPartida )
       {
-         MenuNovaPartida( ) ;
+         MenuJogada( ) ;
       } /* while */
 
    } /* Fim função: JOG Nova partida */
@@ -306,6 +336,7 @@
       int i ;
       int pontos ;
       int podeDobrar ; /* Jogador 1 pode dobrar se 64 > pontos > 1 */
+      int qtd1 , qtd2 ;
       FILE * f = fopen( "partida.txt" , "w" ) ;
 
       if ( f == NULL )
@@ -323,11 +354,15 @@
          fprintf( f , "%d %X\n" , cor , quantidade ) ;
       } /* for */
 
-      /* TODO Grava a quantidade de peças finalizadas de cada jogador */
-      fprintf( f , "0 0\n" ) ; /* dummy */
+      /* Grava a quantidade de peças finalizadas de cada jogador */
+      PFN_ContaPecas( Final[ DPO_Jogador1 ] , &qtd1 ) ;
+      PFN_ContaPecas( Final[ DPO_Jogador2 ] , &qtd2 ) ;
+      fprintf( f , "%d %d\n" , qtd1 , qtd2 ) ;
 
-      /* TODO Grava a quantidade de peças na barra de cada jogador */
-      fprintf( f , "0 0\n" ) ; /* dummy */
+      /* Grava a quantidade de peças na barra de cada jogador */
+      PCA_ContaPecas( Bar[ DPO_Jogador1 ] , &qtd1 ) ;
+      PCA_ContaPecas( Bar[ DPO_Jogador2 ] , &qtd2 ) ;
+      fprintf( f , "%d %d\n" , qtd1 , qtd2 ) ;
 
       /* Grava valor da partida (dado pontos) */
       DPO_ObterPontos( &pontos ) ;
@@ -424,7 +459,70 @@
          } /* if */
       } /* for */
 
-      /* TODO Preencher peças finalizadas e na barra */
+      /* Preenche peças finalizadas e na barra */
+      for ( i = 0 ; i < bar1 ; i ++ )
+      {
+         PEC_tppPeca peca ;
+         if ( PEC_Criar( &peca , DPO_Jogador1 ) != PEC_CondRetOK )
+         {
+            printf( "Erro ao criar a peça\n" ) ;
+            Sair( ) ;
+         } /* if */
+
+         if ( PCA_InserirPeca( Bar[ DPO_Jogador1 ] , peca ) != PCA_CondRetOK )
+         {
+            printf( "Erro ao inserir a peça.\n" ) ;
+            Sair( ) ;
+         } /* if */
+      } /* for */
+
+      for ( i = 0 ; i < bar2 ; i ++ )
+      {
+         PEC_tppPeca peca ;
+         if ( PEC_Criar( &peca , DPO_Jogador2 ) != PEC_CondRetOK )
+         {
+            printf( "Erro ao criar a peça\n" ) ;
+            Sair( ) ;
+         } /* if */
+
+         if ( PCA_InserirPeca( Bar[ DPO_Jogador2 ] , peca ) != PCA_CondRetOK )
+         {
+            printf( "Erro ao inserir a peça.\n" ) ;
+            Sair( ) ;
+         } /* if */
+      } /* for */
+
+      for ( i = 0 ; i < fin1 ; i ++ )
+      {
+         PEC_tppPeca peca ;
+         if ( PEC_Criar( &peca , DPO_Jogador1 ) != PEC_CondRetOK )
+         {
+            printf( "Erro ao criar a peça\n" ) ;
+            Sair( ) ;
+         } /* if */
+
+         if ( PFN_InserirPeca( Final[ DPO_Jogador1 ] , peca ) != PFN_CondRetOK )
+         {
+            printf( "Erro ao inserir a peça.\n" ) ;
+            Sair( ) ;
+         } /* if */
+      } /* for */
+
+      for ( i = 0 ; i < fin2 ; i ++ )
+      {
+         PEC_tppPeca peca ;
+         if ( PEC_Criar( &peca , DPO_Jogador2 ) != PEC_CondRetOK )
+         {
+            printf( "Erro ao criar a peça\n" ) ;
+            Sair( ) ;
+         } /* if */
+
+         if ( PFN_InserirPeca( Final[ DPO_Jogador2 ] , peca ) != PFN_CondRetOK )
+         {
+            printf( "Erro ao inserir a peça.\n" ) ;
+            Sair( ) ;
+         } /* if */
+      } /* for */
 
       DPO_DefinirPontosVez( pontos , podeDobrar ) ;
 
@@ -570,6 +668,9 @@
        * essa peça. */
       char podeMover[ TAB_QUANTIDADE_POS ] ;
 
+      /* Guarda o jogador adversário do atual (vez) */
+      DPO_tpJogador adversario = vez == DPO_Jogador1 ? DPO_Jogador2 : DPO_Jogador1 ;
+
       /* Determina se o jogador já pode finalizar peças */
       if ( vez == DPO_Jogador1 )
       {
@@ -629,7 +730,9 @@
                   if ( TAB_ContarPecas( tabuleiro , i + direcao * movimentos[ d ] ,
                                         &qtd_dest , &cor_dest ) == TAB_CondRetOK )
                   {
-                     if ( ( qtd_dest == 0 ) || ( cor_dest == vez ) )
+                     /* Posição de destino pode ter peças nossas, nenuma ou apenas 1 do adversário */
+                     if ( ( qtd_dest == 0 ) || ( cor_dest == vez )
+                       || ( ( qtd_dest == 1 ) && ( cor_dest == adversario ) ) )
                      {
                         podeMover[ i ] |= ( 1 << d ) ;
                      } /* if */
@@ -696,7 +799,6 @@
                   opcoes[ opcao ].funcao = NULL ;
                   opcao ++ ;
                } /* if */
-
             } /* if */
          } /* for */
 
@@ -724,6 +826,29 @@
          {
             /* Converte a opção lida para uma posição no tabuleiro */
             posPara = opcoes[ posPara ].tecla - 'A' ;
+
+            /* É uma captura de peça? */
+            int cor_dest ;  /* Cor das peças na potencial posição de destino */
+            unsigned int qtd_dest ;  /* Quantidade de peças na potencial posição de destino */
+
+            TAB_ContarPecas( tabuleiro , posPara , &qtd_dest , &cor_dest ) ;
+            if ( ( qtd_dest == 1 ) && ( cor_dest == adversario ) )
+            {
+               /* Primeiro move a peça adversária para a barra */
+               PEC_tppPeca peca ;
+               if ( TAB_RemoverPeca( tabuleiro , posPara , &peca ) != TAB_CondRetOK )
+               {
+                  printf( "Erro ao remover a peça adversária.\n" ) ;
+                  break ;
+               } /* if */
+
+               if ( PCA_InserirPeca( Bar[ adversario ] , peca ) != PCA_CondRetOK )
+               {
+                  printf( "Erro ao mover a peça adversária para a barra.\n" ) ;
+                  Sair( ) ;
+               } /* if */
+            } /* if */
+
             if ( TAB_MoverPeca( tabuleiro , posDe , posPara ) != TAB_CondRetOK )
             {
                /* Nunca deveria chegar aqui */
@@ -782,7 +907,7 @@
          vez = DPO_Jogador1 ;
       } /* if */
 
-         printf( COR_MENSAGEM "Vez do Jogador %d" COR_PADRAO "\n" , vez + 1 ) ;
+      printf( COR_MENSAGEM "Vez do Jogador %c" COR_PADRAO "\n" , CharPeca[ vez ] ) ;
 
    } /* Fim função: JOG Mover peça */
 
@@ -925,12 +1050,13 @@
 *
 ***********************************************************************/
 
-   static void MenuNovaPartida( void )
+   static void MenuJogada( void )
    {
       static const tpOpcaoMenu opcoes[] = {
                   { "Jogar dados"      , JogarDados      , 'j' } ,
+                  { "Salvar Partida"   , SalvarPartida   , 's' } ,
                   { "Carregar partida" , CarregarPartida , 'c' } ,
-                  { "Sair"             , Sair            , 's' } ,
+                  { "Sair"             , Sair            , 'x' } ,
                   { NULL               , NULL            , 0   } } ;
 
       Menu( (tpOpcaoMenu *)opcoes , 0 ) ;
@@ -967,15 +1093,14 @@
          Sair( ) ;
       } /* if */
 
-#if 0
-      if ( BAR_Criar( &Bar[ DPO_Jogador1 ] ) != BAR_CondRetOK )
+      if ( PCA_Criar( &Bar[ DPO_Jogador1 ] ) != PCA_CondRetOK )
       {
          printf( "Erro ao criar a barra\n" ) ;
          Bar[ DPO_Jogador1 ] = NULL ;
          Sair( ) ;
       } /* if */
 
-      if ( BAR_Criar( &Bar[ DPO_Jogador2 ] ) != BAR_CondRetOK )
+      if ( PCA_Criar( &Bar[ DPO_Jogador2 ] ) != PCA_CondRetOK )
       {
          printf( "Erro ao criar a barra\n" ) ;
          Bar[ DPO_Jogador2 ] = NULL ;
@@ -995,7 +1120,6 @@
          Final[ DPO_Jogador2 ] = NULL ;
          Sair( ) ;
       } /* if */
-#endif
 
    } /* Fim Função: JOG Criar Estruturas */
 
@@ -1030,16 +1154,15 @@
          tabuleiro = NULL ;
       } /* if */
 
-#if 0
       if ( Bar[ DPO_Jogador1 ] != NULL )
       {
-          BAR_Destruir( Bar[ DPO_Jogador1 ] ) ;
+          PCA_Destruir( Bar[ DPO_Jogador1 ] ) ;
           Bar[ DPO_Jogador1 ] = NULL ;
       } /* if */
 
       if ( Bar[ DPO_Jogador2 ] != NULL )
       {
-          BAR_Destruir( Bar[ DPO_Jogador2 ] ) ;
+          PCA_Destruir( Bar[ DPO_Jogador2 ] ) ;
           Bar[ DPO_Jogador2 ] = NULL ;
       } /* if */
 
@@ -1054,7 +1177,6 @@
           PFN_Destruir( Final[ DPO_Jogador2 ] ) ;
           Final[ DPO_Jogador2 ] = NULL ;
       } /* if */
-#endif
 
    } /* Fim Função: JOG Destruir Estruturas */
 
@@ -1100,6 +1222,8 @@
 
    int main( void )
    {
+      /* Inicializa o rand */
+      srand( time( NULL ) ) ;
 
 //      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
 //      {

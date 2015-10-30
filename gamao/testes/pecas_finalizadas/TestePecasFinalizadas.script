@@ -36,7 +36,7 @@
 
 == Contar quantas peças tem em uma lista vazia
 =criar        lista2   OK
-=contapecas   lista2   preta    VAZIA
+=contapecas   lista2   VAZIA
 
 == Destruir lista 2
 =destruir   lista2   OK
@@ -47,7 +47,7 @@
 =inspeca      lista3   branca   OK
 =inspeca      lista3   branca   OK
 =inspeca      lista3   branca   OK
-=contapecas   lista3   branca   4
+=contapecas   lista3   4
 
 == Destruir lista 3
 =destruir   lista3   OK

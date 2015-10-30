@@ -142,7 +142,7 @@ PCA_tppCapturadas   vtListas[ DIM_VT_LISTA ] ;
             return TST_CondRetParm ;
          } /* if */
 
-       PEC_Criar ( &peca , cor ) ; 
+		 PEC_Criar ( &peca , cor ) ; 
 
          CondRet = PCA_InserirPeca( vtListas[ inxLista ] , peca ) ;
 
@@ -156,16 +156,15 @@ PCA_tppCapturadas   vtListas[ DIM_VT_LISTA ] ;
       else if ( strcmp( ComandoTeste , CONTA_PECAS_CMD ) == 0 )
       {
 
-         numLidos = LER_LerParametros( "iii" , &inxLista , &cor ,
-               &ValEsp ) ;
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
 
-         if ( ( numLidos != 3 )
+         if ( ( numLidos != 2 )
            || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
          {
             return TST_CondRetParm ;
          } /* if */
 
-       PCA_ContaPecas ( vtListas[ inxLista ] , &qtd , cor ) ;
+       PCA_ContaPecas ( vtListas[ inxLista ] , &qtd ) ;
 
        return TST_CompararInt( ValEsp , qtd ,
                   "Condicao de retorno errada ao contar pecas" ) ;

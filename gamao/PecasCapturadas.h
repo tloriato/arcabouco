@@ -121,6 +121,7 @@ typedef struct tpCapturadas * PCA_tppCapturadas ;
 *     - A peça passada no parâmetro peca será incluída na lista passada.
 *
 *  $FV Valor retornado
+*     PCA_CondRetMemoria 
 *     PCA_CondRetOK
 *
 ***********************************************************************/
@@ -150,7 +151,7 @@ typedef struct tpCapturadas * PCA_tppCapturadas ;
 *
 ***********************************************************************/
 
-   PCA_tpCondRet PCA_ContaPecas ( PCA_tppCapturadas pCapturadas , int * qtd_pecas , int pCor ) ;
+   PCA_tpCondRet PCA_ContaPecas ( PCA_tppCapturadas pCapturadas , int * qtd_pecas ) ;
 
 /********** Fim do módulo de definição: Módulo tabuleiro **********/
 

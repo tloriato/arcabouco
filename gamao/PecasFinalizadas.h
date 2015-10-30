@@ -1,5 +1,5 @@
-#if ! defined( PECAS_FINALIZADAS_ )
-#define PECAS_FINALIZADAS_
+#if ! defined( FINALIZADAS_ )
+#define FINALIZADAS_
 /**********************************************************************
 *
 *  $MCD Módulo de definição: Módulo peças finalizadas
@@ -61,7 +61,7 @@ typedef struct tpFinalizadas * PFN_tppFinalizadas ;
 *
 *  $EP Parâmetros:
 *     $P pFinalizadas   - Parâmetro de retorno do lista de pças
-*                         finalizadas criada.
+*						  finalizadas criada.
 *                         Esse parâmetro é passado por referência
 *
 *  Assertivas de entrada:
@@ -121,6 +121,7 @@ typedef struct tpFinalizadas * PFN_tppFinalizadas ;
 *     - A peça passada no parâmetro peca será incluída na lista passada.
 *
 *  $FV Valor retornado
+*     PFN_CondRetMemoria 
 *     PFN_CondRetOK
 *
 ***********************************************************************/
@@ -150,7 +151,7 @@ typedef struct tpFinalizadas * PFN_tppFinalizadas ;
 *
 ***********************************************************************/
 
-   PFN_tpCondRet PFN_ContaPecas ( PFN_tppFinalizadas pFinalizadas , int * qtd_pecas , int pCor ) ;
+   PFN_tpCondRet PFN_ContaPecas ( PFN_tppFinalizadas pFinalizadas , int * qtd_pecas ) ;
 
 /********** Fim do módulo de definição: Módulo tabuleiro **********/
 

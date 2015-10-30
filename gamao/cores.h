@@ -25,7 +25,7 @@
 ***********************************************************************/
 
 /* Comente essa definição para usar um terminal monocromático */
-#define USAR_CORES
+//#define USAR_CORES
 
 #define FG_PRETO    "30"
 #define FG_VERMELHO "31"

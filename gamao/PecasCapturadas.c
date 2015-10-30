@@ -121,7 +121,7 @@ static void LiberarPeca( void * pValor ) ;
 *
 ***************************************************************************/
 
-   PCA_tpCondRet PCA_ContaPecas ( PCA_tppCapturadas pCapturadas , int * qtd_pecas , int pCor )
+   PCA_tpCondRet PCA_ContaPecas ( PCA_tppCapturadas pCapturadas , int * qtd_pecas )
    {
       PEC_tppPeca peca = NULL ;
       struct tpCapturadas * lis = pCapturadas ;
@@ -139,7 +139,6 @@ static void LiberarPeca( void * pValor ) ;
       } /* if */
 
 
-      PEC_ObterCor( peca , &pCor ) ;
       *qtd_pecas = 1 ;
 
       while ( LIS_AvancarElementoCorrente ( lis->capturadas , 1 ) != LIS_CondRetFimLista )
@@ -149,7 +148,7 @@ static void LiberarPeca( void * pValor ) ;
 
       return PCA_CondRetOK ;
 
-   } /* Fim função: PCA Conta Peças */
+   } /* Fim função: PCA Contar Pecças */
 
 /*****  Código das funções encapsuladas pelo módulo  *****/
 
