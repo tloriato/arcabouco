@@ -710,7 +710,8 @@
       } /* if */
 
       /* Se houver peças na barra, o jogador deve primeiro coloca-las em jogo */
-      while ( temBar && ( d1Disponivel || d2Disponivel ) )
+      int d1Disp = d1Disponivel , d2Disp = d2Disponivel ;
+      while ( temBar && ( d1Disp || d2Disp ) )
       {
          int posPara ;
          printf( "Jogador %c deve retornar a(s) peça(s) da barra ao jogo.\n" , CharPeca[ vez ] ) ;
@@ -725,6 +726,10 @@
                opcoes[ opcao ].tecla = 'A' + Dado1 - 1 ;
                opcoes[ opcao ].funcao = NULL ;
                opcao ++ ;
+            }
+            else
+            {
+               d1Disp = 0 ;
             } /* if */
 
             if ( Dado1 != Dado2 )
@@ -738,6 +743,10 @@
                   opcoes[ opcao ].tecla = 'A' + Dado2 - 1 ;
                   opcoes[ opcao ].funcao = NULL ;
                   opcao ++ ;
+               }
+               else
+               {
+                  d2Disp = 0 ;
                } /* if */
             } /* if */
          }
@@ -752,6 +761,10 @@
                opcoes[ opcao ].tecla = 'X' - Dado1 + 1 ;
                opcoes[ opcao ].funcao = NULL ;
                opcao ++ ;
+            }
+            else
+            {
+               d1Disp = 0 ;
             } /* if */
 
             if ( Dado1 != Dado2 )
@@ -765,6 +778,10 @@
                   opcoes[ opcao ].tecla = 'X' - Dado2 + 1 ;
                   opcoes[ opcao ].funcao = NULL ;
                   opcao ++ ;
+               }
+               else
+               {
+                  d2Disp = 0 ;
                } /* if */
             } /* if */
          } /* if */
@@ -803,10 +820,12 @@
             if ( ( posPara + 1 == Dado1 ) && d1Disponivel )
             {
                d1Disponivel = 0 ;
+               d1Disp = 0 ;
             }
             else
             {
                d2Disponivel = 0 ;
+               d2Disp = 0 ;
             } /* if */
 
            if ( TAB_IncluirPeca( tabuleiro , posPara , peca ) != TAB_CondRetOK )
@@ -844,7 +863,7 @@
 
 
       /* Deixa o jogador continuar jogando enquanto houver pontos nos dados */
-      while ( d1Disponivel || d2Disponivel )
+      while ( ( d1Disponivel || d2Disponivel ) && ( ! temBar ) )
       {
          CombinacoesDados( movimentos ) ;
 
