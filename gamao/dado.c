@@ -36,14 +36,13 @@
 
    DAD_tpCondRet DAD_JogarDados( int* pDado1 , int* pDado2 )
    {
-	   assert ( pDado1 != NULL && pDado2 != NULL ) ;
 
-	   srand ( time ( NULL ) ) ;
+      assert ( pDado1 != NULL && pDado2 != NULL ) ;
 
-	   * pDado1 = ( rand ( ) % 6 ) +1 ;
-	   * pDado2 = ( rand ( ) % 6 ) +1 ;
+      * pDado1 = ( rand ( ) % 6 ) +1 ;
+      * pDado2 = ( rand ( ) % 6 ) +1 ;
 
-	   return DAD_CondRetOK ;
+      return DAD_CondRetOK ;
 
    } /* Fim função: DAD Jogar Dados */
 
