@@ -525,6 +525,8 @@
 
       ImprimirTabuleiro( ) ;
 
+      printf( COR_MENSAGEM "Vez: %c" COR_PADRAO "\n\n" , CharPeca[ vez ] ) ;
+
    } /* Fim função: JOG Carregar partida */
 
 
@@ -716,11 +718,11 @@
                    * for negativo, TAB_ContarPecas verá um valor gigante (underflow) e portanto
                    * a lógica funciona igual ao caso de posicao >= TAB_QUANTIDADE_POS */
                   if ( TAB_ContarPecas( tabuleiro , i + direcao * movimentos[ d ] ,
-                                        &qtd_dest , &cor_dest ) == TAB_CondRetOK )
+                           &qtd_dest , &cor_dest ) == TAB_CondRetOK )
                   {
                      /* Posição de destino pode ter peças nossas, nenuma ou apenas 1 do adversário */
                      if ( ( qtd_dest == 0 ) || ( cor_dest == vez )
-                       || ( ( qtd_dest == 1 ) && ( cor_dest == adversario ) ) )
+                           || ( ( qtd_dest == 1 ) && ( cor_dest == adversario ) ) )
                      {
                         podeMover[ i ] |= ( 1 << d ) ;
                      } /* if */
@@ -740,6 +742,7 @@
 
          /* Adiciona as opções ao menu */
          int opcao = 0 ; /* índice da próxima opção do menu */
+         printf( "Escolha uma peça para mover:\n" ) ;
          for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
          {
             if ( podeMover[ i ] )
@@ -757,6 +760,13 @@
          opcoes[ opcao ].tecla  = '\0' ;
          opcoes[ opcao ].funcao = NULL ;
 
+         /* Testa se há alguma jogada possível */
+         if ( opcao == 0 )
+         {
+            printf( COR_MENSAGEM "Não há jogadas possíveis. Passando a vez..." COR_PADRAO "\n" ) ;
+            break ;
+         } /* if */
+
          /* Mostra menu */
          int posDe , posPara ; /* Opções de origem e destino da peça
                                   (posição) escolhidas pelo jogador */
@@ -770,12 +780,13 @@
          /* Monta um novo menu com as posições de destino válidas para a
           * peça escolhida */
          opcao = 0 ;
+         printf( "Escolha a posição de destino:\n" ) ;
          for ( d = 0 ; ( d < 4 ) && ( movimentos[ d ] != 0 ) ; d ++ )
          {
             if ( podeMover[ posDe ] & ( 1 << d ) )
             {
                if ( ( posDe + direcao * movimentos[ d ] >= TAB_QUANTIDADE_POS )
-                 || ( posDe + direcao * movimentos[ d ] < 0 ) )
+                     || ( posDe + direcao * movimentos[ d ] < 0 ) )
                {
                   podeFinalizarPeca = 1 ;
                }
@@ -809,6 +820,79 @@
          if ( opcoes[ posPara ].tecla == 'Z' )
          {
             /* Finaliza peça */
+            PEC_tppPeca peca ;
+
+            /* Sabemos que a posição é válida. Não é preciso testar o retorno */
+            TAB_RemoverPeca( tabuleiro , posDe , &peca ) ;
+            PFN_InserirPeca( Final[ vez ] , peca ) ;
+
+            /* Calcula os pontos restantes nos dados */
+            posPara = TAB_QUANTIDADE_POS ;
+            int dp = direcao * ( posPara - posDe ) ; /* Número de posições
+                                                        andadas */
+            if ( Dado1 == Dado2 )
+            {
+               d1Disponivel += d2Disponivel ;
+               d2Disponivel = 0 ;
+
+               d1Disponivel -= dp / Dado1 ;
+               if ( dp % Dado1 )
+               {
+                  d1Disponivel -- ;
+               } /* if */
+            }
+            else
+            {
+               /* Se só tiver 1 dado disponível, usa esse */
+               if ( d1Disponivel + d2Disponivel == 1 )
+               {
+                  d1Disponivel = 0 ;
+                  d2Disponivel = 0 ;
+               }
+               else
+               {
+                  /* Tenta usar o dado menor primeiro */
+                  if ( Dado1 < Dado2 )
+                  {
+                     if ( dp <= Dado1 )
+                     {
+                        d1Disponivel = 0 ;
+                     }
+                     else
+                     {
+                        if ( dp <= Dado2 )
+                        {
+                           d2Disponivel = 0 ;
+                        }
+                        else
+                        {
+                           d1Disponivel = 0 ;
+                           d2Disponivel = 0 ;
+                        }  /* if */
+                     } /* if */
+                  }
+                  else
+                  {
+                     if ( dp <= Dado2 )
+                     {
+                        d1Disponivel = 0 ;
+                     }
+                     else
+                     {
+                        if ( dp <= Dado1 )
+                        {
+                           d2Disponivel = 0 ;
+                        }
+                        else
+                        {
+                           d1Disponivel = 0 ;
+                           d2Disponivel = 0 ;
+                        }  /* if */
+                     } /* if */
+
+                  } /* if */
+               } /* if */
+            } /* if */
          }
          else
          {
@@ -842,48 +926,53 @@
                /* Nunca deveria chegar aqui */
                printf( "Erro ao mover a peça\n" ) ;
                continue ;
+            } /* if */
+
+            /* Determina qual combinação de dados foi usada e 
+             * disconta as posições andadas dos pontos disponíveis */
+            int dp = direcao * ( posPara - posDe ) ; /* Número de posições
+                                                        andadas */
+            if ( Dado1 == Dado2 )
+            {
+               /* Dados iguais -> Considera como 4 jogadas do Dado1 */
+               d1Disponivel = d1Disponivel + d2Disponivel ;
+               d2Disponivel = 0 ;
+               d1Disponivel -= dp / Dado1 ;
             }
             else
             {
-               /* Determina qual combinação de dados foi usada e 
-                * disconta as posições andadas dos pontos disponíveis */
-               int dp = direcao * ( posPara - posDe ) ; /* Número de posições
-                                                           andadas */
-               if ( Dado1 == Dado2 )
+               if ( dp == Dado1 )
                {
-                  /* Dados iguais -> Considera como 4 jogadas do Dado1 */
-                  d1Disponivel = d1Disponivel + d2Disponivel ;
-                  d2Disponivel = 0 ;
-                  d1Disponivel -= dp / Dado1 ;
+                  d1Disponivel = 0 ;
                }
                else
                {
-                  if ( dp == Dado1 )
+                  if ( dp == Dado2 )
                   {
-                     d1Disponivel = 0 ;
+                     d2Disponivel = 0 ;
                   }
                   else
                   {
-                     if ( dp == Dado2 )
-                     {
-                        d2Disponivel = 0 ;
-                     }
-                     else
-                     {
-                        /* dp = Dado1 + Dado2 */
-                        d1Disponivel = 0 ;
-                        d2Disponivel = 0 ;
-                     } /* if */
+                     /* dp = Dado1 + Dado2 */
+                     d1Disponivel = 0 ;
+                     d2Disponivel = 0 ;
                   } /* if */
                } /* if */
-
-               ImprimirTabuleiro( ) ;
-
             } /* if */
          } /* if */
+
+         ImprimirTabuleiro( ) ;
+
       } /* while */
 
-      // TODO ver se o jogador ganhou a partida
+      /* Testa se o jogador ganhou a partida */
+      int qtd_fin ;
+      PFN_ContaPecas( Final[ vez ] , &qtd_fin ) ;
+      if ( qtd_fin == 15 )
+      {
+         FimPartida = 1 ;
+         printf( COR_MENSAGEM "Jogador %c venceu !" COR_PADRAO "\n" , CharPeca[ vez ] ) ;
+      } /* if */
 
       /* Fim da vez. Muda para o próximo jogador */
       if ( vez == DPO_Jogador1 )
@@ -895,7 +984,7 @@
          vez = DPO_Jogador1 ;
       } /* if */
 
-      printf( COR_MENSAGEM "Vez do Jogador %c" COR_PADRAO "\n" , CharPeca[ vez ] ) ;
+      printf( COR_MENSAGEM "Vez do Jogador %c" COR_PADRAO "\n\n" , CharPeca[ vez ] ) ;
 
    } /* Fim função: JOG Mover peça */
 
