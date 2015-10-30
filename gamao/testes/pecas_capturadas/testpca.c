@@ -34,6 +34,7 @@ static const char CRIAR_PCA_CMD           [ ] = "=criar"      ;
 static const char DESTRUIR_PCA_CMD        [ ] = "=destruir"   ;
 static const char INS_PECA_CMD            [ ] = "=inspeca"    ;
 static const char CONTA_PECAS_CMD         [ ] = "=contapecas" ;
+static const char REMOVER_PECA_CMD        [ ] = "=remover"    ;
 
 
 #define TRUE  1
@@ -142,7 +143,7 @@ PCA_tppCapturadas   vtListas[ DIM_VT_LISTA ] ;
             return TST_CondRetParm ;
          } /* if */
 
-		 PEC_Criar ( &peca , cor ) ; 
+         PEC_Criar ( &peca , cor ) ;
 
          CondRet = PCA_InserirPeca( vtListas[ inxLista ] , peca ) ;
 
@@ -170,6 +171,29 @@ PCA_tppCapturadas   vtListas[ DIM_VT_LISTA ] ;
                   "Condicao de retorno errada ao contar pecas" ) ;
 
       } /* fim ativa: PCA  &Contar peças */
+
+      /* PCA  &Remover Peça */
+
+      else if ( strcmp( ComandoTeste , REMOVER_PECA_CMD ) == 0 )
+      {
+
+         numLidos = LER_LerParametros( "ii" , &inxLista , &ValEsp ) ;
+
+         if ( ( numLidos != 2 )
+           || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+         {
+            return TST_CondRetParm ;
+         } /* if */
+
+       Ret = PCA_RemoverPeca ( vtListas[ inxLista ] , &peca ) ;
+       PEC_Destruir( peca ) ;
+
+       return TST_CompararInt( ValEsp , Ret ,
+                  "Condicao de retorno errada ao remover a peça" ) ;
+
+      } /* fim ativa: PCA  &Remover peça */
+
+
 
       return TST_CondRetNaoConhec ;
 

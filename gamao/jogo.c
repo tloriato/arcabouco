@@ -178,12 +178,15 @@
       unsigned int qtd ;
       char linha[ LARGURA + 1 ] ;
       char * cor_fundo[ 2 ] = { COR_BG1 , COR_BG2 } ;
+      int valor ;
 
       /* Imprime as peças na barra e finalizadas */
       PCA_ContaPecas( Bar[ DPO_Jogador1 ] , &qtd_bar ) ;
       PFN_ContaPecas( Final[ DPO_Jogador1 ] , &qtd_fin ) ;
 
-      printf( "\n   Peças capturadas  |     Peças Finalizadas\n" ) ;
+      DPO_ObterPontos( &valor ) ;
+      printf( "\nValor da partida: %d\n\n" , valor ) ;
+      printf( "   Peças capturadas  |     Peças Finalizadas\n" ) ;
 
       /* Barra 1 */
       memset( linha , CharPeca[ DPO_Jogador1 ] , qtd_bar ) ;
@@ -633,8 +636,6 @@
        * Jogador 2 se move de X -> A ( 23 -> 0 ) => direcao = -1 */
       int direcao = vez == DPO_Jogador1 ? 1 : -1 ;
 
-      // TODO tratar BAR
-
       int temBar = 0 ; /* Inidica que o jogador tem peças na barra */
       int podeFinalizar = 1 ; /* Indica que todas as peças estão no
                                  campo do jogador e o jogador pode mover
@@ -643,6 +644,7 @@
       /* No máximo haverá peças de um jogador em todas menos uma posições
        * do tabuleiro */
       tpOpcaoMenu opcoes[ TAB_QUANTIDADE_POS ] ;
+      int opcao = 0 ; /* índice da próxima opção do menu */
 
       /* Determina podeFinalizar */
       int i , cor ;
@@ -661,37 +663,179 @@
       /* Guarda o jogador adversário do atual (vez) */
       DPO_tpJogador adversario = vez == DPO_Jogador1 ? DPO_Jogador2 : DPO_Jogador1 ;
 
+      /* Verifica se o jogador tem peças na barra */
+      int qtd_pca ;
+      PCA_ContaPecas( Bar[ vez ] , &qtd_pca ) ;
+      temBar = qtd_pca != 0 ;
+
       /* Determina se o jogador já pode finalizar peças */
-      if ( vez == DPO_Jogador1 )
+      if ( ! temBar )
       {
-         /* Testa as 18 posições que não são as últimas 6 */
-         for ( i = 0 ; i < TAB_QUANTIDADE_POS - 6 ; i ++ )
+         if ( vez == DPO_Jogador1 )
          {
-            /* Sabemos que a posição é válida, não é preciso testar
-             * o retorno */
-            TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
-            if ( ( qtd > 0 ) && ( cor == DPO_Jogador1 ) )
+            /* Testa as 18 posições que não são as últimas 6 */
+            for ( i = 0 ; i < TAB_QUANTIDADE_POS - 6 ; i ++ )
             {
-               podeFinalizar = 0 ;
-               break ;
-            } /* if */
-         } /* for */
-      }
-      else
-      {
-         /* Testa as 18 posições que não são as primeiras 6 */
-         for ( i = 6 ; i < TAB_QUANTIDADE_POS ; i ++ )
+               /* Sabemos que a posição é válida, não é preciso testar
+                * o retorno */
+               TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
+               if ( ( qtd > 0 ) && ( cor == DPO_Jogador1 ) )
+               {
+                  podeFinalizar = 0 ;
+                  break ;
+               } /* if */
+            } /* for */
+         }
+         else
          {
-            /* Sabemos que a posição é válida, não é preciso testar
-             * o retorno */
-            TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
-            if ( ( qtd > 0 ) && ( cor == DPO_Jogador2 ) )
+            /* Testa as 18 posições que não são as primeiras 6 */
+            for ( i = 6 ; i < TAB_QUANTIDADE_POS ; i ++ )
             {
-               podeFinalizar = 0 ;
-               break ;
-            } /* if */
-         } /* for */
+               /* Sabemos que a posição é válida, não é preciso testar
+                * o retorno */
+               TAB_ContarPecas( tabuleiro , i , &qtd , &cor ) ;
+               if ( ( qtd > 0 ) && ( cor == DPO_Jogador2 ) )
+               {
+                  podeFinalizar = 0 ;
+                  break ;
+               } /* if */
+            } /* for */
+         } /* if */
       } /* if */
+
+      /* Se houver peças na barra, o jogador deve primeiro coloca-las em jogo */
+      while ( temBar && ( d1Disponivel || d2Disponivel ) )
+      {
+         int posPara ;
+         printf( "Jogador %c deve retornar a(s) peça(s) da barra ao jogo.\n" , CharPeca[ vez ] ) ;
+         if ( vez == DPO_Jogador1 )
+         {
+            TAB_ContarPecas( tabuleiro , Dado1 - 1 , &qtd , &cor ) ;
+            if ( ( qtd == 0 ) || ( cor == vez )
+              || ( ( qtd == 1 ) && ( cor == adversario ) ) )
+            {
+               printf( "%c, " , 'A' + Dado1 - 1 ) ;
+               opcoes[ opcao ].texto = "" ;
+               opcoes[ opcao ].tecla = 'A' + Dado1 - 1 ;
+               opcoes[ opcao ].funcao = NULL ;
+               opcao ++ ;
+            } /* if */
+
+            if ( Dado1 != Dado2 )
+            {
+               TAB_ContarPecas( tabuleiro , Dado2 - 1 , &qtd , &cor ) ;
+               if ( ( qtd == 0 ) || ( cor == vez )
+                 || ( ( qtd == 1 ) && ( cor == adversario ) ) )
+               {
+                  printf( "%c, " , 'A' + Dado2 - 1 ) ;
+                  opcoes[ opcao ].texto = "" ;
+                  opcoes[ opcao ].tecla = 'A' + Dado2 - 1 ;
+                  opcoes[ opcao ].funcao = NULL ;
+                  opcao ++ ;
+               } /* if */
+            } /* if */
+         }
+         else /* Vez = DPO_Jogador2 */
+         {
+            TAB_ContarPecas( tabuleiro , TAB_QUANTIDADE_POS - Dado1 , &qtd , &cor ) ;
+            if ( ( qtd == 0 ) || ( cor == vez )
+              || ( ( qtd == 1 ) && ( cor == adversario ) ) )
+            {
+               printf( "%c, " , 'X' - Dado1 + 1 ) ;
+               opcoes[ opcao ].texto = "" ;
+               opcoes[ opcao ].tecla = 'X' - Dado1 + 1 ;
+               opcoes[ opcao ].funcao = NULL ;
+               opcao ++ ;
+            } /* if */
+
+            if ( Dado1 != Dado2 )
+            {
+               TAB_ContarPecas( tabuleiro , TAB_QUANTIDADE_POS - Dado2 , &qtd , &cor ) ;
+               if ( ( qtd == 0 ) || ( cor == vez )
+                 || ( ( qtd == 1 ) && ( cor == adversario ) ) )
+               {
+                  printf( "%c, " , 'X' - Dado2 + 1 ) ;
+                  opcoes[ opcao ].texto = "" ;
+                  opcoes[ opcao ].tecla = 'X' - Dado2 + 1 ;
+                  opcoes[ opcao ].funcao = NULL ;
+                  opcao ++ ;
+               } /* if */
+            } /* if */
+         } /* if */
+
+         if ( opcao == 0 )
+         {
+            printf( COR_MENSAGEM "Não há jogadas possíveis. Passando a vez..." COR_PADRAO "\n" ) ;
+            d1Disponivel = 0 ;
+            d2Disponivel = 0 ;
+            break ;
+         } /* if */
+
+         printf( "\n" ) ;
+         opcoes[ opcao ].texto  = NULL ;
+         opcoes[ opcao ].tecla  = '\0' ;
+         opcoes[ opcao ].funcao = NULL ;
+
+         posPara = Menu( opcoes , 1 ) ;
+
+         /* Converte posPara para uma posição do tabulero */
+         posPara = opcoes[ posPara ].tecla - 'A' ;
+
+         PEC_tppPeca peca ;
+         TAB_ContarPecas( tabuleiro , posPara , &qtd , &cor ) ;
+         if ( ( qtd == 1 ) && ( cor == adversario ) )
+         {
+            /* Captura a peça adversária */
+            TAB_RemoverPeca( tabuleiro , posPara , &peca ) ;
+            PCA_InserirPeca( Bar[ adversario ] , peca ) ;
+         } /* if */
+
+         PCA_RemoverPeca( Bar[ vez ] , &peca ) ;
+
+         if ( vez == DPO_Jogador1 )
+         {
+            if ( ( posPara + 1 == Dado1 ) && d1Disponivel )
+            {
+               d1Disponivel = 0 ;
+            }
+            else
+            {
+               d2Disponivel = 0 ;
+            } /* if */
+
+           if ( TAB_IncluirPeca( tabuleiro , posPara , peca ) != TAB_CondRetOK )
+           {
+              printf( "Erro ao inserir a peça no tabuleiro.\n" ) ;
+              Sair( ) ;
+           } /* if */
+         }
+         else
+         {
+            if ( ( posPara == TAB_QUANTIDADE_POS - Dado1 ) && d1Disponivel )
+            {
+               d1Disponivel = 0 ;
+            }
+            else
+            {
+               d2Disponivel = 0 ;
+            } /* if */
+
+           if ( TAB_IncluirPeca( tabuleiro , posPara , peca ) != TAB_CondRetOK )
+           {
+              printf( "Erro ao inserir a peça no tabuleiro.\n" ) ;
+              Sair( ) ;
+           } /* if */
+         } /* if */
+
+         /* Verifica se o jogador tem peças na barra */
+         PCA_ContaPecas( Bar[ vez ] , &qtd_pca ) ;
+         temBar = qtd_pca != 0 ;
+
+         ImprimirTabuleiro( ) ;
+
+      } /* while */
+
+
 
       /* Deixa o jogador continuar jogando enquanto houver pontos nos dados */
       while ( d1Disponivel || d2Disponivel )
@@ -741,7 +885,6 @@
          } /* for */
 
          /* Adiciona as opções ao menu */
-         int opcao = 0 ; /* índice da próxima opção do menu */
          printf( "Escolha uma peça para mover:\n" ) ;
          for ( i = 0 ; i < TAB_QUANTIDADE_POS ; i ++ )
          {

@@ -49,6 +49,10 @@
 =inspeca      lista3   branca   OK
 =contapecas   lista3   4
 
+== Remove uma peça e conta quantas tem
+=remover      lista3  OK
+=contapecas   lista3  3
+
 == Destruir lista 3
 =destruir   lista3   OK
 

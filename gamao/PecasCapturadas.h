@@ -128,7 +128,7 @@ typedef struct tpCapturadas * PCA_tppCapturadas ;
 
    PCA_tpCondRet PCA_InserirPeca ( PCA_tppCapturadas pCapturadas , PEC_tppPeca peca ) ;
 
- /***********************************************************************
+/***********************************************************************
 *
 *  $FC Função: PCA Contar Peças
 *
@@ -152,6 +152,34 @@ typedef struct tpCapturadas * PCA_tppCapturadas ;
 ***********************************************************************/
 
    PCA_tpCondRet PCA_ContaPecas ( PCA_tppCapturadas pCapturadas , int * qtd_pecas ) ;
+
+/***********************************************************************
+*
+*  $FC Função: PCA Remover Peça
+*
+*  $ED Descrição da função:
+*     Remove uma peça da lista de peças capturadas.
+*
+*  $EP Parâmetros:
+*     $P pCapturadas - Lista de peças a ser operado.
+*     $P pPeca       - Ponteiro para retorno da peça removida
+*
+*  Assertivas de entrada:
+*     - pCapturadas deve ser uma instância válida de lista de peças capturadas.
+*     - pPeca deve ser um ponteiro válido
+*
+*  Assertivas de saída:
+*     - pPeca aponta para a peça removida ou para NULL, caso a lista
+*       esteja vazia.
+*
+*  $FV Valor retornado:
+*     PCA_CondRetOK
+*
+***********************************************************************/
+
+   PCA_tpCondRet PCA_RemoverPeca ( PCA_tppCapturadas pCapturadas , PEC_tppPeca * pPeca ) ;
+
+
 
 /********** Fim do módulo de definição: Módulo tabuleiro **********/
 

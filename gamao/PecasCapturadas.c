@@ -150,6 +150,35 @@ static void LiberarPeca( void * pValor ) ;
 
    } /* Fim função: PCA Contar Pecças */
 
+
+/***************************************************************************
+*
+*  Função: PCA Conta Pecas
+*
+***************************************************************************/
+
+   PCA_tpCondRet PCA_RemoverPeca ( PCA_tppCapturadas pCapturadas , PEC_tppPeca * pPeca )
+   {
+
+      struct tpCapturadas * lis = pCapturadas ;
+
+      assert( pPeca != NULL ) ;
+      LIS_IrInicioLista( lis->capturadas ) ;
+      if ( LIS_ObterValor( lis->capturadas , ( void ** ) pPeca ) == LIS_CondRetOK )
+      {
+         LIS_DefinirFuncaoExcluir( lis->capturadas , NULL ) ;
+         LIS_ExcluirElemento( lis->capturadas ) ;
+         LIS_DefinirFuncaoExcluir( lis->capturadas , LiberarPeca ) ;
+      }
+      else
+      {
+         *pPeca = NULL ;
+      } /* if */
+
+      return PCA_CondRetOK ;
+
+   } /* Fim função: PCA Remover Peça */
+
 /*****  Código das funções encapsuladas pelo módulo  *****/
 
 /***********************************************************************
