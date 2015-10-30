@@ -88,6 +88,7 @@
 
    static void CombinacoesDados( int * movimentos ) ;
 
+   static void DobrarPontos( void ) ;
 
 /*****  Variáveis globais ao módulo  *****/
 
@@ -860,8 +861,6 @@
 
       } /* while */
 
-
-
       /* Deixa o jogador continuar jogando enquanto houver pontos nos dados */
       while ( ( d1Disponivel || d2Disponivel ) && ( ! temBar ) )
       {
@@ -1302,6 +1301,7 @@
                   { "Jogar dados"      , JogarDados      , 'J' } ,
                   { "Salvar Partida"   , SalvarPartida   , 'S' } ,
                   { "Carregar partida" , CarregarPartida , 'C' } ,
+                  { "Dobrar pontos"    , DobrarPontos    , 'D' } ,
                   { "Sair"             , Sair            , 'X' } ,
                   { NULL               , NULL            , 0   } } ;
 
@@ -1455,6 +1455,61 @@
       exit( 0 ) ;
 
    } /* Fim Função: JOG Sair */
+
+
+/***********************************************************************
+*
+*  $FC Função: JOG Dobrar Pontos
+*
+*  $ED Descrição da função
+*     Libera a memória alocada pelos módulos do programa e termina
+*     imediatamente a execução.
+*
+*  Assertivas de saída:
+*     Pontuação da partida alterada, se o adversário aceitar, ou
+*     partida encerrada e jogador declarado vencedor caso contrário.
+*
+***********************************************************************/
+
+
+   static void DobrarPontos( void )
+   {
+      int p ;
+      tpOpcaoMenu ops[] = { { "SIM" , NULL , 'S' } , { "NÃO" , NULL , 'N' } ,
+                            { NULL , NULL , 0 } } ;
+
+      DPO_ObterPontos( &p ) ;
+      if ( p == 64 )
+      {
+         printf( "Partida já tem valor máximo.\n" ) ;
+         return ;
+      } /* if */
+
+      DPO_PodeDobrar( vez , &p ) ;
+      if ( ! p )
+      {
+         printf( "Você não pode dobrar o valor da partida duas vezes seguidas.\n" ) ;
+         return ;
+      } /* if */
+
+      printf( "Você aceita dobrar o valor da partida?\n" ) ;
+      int escolha = Menu( ops , 0 ) ;
+
+      if ( escolha == 0 )
+      {
+         DPO_DobrarPontos( vez ) ;
+         ImprimirTabuleiro( ) ;
+         MenuJogada( ) ;
+      }
+      else
+      {
+         printf( COR_MENSAGEM "Jogador %c venceu !" COR_PADRAO "\n" , CharPeca[ vez ] ) ;
+         FimPartida = 1 ;
+         printf( "\nDigite qualquer letra para continuar\n" ) ;
+         char tmp ;
+         scanf( " %c" , &tmp ) ;
+      } /* if */
+   }
 
 
 /***********************************************************************
