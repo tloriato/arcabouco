@@ -183,17 +183,17 @@
       PCA_ContaPecas( Bar[ DPO_Jogador1 ] , &qtd_bar ) ;
       PFN_ContaPecas( Final[ DPO_Jogador1 ] , &qtd_fin ) ;
 
-      printf( " Peças capturadas    |   Peças Finalizadas\n" ) ;
+      printf( "\n   Peças capturadas  |     Peças Finalizadas\n" ) ;
 
       /* Barra 1 */
       memset( linha , CharPeca[ DPO_Jogador1 ] , qtd_bar ) ;
       linha[ qtd_bar ] = '\0' ;
-      printf( "%s%s   |   " , linha , &StrFundo[ qtd_bar ] ) ;
+      printf( "   %s%s   |   " , linha , &StrFundo[ qtd_bar + 3 ] ) ;
 
       /* Finalizadas 1 */
       memset( linha , CharPeca[ DPO_Jogador1 ] , qtd_fin ) ;
       linha[ qtd_fin ] = '\0' ;
-      printf( "%s%s\n" , linha , &StrFundo[ qtd_fin ] ) ;
+      printf( "   %s%s\n" , linha , &StrFundo[ qtd_fin + 3] ) ;
 
       PCA_ContaPecas( Bar[ DPO_Jogador2 ] , &qtd_bar ) ;
       PFN_ContaPecas( Final[ DPO_Jogador2 ] , &qtd_fin ) ;
@@ -201,12 +201,12 @@
       /* Barra 2 */
       memset( linha , CharPeca[ DPO_Jogador2 ] , qtd_bar ) ;
       linha[ qtd_bar ] = '\0' ;
-      printf( "%s%s   |   " , linha , &StrFundo[ qtd_bar ] ) ;
+      printf( "   %s%s   |   " , linha , &StrFundo[ qtd_bar + 3 ] ) ;
 
       /* Finalizadas 2 */
       memset( linha , CharPeca[ DPO_Jogador2 ] , qtd_fin ) ;
       linha[ qtd_fin ] = '\0' ;
-      printf( "%s%s\n\n" , linha , &StrFundo[ qtd_fin ] ) ;
+      printf( "   %s%s\n\n" , linha , &StrFundo[ qtd_fin + 3 ] ) ;
 
       /* Imprime o tabuleiro */
       fundo = 0 ;
@@ -871,7 +871,7 @@
                         }  /* if */
                      } /* if */
                   }
-                  else
+                  else /* Dado1 > Dado 2 */
                   {
                      if ( dp <= Dado2 )
                      {
@@ -889,7 +889,6 @@
                            d2Disponivel = 0 ;
                         }  /* if */
                      } /* if */
-
                   } /* if */
                } /* if */
             } /* if */
@@ -972,19 +971,21 @@
       {
          FimPartida = 1 ;
          printf( COR_MENSAGEM "Jogador %c venceu !" COR_PADRAO "\n" , CharPeca[ vez ] ) ;
-      } /* if */
-
-      /* Fim da vez. Muda para o próximo jogador */
-      if ( vez == DPO_Jogador1 )
-      {
-         vez = DPO_Jogador2 ;
       }
       else
       {
-         vez = DPO_Jogador1 ;
-      } /* if */
+         /* Fim da vez. Muda para o próximo jogador */
+         if ( vez == DPO_Jogador1 )
+         {
+            vez = DPO_Jogador2 ;
+         }
+         else
+         {
+            vez = DPO_Jogador1 ;
+         } /* if */
 
-      printf( COR_MENSAGEM "Vez do Jogador %c" COR_PADRAO "\n\n" , CharPeca[ vez ] ) ;
+         printf( COR_MENSAGEM "Vez do Jogador %c" COR_PADRAO "\n\n" , CharPeca[ vez ] ) ;
+      } /* if */
 
    } /* Fim função: JOG Mover peça */
 
@@ -1302,15 +1303,10 @@
       /* Inicializa o rand */
       srand( time( NULL ) ) ;
 
-//      if ( TAB_Criar( &tabuleiro ) != TAB_CondRetOK )
-//      {
-//         printf( "Erro ao criar o tabuleiro\n" ) ;
-//         return 1 ;
-//      } /* if */
-
-      NovaPartida( ) ;
-//      SalvarPartida( ) ;
-//      CarregarPartida( ) ;
+      while ( 1 )
+      {
+         NovaPartida( ) ;
+      } /* while */
 
       return 0 ;
 
