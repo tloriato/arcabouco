@@ -1,0 +1,220 @@
+// Script:    TesteContador.script
+// Autores:   Gabriel Barbosa de Oliveira
+//            Guilherme de Azevedo Pereira Marques
+//            Thiago Duarte Naves
+// Data:      29/11/2015
+// Propósito: Testar o módulo lista duplamente encadeada
+//            garantindo que todas as arestas de decisao
+//            sejam percorridas
+//
+
+== Iniciar contagem
+=inicializarcontadores  ""
+//=lercontadores          "..\\scripts\\Arvore"
+=lercontadores          "lista"
+=iniciarcontagem
+
+== Criar a lista 0
+=criarlista        0   0
+
+== Verificar contadores, 1 deles já contou
+=verificarcontagens     55
+=contagemcontador   "LIS_CriarLista"  1
+=AceitaFalhasAcumuladas 55
+
+== Definir função de liberação dos dados
+=funcexcluir       0   0
+
+== Verificar ObterValor relativo a lista vazia
+=obtervalorelem    0   'a'    3
+
+== Procurar elemento em lista vazia
+=procurar          0   '1'    1
+
+== Inserir elemento em lista vazia
+=inselemantes      0   'a'    0
+=obtervalorelem    0   'a'    1
+
+== Inserir elemento após primeiro
+=inselemapos       0   'b'       0
+=obtervalorelem    0   'b'       1
+
+== Inserir elemento antes do último
+=inselemantes      0   'c'    0
+=obtervalorelem    0   'c'    1
+
+== Excluir elemento do meio
+=obtervalorelem    0   'c'       1
+=excluirelem       0             0
+
+== Excluir elemento do início
+=obtervalorelem    0   'a'    1
+=excluirelem       0          0
+
+== Excluir elemento final, único
+=obtervalorelem    0   'b'    1
+=excluirelem       0          0
+
+== Ver se a lista ficou vazia
+=obtervalorelem    0   's'     3
+
+== Destruir a lista
+=destruirlista     0     0
+
+== Criar uma lista com dois elementos
+=criarlista        1     0
+=inselemapos       1    'a'   0
+=inselemapos       1    'b'   0
+
+== Definir função de liberação dos dados
+=funcexcluir       1   0
+
+== Esvaziar a lista e ver se ficou vazia
+=esvaziarlista     1    0
+=obtervalorelem    1   'l'     3
+
+== Destruir a lista
+=destruirlista   1    0
+
+== Criar uma lista com quatro elementos
+=criarlista      2    0
+=inselemapos     2   'a'   0
+=inselemapos     2   'b'   0
+=inselemapos     2   'c'   0
+=inselemapos     2   'd'   0
+
+== Definir função de liberação dos dados
+=funcexcluir     2   0
+
+== Verificar a lista de trás para diante
+=obtervalorelem       2   'd'    1
+=avancarelem          2   -1     0
+=obtervalorelem       2   'c'    1
+=avancarelem          2   -1     0
+=obtervalorelem       2   'b'    1
+=avancarelem          2   -1     0
+=obtervalorelem       2   'a'    1
+=avancarelem          2   -1     2
+
+== Verificar a lista de frente para trás
+=obtervalorelem    2   'a'   1
+=avancarelem       2    1    0
+=obtervalorelem    2   'b'   1
+=avancarelem       2    1    0
+=obtervalorelem    2   'c'   1
+=avancarelem       2    1    0
+=obtervalorelem    2   'd'   1
+=avancarelem       2    1    2
+
+== Verificar a lista andando demais de trás para diante
+=avancarelem        2   -10    2
+=obtervalorelem     2   'a'    1
+
+== Verificar a lista andando demais de frente para trás
+=avancarelem       2   10   2
+=obtervalorelem    2  'd'   1
+
+== Destruir a lista
+=destruirlista     2   0
+
+==Criar lista  com quatro elementos
+=criarlista     3    0
+=inselemapos    3   'a'   0
+=inselemapos    3   'b'   0
+=inselemapos    3   'c'   0
+=inselemapos    3   'd'   0
+
+== Definir função de liberação dos dados
+=funcexcluir    3   0
+
+==Ir até o final da lista
+=irfinal         3    0
+=obtervalorelem  3   'd'  1
+
+==Ir para o início da lista
+=irinicio        3    0
+=obtervalorelem  3   'a'  1
+
+==Testar a recuperação de erro
+=obtervalorelem  3   'b'  1
+=recuperar
+
+==Destruir a lista
+=destruirlista   3    0
+
+==Criar lista com um elemento
+=criarlista     4    0
+=inselemapos    4   'g'   0
+
+== Definir função de liberação dos dados
+=funcexcluir    4   0
+
+==Ir até o final
+=irfinal         4    0
+=obtervalorelem  4   'g'  1
+
+==Ir até o começo
+=irinicio        4    0
+=obtervalorelem  4   'g'  1
+
+==Avançar elemento
+=avancarelem     4    0   0
+=avancarelem     4    1   2
+=avancarelem     4    -1  2
+
+==Destruir a lista
+=destruirlista   4    0
+
+==Cria lista vazia
+=criarlista      5    0
+
+== Definir função de liberação dos dados
+=funcexcluir     5   0
+
+==Excluir elemento na lista vazia
+=excluirelem     5    1
+
+==Avançar elemento na lista vazia
+=avancarelem     5    1    1
+
+==Destruir lista
+=destruirlista   5    0
+
+==Excluir elemento da lista sem função de liberação (vai vazar memória)
+=criarlista      6    0
+=inselemantes    6   'a'    0
+=destruirlista   6    0
+
+==Inserir elemento antes do primeiro
+=criarlista      7    0
+=funcexcluir     7    0
+=inselemantes    7   'a'   0
+=inselemantes    7   'a'   0
+
+==Inserir elemento após primeiro e antes do segundo
+=irinicio        7    0
+=inselemapos     7   'a'   0
+=destruirlista   7    0
+
+== Procurar elemento inexistente
+=criarlista      8    0
+=inselemantes    8   '1'    0
+=procurar        8   '2'    3
+
+== Procurar elemento inserido
+=procurar        8   '1'    0
+=destruirlista   8    0
+
+== Terminar controlar contadores
+=pararcontagem
+=verificarcontagens    18
+
+// Rever isso:
+== Ignorar arestas de falta de memória, tipos não usados e as verificações da lista
+=AceitaFalhasAcumuladas 18
+
+== Terminar contagem
+=terminarcontadores
+
+
+// fim

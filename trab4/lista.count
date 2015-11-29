@@ -1,0 +1,63 @@
+////////////////////////////////////////////////
+//
+//  Contadores de aresta do modulo lista
+//
+////////////////////////////////////////////////
+
+    LIS_CriarLista
+    LIS_CriarLista_FaltouMemoria
+    LIS_DefinirFuncaoExcluir
+    LIS_DestruirLista
+    LIS_EsvaziarLista
+    LIS_EsvaziarLista_while
+    LIS_InserirElementoAntes_FaltouMemoria
+    LIS_InserirElementoAntes_CorrNULL
+    LIS_InserirElementoAntes_AntNULL
+    LIS_InserirElementoAntes_Ant
+    LIS_InserirElementoApos_FaltouMemoria
+    LIS_InserirElementoApos_CorrNULL
+    LIS_InserirElementoApos_Prox
+    LIS_InserirElementoApos_ProxNULL
+    LIS_ExcluirElemento_Vazia
+    LIS_ExcluirElemento_Ant
+    LIS_ExcluirElemento_AntNULL
+    LIS_ExcluirElemento_Prox
+    LIS_ExcluirElemento_ProxNULL
+    LIS_ObterValor_NaoAchou
+    LIS_ObterValor_Achou
+    LIS_IrInicioLista
+    LIS_IrFinalLista
+    LIS_AvancarElementoCorrente_Vazia
+    LIS_AvancarElementoCorrente_FrenteForElemNull
+    LIS_AvancarElementoCorrente_FrenteForElem
+    LIS_AvancarElementoCorrente_FrenteElem
+    LIS_AvancarElementoCorrente_Frente
+    LIS_AvancarElementoCorrente_TrasForElemNULL
+    LIS_AvancarElementoCorrente_TrasForElem
+    LIS_AvancarElementoCorrente_TrasElem
+    LIS_AvancarElementoCorrente_Tras
+    LIS_AvancarElementoCorrente_NaoAvancar
+    LIS_ProcurarValor
+    LIS_ProcurarValor_Vazia
+    LIS_ProcurarValor_ForAchou
+    LIS_ProcurarValor_For
+    LIS_VerificarLista_Cabeca
+    LIS_VerificarLista_ProxAnt
+    LIS_VerificarLista_Prox
+    LIS_VerificarLista_AntProx
+    LIS_VerificarLista_Ant
+    LIS_VerificarLista_While
+    LIS_VerificarLista
+    LIS_VerificarCabeca_Vazia
+    LIS_VerificarCabeca_NaoVazia
+    LIS_VerificarCabeca_1Elem
+    LIS_VerificarCabeca_Erro
+    LimparCabeca
+    CriarElemento_FaltouMemoria
+    CriarElemento
+    DefineTamValor_Int
+    DefineTamValor_Char
+    DefineTamValor_Float
+    DefineTamValor_Double
+    LiberarElemento_Excluir
+    LiberarElemento_ExcluirNULL
