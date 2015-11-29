@@ -110,6 +110,17 @@
    static int DefineTamValor( LIS_tpTipo tipo ) ;
    #endif
 
+/*****  Dados encapsulados no módulo  *****/
+
+   #ifdef _DEBUG
+
+   static char espacoLixo[ 256 ] =
+          "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ;
+         /* Espaço de dados lixo usado ao testar */
+
+   #endif
+
+
 /*****  Código das funções exportadas pelo módulo  *****/
 
 /***************************************************************************
@@ -889,6 +900,72 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
       assert( 0 ) ;
 
    } /* Fim função: LIS &Define Tamanho Valor */
+
+
+/***************************************************************************
+*
+*  Função: LIS  &Deturpar lista
+*  ****/
+
+   void LIS_Deturpar( LIS_tppLista lista , LIS_tpDeturpa modoDeturpar )
+   {
+
+      LIS_tpLista * pLista ;
+
+      if ( lista == NULL )
+      {
+         return ;
+      } /* if */
+
+      pLista = ( LIS_tpLista * ) lista ;
+
+      switch ( modoDeturpar )
+      {
+         /* Faz ponteiro próximo apontar para lixo */
+
+         case LIS_DeturpaPtrProx:
+         {
+
+            pLista->pElemCorr->pProx = ( tpElemLista * )( espacoLixo ) ;
+
+            break ;
+
+         } /* Fim ativa: Faz ponteiro próximo apontar para lixo */
+
+         /* Faz ponteiro anterior apontar para lixo */
+
+         case LIS_DeturpaPtrAnt:
+         {
+
+            pLista->pElemCorr->pAnt = ( tpElemLista * )( espacoLixo ) ;
+
+            break ;
+
+         } /* Fim ativa: Faz ponteiro anterior apontar para lixo */
+
+         /* Anula ponteiro origem */
+
+         case LIS_DeturpaPtrOrigem:
+         {
+
+            pLista->pOrigemLista = NULL ;
+
+            break ;
+
+         } /* Fim ativa: Anula ponteiro origem */
+
+         /* Anula ponteiro corrente */
+
+         case LIS_DeturpaCorrNulo:
+         {
+
+            pLista->pElemCorr = NULL ;
+
+            break ;
+
+         } /* Fim ativa: Anula ponteiro corrente */
+      }
+   }
 
 #endif
 

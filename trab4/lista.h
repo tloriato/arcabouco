@@ -557,6 +557,32 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 #endif
 
 
+/***********************************************************************
+*
+*  $FC Função: LIS  &Deturpar lista
+*
+*  $ED Descrição da função
+*     Corrompe elementos específicos da estrutura da lista.
+*     Essa função destina-se a preparar os cenários de teste dos
+*     casos de teste utilizados ao testar os verificadores estruturais
+*     da lista.
+*
+*  $EP Parâmetros
+*     $P lista  - lista a ser deturpada
+*     $P ModoDeturpar - identifica como deve ser feita a deturpação
+*                       LIS_tpDeturpa identifica os modos de
+*                       deturpação conhecidos
+*
+***********************************************************************/
+
+#ifdef _DEBUG
+
+   void LIS_Deturpar( LIS_tppLista lista ,
+                      LIS_tpDeturpa modoDeturpar ) ;
+
+#endif
+
+
 /********** Fim do módulo de definição: LIS  Lista duplamente encadeada **********/
 
 #else
