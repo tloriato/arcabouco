@@ -27,6 +27,7 @@
 
 #include    "lista.h"
 
+/* Tabela dos nomes dos comandos de teste específicos */
 
 static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
 static const char CRIAR_LISTA_CMD         [ ] = "=criarlista"     ;
@@ -42,6 +43,9 @@ static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
 static const char DEF_FUNC_EXCLUIR_CMD    [ ] = "=funcexcluir"    ;
 static const char PROCURAR_CMD            [ ] = "=procurar"       ;
 
+/* Os comandos a seguir somente operam em modo _DEBUG */
+
+static const char DETURPAR_CMD [] = "deturpar" ;
 
 #define TRUE  1
 #define FALSE 0
@@ -87,6 +91,11 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
 *     =funcexcluir                  inxLista  CondRetEsp
 *     =procurar                     inxLista  caracter especial CondRetEsp
 *
+*    Estes comandos somente podem ser executados se o modulo tiver sido
+*    compilado com _DEBUG ligado
+*
+*    =deturpar                      inxLista  idCodigoDeturpa
+*
 *     Nota: Caracteres especiais: '0' .. '9'. Para estes caracteres não
 *           será alocada uma nova área de memória e sim reutilizado o
 *           vetor estático caracteres. Dessa forma podemos comparar
@@ -120,6 +129,10 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
       int numElem = -1 ;
 
       StringDado[ 0 ] = 0 ;
+
+      #ifdef _DEBUG
+	     int IntEsperado = -1 ;
+      #endif
 
       /* Efetuar reset de teste de lista */
 
@@ -425,7 +438,32 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
 
       } /* fim ativa: LIS  &Procurar elemento */
 
+      /* LIS &Deturpar lista */
+
+      #ifdef _DEBUG
+
+      else if ( strcmp( ComandoTeste , DETURPAR_CMD ) == 0 )
+      {
+
+         numLidos = LER_LerParametros( "ii" , &inxLista , &IntEsperado ) ;
+
+         if ( ( numLidos != 2)
+           || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+         {
+            return TST_CondRetParm ;
+         }
+
+         LIS_Deturpar( vtListas[ inxLista ] , IntEsperado ) ;
+
+         return TST_CondRetOK ;
+
+      } /* Fim ativa: LIS &Deturpar lista */
+
+      #endif
+
       return TST_CondRetNaoConhec ;
+
+      
 
    } /* Fim função: TLIS &Testar lista */
 

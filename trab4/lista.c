@@ -298,6 +298,10 @@
          lista->pElemCorr->pAnt = pElem ;
       } /* if */
 
+	  #ifdef _DEBUG
+	     CED_DefinirTipoEspaco( pElem , tipo ) ;
+      #endif
+
       lista->pElemCorr = pElem ;
 
       return LIS_CondRetOK ;
@@ -921,27 +925,107 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
 
       switch ( modoDeturpar )
       {
-         /* Faz ponteiro próximo apontar para lixo */
 
-         case LIS_DeturpaPtrProx:
+       /* Elimina o elemento corrente da lista */
+
+        case LIS_DeturpaCorrElimina:
+       {
+
+          free( pLista->pElemCorr ) ;
+
+          break ;
+
+       } /* Fim ativa: Elimina elemento corrente */
+
+       /* Faz o ponteiro próximo apontar para NULL */
+
+       case LIS_DeturpaPtrProxNulo:
+       {
+
+          pLista->pElemCorr->pProx = NULL ;
+
+          break ;
+
+       } /* Fim ativa: Faz o ponteiro próximo apontar para NULL */
+
+       /* Faz o ponteiro anterior apontar para NULL */
+
+       case LIS_DeturpaPtrAntNulo:
+       {
+
+          pLista->pElemCorr->pAnt = NULL ;
+
+          break ;
+
+       } /* Fim ativa: Faz o ponteiro anterior apontar para NULL */
+
+
+       /* Faz ponteiro próximo apontar para lixo */
+
+       case LIS_DeturpaPtrProxLixo:
+       {
+
+          pLista->pElemCorr->pProx = ( tpElemLista * )( espacoLixo ) ;
+
+          break ;
+
+       } /* Fim ativa: Faz ponteiro próximo apontar para lixo */
+
+       /* Faz ponteiro anterior apontar para lixo */
+
+       case LIS_DeturpaPtrAntLixo:
+       {
+
+          pLista->pElemCorr->pAnt = ( tpElemLista * )( espacoLixo ) ;
+
+          break ;
+
+       } /* Fim ativa: Faz ponteiro anterior apontar para lixo */
+
+       /* Atribui NULL ao ponteiro para o contúdo do nó */
+
+       case LIS_DeturpaPtrValNulo:
+       {
+
+          pLista->pElemCorr->pValor = NULL ;
+
+          break ;
+
+       } /* Fim ativa: Atribui NULL ao ponteiro para o contúdo do nó */
+
+       /* Altera o tipo de estrutura apontado pelo nó */
+
+       case LIS_DeturpaTipo:
+       {
+
+          pLista->pElemCorr->pTipo = LIS_tpInvalido ;
+
+          break ;
+
+       } /* Fim ativa: Altera o tipo de estrutura apontado pelo nó */
+
+       /* Desencadeia o nó sem liberá-lo */
+
+       case LIS_DeturpaDesencadeiaNo:
+       {
+
+          pLista->pElemCorr->pAnt->pProx = NULL ;
+          pLista->pElemCorr->pProx->pAnt = NULL ;
+
+          break ;
+
+       } /* Fim ativa: Desencadeia o nó sem liberá-lo */
+
+       /* Anula ponteiro corrente */
+
+         case LIS_DeturpaCorrNulo:
          {
 
-            pLista->pElemCorr->pProx = ( tpElemLista * )( espacoLixo ) ;
+            pLista->pElemCorr = NULL ;
 
             break ;
 
-         } /* Fim ativa: Faz ponteiro próximo apontar para lixo */
-
-         /* Faz ponteiro anterior apontar para lixo */
-
-         case LIS_DeturpaPtrAnt:
-         {
-
-            pLista->pElemCorr->pAnt = ( tpElemLista * )( espacoLixo ) ;
-
-            break ;
-
-         } /* Fim ativa: Faz ponteiro anterior apontar para lixo */
+         } /* Fim ativa: Anula ponteiro corrente */
 
          /* Anula ponteiro origem */
 
@@ -954,16 +1038,6 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
 
          } /* Fim ativa: Anula ponteiro origem */
 
-         /* Anula ponteiro corrente */
-
-         case LIS_DeturpaCorrNulo:
-         {
-
-            pLista->pElemCorr = NULL ;
-
-            break ;
-
-         } /* Fim ativa: Anula ponteiro corrente */
       }
    }
 

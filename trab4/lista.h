@@ -82,7 +82,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
          LIS_CondRetFaltouMemoria = 4 ,
                /* Faltou memória ao tentar criar um elemento de lista */
 
-       LIS_CondRetErroEstrutura = 5
+         LIS_CondRetErroEstrutura = 5
                /* Estrutura da lista está errada */
 
    } LIS_tpCondRet ;
@@ -98,17 +98,43 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    typedef enum {
 
-      LIS_DeturpaPtrProx = 0,
+      LIS_DeturpaCorrElimina = 1 ,
+        /* Elimina o elemento corente da lista */
+
+      LIS_DeturpaPtrProxNulo = 2 ,
          /* Faz ponteiro para o próximo 
-         elemento da lista apontar para lixo*/
-      LIS_DeturpaPtrAnt = 1,
+         elemento da lista apontar para NULL */
+
+      LIS_DeturpaPtrAntNulo = 3 ,
+         /* Faz ponteiro para o anterior
+         elemento da lista apontar para NULL */
+
+      LIS_DeturpaPtrProxLixo = 4 ,
          /* Faz ponteiro para o próximo 
-         elemento da lista apontar para lixo*/
-      LIS_DeturpaPtrOrigem = 2,
-         /* Faz ponteiro para a origem 
-         da lista apontar para nulo */
-      LIS_DeturpaCorrNulo = 3
+         elemento da lista apontar para lixo */
+
+      LIS_DeturpaPtrAntLixo = 5 ,
+         /* Faz ponteiro para o anterior 
+         elemento da lista apontar para lixo */
+
+      LIS_DeturpaPtrValNulo = 6 ,
+         /* Faz ponteiro para o valor do
+         elemento da lista apontar para NULL */
+
+      LIS_DeturpaTipo = 7 ,
+         /* Altera o tipo de estrutura 
+         apontado pelo nó*/
+
+      LIS_DeturpaDesencadeiaNo = 8 ,
+         /* Desencadeia o nó sem liberá-lo
+         com free*/
+
+      LIS_DeturpaCorrNulo = 9 ,
          /* Anula ponteiro corrente */
+
+      LIS_DeturpaPtrOrigem = 10
+         /* Faz ponteiro para a origem 
+         da lista apontar para NULL */
 
    } LIS_tpDeturpa ;
 
@@ -135,8 +161,11 @@ typedef struct LIS_tagLista * LIS_tppLista ;
       LIS_tpFloat = 2 ,
          /* Tipo de dados ponto flutuante */
 
-      LIS_tpDouble = 3
+      LIS_tpDouble = 3 ,
          /* Tipo de dados ponto flutuante de precisão dupla */
+
+      LIS_tpInvalido = 4
+         /* Tipo usado apenas na deturpação. Não representa um valor */
 
    } LIS_tpTipo ;
 
@@ -516,7 +545,7 @@ typedef struct LIS_tagLista * LIS_tppLista ;
 
    LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista lista ,
                                     void * pValor        ) ;
-									
+
 /***********************************************************************
 *
 *  $FC Função: LIS  &Verificar uma lista
