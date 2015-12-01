@@ -161,9 +161,6 @@
 
       #ifdef _DEBUG
          assert( pLista != NULL ) ;
-//         if ( elemLiberados == NULL )
-//         {
-//            LIS_CriarLista( &elemLiberados , 
       #endif
 
       *pLista = ( LIS_tppLista ) malloc( sizeof( LIS_tpLista )) ;
@@ -734,9 +731,11 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
 
       free( pElem ) ;
 
-      assert( qtdElemLiberados < 100 ) ;
-      elemLiberados[ qtdElemLiberados ] = pElem ;
-      qtdElemLiberados ++ ;
+      #ifdef _DEBUG
+         assert( qtdElemLiberados < 100 ) ;
+         elemLiberados[ qtdElemLiberados ] = pElem ;
+         qtdElemLiberados ++ ;
+      #endif
 
       lista->numElem-- ;
 
