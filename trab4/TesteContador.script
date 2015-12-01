@@ -228,16 +228,41 @@
 =verificar       9    0
 
 == Deturpa: Remove elemento corrente
+=irinicio        9    0
 =deturpar        9    1
 =verificar       9    5
 
+== Deturpa: Elemento corrente nulo
+=deturpar        9    9
+=verificar       9    5
+
+== Deturpa: Ponteiro para o elemento anterior nulo
+=criarlista      8    0
+=inselemantes    8   'a'   0
+=inselemapos     8   'b'   0
+=inselemapos     8   'c'   0
+=irinicio        8    0
+=avancarelem     8    1    0
+=deturpar        8    3
+=irinicio        8    0
+=verificar       8    5
+
+== Deturpa: Ponteiro para o próximo elemento
+=criarlista      7    0
+=inselemantes    7   'a'   0
+=inselemapos     7   'b'   0
+=irinicio        7    0
+=deturpar        7    2
+=irfinal         7    0
+=verificar       7    5
+
+
 == Terminar controlar contadores
 =pararcontagem
-=verificarcontagens    11
+=verificarcontagens    7
 
-// Rever isso:
-== Ignorar arestas de falta de memória, tipos não usados e as verificações da lista
-=AceitaFalhasAcumuladas 11
+== Ignorar arestas de falta de memória e tipos não usados
+=AceitaFalhasAcumuladas 7
 
 == Terminar contagem
 =terminarcontadores

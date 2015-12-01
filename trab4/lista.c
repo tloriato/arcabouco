@@ -734,6 +734,7 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
 
       free( pElem ) ;
 
+      assert( qtdElemLiberados < 100 ) ;
       elemLiberados[ qtdElemLiberados ] = pElem ;
       qtdElemLiberados ++ ;
 
@@ -828,17 +829,17 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
       } /* if */
 
       pElem = lista->pElemCorr;
+      //pElem = lista->pOrigemLista ;
 
       /* Assegura que cada par de elementos adjacentes em uma
          lista sejam adjacentes somente entre si */
       while ( pElem != NULL )
       {
-         //if ( CED_ObterTipoEspaco( pElem ) != LIS_EspacoElemento )
          if ( ElemLiberado( pElem ) )
          {
             CNT_CONTAR( "LIS_VerificarLista_ElemFree" ) ;
             return LIS_CondRetErroEstrutura ;
-         }
+         } /* if */
 
          if ( pElem->pProx != NULL )
          {
@@ -973,6 +974,7 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
        case LIS_DeturpaCorrElimina:
        {
 
+          assert( qtdElemLiberados < 100 ) ;
           elemLiberados[ qtdElemLiberados ] = pLista->pElemCorr ;
           qtdElemLiberados ++ ;
 
