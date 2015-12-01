@@ -8,10 +8,12 @@
 *  Autores: gbo - Gabriel Barbosa de Oliveira
 *           gapm - Guilherme de Azevedo Pereira Marques
 *           tdn - Thiago Duarte Naves
+*           pa - Pedro Alvarez
 *
 *  $HA Histórico de evolução:
 *     Versão    Autor              Data        Observações
-*     2.00      gbo, gapm, tdn     20/09/2015  Lista de ponteiros de void.
+*     3.00      gbo, gapm, tdn, pa 28/11/2015  Lista autoverificável.
+*     2.00      gbo, gapm, tdn, pa 20/09/2015  Lista de ponteiros de void.
 *     1.00      gbo, gapm, tdn     28/08/2015  Início do desenvolvimento.
 *
 ***************************************************************************/
@@ -26,6 +28,10 @@
 #include    "lerparm.h"
 
 #include    "lista.h"
+
+#ifdef _DEBUG
+#include    "cespdin.h"
+#endif
 
 /* Tabela dos nomes dos comandos de teste específicos */
 
@@ -45,7 +51,8 @@ static const char PROCURAR_CMD            [ ] = "=procurar"       ;
 
 /* Os comandos a seguir somente operam em modo _DEBUG */
 
-static const char DETURPAR_CMD [] = "deturpar" ;
+static const char DETURPAR_CMD            [ ] = "=deturpar"       ;
+static const char VERIFICAR_CMD           [ ] = "=verificar"      ;
 
 #define TRUE  1
 #define FALSE 0
@@ -249,13 +256,13 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
             {
                return TST_CondRetMemoria;
             }
+            *pDado = dado;
          } else
          {
             /* Caracteres especiais */
             pDado = &( caracteres[ dado - '0' ] ) ;
          } /* if */
 
-         *pDado = dado;
          CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , pDado
                                              #ifdef _DEBUG
                                              , LIS_tpChar
@@ -288,13 +295,13 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
             {
                return TST_CondRetMemoria;
             }
+            *pDado = dado;
          } else
          {
             /* Caracteres especiais */
             pDado = &( caracteres[ dado - '0' ] ) ;
          } /* if */
 
-         *pDado = dado;
          CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , pDado
                                              #ifdef _DEBUG
                                              , LIS_tpChar
@@ -425,7 +432,7 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
                &CondRetEsp ) ;
 
          if ( ( numLidos != 3 )
-           || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) 
+           || ( ! ValidarInxLista( inxLista , NAO_VAZIO ))
            || ( dado < '0' )
            || ( dado > '9' ) )
          {
@@ -447,7 +454,7 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
 
          numLidos = LER_LerParametros( "ii" , &inxLista , &IntEsperado ) ;
 
-         if ( ( numLidos != 2)
+         if ( ( numLidos != 2 )
            || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
          {
             return TST_CondRetParm ;
@@ -459,11 +466,29 @@ static char caracteres[10] = { '0' , '1' , '2' , '3' , '4' , '5' , '6' , '7' , '
 
       } /* Fim ativa: LIS &Deturpar lista */
 
+      /* LIS &Verificar lista */
+
+      else if ( strcmp( ComandoTeste , VERIFICAR_CMD ) == 0 )
+      {
+
+         numLidos = LER_LerParametros( "ii" , &inxLista , &CondRetEsp ) ;
+
+         if ( ( numLidos != 2 )
+           || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+         {
+            return TST_CondRetParm ;
+         }
+
+         return TST_CompararInt( CondRetEsp ,
+               LIS_VerificarLista( vtListas[ inxLista ] ) ,
+               "Condicao de retorno errada ao verificar" ) ;
+
+      } /* Fim ativa: LIS &Verificar lista */
+
+
       #endif
 
       return TST_CondRetNaoConhec ;
-
-      
 
    } /* Fim função: TLIS &Testar lista */
 

@@ -17,10 +17,14 @@
 == Criar a lista 0
 =criarlista        0   0
 
+== Verificar espaços alocados ( cabeça )
+=verificartodosespacos       1
+=obternumeroespacosalocados  1
+
 == Verificar contadores, 1 deles já contou
-=verificarcontagens     55
+=verificarcontagens     56
 =contagemcontador   "LIS_CriarLista"  1
-=AceitaFalhasAcumuladas 55
+=AceitaFalhasAcumuladas 56
 
 == Definir função de liberação dos dados
 =funcexcluir       0   0
@@ -117,7 +121,7 @@
 == Destruir a lista
 =destruirlista     2   0
 
-==Criar lista  com quatro elementos
+== Criar lista  com quatro elementos
 =criarlista     3    0
 =inselemapos    3   'a'   0
 =inselemapos    3   'b'   0
@@ -127,71 +131,75 @@
 == Definir função de liberação dos dados
 =funcexcluir    3   0
 
-==Ir até o final da lista
+== Ir até o final da lista
 =irfinal         3    0
 =obtervalorelem  3   'd'  1
 
-==Ir para o início da lista
+== Ir para o início da lista
 =irinicio        3    0
 =obtervalorelem  3   'a'  1
 
-==Testar a recuperação de erro
+== Testar a recuperação de erro
 =obtervalorelem  3   'b'  1
 =recuperar
 
-==Destruir a lista
+== Destruir a lista
 =destruirlista   3    0
 
-==Criar lista com um elemento
+== Criar lista com um elemento
 =criarlista     4    0
 =inselemapos    4   'g'   0
 
 == Definir função de liberação dos dados
 =funcexcluir    4   0
 
-==Ir até o final
+== Ir até o final
 =irfinal         4    0
 =obtervalorelem  4   'g'  1
 
-==Ir até o começo
+== Ir até o começo
 =irinicio        4    0
 =obtervalorelem  4   'g'  1
 
-==Avançar elemento
+== Avançar elemento
 =avancarelem     4    0   0
 =avancarelem     4    1   2
 =avancarelem     4    -1  2
 
-==Destruir a lista
+== Destruir a lista
 =destruirlista   4    0
 
-==Cria lista vazia
+== Cria lista vazia
 =criarlista      5    0
 
 == Definir função de liberação dos dados
 =funcexcluir     5   0
 
-==Excluir elemento na lista vazia
+== Excluir elemento na lista vazia
 =excluirelem     5    1
 
-==Avançar elemento na lista vazia
+== Avançar elemento na lista vazia
 =avancarelem     5    1    1
 
-==Destruir lista
+== Destruir lista
 =destruirlista   5    0
 
-==Excluir elemento da lista sem função de liberação (vai vazar memória)
+== Verificar espaços alocados ( desalocação )
+=verificartodosespacos       1
+=obternumeroespacosalocados  0
+
+== Excluir elemento da lista sem função de liberação (vai vazar memória)
 =criarlista      6    0
 =inselemantes    6   'a'    0
 =destruirlista   6    0
 
-==Inserir elemento antes do primeiro
+== Inserir elemento antes do primeiro
 =criarlista      7    0
 =funcexcluir     7    0
 =inselemantes    7   'a'   0
 =inselemantes    7   'a'   0
 
-==Inserir elemento após primeiro e antes do segundo
+== Inserir elemento após primeiro e antes do segundo
 =irinicio        7    0
 =inselemapos     7   'a'   0
 =destruirlista   7    0
@@ -205,13 +213,31 @@
 =procurar        8   '1'    0
 =destruirlista   8    0
 
+== Verificar espaços alocados ( vazamento )
+=verificartodosespacos       1
+=obternumeroespacosalocados  1
+
+== Verifica lista sem deturpações
+=criarlista      9    0
+=funcexcluir     9    0
+=verificar       9    0
+=inselemantes    9   'd'    0
+=verificar       9    0
+=inselemantes    9   'e'    0
+=inselemapos     9   'f'    0
+=verificar       9    0
+
+== Deturpa: Remove elemento corrente
+=deturpar        9    1
+=verificar       9    5
+
 == Terminar controlar contadores
 =pararcontagem
-=verificarcontagens    18
+=verificarcontagens    11
 
 // Rever isso:
 == Ignorar arestas de falta de memória, tipos não usados e as verificações da lista
-=AceitaFalhasAcumuladas 18
+=AceitaFalhasAcumuladas 11
 
 == Terminar contagem
 =terminarcontadores

@@ -42,6 +42,7 @@
     LIS_ProcurarValor_ForAchou
     LIS_ProcurarValor_For
     LIS_VerificarLista_Cabeca
+    LIS_VerificarLista_ElemFree
     LIS_VerificarLista_ProxAnt
     LIS_VerificarLista_Prox
     LIS_VerificarLista_AntProx
