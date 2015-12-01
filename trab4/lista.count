@@ -53,6 +53,15 @@
     LIS_VerificarCabeca_NaoVazia
     LIS_VerificarCabeca_1Elem
     LIS_VerificarCabeca_Erro
+    LIS_Deturpar_CorrElimina
+    LIS_Deturpar_ProxNulo
+    LIS_Deturpar_AntNulo
+    LIS_Deturpar_ProxLixo
+    LIS_Deturpar_AntLixo
+    LIS_Deturpar_PtrValNulo
+    LIS_Deturpar_Tipo
+    LIS_Deturpar_DesencadeiaNo
+    LIS_Deturpar_PtrOrigem
     LimparCabeca
     CriarElemento_FaltouMemoria
     CriarElemento

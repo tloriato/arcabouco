@@ -22,9 +22,9 @@
 =obternumeroespacosalocados  1
 
 == Verificar contadores, 1 deles já contou
-=verificarcontagens     56
+=verificarcontagens     65
 =contagemcontador   "LIS_CriarLista"  1
-=AceitaFalhasAcumuladas 56
+=AceitaFalhasAcumuladas 65
 
 == Definir função de liberação dos dados
 =funcexcluir       0   0

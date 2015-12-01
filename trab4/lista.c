@@ -969,105 +969,115 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
       switch ( modoDeturpar )
       {
 
-       /* Elimina o elemento corrente da lista */
+         /* Elimina o elemento corrente da lista */
 
-       case LIS_DeturpaCorrElimina:
-       {
+         case LIS_DeturpaCorrElimina:
+         {
 
-          assert( qtdElemLiberados < 100 ) ;
-          elemLiberados[ qtdElemLiberados ] = pLista->pElemCorr ;
-          qtdElemLiberados ++ ;
+            CNT_CONTAR( "LIS_Deturpar_CorrElimina" ) ;
 
-          free( pLista->pElemCorr ) ;
+            assert( qtdElemLiberados < 100 ) ;
+            elemLiberados[ qtdElemLiberados ] = pLista->pElemCorr ;
+            qtdElemLiberados ++ ;
 
-          break ;
+            free( pLista->pElemCorr ) ;
 
-       } /* Fim ativa: Elimina elemento corrente */
+            break ;
 
-       /* Faz o ponteiro próximo apontar para NULL */
+         } /* Fim ativa: Elimina elemento corrente */
 
-       case LIS_DeturpaPtrProxNulo:
-       {
+         /* Faz o ponteiro próximo apontar para NULL */
 
-          pLista->pElemCorr->pProx = NULL ;
+         case LIS_DeturpaPtrProxNulo:
+         {
 
-          break ;
+            CNT_CONTAR( "LIS_Deturpar_ProxNulo" ) ;
+            pLista->pElemCorr->pProx = NULL ;
 
-       } /* Fim ativa: Faz o ponteiro próximo apontar para NULL */
+            break ;
 
-       /* Faz o ponteiro anterior apontar para NULL */
+         } /* Fim ativa: Faz o ponteiro próximo apontar para NULL */
 
-       case LIS_DeturpaPtrAntNulo:
-       {
+         /* Faz o ponteiro anterior apontar para NULL */
 
-          pLista->pElemCorr->pAnt = NULL ;
+         case LIS_DeturpaPtrAntNulo:
+         {
 
-          break ;
+            CNT_CONTAR( "LIS_Deturpar_AntNulo" ) ;
+            pLista->pElemCorr->pAnt = NULL ;
 
-       } /* Fim ativa: Faz o ponteiro anterior apontar para NULL */
+            break ;
+
+         } /* Fim ativa: Faz o ponteiro anterior apontar para NULL */
 
 
-       /* Faz ponteiro próximo apontar para lixo */
+         /* Faz ponteiro próximo apontar para lixo */
 
-       case LIS_DeturpaPtrProxLixo:
-       {
+         case LIS_DeturpaPtrProxLixo:
+         {
 
-          pLista->pElemCorr->pProx = ( tpElemLista * )( espacoLixo ) ;
+            CNT_CONTAR( "LIS_Deturpar_ProxLixo" ) ;
+            pLista->pElemCorr->pProx = ( tpElemLista * )( espacoLixo ) ;
 
-          break ;
+            break ;
 
-       } /* Fim ativa: Faz ponteiro próximo apontar para lixo */
+         } /* Fim ativa: Faz ponteiro próximo apontar para lixo */
 
-       /* Faz ponteiro anterior apontar para lixo */
+         /* Faz ponteiro anterior apontar para lixo */
 
-       case LIS_DeturpaPtrAntLixo:
-       {
+         case LIS_DeturpaPtrAntLixo:
+         {
 
-          pLista->pElemCorr->pAnt = ( tpElemLista * )( espacoLixo ) ;
+            CNT_CONTAR( "LIS_Deturpar_AntLixo" ) ;
+            pLista->pElemCorr->pAnt = ( tpElemLista * )( espacoLixo ) ;
 
-          break ;
+            break ;
 
-       } /* Fim ativa: Faz ponteiro anterior apontar para lixo */
+         } /* Fim ativa: Faz ponteiro anterior apontar para lixo */
 
-       /* Atribui NULL ao ponteiro para o contúdo do nó */
+         /* Atribui NULL ao ponteiro para o contúdo do nó */
 
-       case LIS_DeturpaPtrValNulo:
-       {
+         case LIS_DeturpaPtrValNulo:
+         {
 
-          pLista->pElemCorr->pValor = NULL ;
+            CNT_CONTAR( "LIS_Deturpar_PtrValNulo" ) ;
+            pLista->pElemCorr->pValor = NULL ;
 
-          break ;
+            break ;
 
-       } /* Fim ativa: Atribui NULL ao ponteiro para o contúdo do nó */
+         } /* Fim ativa: Atribui NULL ao ponteiro para o contúdo do nó */
 
-       /* Altera o tipo de estrutura apontado pelo nó */
+         /* Altera o tipo de estrutura apontado pelo nó */
 
-       case LIS_DeturpaTipo:
-       {
+         case LIS_DeturpaTipo:
+         {
 
-          pLista->pElemCorr->pTipo = LIS_tpInvalido ;
+            CNT_CONTAR( "LIS_Deturpar_Tipo" ) ;
+            pLista->pElemCorr->pTipo = LIS_tpInvalido ;
 
-          break ;
+            break ;
 
-       } /* Fim ativa: Altera o tipo de estrutura apontado pelo nó */
+         } /* Fim ativa: Altera o tipo de estrutura apontado pelo nó */
 
-       /* Desencadeia o nó sem liberá-lo */
+         /* Desencadeia o nó sem liberá-lo */
 
-       case LIS_DeturpaDesencadeiaNo:
-       {
+         case LIS_DeturpaDesencadeiaNo:
+         {
 
-          pLista->pElemCorr->pAnt->pProx = NULL ;
-          pLista->pElemCorr->pProx->pAnt = NULL ;
+            CNT_CONTAR( "LIS_Deturpar_DesencadeiaNo" ) ;
+            pLista->pElemCorr->pAnt->pProx = NULL ;
+            pLista->pElemCorr->pProx->pAnt = NULL ;
 
-          break ;
+            break ;
 
-       } /* Fim ativa: Desencadeia o nó sem liberá-lo */
+         } /* Fim ativa: Desencadeia o nó sem liberá-lo */
 
-       /* Anula ponteiro corrente */
+         /* Anula ponteiro corrente */
 
          case LIS_DeturpaCorrNulo:
          {
 
+            CNT_CONTAR( "LIS_Deturpar_DesencadeiaNo" ) ;
             pLista->pElemCorr = NULL ;
 
             break ;
@@ -1079,6 +1089,7 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
          case LIS_DeturpaPtrOrigem:
          {
 
+            CNT_CONTAR( "LIS_Deturpar_PtrOrigem" ) ;
             pLista->pOrigemLista = NULL ;
 
             break ;
@@ -1089,9 +1100,9 @@ LIS_tpCondRet LIS_InserirElementoApos( LIS_tppLista lista, void * pValor
    }
 
    /***************************************************************************
-   *
-   *  $FC Função: LIS &Elemento Liberado
-   * ****/
+    *
+    *  $FC Função: LIS &Elemento Liberado
+    * ****/
 
    static int ElemLiberado( void * elem )
    {
