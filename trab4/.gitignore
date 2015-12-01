@@ -1,0 +1,5 @@
+macros_conta.h
+*.o
+testes/Build/*
+testes/Build-win/*
+testes/testlis
