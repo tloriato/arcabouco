@@ -39,12 +39,15 @@ clean:
 	rm $(OBJ_P) $(APP) $(AUTODEPS) $(APP_WIN) $(OBJ_P_WIN)
 
 $(OBJ_PATH)/%.o: %.c
+	@mkdir -p $(OBJ_PATH)
 	$(CC) -c $(CFLAGS) $< -o $@
 
 $(OBJ_PATH_WIN)/%.obj: %.c
+	@mkdir -p $(OBJ_PATH_WIN)
 	$(CC_WIN) -c $(CFLAGS_WIN) $< -o $@
 
 $(OBJ_PATH)/%.d: %.c
+	@mkdir -p $(OBJ_PATH)
 #	$(CC) $(CFLAGS) -MM -MP -MT $(DF).o -MT $(DF).d $< > $(DF).d
 	$(CC) $(CFLAGS) -MM -MP -MT $(DF).o $< > $(DF).d
 
