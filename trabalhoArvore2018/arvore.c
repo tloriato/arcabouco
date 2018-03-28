@@ -162,15 +162,25 @@ ARV_tpCondRet ARV_CriarArvore(int indexParam)
 *  Função: ARV Destruir árvore
 *  ****/
 
-void ARV_DestruirArvore(void)
+void ARV_DestruirArvore(int indexParam)
 {
-
+    if ((*pVetArvores)[indexParam] != NULL)
+    {
+        if ((*pVetArvores)[indexParam]->pNoRaiz != NULL)
+        {
+            DestroiArvore((*pVetArvores)[indexParam]->pNoRaiz);
+        }
+        free((*pVetArvores)[indexParam]);
+        (*pVetArvores)[indexParam] = NULL;
+    }
+    
+    /* Legacy
     if (pArvore != NULL)
     {
         if (pArvore->pNoRaiz != NULL)
         {
             DestroiArvore(pArvore->pNoRaiz);
-        } /* if */
+        } /* if *//*
         free(pArvore);
         pArvore = NULL;
     } /* if */
