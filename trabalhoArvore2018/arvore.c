@@ -173,7 +173,7 @@ void ARV_DestruirArvore(int indexParam)
         free((*pVetArvores)[indexParam]);
         (*pVetArvores)[indexParam] = NULL;
     }
-    
+
     /* Legacy
     if (pArvore != NULL)
     {
@@ -192,7 +192,7 @@ void ARV_DestruirArvore(int indexParam)
 *  Função: ARV Adicionar filho à esquerda
 *  ****/
 
-ARV_tpCondRet ARV_InserirEsquerda(char ValorParm)
+ARV_tpCondRet ARV_InserirEsquerda(int indexParam, char ValorParm)
 {
 
     ARV_tpCondRet CondRet;
@@ -202,15 +202,15 @@ ARV_tpCondRet ARV_InserirEsquerda(char ValorParm)
 
     /* Tratar vazio, esquerda */
 
-    CondRet = CriarNoRaiz(ValorParm);
-    if (CondRet != ARV_CondRetNaoCriouRaiz)
-    {
+    CondRet = CriarNoRaiz(indexParam, ValorParm);
+    if (CondRet != ARV_CondRetNaoCriouRaiz) // Eu não acho que isso faça sentido, mas
+    {                                       // já esta aqui desde 2003
         return CondRet;
     } /* if */
 
     /* Criar nó à esquerda de folha */
 
-    pCorr = pArvore->pNoCorr;
+    pCorr = (*pVetArvores)[indexParam]->pNoCorr;
     if (pCorr == NULL)
     {
         return ARV_CondRetErroEstrutura;
@@ -218,14 +218,14 @@ ARV_tpCondRet ARV_InserirEsquerda(char ValorParm)
 
     if (pCorr->pNoEsq == NULL)
     {
-        pNo = CriarNo(ValorParm);
+        pNo = CriarNo(indexParam, ValorParm);
         if (pNo == NULL)
         {
             return ARV_CondRetFaltouMemoria;
         } /* if */
         pNo->pNoPai = pCorr;
         pCorr->pNoEsq = pNo;
-        pArvore->pNoCorr = pNo;
+        (*pVetArvores)[indexParam]->pNoCorr = pNo;
 
         return ARV_CondRetOK;
     } /* if */
