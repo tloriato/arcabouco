@@ -1,1 +1,0 @@
-../../PecasCapturadas.h
