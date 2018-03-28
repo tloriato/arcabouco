@@ -290,21 +290,21 @@ ARV_tpCondRet ARV_InserirDireita(int indexParam, char ValorParm)
 *  Função: ARV Ir para nó pai
 *  ****/
 
-ARV_tpCondRet ARV_IrPai(void)
+ARV_tpCondRet ARV_IrPai(int indexParam)
 {
 
-    if (pArvore == NULL)
+    if ((*pVetArvores)[indexParam] == NULL)
     {
         return ARV_CondRetArvoreNaoExiste;
     } /* if */
-    if (pArvore->pNoCorr == NULL)
+    if ((*pVetArvores)[indexParam]->pNoCorr == NULL)
     {
         return ARV_CondRetArvoreVazia;
     } /* if */
 
-    if (pArvore->pNoCorr->pNoPai != NULL)
+    if ((*pVetArvores)[indexParam]->pNoCorr->pNoPai != NULL)
     {
-        pArvore->pNoCorr = pArvore->pNoCorr->pNoPai;
+        (*pVetArvores)[indexParam]->pNoCorr = (*pVetArvores)[indexParam]->pNoCorr->pNoPai;
         return ARV_CondRetOK;
     }
     else
