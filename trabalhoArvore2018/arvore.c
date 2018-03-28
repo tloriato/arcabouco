@@ -319,25 +319,25 @@ ARV_tpCondRet ARV_IrPai(int indexParam)
 *  Função: ARV Ir para nó à esquerda
 *  ****/
 
-ARV_tpCondRet ARV_IrNoEsquerda(void)
+ARV_tpCondRet ARV_IrNoEsquerda(int indexParam)
 {
 
-    if (pArvore == NULL)
+    if ((*pVetArvores)[indexParam] == NULL)
     {
         return ARV_CondRetArvoreNaoExiste;
     } /* if */
 
-    if (pArvore->pNoCorr == NULL)
+    if ((*pVetArvores)[indexParam]->pNoCorr == NULL)
     {
         return ARV_CondRetArvoreVazia;
     } /* if */
 
-    if (pArvore->pNoCorr->pNoEsq == NULL)
+    if ((*pVetArvores)[indexParam]->pNoCorr->pNoEsq == NULL)
     {
         return ARV_CondRetNaoPossuiFilho;
     } /* if */
 
-    pArvore->pNoCorr = pArvore->pNoCorr->pNoEsq;
+    (*pVetArvores)[indexParam]->pNoCorr = (*pVetArvores)[indexParam]->pNoCorr->pNoEsq;
     return ARV_CondRetOK;
 
 } /* Fim função: ARV Ir para nó à esquerda */
