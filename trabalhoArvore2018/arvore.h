@@ -1,4 +1,4 @@
-#if ! defined( ARVORE_ )
+#if !defined(ARVORE_)
 #define ARVORE_
 /***************************************************************************
 *
@@ -33,13 +33,12 @@
 *     O nó corrente será nulo se e somente se a árvore estiver vazia.
 *
 ***************************************************************************/
- 
-#if defined( ARVORE_OWN )
-   #define ARVORE_EXT
-#else
-   #define ARVORE_EXT extern
-#endif
 
+#if defined(ARVORE_OWN)
+#define ARVORE_EXT
+#else
+#define ARVORE_EXT extern
+#endif
 
 /***********************************************************************
 *
@@ -48,37 +47,36 @@
 *
 ***********************************************************************/
 
-   typedef enum {
+typedef enum {
 
-         ARV_CondRetOK = 0 ,
-               /* Executou correto */
+    ARV_CondRetOK = 0,
+    /* Executou correto */
 
-         ARV_CondRetNaoCriouRaiz = 1 ,
-               /* Não criou nó raiz */
+    ARV_CondRetNaoCriouRaiz = 1,
+    /* Não criou nó raiz */
 
-         ARV_CondRetErroEstrutura = 2 ,
-               /* Estrutura da árvore está errada */
+    ARV_CondRetErroEstrutura = 2,
+    /* Estrutura da árvore está errada */
 
-         ARV_CondRetNaoEhFolha = 3 ,
-               /* Não é folha relativa à direção de inserção desejada */
+    ARV_CondRetNaoEhFolha = 3,
+    /* Não é folha relativa à direção de inserção desejada */
 
-         ARV_CondRetArvoreNaoExiste = 4 ,
-               /* Árvore não existe */
+    ARV_CondRetArvoreNaoExiste = 4,
+    /* Árvore não existe */
 
-         ARV_CondRetArvoreVazia = 5 ,
-               /* Árvore está vazia */
+    ARV_CondRetArvoreVazia = 5,
+    /* Árvore está vazia */
 
-         ARV_CondRetNohEhRaiz = 6 ,
-               /* Nó corrente é raiz */
+    ARV_CondRetNohEhRaiz = 6,
+    /* Nó corrente é raiz */
 
-         ARV_CondRetNaoPossuiFilho = 7 ,
-               /* Nó corrente não possui filho na direção desejada */
+    ARV_CondRetNaoPossuiFilho = 7,
+    /* Nó corrente não possui filho na direção desejada */
 
-         ARV_CondRetFaltouMemoria = 8
-               /* Faltou memória ao alocar dados */
+    ARV_CondRetFaltouMemoria = 8
+    /* Faltou memória ao alocar dados */
 
-   } ARV_tpCondRet ;
-
+} ARV_tpCondRet;
 
 /***********************************************************************
 *
@@ -97,8 +95,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_CriarArvore( void *PontParam ) ;
-
+ARV_tpCondRet ARV_CriarArvore(void *PontParam);
 
 /***********************************************************************
 *
@@ -113,8 +110,7 @@
 *
 ***********************************************************************/
 
-   void ARV_DestruirArvore( void *PontParam ) ;
-
+void ARV_DestruirArvore(void *PontParam);
 
 /***********************************************************************
 *
@@ -132,8 +128,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirEsquerda( void *PontParam, char ValorParm ) ;
-
+ARV_tpCondRet ARV_InserirEsquerda(void *PontParam, char ValorParm);
 
 /***********************************************************************
 *
@@ -151,8 +146,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirDireita( void *PontParam, char ValorParm ) ;
-
+ARV_tpCondRet ARV_InserirDireita(void *PontParam, char ValorParm);
 
 /***********************************************************************
 *
@@ -169,8 +163,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrPai( void *PontParam ) ;
-
+ARV_tpCondRet ARV_IrPai(void *PontParam);
 
 /***********************************************************************
 *
@@ -187,8 +180,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoEsquerda( void *PontParam ) ;
-
+ARV_tpCondRet ARV_IrNoEsquerda(void *PontParam);
 
 /***********************************************************************
 *
@@ -205,8 +197,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoDireita( void *PontParam ) ;
-
+ARV_tpCondRet ARV_IrNoDireita(void *PontParam);
 
 /***********************************************************************
 *
@@ -224,7 +215,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_ObterValorCorr( void *PontParam, char * ValorParm ) ;
+ARV_tpCondRet ARV_ObterValorCorr(void *PontParam, char *ValorParm);
 
 #undef ARVORE_EXT
 
