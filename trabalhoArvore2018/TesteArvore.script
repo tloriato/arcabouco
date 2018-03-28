@@ -25,6 +25,9 @@
 =criar      0   0
 =irdir      0   5
 
+== Recriar mesma arvore
+=criar      0   9
+
 == Inserir � direita
 =insdir     0   'a'   0
 
@@ -37,6 +40,9 @@
 
 == Ir para no pai, nao tem
 =irpai      0   6
+
+== Ir para no pai com outro index, nao tem
+=irpai      0   4  
   
 == Inserir � esquerda
 =insesq     0   'b'   0

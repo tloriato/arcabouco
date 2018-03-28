@@ -1,10 +1,10 @@
 // Script:    TesteArvoreSimb.script
 // Autor:     Arndt von Staa
 // Data:      20/fev/2006
-// Propósito: Ilustrar arquivo de script, 
-//            Testa a construção de uma árvore usando parâmetros simbólicos
-//            Não verifica se as operações modificaram corretamente as referências
-//            Este script é muito superficial !!!
+// Propï¿½sito: Ilustrar arquivo de script, 
+//            Testa a construï¿½ï¿½o de uma ï¿½rvore usando parï¿½metros simbï¿½licos
+//            Nï¿½o verifica se as operaï¿½ï¿½es modificaram corretamente as referï¿½ncias
+//            Este script ï¿½ muito superficial !!!
 //
 
 
@@ -13,8 +13,8 @@
 // Script:    TesteArvore.script
 // Autor:     Arndt von Staa
 // Data:      12/ago/2003
-// Propósito: Ilustrar arquivo de script, testar construção de árvore
-//            Este script é muito superficial
+// Propï¿½sito: Ilustrar arquivo de script, testar construï¿½ï¿½o de ï¿½rvore
+//            Este script ï¿½ muito superficial
 //
 
 == Declarar as condicoes de retorno
@@ -27,79 +27,87 @@
 =declararparm  EhRaiz       int 6
 =declararparm  NaoFilho     int 7
 =declararparm  Memoria      int 8
+=declararparm  Ocupada      int 9
 
-== Declarar os conteúdos dos nós
+== Declarar os conteï¿½dos dos nï¿½s
 =declararparm  CharErro     char  '!'
 =declararparm  CharA        char  'a'
 =declararparm  CharB        char  'b'
 =declararparm  CharC        char  'c'
+=declararparm  CharIndex    char   0
 
 
 == Verificar assertivas de entrada de irdir
-=irdir      NaoArvore
+=irdir      CharIndex   NaoArvore
 
 == Verificar comando recuperar
-=irdir      OK
+=irdir      CharIndex   OK
 =recuperar 
 
-== Verificar ObterValorCorr relativo a árvore inexistente
-=obter      CharErro   NaoArvore
+== Verificar ObterValorCorr relativo a ï¿½rvore inexistente
+=obter      CharIndex CharErro   NaoArvore
 
-== Verificar recuperar de ObterValorCorr relativo a árvore inexistente
-=obter      CharErro   NaoRaiz  
+== Verificar recuperar de ObterValorCorr relativo a ï¿½rvore inexistente
+=obter      CharIndex   CharErro   NaoRaiz  
 =recuperar
 
-== Criar árvore
-=criar      OK
-=irdir      NaoCorr
+== Criar ï¿½rvore
+=criar      CharIndex   OK
+=irdir      CharIndex   NaoCorr
 
-== Inserir à direita
-=insdir     CharA   OK
+== Recriar mesma arvore
+=criar     CharIndex   Ocupada
+
+== Inserir ï¿½ direita
+=insdir     CharIndex   CharA   OK
 
 == Obter o valor inserido
-=obter      CharA   OK
+=obter      CharIndex   CharA   OK
 
 == Verificar controle de obter o valor inserido errado
-=obter      'x'   OK
+=obter      CharIndex   'x'   OK
 =recuperar
 
 == Ir para no pai, nao tem
-=irpai      EhRaiz
+=irpai      CharIndex   EhRaiz
+
+== Ir para no pai com outro index, nao tem
+=irpai      CharIndex2  NaoArvore  
   
-== Inserir à esquerda
-=insesq     CharB   OK
+== Inserir ï¿½ esquerda
+=insesq     CharIndex   CharB   OK
 
 == Obter o valor inserido
-=obter      CharB   OK
+=obter      CharIndex   CharB   OK
 
 == Ir para no pai, tem
-=irpai      OK
-=obter      CharA   OK
+=irpai      CharIndex   OK
+=obter      CharIndex   CharA   OK
 
-== Inserir à direita
-=insdir     CharC   OK
-=obter      CharC   OK
-
-== Ir para no pai
-=irpai      OK
-=obter      CharA   OK
+== Inserir ï¿½ direita
+=insdir     CharIndex   CharC   OK
+=obter      CharIndex   CharC   OK
 
 == Ir para no pai
-=irpai      EhRaiz
-=obter      CharA   OK
+=irpai      CharIndex   OK
+=obter      CharIndex   CharA   OK
+
+== Ir para no pai
+=irpai      CharIndex   EhRaiz
+=obter      CharIndex   CharA   OK
 
 == Ir para no esquerda tem
-=iresq      OK
-=obter      CharB   OK
+=iresq      CharIndex   OK
+=obter      CharIndex   CharB   OK
 
 == Ir para no direita tem
-=irpai      OK
-=irdir      OK
-=obter      CharC   OK
+=irpai      CharIndex   OK
+=irdir      CharIndex   OK
+=obter      CharIndex   CharC   OK
 
 == Destroi a arvore
-=destruir   
-=irdir      NaoArvore
+=destruir   CharIndex
+=irdir      CharIndex   NaoArvore
 
 
 
