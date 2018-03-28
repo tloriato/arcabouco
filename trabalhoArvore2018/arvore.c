@@ -13,6 +13,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       4.00   tls   28/03/2018 Adicionado à possibilidade de múltiplas árvores.
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   avs   03/08/2002 Eliminação de código duplicado, reestruturação
@@ -26,6 +27,8 @@
 #define ARVORE_OWN
 #include "arvore.h"
 #undef ARVORE_OWN
+
+#define ARV_MAX_INDEX 5
 
 /***********************************************************************
 *
@@ -89,8 +92,11 @@
 
 /*****  Dados encapsulados no módulo  *****/
 
+      static tpArvore * vetorArvores[ARV_MAX_INDEX];
+            /* Ponteiro para o Vetor de ponteiros de Arvores */
+
       static tpArvore * pArvore = NULL ;
-            /* Ponteiro para a cabea da árvore */
+            /* Ponteiro para a cabeça da árvore */
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
@@ -107,7 +113,7 @@
 *  Função: ARV Criar árvore
 *  ****/
 
-   ARV_tpCondRet ARV_CriarArvore( void )
+   ARV_tpCondRet ARV_CriarArvore( int indexParam )
    {
 
       if ( pArvore != NULL )
