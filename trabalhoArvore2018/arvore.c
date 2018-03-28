@@ -241,7 +241,7 @@ ARV_tpCondRet ARV_InserirEsquerda(int indexParam, char ValorParm)
 *  Função: ARV Adicionar filho à direita
 *  ****/
 
-ARV_tpCondRet ARV_InserirDireita(char ValorParm)
+ARV_tpCondRet ARV_InserirDireita(int indexParam, char ValorParm)
 {
 
     ARV_tpCondRet CondRet;
@@ -251,7 +251,7 @@ ARV_tpCondRet ARV_InserirDireita(char ValorParm)
 
     /* Tratar vazio, direita */
 
-    CondRet = CriarNoRaiz(ValorParm);
+    CondRet = CriarNoRaiz(indexParam, ValorParm);
     if (CondRet != ARV_CondRetNaoCriouRaiz)
     {
         return CondRet;
@@ -259,7 +259,7 @@ ARV_tpCondRet ARV_InserirDireita(char ValorParm)
 
     /* Criar nó à direita de folha */
 
-    pCorr = pArvore->pNoCorr;
+    pCorr = (*pVetArvores)[indexParam]->pNoCorr;
     if (pCorr == NULL)
     {
         return ARV_CondRetErroEstrutura;
@@ -267,14 +267,14 @@ ARV_tpCondRet ARV_InserirDireita(char ValorParm)
 
     if (pCorr->pNoDir == NULL)
     {
-        pNo = CriarNo(ValorParm);
+        pNo = CriarNo(indexParam, ValorParm);
         if (pNo == NULL)
         {
             return ARV_CondRetFaltouMemoria;
         } /* if */
         pNo->pNoPai = pCorr;
         pCorr->pNoDir = pNo;
-        pArvore->pNoCorr = pNo;
+        (*pVetArvores)[indexParam]->pNoCorr = pNo;
 
         return ARV_CondRetOK;
     } /* if */
