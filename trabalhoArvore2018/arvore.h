@@ -89,7 +89,7 @@ typedef enum {
 *
 *  $ED Descrição da função
 *     Cria uma nova árvore vazia.
-*     Caso já exista uma árvore, retornará ARV_CondRetJaOcupada.
+*     Caso já exista uma árvore, retorna ARV_CondRetJaOcupada.
 
 *  $EP Parâmetros
 *     $P indexParam - index onde será criada a nova árvore, 0-5
@@ -123,7 +123,7 @@ void ARV_DestruirArvore(int indexParam);
 *  $FC Função: ARV Adicionar filho à esquerda
 *
 *  $EP Parâmetros
-*     $P indexParam - index da árvore a ser destruída, 0-5
+*     $P indexParam - index da árvore a ser adicionado, 0-5
 *     $P ValorParm - valor a ser inserido no novo nó.
 *
 *  $FV Valor retornado
@@ -141,7 +141,7 @@ ARV_tpCondRet ARV_InserirEsquerda(int indexParam, char ValorParm);
 *  $FC Função: ARV Adicionar filho à direita
 *
 *  $EP Parâmetros
-*     $P indexParam - index da árvore a ser destruída, 0-5
+*     $P indexParam - index da árvore a ser adicionado, 0-5
 *     $P ValorParm - valor a ser inserido no novo nó
 *
 *  $FV Valor retornado
@@ -159,7 +159,7 @@ ARV_tpCondRet ARV_InserirDireita(int indexParam, char ValorParm);
 *  $FC Função: ARV Ir para nó pai
 *
 *  $EP Parâmetros
-*     $P indexParam - index da árvore a ser destruída, 0-5
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -176,7 +176,7 @@ ARV_tpCondRet ARV_IrPai(int indexParam);
 *  $FC Função: ARV Ir para nó à esquerda
 *
 *  $EP Parâmetros
-*     $P indexParam - index da árvore a ser destruída, 0-5
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -193,7 +193,7 @@ ARV_tpCondRet ARV_IrNoEsquerda(int indexParam);
 *  $FC Função: ARV Ir para nó à direita
 *
 *  $EP Parâmetros
-*     $P indexParam - index da árvore a ser destruída, 0-5
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -210,7 +210,7 @@ ARV_tpCondRet ARV_IrNoDireita(int indexParam);
 *  $FC Função: ARV Obter valor corrente
 *
 *  $EP Parâmetros
-*     $P indexParam - index da árvore a ser destruída, 0-5
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *     $P ValorParm - é o parâmetro que receberá o valor contido no nó.
 *                    Este parâmetro é passado por referência.
 *
