@@ -107,7 +107,7 @@ static tpArvore *pArvore = NULL;
 
 static tpNoArvore *CriarNo(char ValorParm);
 
-static ARV_tpCondRet CriarNoRaiz(char ValorParm);
+static ARV_tpCondRet CriarNoRaiz(int indexParam, char ValorParm);
 
 static void DestroiArvore(tpNoArvore *pNo);
 
@@ -218,7 +218,7 @@ ARV_tpCondRet ARV_InserirEsquerda(int indexParam, char ValorParm)
 
     if (pCorr->pNoEsq == NULL)
     {
-        pNo = CriarNo(indexParam, ValorParm);
+        pNo = CriarNo(ValorParm);
         if (pNo == NULL)
         {
             return ARV_CondRetFaltouMemoria;
@@ -267,7 +267,7 @@ ARV_tpCondRet ARV_InserirDireita(int indexParam, char ValorParm)
 
     if (pCorr->pNoDir == NULL)
     {
-        pNo = CriarNo(indexParam, ValorParm);
+        pNo = CriarNo(ValorParm);
         if (pNo == NULL)
         {
             return ARV_CondRetFaltouMemoria;
@@ -347,25 +347,25 @@ ARV_tpCondRet ARV_IrNoEsquerda(int indexParam)
 *  Função: ARV Ir para nó à direita
 *  ****/
 
-ARV_tpCondRet ARV_IrNoDireita(void)
+ARV_tpCondRet ARV_IrNoDireita(int indexParam)
 {
 
-    if (pArvore == NULL)
+    if ((*pVetArvores)[indexParam] == NULL)
     {
         return ARV_CondRetArvoreNaoExiste;
     } /* if */
 
-    if (pArvore->pNoCorr == NULL)
+    if ((*pVetArvores)[indexParam]->pNoCorr == NULL)
     {
         return ARV_CondRetArvoreVazia;
     } /* if */
 
-    if (pArvore->pNoCorr->pNoDir == NULL)
+    if ((*pVetArvores)[indexParam]->pNoCorr->pNoDir == NULL)
     {
         return ARV_CondRetNaoPossuiFilho;
     } /* if */
 
-    pArvore->pNoCorr = pArvore->pNoCorr->pNoDir;
+    (*pVetArvores)[indexParam]->pNoCorr = (*pVetArvores)[indexParam]->pNoCorr->pNoDir;
     return ARV_CondRetOK;
 
 } /* Fim função: ARV Ir para nó à direita */
@@ -375,18 +375,18 @@ ARV_tpCondRet ARV_IrNoDireita(void)
 *  Função: ARV Obter valor corrente
 *  ****/
 
-ARV_tpCondRet ARV_ObterValorCorr(char *ValorParm)
+ARV_tpCondRet ARV_ObterValorCorr(int indexParam, char *ValorParm)
 {
 
-    if (pArvore == NULL)
+    if ((*pVetArvores)[indexParam] == NULL)
     {
         return ARV_CondRetArvoreNaoExiste;
     } /* if */
-    if (pArvore->pNoCorr == NULL)
+    if ((*pVetArvores)[indexParam]->pNoCorr == NULL)
     {
         return ARV_CondRetArvoreVazia;
     } /* if */
-    *ValorParm = pArvore->pNoCorr->Valor;
+    *ValorParm = (*pVetArvores)[indexParam]->pNoCorr->Valor;
 
     return ARV_CondRetOK;
 
@@ -436,15 +436,15 @@ tpNoArvore *CriarNo(char ValorParm)
 *
 ***********************************************************************/
 
-ARV_tpCondRet CriarNoRaiz(char ValorParm)
+ARV_tpCondRet CriarNoRaiz(int indexParam, char ValorParm)
 {
 
     ARV_tpCondRet CondRet;
     tpNoArvore *pNo;
 
-    if (pArvore == NULL)
+    if ((*pVetArvores)[indexParam] == NULL)
     {
-        CondRet = ARV_CriarArvore();
+        CondRet = ARV_CriarArvore(indexParam);
 
         if (CondRet != ARV_CondRetOK)
         {
@@ -452,15 +452,15 @@ ARV_tpCondRet CriarNoRaiz(char ValorParm)
         } /* if */
     }     /* if */
 
-    if (pArvore->pNoRaiz == NULL)
+    if ((*pVetArvores)[indexParam]->pNoRaiz == NULL)
     {
         pNo = CriarNo(ValorParm);
         if (pNo == NULL)
         {
             return ARV_CondRetFaltouMemoria;
         } /* if */
-        pArvore->pNoRaiz = pNo;
-        pArvore->pNoCorr = pNo;
+        (*pVetArvores)[indexParam]->pNoRaiz = pNo;
+        (*pVetArvores)[indexParam]->pNoCorr = pNo;
 
         return ARV_CondRetOK;
     } /* if */
