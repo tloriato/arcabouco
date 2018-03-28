@@ -1,5 +1,6 @@
-#if ! defined( ARVORE_ )
+#if !defined(ARVORE_)
 #define ARVORE_
+
 /***************************************************************************
 *
 *  $MCD Módulo de definição: Módulo árvore
@@ -16,6 +17,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       4.00   tls   28/03/2018 Adicionado à possibilidade de múltiplas árvores.
 *       3.00   avs   28/02/2003 Uniformização da interface das funções e
 *                               de todas as condições de retorno.
 *       2.00   avs   03/08/2002 Eliminação de código duplicado, reestruturação
@@ -33,13 +35,12 @@
 *     O nó corrente será nulo se e somente se a árvore estiver vazia.
 *
 ***************************************************************************/
- 
-#if defined( ARVORE_OWN )
-   #define ARVORE_EXT
-#else
-   #define ARVORE_EXT extern
-#endif
 
+#if defined(ARVORE_OWN)
+#define ARVORE_EXT
+#else
+#define ARVORE_EXT extern
+#endif
 
 /***********************************************************************
 *
@@ -48,37 +49,39 @@
 *
 ***********************************************************************/
 
-   typedef enum {
+typedef enum {
 
-         ARV_CondRetOK = 0 ,
-               /* Executou correto */
+    ARV_CondRetOK = 0,
+    /* Executou correto */
 
-         ARV_CondRetNaoCriouRaiz = 1 ,
-               /* Não criou nó raiz */
+    ARV_CondRetNaoCriouRaiz = 1,
+    /* Não criou nó raiz */
 
-         ARV_CondRetErroEstrutura = 2 ,
-               /* Estrutura da árvore está errada */
+    ARV_CondRetErroEstrutura = 2,
+    /* Estrutura da árvore está errada */
 
-         ARV_CondRetNaoEhFolha = 3 ,
-               /* Não é folha relativa à direção de inserção desejada */
+    ARV_CondRetNaoEhFolha = 3,
+    /* Não é folha relativa à direção de inserção desejada */
 
-         ARV_CondRetArvoreNaoExiste = 4 ,
-               /* Árvore não existe */
+    ARV_CondRetArvoreNaoExiste = 4,
+    /* Árvore não existe */
 
-         ARV_CondRetArvoreVazia = 5 ,
-               /* Árvore está vazia */
+    ARV_CondRetArvoreVazia = 5,
+    /* Árvore está vazia */
 
-         ARV_CondRetNohEhRaiz = 6 ,
-               /* Nó corrente é raiz */
+    ARV_CondRetNohEhRaiz = 6,
+    /* Nó corrente é raiz */
 
-         ARV_CondRetNaoPossuiFilho = 7 ,
-               /* Nó corrente não possui filho na direção desejada */
+    ARV_CondRetNaoPossuiFilho = 7,
+    /* Nó corrente não possui filho na direção desejada */
 
-         ARV_CondRetFaltouMemoria = 8
-               /* Faltou memória ao alocar dados */
+    ARV_CondRetFaltouMemoria = 8,
+    /* Faltou memória ao alocar dados */
 
-   } ARV_tpCondRet ;
+    ARV_CondRetJaOcupada = 9,
+    /* Index já ocupado por outra árvore */
 
+} ARV_tpCondRet;
 
 /***********************************************************************
 *
@@ -86,20 +89,26 @@
 *
 *  $ED Descrição da função
 *     Cria uma nova árvore vazia.
-*     Caso já exista uma árvore, esta será destruída.
+*     Caso já exista uma árvore, retorna ARV_CondRetJaOcupada.
+
+*  $EP Parâmetros
+*     $P indexParam - index onde será criada a nova árvore, 0-5
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
+*     ARV_CondRetJaOcupada
 *     ARV_CondRetFaltouMemoria
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_CriarArvore( void ) ;
-
+ARV_tpCondRet ARV_CriarArvore(int indexParam);
 
 /***********************************************************************
 *
 *  $FC Função: ARV Destruir árvore
+*
+*  $EP Parâmetros
+*     $P indexParam - index da árvore a ser destruída, 0-5
 *
 *  $ED Descrição da função
 *     Destrói o corpo e a cabeça da árvore, anulando a árvore corrente.
@@ -107,14 +116,14 @@
 *
 ***********************************************************************/
 
-   void ARV_DestruirArvore( void ) ;
-
+void ARV_DestruirArvore(int indexParam);
 
 /***********************************************************************
 *
 *  $FC Função: ARV Adicionar filho à esquerda
 *
 *  $EP Parâmetros
+*     $P indexParam - index da árvore a ser adicionado, 0-5
 *     $P ValorParm - valor a ser inserido no novo nó.
 *
 *  $FV Valor retornado
@@ -125,14 +134,14 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirEsquerda( char ValorParm ) ;
-
+ARV_tpCondRet ARV_InserirEsquerda(int indexParam, char ValorParm);
 
 /***********************************************************************
 *
 *  $FC Função: ARV Adicionar filho à direita
 *
 *  $EP Parâmetros
+*     $P indexParam - index da árvore a ser adicionado, 0-5
 *     $P ValorParm - valor a ser inserido no novo nó
 *
 *  $FV Valor retornado
@@ -143,12 +152,14 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_InserirDireita( char ValorParm ) ;
-
+ARV_tpCondRet ARV_InserirDireita(int indexParam, char ValorParm);
 
 /***********************************************************************
 *
 *  $FC Função: ARV Ir para nó pai
+*
+*  $EP Parâmetros
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -158,12 +169,14 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrPai( void ) ;
-
+ARV_tpCondRet ARV_IrPai(int indexParam);
 
 /***********************************************************************
 *
 *  $FC Função: ARV Ir para nó à esquerda
+*
+*  $EP Parâmetros
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -173,12 +186,14 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoEsquerda( void ) ;
-
+ARV_tpCondRet ARV_IrNoEsquerda(int indexParam);
 
 /***********************************************************************
 *
 *  $FC Função: ARV Ir para nó à direita
+*
+*  $EP Parâmetros
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *
 *  $FV Valor retornado
 *     ARV_CondRetOK
@@ -188,14 +203,14 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_IrNoDireita( void ) ;
-
+ARV_tpCondRet ARV_IrNoDireita(int indexParam);
 
 /***********************************************************************
 *
 *  $FC Função: ARV Obter valor corrente
 *
 *  $EP Parâmetros
+*     $P indexParam - index da árvore a ser acessada, 0-5
 *     $P ValorParm - é o parâmetro que receberá o valor contido no nó.
 *                    Este parâmetro é passado por referência.
 *
@@ -206,7 +221,7 @@
 *
 ***********************************************************************/
 
-   ARV_tpCondRet ARV_ObterValorCorr( char * ValorParm ) ;
+ARV_tpCondRet ARV_ObterValorCorr(int indexParam, char *ValorParm);
 
 #undef ARVORE_EXT
 
