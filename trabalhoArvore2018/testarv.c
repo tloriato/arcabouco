@@ -50,7 +50,7 @@
 #include    "tst_espc.h"
 
 #include    "generico.h"
-#include    "lerparm.h"
+#include    "lerparam.h"
 
 #include    "arvore.h"
 
@@ -94,6 +94,7 @@
       char ValorEsperado = '?'  ;
       char ValorObtido   = '!'  ;
       char ValorDado     = '\0' ;
+      char ValorDado2    = '\0' ;
 
       int  NumLidos = -1 ;
 
@@ -105,13 +106,13 @@
          {
 
             NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
+                               &ValorDado, &CondRetEsperada ) ;
+            if ( NumLidos != 2 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_CriarArvore( ) ;
+            CondRetObtido = ARV_CriarArvore(ValorDado) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao criar árvore." );
@@ -124,13 +125,13 @@
          {
 
             NumLidos = LER_LerParametros( "ci" ,
-                               &ValorDado , &CondRetEsperada ) ;
-            if ( NumLidos != 2 )
+                               &ValorDado, &ValorDado2 , &CondRetEsperada ) ;
+            if ( NumLidos != 3 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_InserirDireita( ValorDado ) ;
+            CondRetObtido = ARV_InserirDireita( ValorDado , ValorDado2 ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado inserir àa direita." );
@@ -143,13 +144,13 @@
          {
 
             NumLidos = LER_LerParametros( "ci" ,
-                               &ValorDado , &CondRetEsperada ) ;
-            if ( NumLidos != 2 )
+                               &ValorDado, &ValorDado2 , &CondRetEsperada ) ;
+            if ( NumLidos != 3 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_InserirEsquerda( ValorDado ) ;
+            CondRetObtido = ARV_InserirEsquerda( ValorDado, ValorDado2 ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao inserir à esquerda." );
@@ -162,13 +163,13 @@
          {
 
             NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
+                               &ValorDado, &CondRetEsperada ) ;
+            if ( NumLidos != 2 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_IrPai( ) ;
+            CondRetObtido = ARV_IrPai( ValorDado ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao ir para pai." );
@@ -181,13 +182,13 @@
          {
 
             NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
+                               &ValorDado, &CondRetEsperada ) ;
+            if ( NumLidos != 2 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_IrNoEsquerda( ) ;
+            CondRetObtido = ARV_IrNoEsquerda( ValorDado ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao ir para esquerda." );
@@ -200,13 +201,13 @@
          {
 
             NumLidos = LER_LerParametros( "i" ,
-                               &CondRetEsperada ) ;
-            if ( NumLidos != 1 )
+                               &ValorDado, &CondRetEsperada ) ;
+            if ( NumLidos != 2 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_IrNoDireita( ) ;
+            CondRetObtido = ARV_IrNoDireita( ValorDado ) ;
 
             return TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                     "Retorno errado ao ir para direita." );
@@ -219,13 +220,13 @@
          {
 
             NumLidos = LER_LerParametros( "ci" ,
-                               &ValorEsperado , &CondRetEsperada ) ;
-            if ( NumLidos != 2 )
+                               &ValorDado, &ValorEsperado , &CondRetEsperada ) ;
+            if ( NumLidos != 3 )
             {
                return TST_CondRetParm ;
             } /* if */
 
-            CondRetObtido = ARV_ObterValorCorr( &ValorObtido ) ;
+            CondRetObtido = ARV_ObterValorCorr( ValorDado, &ValorObtido ) ;
 
             Ret = TST_CompararInt( CondRetEsperada , CondRetObtido ,
                                    "Retorno errado ao obter valor corrente." );
@@ -244,8 +245,14 @@
 
          else if ( strcmp( ComandoTeste , DESTROI_CMD ) == 0 )
          {
+            NumLidos = LER_LerParametros( "ci" , 
+                                            &ValorDado);
 
-            ARV_DestruirArvore( ) ;
+            if (NumLidos != 1) {
+                return TST_CondRetParm;
+            }
+
+            ARV_DestruirArvore( ValorDado ) ;
 
             return TST_CondRetOK ;
 

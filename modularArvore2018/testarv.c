@@ -50,7 +50,7 @@
 #include    "tst_espc.h"
 
 #include    "generico.h"
-#include    "lerparm.h"
+#include    "lerparam.h"
 
 #include    "arvore.h"
 
